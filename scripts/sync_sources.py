@@ -5,7 +5,8 @@
 
 만드는 파일 (data/):
     timeline.json     사우스 론 이정표  ← my-travel-map data/trips.json 의 eras
-    globe_pins.json   맵룸 지구본 핀     ← my-travel-map 여정이 들른 도시 좌표
+    cities.json       맵룸 도시 102곳    ← my-travel-map 도시(장소 제외)·방문 횟수·Trip.com 사진과 소개
+    globe_pins.json   맵룸 지구본 핀     ← cities.json 중 좌표가 있는 도시
     world_land.json   맵룸 지구본 육지   ← my-travel-map data/world_land.json 그대로
     books_top20.json  블루룸 책장 앞면   ← mybookshelf 최근 읽은 책 20권 (+ assets/books/ 표지)
     blog_latest.json  레드룸 가판대     ← 네이버 블로그 RSS 최신 글 12편
@@ -61,16 +62,44 @@ def timeline(src):
     write("timeline.json", {"eras": eras})
 
 
-def globe_pins(src):
+def cities(src):
+    """여행 지도의 '여행지' 쪽과 같은 도시 목록을 같은 순서로 만든다.
+
+    방문 횟수는 my-travel-map scripts/build_app.py 와 같은 규칙으로 센다:
+    표기는 place_aliases.json 으로 맞추고, 포괄 여정(umbrella)은 빼고,
+    citiesFrom 이 gmaps_saved 인 여정은 2005년(E3) 장소 전체를 도시로 친다.
+    """
+    places = src.json("my-travel-map", "data/places.json")["places"]
     trips = src.json("my-travel-map", "data/trips.json")["trips"]
-    coords = src.json("my-travel-map", "data/place_coords.json")
+    aliases = {k: v for k, v in src.json("my-travel-map", "data/place_aliases.json").items()
+               if not k.startswith("_")}
+    dests = src.json("my-travel-map", "data/destinations.json")
+    dests = {d["place"]: d for d in (dests["destinations"] if isinstance(dests, dict) else dests)}
+    e3 = [p["name"] for p in places if "E3" in p.get("eras", [])]
     count = {}
     for t in trips:
-        for c in t.get("cities", []):
-            if c in coords and isinstance(coords[c], list):
-                count[c] = count.get(c, 0) + 1
-    pins = [{"name": c, "lat": coords[c][0], "lng": coords[c][1], "visits": n}
-            for c, n in sorted(count.items(), key=lambda kv: -kv[1])]
+        if t.get("umbrella"):
+            continue
+        names = [aliases.get(c.strip(), c.strip()) for c in t.get("cities", [])]
+        if str(t.get("citiesFrom", "")).startswith("gmaps_saved"):
+            names = e3
+        names += [aliases.get(x.strip(), x.strip()) for x in t.get("places", [])]
+        for c in names:
+            count[c] = count.get(c, 0) + 1
+    out = []
+    for p in places:
+        if p.get("level") == "poi":
+            continue
+        d = dests.get(p["name"], {})
+        out.append({"place": p["name"], "name": d.get("name") or p["name"], "enName": d.get("enName", ""),
+                    "country": p.get("country") or d.get("country") or "", "visits": count.get(p["name"], 0),
+                    "lat": p.get("lat"), "lng": p.get("lng"),
+                    "cover": d.get("cover", ""), "intro": d.get("intro", ""), "url": d.get("url", "")})
+    # 여행 지도 gallery() 와 같은 순서: 많이 간 곳 → 사진 있는 곳 → 이름
+    out.sort(key=lambda c: (-c["visits"], not c["cover"], c["name"]))
+    write("cities.json", {"cities": out})
+    pins = [{"name": c["name"], "lat": c["lat"], "lng": c["lng"], "visits": c["visits"]}
+            for c in out if c["lat"] is not None and c["lng"] is not None]
     write("globe_pins.json", {"pins": pins})
 
 
@@ -127,7 +156,7 @@ def main():
     args = ap.parse_args()
     src = Source(args.local)
     failed = 0
-    for job in (timeline, globe_pins, world_land, books_top20, blog_latest):
+    for job in (timeline, cities, world_land, books_top20, blog_latest):
         try:
             job(src)
         except Exception as e:  # 한 출처가 실패해도 지난번 파일을 두고 계속한다

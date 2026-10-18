@@ -56,7 +56,7 @@ function footer() {
   <div class="cols">
     <div>
       <a class="brand" href="index.html">${MARK}<span>Joyhouse<small>Toripapa-house</small></span></a>
-      <p>한 사람의 60년을 방 하나하나에 담은 집. 서재·여행 지도·블로그·Keep121이 이 집의 방이 되어 이어집니다.</p>
+      <p>커리어 30년, 걸어온 길과 갈 길을 담다. 꿈으로 만든 나의 공간으로 다시 탄생하는 죠이하우스 — 서재·여행 지도·블로그·Keep121이 이 집의 방이 되어 이어집니다.</p>
     </div>
     <div><h4>집 안의 방</h4><ul>
       <li><a href="gallery.html">그랜드 홀 · 고흐 갤러리</a></li><li><a href="library.html">블루룸 · 나의 서재</a></li>
@@ -154,19 +154,38 @@ R.gallery = async el => {
 
 // 등장방형 투영. 남극 아래와 북극 위는 잘라 낸다.
 const project = ([lng, lat]) => [(lng + 180).toFixed(1), (85 - lat).toFixed(1)];
+// 도시 목록은 여행 지도의 '여행지' 쪽과 같은 것(data/cities.json, 같은 순서·같은 횟수)이다.
 R.map = async el => {
-  const [{ countries }, { pins }] = await Promise.all([json("data/world_land.json"), json("data/globe_pins.json")]);
+  const [{ countries }, { cities }] = await Promise.all([json("data/world_land.json"), json("data/cities.json")]);
   const land = countries.map(c => c.rings.map(r => "M" + r.map(p => project(p).join(",")).join("L") + "Z").join("")).join("");
-  const dots = pins.map(p => {
-    const [x, y] = project([p.lng, p.lat]);
-    return `<circle class="pin" cx="${x}" cy="${y}" r="${(1.3 + Math.sqrt(p.visits) * .7).toFixed(2)}"><title>${esc(p.name)} · ${p.visits}회</title></circle>`;
+  const dots = cities.filter(c => c.lat != null && c.lng != null).map(c => {
+    const [x, y] = project([c.lng, c.lat]);
+    return `<circle class="pin" cx="${x}" cy="${y}" r="${(1.1 + Math.sqrt(c.visits) * .7).toFixed(2)}"><title>${esc(c.name)}${c.visits ? ` · ${c.visits}번` : ""}</title></circle>`;
   }).join("");
-  el.innerHTML = `<svg viewBox="0 0 360 145" role="img" aria-label="다녀간 도시 ${pins.length}곳 지도"><path class="land" d="${land}"/>${dots}</svg>`;
+  el.innerHTML = `<svg viewBox="0 0 360 145" role="img" aria-label="다녀간 도시 ${cities.length}곳 지도"><path class="land" d="${land}"/>${dots}</svg>`;
 };
 
 R.pins = async el => {
-  const { pins } = await json("data/globe_pins.json");
-  el.innerHTML = [...pins].sort((a, b) => b.visits - a.visits).map(p => `<li>${esc(p.name)} <b>${p.visits}회</b></li>`).join("");
+  const { cities } = await json("data/cities.json");
+  el.innerHTML = cities.map(c => `<li><span>${esc(c.name)} <small class="muted">${esc(c.country)}</small></span> <b>${c.visits ? `${c.visits}번` : ""}</b></li>`).join("");
+};
+
+// trip.com CDN 은 파일명 끝의 _D_1180_558 로 크기를 정한다 (여행 지도와 같은 방식).
+const sized = (url, w, h) => (url || "").replace(/_[A-Z]_\d+_\d+(_R\d+)?(?=\.\w+(\?|$))/, `_D_${w}_${h}`);
+R.dests = async el => {
+  const { cities } = await json("data/cities.json");
+  const n = +el.dataset.limit || 4;
+  el.innerHTML = cities.slice(0, n).map(d => `
+<article class="card dest">
+  <div class="card-img">${d.cover ? `<img src="${esc(sized(d.cover, 480, 300))}" alt="${esc(d.name)} 사진" loading="lazy" referrerpolicy="no-referrer">` : ""}
+    ${d.visits ? `<span class="visits">${d.visits}번 갔다</span>` : ""}</div>
+  <div class="card-body">
+    <h3>${esc(d.name)}</h3>
+    <div class="where">${esc([d.country, d.enName].filter(Boolean).join(" · "))}</div>
+    <p class="intro">${esc(d.intro)}</p>
+    <div class="card-foot">${d.url ? `<a class="link-arrow" href="${esc(d.url)}" target="_blank" rel="noopener nofollow">Trip.com 가이드 →</a><span>사진·소개 © Trip.com</span>` : "<span>Trip.com 가이드가 없는 곳</span>"}</div>
+  </div>
+</article>`).join("");
 };
 
 const APP_COLORS = ["#2d4a7a", "#1f6f5a", "#8a1c1c", "#b08d57", "#5a3d7a", "#14213d"];

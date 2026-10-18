@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>맵룸 · 여행 지도 — Joyhouse</title>
-<meta name="description" content="1996년부터 30년의 출장·주재·여행 기록. 다녀간 도시 지도.">
+<meta name="description" content="1996년부터 30년의 출장·주재·여행 기록. 다녀간 도시 102곳의 지도와 여행지.">
 <meta property="og:title" content="맵룸 · 여행 지도 — Joyhouse">
-<meta property="og:description" content="1996년부터 30년의 출장·주재·여행 기록. 다녀간 도시 지도.">
+<meta property="og:description" content="1996년부터 30년의 출장·주재·여행 기록. 다녀간 도시 102곳의 지도와 여행지.">
 <meta property="og:image" content="assets/photos/travel-map.webp">
 <link rel="icon" href="assets/site/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,15 +29,22 @@
 <section class="block">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div><span class="eyebrow">World Map</span><h2>다녀간 도시 <span data-render="count" data-src="data/globe_pins.json#pins">63</span>곳</h2></div>
-      <p class="lead">점에 마우스를 올리면 도시 이름과 방문 횟수가 보입니다.</p>
+      <div><span class="eyebrow">World Map</span><h2>다녀간 도시 <span data-render="count" data-src="data/cities.json#cities">102</span>곳</h2></div>
+      <p class="lead">나의 여행 지도와 같은 도시 목록입니다. 점에 마우스를 올리면 도시 이름과 방문 횟수가 보입니다.</p>
     </div>
     <div class="map-box reveal" data-render="map"></div>
   </div>
 </section>
 <section class="block alt">
   <div class="wrap">
-    <div class="sec-head reveal"><div><span class="eyebrow">Cities</span><h2>자주 간 순서</h2></div></div>
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">Destinations</span><h2>다시 가고 싶은 곳</h2></div>
+      <a class="link-arrow" href="https://holyjoekang.github.io/my-travel-map/">여행지 전체 <span data-render="count" data-src="data/cities.json#cities">102</span>곳 →</a>
+    </div>
+    <p class="lead reveal" style="margin-bottom:32px">가장 여러 번 다녀온 도시들입니다. 사진과 소개 글은 <a href="https://kr.trip.com/travel-guide/destination/" target="_blank" rel="noopener nofollow">Trip.com 여행 가이드</a>에서 가져와 발췌한 것입니다.</p>
+    <div class="grid grid-4" data-render="dests" data-limit="4"></div>
+    <div class="sec-head reveal" style="margin:72px 0 24px"><div><span class="eyebrow">Cities</span><h2>자주 간 순서</h2></div>
+      <p class="lead">나의 여행 지도 '여행지' 쪽과 같은 순서입니다.</p></div>
     <ul class="pin-list reveal" data-render="pins"></ul>
   </div>
 </section>
