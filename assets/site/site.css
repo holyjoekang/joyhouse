@@ -205,6 +205,16 @@ section.dark .era span { color: #c8cfdd; }
 .pin-list li { break-inside: avoid; display: flex; justify-content: space-between; border-bottom: 1px dashed var(--line); padding: 6px 0; }
 .pin-list b { color: var(--gold); }
 
+/* 여행지 카드 (여행 지도의 Destinations 와 같은 꼴) */
+.dest .card-img { position: relative; }
+.dest .visits { position: absolute; right: 12px; top: 12px; background: rgba(20, 33, 61, .82); color: #fff; font-size: .78rem; font-weight: 600; padding: 4px 10px; border-radius: 999px; }
+.dest h3 { margin-bottom: 2px; }
+.dest .where { font-size: .82rem; color: var(--muted); margin-bottom: 10px; }
+.dest .intro { font-size: .9rem; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.dest .card-foot { align-items: center; flex-wrap: wrap; gap: 6px 12px; font-size: .78rem; }
+.dest .card-foot a { white-space: nowrap; font-size: .85rem; }
+.pin-list small { font-size: .78rem; margin-left: 4px; }
+
 /* 앱 */
 .app-card .card-body { padding-top: 20px; }
 .app-icon { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; color: #fff; font: 700 1.1rem var(--serif); margin-bottom: 14px; }
