@@ -1,0 +1,9 @@
+{
+ "room": "maproom",
+ "title": "맵룸 — 여행 지도",
+ "items": [
+  {"type": "globe", "x": 0.5, "z": 0.45, "radius": 1.4, "label": "나의 여행 지도", "url": "https://holyjoekang.github.io/my-travel-map/", "source": "data/globe_pins.json", "land": "data/world_land.json"},
+  {"type": "portal", "wall": "north", "t": 0.5, "label": "나의 여행 지도", "url": "https://holyjoekang.github.io/my-travel-map/", "note": "1996년부터 30년의 출장·주재·여행 기록.", "color": "#2f8f6a"},
+  {"type": "frame", "wall": "west", "t": 0.6, "y": 1.9, "w": 1.8, "h": 1.2, "frame": "dark", "title": "충칭·청두 백주기행", "artist": "여행기", "note": "2단계에 여행기 사진과 글을 겁니다.", "palette": ["#8a2a1e", "#c9a26a", "#3a2a1a", "#e8d2a0"], "swirl": 0.4}
+ ]
+}

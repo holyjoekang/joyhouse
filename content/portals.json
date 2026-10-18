@@ -1,0 +1,10 @@
+{
+ "_note": "마지막 단계(콘텐츠 연결)에서 portal/ 모듈이 이 대장을 읽어 문을 연다. 그 전까지는 3D 미리보기만 보인다.",
+ "portals": [
+  {"id": "bookshelf", "label": "나의 서재", "url": "https://holyjoekang.github.io/mybookshelf/", "mode": "overlay", "fallback": "tab", "room": "blueroom"},
+  {"id": "travel", "label": "나의 여행 지도", "url": "https://holyjoekang.github.io/my-travel-map/", "mode": "overlay", "fallback": "tab", "room": "maproom"},
+  {"id": "blog", "label": "토리아빠의 50플러스 인사이트", "url": "https://holyjoekang.github.io/myblog/", "mode": "overlay", "fallback": "tab", "room": "redroom"},
+  {"id": "naver", "label": "네이버 블로그 원문", "url": "https://blog.naver.com/joekang", "mode": "tab", "room": "redroom"},
+  {"id": "keep121", "label": "Keep121", "url": "https://holyjoekang.github.io/keep121/", "mode": "overlay", "fallback": "tab", "room": "vision"}
+ ]
+}

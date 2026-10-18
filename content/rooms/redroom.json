@@ -1,0 +1,8 @@
+{
+ "room": "redroom",
+ "title": "레드룸 — 블로그",
+ "items": [
+  {"type": "newsstand", "wall": "east", "t": 0.5, "label": "토리아빠의 50플러스 인사이트", "url": "https://holyjoekang.github.io/myblog/", "source": "data/blog_latest.json"},
+  {"type": "portal", "wall": "south", "t": 0.5, "label": "50플러스 인사이트", "url": "https://holyjoekang.github.io/myblog/", "note": "네이버 블로그 blog.naver.com/joekang 의 개인 홈페이지.", "color": "#c0392b"}
+ ]
+}

@@ -1,0 +1,11 @@
+{
+ "room": "roots",
+ "title": "뿌리의 방",
+ "_note": "가족 전용. 1단계 사진은 샘플이다. 2단계에 구글 포토 '뿌리' 앨범에서 고른 사진을 private/에 넣는다.",
+ "items": [
+  {"type": "frame", "wall": "west", "t": 0.25, "y": 1.8, "w": 1.2, "h": 0.9, "frame": "dark", "title": "부모님, 1975년 고향집", "artist": "샘플 사진", "palette": ["#3a3530", "#8a8070", "#c8bca8", "#1e1b18"], "swirl": 0.2},
+  {"type": "frame", "wall": "west", "t": 0.75, "y": 1.8, "w": 1.2, "h": 0.9, "frame": "dark", "title": "고향 마을", "artist": "샘플 사진", "palette": ["#4a4540", "#9a9080", "#d8ccb8", "#2e2b28"], "swirl": 0.3},
+  {"type": "frame", "wall": "north", "t": 0.5, "y": 1.8, "w": 1.6, "h": 1.1, "frame": "dark", "title": "족보", "artist": "샘플", "palette": ["#e8dcc0", "#c8b890", "#5a4a30"], "swirl": 0.1},
+  {"type": "sign", "x": 0.35, "z": 0.5, "facing": "east", "title": "아버지가 늘 하시던 말씀", "text": "2단계에 직접 쓰신 글이 이 자리에 들어갑니다."}
+ ]
+}

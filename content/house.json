@@ -1,0 +1,57 @@
+{
+ "name": "Joyhouse - Toripapa-house",
+ "plaque": "Joyhouse — Toripapa-house",
+ "_note": "단위 m. 정문 중앙 = (0, 0), 집 쪽(북)이 -z. box = [x0, z0, x1, z1]. 설계 문서 4절 표와 같다.",
+ "start": {"x": 0, "z": 10, "yaw": 0},
+ "site": {"x0": -95, "z0": 14, "x1": 95, "z1": -112},
+ "wings": {
+  "central": {"label": "센트럴 · 현재", "wall": "marble"},
+  "west": {"label": "웨스트윙 · 과거", "wall": "plaster"},
+  "east": {"label": "이스트윙 · 미래", "wall": "plaster"},
+  "hall": {"label": "회랑", "wall": "plaster"}
+ },
+ "rooms": [
+  {"id": "grandhall", "name": "그랜드 홀", "sub": "고흐 갤러리", "wing": "central", "box": [-8, -60, 8, -78], "height": 9, "access": "guest", "stage": 1},
+  {"id": "blueroom", "name": "블루룸", "sub": "나의 서재", "wing": "central", "box": [-24, -60, -8, -78], "height": 6, "access": "guest", "stage": 1},
+  {"id": "redroom", "name": "레드룸", "sub": "블로그", "wing": "central", "box": [8, -60, 24, -78], "height": 6, "access": "guest", "stage": 1},
+  {"id": "maproom", "name": "맵룸", "sub": "여행 지도", "wing": "central", "box": [-24, -78, -8, -96], "height": 6, "access": "guest", "stage": 1},
+  {"id": "oval", "name": "오벌 오피스", "sub": "AI-Apps 작업실", "wing": "central", "box": [-8, -78, 8, -96], "height": 6, "access": "guest", "stage": 2},
+  {"id": "stairs", "name": "계단", "sub": "옥상 전망대", "wing": "central", "box": [8, -78, 24, -96], "height": 6, "access": "guest", "stage": 2},
+  {"id": "westhall", "name": "서쪽 회랑", "sub": "과거로", "wing": "hall", "box": [-36, -75, -24, -81], "height": 4.5, "access": "guest", "stage": 1},
+  {"id": "easthall", "name": "동쪽 회랑", "sub": "미래로", "wing": "hall", "box": [24, -75, 36, -81], "height": 4.5, "access": "guest", "stage": 1},
+  {"id": "china", "name": "중국관", "sub": "주재원 9년", "wing": "west", "box": [-54, -66, -36, -90], "height": 4.5, "access": "guest", "stage": 2},
+  {"id": "roots", "name": "뿌리의 방", "sub": "부모님·고향", "wing": "west", "box": [-72, -66, -54, -78], "height": 4.5, "access": "family", "stage": 1},
+  {"id": "growth", "name": "성장의 방", "sub": "학창·군·대학", "wing": "west", "box": [-72, -78, -54, -90], "height": 4.5, "access": "family", "stage": 2},
+  {"id": "faith", "name": "신앙의 방", "sub": "사랑의교회", "wing": "east", "box": [54, -78, 72, -90], "height": 4.5, "access": "family", "stage": 2},
+  {"id": "family", "name": "가족관", "sub": "아내·가족", "wing": "east", "box": [36, -78, 54, -90], "height": 4.5, "access": "family", "stage": 1},
+  {"id": "legacy", "name": "유산의 방", "sub": "편지·타임캡슐", "wing": "east", "box": [54, -66, 72, -78], "height": 4.5, "access": "family", "stage": 2},
+  {"id": "vision", "name": "비전룸", "sub": "Keep121", "wing": "east", "box": [36, -66, 54, -78], "height": 4.5, "access": "guest", "stage": 2}
+ ],
+ "doors": [
+  {"a": "outside", "b": "grandhall", "at": [0, -60], "w": 3.2},
+  {"a": "grandhall", "b": "blueroom", "at": [-8, -69]},
+  {"a": "grandhall", "b": "redroom", "at": [8, -69]},
+  {"a": "grandhall", "b": "oval", "at": [0, -78]},
+  {"a": "blueroom", "b": "maproom", "at": [-16, -78]},
+  {"a": "redroom", "b": "stairs", "at": [16, -78]},
+  {"a": "oval", "b": "maproom", "at": [-8, -87]},
+  {"a": "oval", "b": "stairs", "at": [8, -87]},
+  {"a": "maproom", "b": "westhall", "at": [-24, -78]},
+  {"a": "westhall", "b": "china", "at": [-36, -78]},
+  {"a": "china", "b": "roots", "at": [-54, -72]},
+  {"a": "china", "b": "growth", "at": [-54, -84]},
+  {"a": "roots", "b": "growth", "at": [-63, -78]},
+  {"a": "stairs", "b": "easthall", "at": [24, -78]},
+  {"a": "easthall", "b": "vision", "at": [36, -76.5]},
+  {"a": "easthall", "b": "family", "at": [36, -79.5]},
+  {"a": "vision", "b": "family", "at": [45, -78]},
+  {"a": "vision", "b": "legacy", "at": [54, -72]},
+  {"a": "family", "b": "faith", "at": [54, -84]},
+  {"a": "legacy", "b": "faith", "at": [63, -78]}
+ ],
+ "outdoor": [
+  {"id": "gate", "name": "정문", "sub": "명판·방명록", "box": [-6, 2, 6, -2]},
+  {"id": "lawn", "name": "사우스 론", "sub": "인생 연표", "box": [-3, -2, 3, -60]},
+  {"id": "rosegarden", "name": "로즈가든", "sub": "토리 코너", "box": [34, -26, 58, -44]}
+ ]
+}

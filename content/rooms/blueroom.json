@@ -1,0 +1,8 @@
+{
+ "room": "blueroom",
+ "title": "블루룸 — 나의 서재",
+ "items": [
+  {"type": "bookshelf", "wall": "west", "t": 0.5, "w": 12, "h": 3.2, "label": "나의 서재", "url": "https://holyjoekang.github.io/mybookshelf/", "source": "data/books_top20.json"},
+  {"type": "portal", "wall": "south", "t": 0.5, "label": "나의 서재", "url": "https://holyjoekang.github.io/mybookshelf/", "note": "평생 읽은 책 341권이 꽂힌 3D 도서관.", "color": "#3b6fd8"}
+ ]
+}
