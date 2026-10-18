@@ -41,8 +41,10 @@ jobs:
         run: |
           V=${GITHUB_SHA::7}
           mv src "src-$V"
-          sed -i "s#src/main.js#src-$V/main.js#" index.html
-          grep -q "src-$V/main.js" index.html
+          sed -i "s#src/main.js#src-$V/main.js#" 3d.html
+          grep -q "src-$V/main.js" 3d.html
+          sed -i -E "s#assets/site/site\.(css|js)\"#assets/site/site.\1?v=$V\"#" *.html
+          grep -q "site.js?v=$V" index.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

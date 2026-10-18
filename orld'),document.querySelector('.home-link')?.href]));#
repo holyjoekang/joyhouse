@@ -1,0 +1,1 @@
+ await p.goto('http://localhost:5173/3d.html'); await p.waitForTimeout(8000); console.log(await p.evaluate(()=>[document.title,!!document.querySelector('canvas

@@ -18,3 +18,9 @@
 ## 텍스처 (assets/tex) — CC0
 Poly Haven (https://polyhaven.com) 1k 텍스처를 webp로 줄였다: painted_plaster_wall, marble_01, herringbone_parquet,
 leafy_grass, cobblestone_floor_01, gravel, grey_roof_tiles, japanese_stone_wall, japanese_cedar_bark, wood_planks.
+
+## 사진 (assets/photos) — 2D 사이트
+`scripts/fetch_photos.py`가 받는다. 장마다 작가·라이선스·원본 주소는 `assets/photos/credits.json`에 있고 `credits.html`이 표로 보여 준다.
+
+- Unsplash: [Unsplash License](https://unsplash.com/license) — 무료, 상업적 이용 가능, 출처 표기 의무 없음.
+- Flickr(Openverse로 검색): CC BY 2.0 — 작가와 원본 쪽을 표기한다(경복궁·북촌·전주·창덕궁·충칭·청두 사진).
