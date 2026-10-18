@@ -18,7 +18,7 @@ import { createOverlay, openTab } from './portal/overlay.js';
 const cache = new Map();
 function data(path) {
   if (!path) return Promise.resolve(null);
-  if (!cache.has(path)) cache.set(path, fetch(path).then(r => (r.ok ? r.json() : null)).catch(() => null));
+  if (!cache.has(path)) cache.set(path, fetch(path, { cache: 'no-cache' }).then(r => (r.ok ? r.json() : null)).catch(() => null));
   return cache.get(path);
 }
 

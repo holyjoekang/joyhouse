@@ -36,6 +36,13 @@ jobs:
             git commit -m "데이터 자동 갱신 $(date -u +%F)"
             git push
           fi
+      # 배포마다 코드 폴더 이름을 바꿔 브라우저가 예전 모듈을 캐시에서 꺼내 쓰지 않게 한다
+      - name: 캐시 무효화
+        run: |
+          V=${GITHUB_SHA::7}
+          mv src "src-$V"
+          sed -i "s#src/main.js#src-$V/main.js#" index.html
+          grep -q "src-$V/main.js" index.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
