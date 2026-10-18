@@ -1,0 +1,331 @@
+{
+ "hero-palace": {
+  "file": "assets/photos/hero-palace.webp",
+  "alt": "경복궁",
+  "source": "openverse",
+  "title": "Gyeongbokgung Palace, Seoul, South Korea",
+  "creator": "sunbeams879",
+  "creator_url": "https://www.flickr.com/photos/126817823@N08",
+  "license": "CC BY 2.0",
+  "license_url": "https://creativecommons.org/licenses/by/2.0/",
+  "page": "https://www.flickr.com/photos/126817823@N08/15146629526"
+ },
+ "hanok-bukchon": {
+  "file": "assets/photos/hanok-bukchon.webp",
+  "alt": "북촌 한옥마을",
+  "source": "openverse",
+  "title": "Bukchon Hanok Village, Seoul, South Korea",
+  "creator": "sunbeams879",
+  "creator_url": "https://www.flickr.com/photos/126817823@N08",
+  "license": "CC BY 2.0",
+  "license_url": "https://creativecommons.org/licenses/by/2.0/",
+  "page": "https://www.flickr.com/photos/126817823@N08/14965058939"
+ },
+ "hanok-jeonju": {
+  "file": "assets/photos/hanok-jeonju.webp",
+  "alt": "전주 한옥마을",
+  "source": "openverse",
+  "title": "Hanok Village - Jeonju, South Korea",
+  "creator": "Emmanuel Dyan",
+  "creator_url": "https://www.flickr.com/photos/17616316@N00",
+  "license": "CC BY 2.0",
+  "license_url": "https://creativecommons.org/licenses/by/2.0/",
+  "page": "https://www.flickr.com/photos/17616316@N00/5748915656"
+ },
+ "garden-pond": {
+  "file": "assets/photos/garden-pond.webp",
+  "alt": "창덕궁 부용지와 주합루",
+  "source": "openverse",
+  "title": "Buyongji pond and Juhamnu Building",
+  "creator": "Doug Letterman",
+  "creator_url": "https://www.flickr.com/photos/47335827@N00",
+  "license": "CC BY 2.0",
+  "license_url": "https://creativecommons.org/licenses/by/2.0/",
+  "page": "https://www.flickr.com/photos/47335827@N00/15780455996"
+ },
+ "palace-roofs": {
+  "file": "assets/photos/palace-roofs.webp",
+  "alt": "경복궁 지붕",
+  "source": "openverse",
+  "title": "Gyeongbokgung Palace",
+  "creator": "Kimmo Räisänen",
+  "creator_url": "https://www.flickr.com/photos/78756325@N06",
+  "license": "CC BY 2.0",
+  "license_url": "https://creativecommons.org/licenses/by/2.0/",
+  "page": "https://www.flickr.com/photos/78756325@N06/7090797229"
+ },
+ "chongqing-night": {
+  "file": "assets/photos/chongqing-night.webp",
+  "alt": "충칭의 밤",
+  "source": "openverse",
+  "title": "Chongqing At Night",
+  "creator": "@yakobusan Jakob Montrasio",
+  "creator_url": "https://www.flickr.com/photos/37803129@N00",
+  "license": "CC BY 2.0",
+  "license_url": "https://creativecommons.org/licenses/by/2.0/",
+  "page": "https://www.flickr.com/photos/37803129@N00/430951782"
+ },
+ "chengdu-panda": {
+  "file": "assets/photos/chengdu-panda.webp",
+  "alt": "청두 판다",
+  "source": "openverse",
+  "title": "Panda in Chengdu",
+  "creator": "Matt Spurr",
+  "creator_url": "https://www.flickr.com/photos/50548240@N06",
+  "license": "CC BY 2.0",
+  "license_url": "https://creativecommons.org/licenses/by/2.0/",
+  "page": "https://www.flickr.com/photos/50548240@N06/5563670625"
+ },
+ "library-hall": {
+  "file": "assets/photos/library-hall.webp",
+  "alt": "오래된 서가",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1507842217343-583bb7270b66"
+ },
+ "library-round": {
+  "file": "assets/photos/library-round.webp",
+  "alt": "둥근 서가",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f"
+ },
+ "library-lights": {
+  "file": "assets/photos/library-lights.webp",
+  "alt": "전구가 걸린 서가",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570"
+ },
+ "book-open": {
+  "file": "assets/photos/book-open.webp",
+  "alt": "펼친 책",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1532012197267-da84d127e765"
+ },
+ "books-row": {
+  "file": "assets/photos/books-row.webp",
+  "alt": "꽂힌 책들",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1495446815901-a7297e633e8d"
+ },
+ "glasses-notes": {
+  "file": "assets/photos/glasses-notes.webp",
+  "alt": "안경과 노트",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1517842645767-c639042777db"
+ },
+ "pen-writing": {
+  "file": "assets/photos/pen-writing.webp",
+  "alt": "만년필로 쓰는 글",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1455390582262-044cdead277a"
+ },
+ "desk-notebook": {
+  "file": "assets/photos/desk-notebook.webp",
+  "alt": "노트북과 수첩",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1501504905252-473c47e087f8"
+ },
+ "travel-map": {
+  "file": "assets/photos/travel-map.webp",
+  "alt": "지도와 카메라",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1488646953014-85cb44e25828"
+ },
+ "road-trip": {
+  "file": "assets/photos/road-trip.webp",
+  "alt": "길 위의 여행",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800"
+ },
+ "lake-dock": {
+  "file": "assets/photos/lake-dock.webp",
+  "alt": "호숫가 선착장",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1508672019048-805c876b67e2"
+ },
+ "great-wall": {
+  "file": "assets/photos/great-wall.webp",
+  "alt": "만리장성",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1508804185872-d7badad00f7d"
+ },
+ "forbidden-city": {
+  "file": "assets/photos/forbidden-city.webp",
+  "alt": "자금성",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b"
+ },
+ "shanghai": {
+  "file": "assets/photos/shanghai.webp",
+  "alt": "상하이 와이탄",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1474181487882-5abf3f0ba6c2"
+ },
+ "seoul-street": {
+  "file": "assets/photos/seoul-street.webp",
+  "alt": "서울의 밤거리",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1538485399081-7191377e8241"
+ },
+ "fuji-pagoda": {
+  "file": "assets/photos/fuji-pagoda.webp",
+  "alt": "후지산과 탑",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3"
+ },
+ "tour-bus": {
+  "file": "assets/photos/tour-bus.webp",
+  "alt": "산길의 버스",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957"
+ },
+ "group-friends": {
+  "file": "assets/photos/group-friends.webp",
+  "alt": "어깨동무한 일행",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac"
+ },
+ "team-work": {
+  "file": "assets/photos/team-work.webp",
+  "alt": "팀 회의",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1552664730-d307ca884978"
+ },
+ "startup-talk": {
+  "file": "assets/photos/startup-talk.webp",
+  "alt": "발표하는 창업가",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7"
+ },
+ "coworking": {
+  "file": "assets/photos/coworking.webp",
+  "alt": "함께 일하는 책상",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1519389950473-47ba0277781c"
+ },
+ "laptop-typing": {
+  "file": "assets/photos/laptop-typing.webp",
+  "alt": "노트북 작업",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d"
+ },
+ "laptop-dark": {
+  "file": "assets/photos/laptop-dark.webp",
+  "alt": "어둠 속의 노트북",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1531297484001-80022131f5a1"
+ },
+ "ai-render": {
+  "file": "assets/photos/ai-render.webp",
+  "alt": "AI",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1677442136019-21780ecad995"
+ },
+ "family-sunset": {
+  "file": "assets/photos/family-sunset.webp",
+  "alt": "노을 속 가족",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1511895426328-dc8714191300"
+ },
+ "worship": {
+  "file": "assets/photos/worship.webp",
+  "alt": "예배",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1438232992991-995b7058bbb3"
+ },
+ "mountain-sea": {
+  "file": "assets/photos/mountain-sea.webp",
+  "alt": "운해",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4"
+ },
+ "starry-mountain": {
+  "file": "assets/photos/starry-mountain.webp",
+  "alt": "별이 뜬 산",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1519681393784-d120267933ba"
+ }
+}

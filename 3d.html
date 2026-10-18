@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>3D 투어 — Joyhouse</title>
+<meta name="description" content="한 사람의 60년을 걸어서 둘러보는 3D 집. 서재·여행 지도·블로그가 방이 되어 이어진다.">
+<style>
+  html, body { margin: 0; height: 100%; background: #cfdcec; overflow: hidden; }
+  canvas#world { display: block; width: 100vw; height: 100vh; height: 100dvh; touch-action: none; outline: none; }
+  /* 화면에 보이는 UI는 모두 three.js 안에 있다. 아래는 스크립트가 꺼진 경우만 쓰인다. */
+  .home-link { position: fixed; left: 12px; top: 12px; z-index: 10; padding: 8px 14px; border-radius: 999px; background: rgba(20, 33, 61, .82); color: #fff; font: 600 14px/1 system-ui, sans-serif; text-decoration: none; }
+  noscript { position: fixed; inset: 0; display: grid; place-items: center; font: 18px sans-serif; }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<a class="home-link" href="index.html">← 2D 홈</a>
+<canvas id="world" tabindex="0" aria-label="Joyhouse 3D 집. 끌어서 둘러보고, 바닥을 눌러 걷습니다."></canvas>
+<noscript>Joyhouse는 자바스크립트와 WebGL이 필요합니다.</noscript>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>

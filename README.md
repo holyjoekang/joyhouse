@@ -1,20 +1,42 @@
 # Joyhouse — Toripapa-house
 
-한 사람의 60년을 걸어서 둘러보는 **three.js 3D 집**. 백악관식 대리석 몸통에 한옥의 기와지붕·솟을대문·띠살문을 얹었고,
-기존 사이트들(나의 서재 · 나의 여행 지도 · 50플러스 인사이트 · Keep121)이 집 안의 '방'이 된다.
+한 사람의 60년을 방 하나하나에 담은 **개인 홈페이지**. 기존 사이트들(나의 서재 · 나의 여행 지도 · 50플러스 인사이트 · Keep121)이
+집 안의 '방'이 되어 이어진다.
 
-- 공개 주소(배포 후): https://holyjoekang.github.io/joyhouse/
-- 설계 문서: Joyhouse — 3D 사이버 궁전 2차 설계 (Claude Docs)
-- 화면에 보이는 UI는 **모두 3D**다(이름판·방 바로가기·정보 판·미니맵·단추).
-  유일한 HTML은 포털을 지나 열리는 사이트 화면(iframe)과 그 위의 '돌아가기' 띠다.
+- 공개 주소: https://holyjoekang.github.io/joyhouse/
+- **2D 홈페이지가 기본**이다(`index.html` 외 방별 쪽). three.js 3D 집은 하위 쪽 `3d.html`로 옮겼다.
+- 사진은 모두 자유 이용 이미지다(Unsplash License · CC BY · 퍼블릭 도메인). 목록은 `credits.html`.
+
+## 2D 사이트
+
+| 쪽 | 방 | 내용 |
+| --- | --- | --- |
+| `index.html` | 홈 | 히어로 슬라이드, 방 소개, 커리어 연표, 최신 글, 최근 읽은 책, 여행 지도 |
+| `gallery.html` | 그랜드 홀 | 고흐 9점 갤러리(누르면 크게) |
+| `library.html` | 블루룸 | 최근 읽은 책 20권, 나의 서재 연결 |
+| `blog.html` | 레드룸 | 네이버 블로그 최신 글 12편 |
+| `travel.html` | 맵룸 | 다녀간 도시 지도(SVG)와 목록 |
+| `studio.html` | 오벌 오피스 | 커리어 연표, AI 앱 10개 |
+| `china.html` | 중국관 | 주재원 9년, 중국 서부 일정표 |
+| `vision.html` | 비전룸 | Keep121 소개 일곱 장 |
+| `family.html` | 가족의 방들 | 가족 전용 방 안내 |
+| `credits.html` | — | 사진·그림 출처 |
+| `3d.html` | — | three.js 3D 투어(예전 첫 화면) |
+
+- 공통 머리·꼬리·목록은 `assets/site/site.js`가 그린다. 목록은 HTML에 박지 않고 `content/`·`data/` JSON을 읽으므로
+  `sync_sources.py`가 매일 데이터를 바꾸면 2D와 3D가 함께 바뀐다.
+- 스타일은 `assets/site/site.css` 하나.
+- 사진은 `python scripts/fetch_photos.py`가 `assets/photos/`에 webp로 받고 출처를 `assets/photos/credits.json`에 남긴다.
+  사진을 더하려면 이 스크립트의 `PHOTOS`에 한 줄 더한다.
 
 ## 실행
 
 ```bash
 python -m http.server 5173      # 이 폴더에서
-# http://localhost:5173/                 정문에서 시작
-# http://localhost:5173/#/room/maproom   맵룸으로 바로
-# http://localhost:5173/?key=preview     가족 방 미리보기 (보안 아님, 개발용)
+# http://localhost:5173/                 2D 홈
+# http://localhost:5173/3d.html          3D 정문에서 시작
+# http://localhost:5173/3d.html#/room/maproom   3D 맵룸으로 바로
+# http://localhost:5173/3d.html?key=preview     가족 방 미리보기 (보안 아님, 개발용)
 ```
 
 빌드 도구 없음. three.js 0.180.0을 importmap으로 불러온다(서재·여행 지도와 같은 버전).
@@ -62,7 +84,10 @@ python -m http.server 5173      # 이 폴더에서
 ## 폴더
 
 ```
-index.html              캔버스 하나 + importmap
+index.html · *.html      2D 쪽들
+3d.html                 3D: 캔버스 하나 + importmap
+assets/site/            2D 공통 CSS·JS·파비콘
+assets/photos/          자유 이용 사진 + credits.json
 src/
   main.js               부트, 입력, 방 바뀜 처리, 렌더 루프
   core/                 engine(렌더러·자동 해상도) · router(#/room/<id>) · access(손님/가족)

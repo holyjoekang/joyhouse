@@ -4,25 +4,147 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Joyhouse — Toripapa-house</title>
-<meta name="description" content="한 사람의 60년을 걸어서 둘러보는 3D 집. 서재·여행 지도·블로그가 방이 되어 이어진다.">
-<style>
-  html, body { margin: 0; height: 100%; background: #cfdcec; overflow: hidden; }
-  canvas#world { display: block; width: 100vw; height: 100vh; height: 100dvh; touch-action: none; outline: none; }
-  /* 화면에 보이는 UI는 모두 three.js 안에 있다. 아래는 스크립트가 꺼진 경우만 쓰인다. */
-  noscript { position: fixed; inset: 0; display: grid; place-items: center; font: 18px sans-serif; }
-</style>
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
-    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
-  }
-}
-</script>
+<meta name="description" content="한 사람의 60년을 방 하나하나에 담은 집. 고흐 갤러리, 나의 서재, 블로그, 여행 지도, AI 작업실, Keep121이 이어지는 개인 홈페이지.">
+<meta property="og:title" content="Joyhouse — Toripapa-house">
+<meta property="og:description" content="한 사람의 60년을 방 하나하나에 담은 집. 고흐 갤러리, 나의 서재, 블로그, 여행 지도, AI 작업실, Keep121이 이어지는 개인 홈페이지.">
+<meta property="og:image" content="assets/photos/garden-pond.webp">
+<link rel="icon" href="assets/site/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@500;700&display=swap">
+<link rel="stylesheet" href="assets/site/site.css">
 </head>
 <body>
-<canvas id="world" tabindex="0" aria-label="Joyhouse 3D 집. 끌어서 둘러보고, 바닥을 눌러 걷습니다."></canvas>
-<noscript>Joyhouse는 자바스크립트와 WebGL이 필요합니다.</noscript>
-<script type="module" src="src/main.js"></script>
+<main id="main">
+
+<section class="hero">
+  <div class="hero-slides">
+    <img src="assets/photos/garden-pond.webp" alt="창덕궁 부용지와 주합루">
+    <img src="assets/photos/library-hall.webp" alt="오래된 서가">
+    <img src="assets/photos/great-wall.webp" alt="가을의 만리장성">
+    <img src="assets/photos/palace-roofs.webp" alt="경복궁 향원정">
+    <img src="assets/photos/family-sunset.webp" alt="노을 속 가족">
+  </div>
+  <div class="wrap">
+    <span class="eyebrow">Joyhouse · Toripapa-house</span>
+    <h1>한 사람의 60년을<br>방 하나하나에 담은 집</h1>
+    <p class="lead">30년 해외사업의 길, 평생 읽어 온 책, 다녀간 도시들, 그리고 다음 커리어. 대리석 몸통에 한옥 기와를 얹은 이 집의 방을 차례로 열어 보세요.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#rooms">방 둘러보기</a>
+      <a class="btn btn-ghost" href="3d.html">3D로 걸어 보기 →</a>
+    </div>
+  </div>
+  <div class="hero-dots"></div>
+  <div class="photo-credit"></div>
+</section>
+
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><b>30<small style="font-size:.5em">년</small></b><span>1996년 첫 출장부터</span></div>
+    <div class="stat"><b data-render="count" data-src="data/globe_pins.json#pins">63</b><span>다녀간 도시</span></div>
+    <div class="stat"><b>341</b><span>서재에 꽂힌 책</span></div>
+    <div class="stat"><b data-render="count" data-src="data/timeline.json#eras">7</b><span>커리어의 시기</span></div>
+  </div>
+</div>
+
+<section class="block">
+  <div class="wrap split">
+    <div class="reveal">
+      <span class="eyebrow">About the House</span>
+      <h2>백악관의 대리석, 한옥의 기와</h2>
+      <p class="lead">Joyhouse는 '토리아빠'의 개인 기록관입니다. 따로 흩어져 있던 사이트들 — 나의 서재, 나의 여행 지도, 50플러스 인사이트, Keep121 — 이 이 집의 방이 되어 한 지붕 아래 모였습니다.</p>
+      <ul class="checks">
+        <li><b>센트럴 · 현재</b> — 그랜드 홀, 블루룸, 레드룸, 맵룸, 오벌 오피스</li>
+        <li><b>웨스트윙 · 과거</b> — 중국관, 뿌리의 방, 성장의 방</li>
+        <li><b>이스트윙 · 미래</b> — 비전룸, 가족관, 신앙의 방, 유산의 방</li>
+      </ul>
+      <a class="link-arrow" href="studio.html">집주인 소개와 커리어 연표 →</a>
+    </div>
+    <div class="mosaic reveal">
+      <img src="assets/photos/hanok-bukchon.webp" alt="북촌 한옥마을 골목" loading="lazy">
+      <img src="assets/photos/palace-roofs.webp" alt="경복궁 향원정" loading="lazy">
+      <img src="assets/photos/hanok-jeonju.webp" alt="한옥 문루" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="block alt" id="rooms">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">The Rooms</span><h2>집 안의 방</h2></div>
+      <p class="lead">방마다 하나의 이야기와 하나의 사이트가 이어집니다.</p>
+    </div>
+    <div class="grid grid-3">
+      <a class="room-card big reveal" href="gallery.html"><img src="assets/photos/library-round.webp" alt="" loading="lazy">
+        <div><span class="card-kicker">Central · Grand Hall</span><h3>그랜드 홀</h3><p>현관을 열면 맞는 고흐 갤러리. 퍼블릭 도메인 원작 9점.</p></div></a>
+      <a class="room-card reveal" href="library.html"><img src="assets/photos/library-lights.webp" alt="" loading="lazy">
+        <div><span class="card-kicker">Blue Room</span><h3>나의 서재</h3><p>평생 읽은 책 341권과 최근 읽은 20권.</p></div></a>
+      <a class="room-card reveal" href="blog.html"><img src="assets/photos/pen-writing.webp" alt="" loading="lazy">
+        <div><span class="card-kicker">Red Room</span><h3>블로그</h3><p>50플러스 인사이트 — 매일 갱신되는 최신 글.</p></div></a>
+      <a class="room-card reveal" href="travel.html"><img src="assets/photos/travel-map.webp" alt="" loading="lazy">
+        <div><span class="card-kicker">Map Room</span><h3>여행 지도</h3><p>30년 출장·주재·여행으로 지나온 도시들.</p></div></a>
+      <a class="room-card reveal" href="studio.html"><img src="assets/photos/coworking.webp" alt="" loading="lazy">
+        <div><span class="card-kicker">Oval Office</span><h3>AI 작업실</h3><p>직접 만든 AI 앱 10개와 커리어 30년.</p></div></a>
+      <a class="room-card reveal" href="china.html"><img src="assets/photos/forbidden-city.webp" alt="" loading="lazy">
+        <div><span class="card-kicker">West Wing</span><h3>중국관</h3><p>나를 키운 거대한 교실, 주재원 9년.</p></div></a>
+      <a class="room-card reveal" href="vision.html"><img src="assets/photos/group-friends.webp" alt="" loading="lazy">
+        <div><span class="card-kicker">East Wing</span><h3>비전룸 · Keep121</h3><p>한 사람도 빠짐없이, 지키다.</p></div></a>
+      <a class="room-card reveal" href="family.html"><img src="assets/photos/family-sunset.webp" alt="" loading="lazy">
+        <div><span class="card-kicker">Family Wing</span><h3>가족의 방들</h3><p>뿌리·성장·신앙·가족·유산 — 가족 전용.</p></div></a>
+    </div>
+  </div>
+</section>
+
+<section class="block dark">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">Career</span><h2>커리어 30년, 일곱 개의 시기</h2></div>
+      <a class="btn btn-ghost" href="studio.html">자세히 보기</a>
+    </div>
+    <div class="timeline reveal" data-render="timeline"></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">Latest Writing</span><h2>레드룸의 최신 글</h2></div>
+      <a class="link-arrow" href="blog.html">글 모두 보기 →</a>
+    </div>
+    <div class="posts" data-render="posts" data-limit="3"></div>
+  </div>
+</section>
+
+<section class="block alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">Recently Read</span><h2>요즘 읽은 책</h2></div>
+      <a class="link-arrow" href="library.html">서재로 →</a>
+    </div>
+    <div class="books" data-render="books" data-limit="6"></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap split rev">
+    <div class="reveal">
+      <span class="eyebrow">Map Room</span>
+      <h2>지도 한 장에 모은 30년</h2>
+      <p class="lead">베이징 주재, 싱가포르·홍콩 출장, 실크로드와 윈난 고원. 지나온 도시마다 점을 찍었습니다. 점이 클수록 자주 간 곳입니다.</p>
+      <a class="btn btn-dark" href="travel.html">여행 지도 보기</a>
+    </div>
+    <div class="map-box reveal" data-render="map"></div>
+  </div>
+</section>
+
+<section class="cta-band" style="background-image:url('assets/photos/starry-mountain.webp')">
+  <div class="wrap reveal">
+    <h2>이 집을 직접 걸어 보시겠어요?</h2>
+    <p>three.js로 지은 3D Joyhouse에서는 솟을대문을 지나 정원을 걷고, 방마다 들어가 전시물을 눌러 볼 수 있습니다. PC와 휴대폰 모두 됩니다.</p>
+    <div class="hero-cta" style="justify-content:center"><a class="btn btn-primary" href="3d.html">3D 투어 시작</a><a class="btn btn-ghost" href="gallery.html">그랜드 홀부터 보기</a></div>
+  </div>
+</section>
+</main>
+<script type="module" src="assets/site/site.js"></script>
 </body>
 </html>

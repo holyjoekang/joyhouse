@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>맵룸 · 여행 지도 — Joyhouse</title>
+<meta name="description" content="1996년부터 30년의 출장·주재·여행 기록. 다녀간 도시 지도.">
+<meta property="og:title" content="맵룸 · 여행 지도 — Joyhouse">
+<meta property="og:description" content="1996년부터 30년의 출장·주재·여행 기록. 다녀간 도시 지도.">
+<meta property="og:image" content="assets/photos/travel-map.webp">
+<link rel="icon" href="assets/site/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@500;700&display=swap">
+<link rel="stylesheet" href="assets/site/site.css">
+</head>
+<body>
+<main id="main">
+<section class="page-hero" style="background-image:url('assets/photos/travel-map.webp')">
+  <div class="wrap">
+    <div class="crumbs"><a href="index.html">홈</a> / 맵룸</div>
+    <span class="eyebrow">Central · Map Room</span>
+    <h1>맵룸 — 나의 여행 지도</h1>
+    <p>1996년 첫 출장부터 지금까지, 출장과 주재 그리고 가족과의 여행으로 지나온 도시들입니다. 지도와 연표로 남기고 그때의 직책과 시대까지 함께 적었습니다.</p>
+    <div class="hero-cta"><a class="btn btn-primary" href="https://holyjoekang.github.io/my-travel-map/">여행 지도 열기</a></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">World Map</span><h2>다녀간 도시 <span data-render="count" data-src="data/globe_pins.json#pins">63</span>곳</h2></div>
+      <p class="lead">점에 마우스를 올리면 도시 이름과 방문 횟수가 보입니다.</p>
+    </div>
+    <div class="map-box reveal" data-render="map"></div>
+  </div>
+</section>
+<section class="block alt">
+  <div class="wrap">
+    <div class="sec-head reveal"><div><span class="eyebrow">Cities</span><h2>자주 간 순서</h2></div></div>
+    <ul class="pin-list reveal" data-render="pins"></ul>
+  </div>
+</section>
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head reveal"><div><span class="eyebrow">Moments</span><h2>길 위의 장면들</h2></div></div>
+    <div class="grid grid-3">
+      <div class="room-card reveal"><img src="assets/photos/great-wall.webp" alt="" loading="lazy"><div><span class="card-kicker">China</span><h3>만리장성</h3><p>베이징 주재 시절, 계절마다 오른 성벽.</p></div></div>
+      <div class="room-card reveal"><img src="assets/photos/shanghai.webp" alt="" loading="lazy"><div><span class="card-kicker">Shanghai</span><h3>와이탄의 밤</h3><p>출장 일정 사이에 걸었던 강변.</p></div></div>
+      <div class="room-card reveal"><img src="assets/photos/fuji-pagoda.webp" alt="" loading="lazy"><div><span class="card-kicker">Japan</span><h3>후지산과 오층탑</h3><p>가족과 함께한 봄 여행.</p></div></div>
+      <div class="room-card reveal"><img src="assets/photos/road-trip.webp" alt="" loading="lazy"><div><span class="card-kicker">On the Road</span><h3>길 위의 30년</h3><p>출장은 길이 되고, 길은 기록이 됩니다.</p></div></div>
+      <div class="room-card reveal"><img src="assets/photos/lake-dock.webp" alt="" loading="lazy"><div><span class="card-kicker">Pause</span><h3>쉼표</h3><p>일정표에 적지 않았던 조용한 아침들.</p></div></div>
+      <div class="room-card reveal"><img src="assets/photos/seoul-street.webp" alt="" loading="lazy"><div><span class="card-kicker">Home</span><h3>돌아오는 곳, 서울</h3><p>모든 여정의 출발점이자 종착점.</p></div></div>
+    </div>
+  </div>
+</section>
+<section class="cta-band" style="background-image:url('assets/photos/tour-bus.webp')">
+  <div class="wrap reveal">
+    <h2>다음 길은 함께 걸으시겠습니까</h2>
+    <p>실크로드, 윈난 고원, 충칭·청두. 30년치 기록을 가진 사람이 안내하는 소규모 동행 코스를 여행 지도에서 확인하세요.</p>
+    <div class="hero-cta" style="justify-content:center"><a class="btn btn-primary" href="https://holyjoekang.github.io/my-travel-map/">코스 보기</a><a class="btn btn-ghost" href="china.html">중국관으로</a></div>
+  </div>
+</section>
+</main>
+<script type="module" src="assets/site/site.js"></script>
+</body>
+</html>
