@@ -97,8 +97,9 @@ export class Hud {
     });
   }
 
-  fade(to, ms = 260) {
+  fade(to, ms = 260, color = 0x0d0b09) {
     const m = this.fader.material, from = m.opacity, t0 = performance.now();
+    if (to > 0) m.color.setHex(color);
     return new Promise(res => {
       const step = () => {
         const k = Math.min(1, (performance.now() - t0) / ms);

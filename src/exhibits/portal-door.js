@@ -31,13 +31,13 @@ export function makePortal(item) {
   plate.position.set(0, h + 0.62 + plate.userData.height / 2, 0.34);
   group.add(plate);
   const note = textPlane({ width: 768, padding: 18, bg: '#f4eedf', radius: 8, align: 'center',
-    lines: [{ text: '마지막 단계에서 연결됩니다', size: 40, color: '#5b5245' }] }, 1.4, { lit: true });
+    lines: [{ text: '눌러서 들어가기', size: 40, color: '#5b5245' }] }, 1.4, { lit: true });
   note.position.set(0, 0.35, 0.2);
   group.add(note);
 
   group.userData.exhibit = {
     kind: 'portal', title: item.label,
-    body: `${item.note || ''}\n이 문은 마지막 단계(콘텐츠 연결)에서 ${item.url ? item.url.replace('https://', '') : '사이트'}로 이어집니다.`.trim(),
+    body: `${item.note || ''}\n이 문을 지나면 ${item.url ? item.url.replace('https://', '') : '사이트'}로 이어집니다.`.trim(),
     url: item.url,
   };
   group.userData.tick = (dt, t) => { uniforms.time.value = t; };

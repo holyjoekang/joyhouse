@@ -2,7 +2,62 @@
  "room": "redroom",
  "title": "레드룸 — 블로그",
  "items": [
-  {"type": "newsstand", "wall": "east", "t": 0.5, "label": "토리아빠의 50플러스 인사이트", "url": "https://holyjoekang.github.io/myblog/", "source": "data/blog_latest.json"},
-  {"type": "portal", "wall": "south", "t": 0.5, "label": "50플러스 인사이트", "url": "https://holyjoekang.github.io/myblog/", "note": "네이버 블로그 blog.naver.com/joekang 의 개인 홈페이지.", "color": "#c0392b"}
+  {
+   "type": "newsstand",
+   "wall": "east",
+   "t": 0.5,
+   "label": "토리아빠의 50플러스 인사이트",
+   "url": "https://holyjoekang.github.io/myblog/",
+   "source": "data/blog_latest.json"
+  },
+  {
+   "type": "portal",
+   "wall": "south",
+   "t": 0.5,
+   "label": "50플러스 인사이트",
+   "url": "https://holyjoekang.github.io/myblog/",
+   "note": "네이버 블로그 blog.naver.com/joekang 의 개인 홈페이지.",
+   "color": "#c0392b"
+  },
+  {
+   "type": "rug",
+   "x": 0.45,
+   "z": 0.5,
+   "w": 8,
+   "d": 9,
+   "colors": [
+    "#6a1a1e",
+    "#c9a14a",
+    "#1f2f5a",
+    "#efe2c4"
+   ]
+  },
+  {
+   "type": "sofa",
+   "x": 0.35,
+   "z": 0.5,
+   "facing": "east",
+   "w": 2.6,
+   "color": "#8a2a2a"
+  },
+  {
+   "type": "table",
+   "x": 0.52,
+   "z": 0.5,
+   "w": 1.2,
+   "d": 0.7,
+   "h": 0.45
+  },
+  {
+   "type": "lamp",
+   "x": 0.3,
+   "z": 0.2
+  },
+  {
+   "type": "plant",
+   "x": 0.08,
+   "z": 0.92,
+   "s": 1.1
+  }
  ]
 }

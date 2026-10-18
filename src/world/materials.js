@@ -119,27 +119,98 @@ const paperDoorMap = canvasTex(256, (ctx, s) => { // 띠살문
   for (const y of [0.22, 0.25, 0.5, 0.53, 0.78, 0.81]) ctx.fillRect(0, y * s, s, 4);
 });
 
+const leafMap = canvasTex(256, (ctx, s) => {        // 잎 뭉치 (관목·소나무 잎)
+  const r = rnd(23);
+  ctx.fillStyle = '#8c8c8c'; ctx.fillRect(0, 0, s, s);      // 회색 바탕: 색은 재질 color가 정한다
+  for (let i = 0; i < 1400; i++) {
+    const g = 110 + r() * 145;
+    ctx.fillStyle = `rgba(${g},${g},${g},0.85)`;
+    ctx.beginPath(); ctx.ellipse(r() * s, r() * s, 2 + r() * 5, 1 + r() * 2, r() * Math.PI, 0, Math.PI * 2); ctx.fill();
+  }
+});
+
+const std = o => new THREE.MeshStandardMaterial(o);
+
 export const mats = {
-  marble: new THREE.MeshStandardMaterial({ map: marbleMap, roughness: 0.35, metalness: 0 }),
-  plaster: new THREE.MeshStandardMaterial({ map: plasterMap, roughness: 0.9 }),
-  woodFloor: new THREE.MeshStandardMaterial({ map: woodFloorMap, roughness: 0.6 }),
-  checker: new THREE.MeshStandardMaterial({ map: checkerMap, roughness: 0.25 }),
-  ceiling: new THREE.MeshStandardMaterial({ color: 0xfbf8f1, roughness: 1 }),
-  wood: new THREE.MeshStandardMaterial({ color: 0x7a4f2c, roughness: 0.7 }),
-  darkWood: new THREE.MeshStandardMaterial({ color: 0x3e2a1a, roughness: 0.7 }),
-  gold: new THREE.MeshStandardMaterial({ color: 0xc9a14a, roughness: 0.35, metalness: 0.8 }),
-  stone: new THREE.MeshStandardMaterial({ color: 0xb9b3a6, roughness: 0.85 }),
-  grass: new THREE.MeshStandardMaterial({ map: grassMap, roughness: 1 }),
-  path: new THREE.MeshStandardMaterial({ map: stonePathMap, roughness: 0.95 }),
-  tile: new THREE.MeshStandardMaterial({ map: tileMap, roughness: 0.7, side: THREE.DoubleSide }),
-  ridge: new THREE.MeshStandardMaterial({ color: 0x25272b, roughness: 0.6 }),
-  paperDoor: new THREE.MeshStandardMaterial({ map: paperDoorMap, roughness: 0.9, side: THREE.DoubleSide, emissive: 0x3a2c14, emissiveIntensity: 0.25 }),
-  glass: new THREE.MeshStandardMaterial({ color: 0x2b3a4a, roughness: 0.1, metalness: 0.6 }),
-  lantern: new THREE.MeshStandardMaterial({ color: 0x2f4fa8, emissive: 0x6b2a2a, emissiveIntensity: 0.9 }),
+  // 벽: 칠한 회벽 (센트럴은 흰색, 양 윙은 한지빛)
+  marble: std({ color: 0xffffff, map: plasterMap, roughness: 0.75 }),
+  plaster: std({ color: 0xf4ead8, map: plasterMap, roughness: 0.9 }),
+  column: std({ color: 0xfbfaf6, map: marbleMap, roughness: 0.45 }),
+  stoneFloor: std({ map: checkerMap, roughness: 0.3 }),
+  woodFloor: std({ color: 0xe0b994, map: woodFloorMap, roughness: 0.55 }),
+  checker: std({ map: checkerMap, roughness: 0.25 }),
+  ceiling: std({ color: 0xfbf8f1, roughness: 1 }),
+  wood: std({ color: 0x8a5a34, roughness: 0.7 }),
+  darkWood: std({ color: 0x4a3020, roughness: 0.6 }),
+  trim: std({ color: 0xf7f3ea, roughness: 0.5 }),
+  gold: std({ color: 0xc9a14a, roughness: 0.3, metalness: 0.9 }),
+  brass: std({ color: 0xb8913f, roughness: 0.25, metalness: 1 }),
+  stone: std({ color: 0xa9a397, roughness: 0.85 }),
+  stoneWall: std({ color: 0xbdb8ae, roughness: 0.9 }),
+  grass: std({ color: 0xa6cf7e, map: grassMap, roughness: 1 }),
+  path: std({ map: stonePathMap, roughness: 0.95 }),
+  gravel: std({ color: 0xa69a86, roughness: 1 }),
+  tile: std({ color: 0x8c9096, map: tileMap, roughness: 0.65, side: THREE.DoubleSide }),
+  ridge: std({ color: 0x2c2e32, roughness: 0.6 }),
+  bark: std({ color: 0x6a4a32, roughness: 0.95 }),
+  leaf: std({ map: leafMap, roughness: 0.85 }),
+  hedge: std({ color: 0x3f6230, map: leafMap, roughness: 0.9 }),
+  paperDoor: std({ map: paperDoorMap, roughness: 0.9, side: THREE.DoubleSide, emissive: 0x3a2c14, emissiveIntensity: 0.25 }),
+  glass: std({ color: 0x223040, roughness: 0.05, metalness: 0.9 }),
+  daylight: new THREE.MeshBasicMaterial({ color: 0xeef4ff }),
+  lantern: std({ color: 0x2f4fa8, emissive: 0x6b2a2a, emissiveIntensity: 0.9 }),
+  bulb: new THREE.MeshBasicMaterial({ color: 0xfff1d0 }),
+  leather: std({ color: 0x5a2e1e, roughness: 0.5 }),
+  fabricBlue: std({ color: 0x2d4a7a, roughness: 0.9 }),
+  fabricRed: std({ color: 0x8a2a2a, roughness: 0.9 }),
+  fabricCream: std({ color: 0xe8dcc0, roughness: 0.9 }),
 };
+
+// ── PBR 텍스처 (Poly Haven CC0, assets/tex/*.webp) ──────────────────────────
+// 화면은 캔버스 재질로 먼저 뜨고, 텍스처가 도착하면 같은 재질에 갈아 끼운다.
+const SETS = {
+  marble: ['painted_plaster_wall', 1], plaster: ['painted_plaster_wall', 1], column: ['marble_01', 1],
+  stoneFloor: ['marble_01', 1.4], woodFloor: ['herringbone_parquet', 2.4], grass: ['leafy_grass', 70],
+  path: ['cobblestone_floor_01', 1], gravel: ['gravel', 1], tile: ['grey_roof_tiles', 0.6],
+  stoneWall: ['japanese_stone_wall', 1], bark: ['japanese_cedar_bark', 1.5], wood: ['wood_planks', 1],
+  darkWood: ['wood_planks', 1],
+};
+const users = [];
+for (const [k, [id, scale]] of Object.entries(SETS)) {
+  mats[k].userData.pbr = { id, rx: scale, ry: scale };
+  users.push(mats[k]);
+}
 
 export function repeatFor(mat, rx, ry) {
   const m = mat.clone();
   if (m.map) { m.map = m.map.clone(); m.map.repeat.set(rx, ry); m.map.needsUpdate = true; }
+  if (mat.userData.pbr) {
+    const s = mat.userData.pbr.rx;
+    m.userData.pbr = { id: mat.userData.pbr.id, rx: rx * s, ry: ry * s };
+    users.push(m);
+  }
   return m;
+}
+
+export function loadTextures(renderer) {
+  const loader = new THREE.TextureLoader();
+  const aniso = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+  const cache = {};
+  const get = (id, kind) => (cache[id + kind] ||= new Promise(res => loader.load(`assets/tex/${id}_${kind}.webp`, t => {
+    t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = aniso;
+    if (kind === 'diff') t.colorSpace = THREE.SRGBColorSpace;
+    res(t);
+  }, undefined, () => res(null))));
+  const ids = [...new Set(users.map(m => m.userData.pbr.id))];
+  return Promise.all(ids.map(async id => {
+    const [diff, nor, rough] = await Promise.all(['diff', 'nor', 'rough'].map(k => get(id, k)));
+    for (const m of users.filter(m => m.userData.pbr.id === id)) {
+      const { rx, ry } = m.userData.pbr;
+      const rep = t => { if (!t) return null; const c = t.clone(); c.repeat.set(rx, ry); c.needsUpdate = true; return c; };
+      if (diff) m.map = rep(diff);
+      if (nor) { m.normalMap = rep(nor); m.normalScale.set(0.9, 0.9); }
+      if (rough) { m.roughnessMap = rep(rough); m.roughness = 1; }
+      m.needsUpdate = true;
+    }
+  }));
 }

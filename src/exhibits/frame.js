@@ -38,14 +38,43 @@ function painting(item, pxW, pxH) {
   return c;
 }
 
+let poolTex = null;
+function lightPool(w, h, artH) {
+  if (!poolTex) {
+    const c = document.createElement('canvas'); c.width = 256; c.height = 256;
+    const g = c.getContext('2d'), grd = g.createRadialGradient(128, 40, 4, 128, 90, 150);
+    grd.addColorStop(0, 'rgba(255,236,200,0.75)'); grd.addColorStop(0.5, 'rgba(255,226,180,0.25)'); grd.addColorStop(1, 'rgba(255,220,170,0)');
+    g.fillStyle = grd; g.fillRect(0, 0, 256, 256);
+    poolTex = new THREE.CanvasTexture(c); poolTex.colorSpace = THREE.SRGBColorSpace;
+  }
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: poolTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.55 }));
+  m.position.set(0, artH / 2 + 0.15 - h / 2, 0.012);
+  return m;
+}
+
 export function makeFrame(item) {
   const w = item.w || 1.2, h = item.h || 0.9;
   const group = new THREE.Group();
   const tex = texture(painting(item, Math.round(512 * Math.min(2, w / h)), Math.round(512 * Math.min(2, h / w))));
-  const art = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshStandardMaterial({ map: tex, roughness: 0.75 }));
+  const artMat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.6, envMapIntensity: 0.25 });
+  const art = new THREE.Mesh(new THREE.PlaneGeometry(w, h), artMat);
   art.position.z = 0.03;
   group.add(art);
-  const b = 0.09, d = 0.08, frameMat = item.frame === 'dark' ? mats.darkWood : mats.gold;
+  if (item.src) {          // 실제 그림이 오면 갈아 끼운다
+    new THREE.TextureLoader().load(item.src, t => {
+      t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
+      artMat.map = t; artMat.needsUpdate = true;
+    });
+  }
+  if (item.light !== false) {   // 그림 등: 놋쇠 막대 + 벽에 번지는 빛
+    const bar = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, Math.min(w * 0.6, 1.2), 12), mats.brass);
+    bar.rotation.z = Math.PI / 2; bar.position.set(0, h / 2 + 0.22, 0.2);
+    const arm = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.26, 6), mats.brass);
+    arm.rotation.x = Math.PI / 2.6; arm.position.set(0, h / 2 + 0.17, 0.1);
+    group.add(bar, arm);
+    group.add(lightPool(w * 1.5, h * 1.4, h));
+  }
+  const b = Math.max(0.09, Math.min(w, h) * 0.07), d = 0.1, frameMat = item.frame === 'dark' ? mats.darkWood : mats.gold;
   for (const [fw, fh, x, y] of [[w + 2 * b, b, 0, h / 2 + b / 2], [w + 2 * b, b, 0, -h / 2 - b / 2], [b, h, -w / 2 - b / 2, 0], [b, h, w / 2 + b / 2, 0]]) {
     const bar = new THREE.Mesh(new THREE.BoxGeometry(fw, fh, d), frameMat);
     bar.position.set(x, y, 0.04); bar.castShadow = true;

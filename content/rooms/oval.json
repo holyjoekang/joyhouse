@@ -1,0 +1,269 @@
+{
+ "room": "oval",
+ "title": "오벌 오피스 — 현재의 나 · AI-Apps 작업실",
+ "items": [
+  {
+   "type": "rug",
+   "x": 0.5,
+   "z": 0.3,
+   "w": 9,
+   "d": 6.5,
+   "pattern": "oval",
+   "colors": [
+    "#1f3466",
+    "#c9a14a",
+    "#7a1f24",
+    "#efe2c4"
+   ]
+  },
+  {
+   "type": "desk",
+   "x": 0.5,
+   "z": 0.36,
+   "facing": "south",
+   "w": 2.4
+  },
+  {
+   "type": "sofa",
+   "x": 0.27,
+   "z": 0.18,
+   "facing": "east",
+   "w": 2.2,
+   "color": "#e8dcc0"
+  },
+  {
+   "type": "sofa",
+   "x": 0.73,
+   "z": 0.18,
+   "facing": "west",
+   "w": 2.2,
+   "color": "#e8dcc0"
+  },
+  {
+   "type": "table",
+   "x": 0.5,
+   "z": 0.16,
+   "w": 1.4,
+   "d": 0.8,
+   "h": 0.45
+  },
+  {
+   "type": "sign",
+   "x": 0.12,
+   "z": 0.12,
+   "facing": "east",
+   "w": 1.7,
+   "title": "커리어 30년",
+   "text": "1996 해외시스템개발 · 2000 전략기획 · 2005 중국지역전문가 · 2006 해외사업·컨설팅 · 2009 베이징 주재 · 2016 홈IoT 해외사업 · 2022 물류 글로벌"
+  },
+  {
+   "type": "sign",
+   "x": 0.88,
+   "z": 0.12,
+   "facing": "west",
+   "w": 1.7,
+   "title": "AI-Apps 작업실",
+   "text": "뒤쪽 모니터 10대가 직접 만든 앱입니다. 모니터를 누르면 설명과 소스(GitHub)로 이어집니다."
+  },
+  {
+   "type": "plant",
+   "x": 0.06,
+   "z": 0.04,
+   "s": 1.2
+  },
+  {
+   "type": "plant",
+   "x": 0.94,
+   "z": 0.04,
+   "s": 1.2
+  },
+  {
+   "type": "monitor",
+   "x": 0.1,
+   "z": 0.93,
+   "facing": "south",
+   "w": 1.6,
+   "group": "일상·생산성",
+   "title": "MindScape",
+   "desc": "일기 텍스트를 날짜별로 나눠 감정과 분량을 트리맵으로 보여 주는 AI 일기 분석기",
+   "tech": "React · D3 · Gemini",
+   "links": [
+    {
+     "label": "소스 보기 ↗",
+     "url": "https://github.com/holyjoekang/AI-Apps/tree/master/apps/mindscape"
+    }
+   ],
+   "bg": "#10223a"
+  },
+  {
+   "type": "monitor",
+   "x": 0.3,
+   "z": 0.93,
+   "facing": "south",
+   "w": 1.6,
+   "group": "일상·생산성",
+   "title": "Blog Image Creator",
+   "desc": "블로그 글에 맞는 그림을 AI 이미지 모델로 만든다",
+   "tech": "Gemini (Imagen)",
+   "links": [
+    {
+     "label": "AI Studio에서 열기 ↗",
+     "url": "https://ai.studio/apps/drive/12A_VPs9tpqfOpFFLvZxKl1NS1kgIQk47"
+    },
+    {
+     "label": "소스 보기 ↗",
+     "url": "https://github.com/holyjoekang/AI-Apps/tree/master/apps/blog-image-creator"
+    }
+   ],
+   "bg": "#10223a"
+  },
+  {
+   "type": "monitor",
+   "x": 0.5,
+   "z": 0.93,
+   "facing": "south",
+   "w": 1.6,
+   "group": "일상·생산성",
+   "title": "StockFlux",
+   "desc": "실시간 시세·차트·재무 지표를 모은 주식 대시보드",
+   "tech": "React · Express · Gemini",
+   "links": [
+    {
+     "label": "소스 보기 ↗",
+     "url": "https://github.com/holyjoekang/AI-Apps/tree/master/apps/stockflux"
+    }
+   ],
+   "bg": "#10223a"
+  },
+  {
+   "type": "monitor",
+   "x": 0.7,
+   "z": 0.93,
+   "facing": "south",
+   "w": 1.6,
+   "group": "일·창업",
+   "title": "Accelerator Hub",
+   "desc": "액셀러레이터 허브",
+   "tech": "—",
+   "links": [
+    {
+     "label": "소스 보기 ↗",
+     "url": "https://github.com/holyjoekang/AI-Apps/tree/master/apps/accelerator-hu"
+    }
+   ],
+   "bg": "#10223a"
+  },
+  {
+   "type": "monitor",
+   "x": 0.9,
+   "z": 0.93,
+   "facing": "south",
+   "w": 1.6,
+   "group": "일·창업",
+   "title": "CCEI 서울 회의실 예약",
+   "desc": "센터별 회의실 타임라인 예약, 관리자 승인, 알림톡 연동",
+   "tech": "React · Tailwind · Gemini",
+   "links": [
+    {
+     "label": "소스 보기 ↗",
+     "url": "https://github.com/holyjoekang/AI-Apps/tree/master/apps/ccei-seoul"
+    }
+   ],
+   "bg": "#10223a"
+  },
+  {
+   "type": "monitor",
+   "x": 0.1,
+   "z": 0.66,
+   "facing": "south",
+   "w": 1.6,
+   "group": "여행",
+   "title": "Luxe China Expeditions",
+   "desc": "중국 문화·미식·백주·역사 맞춤 체험 여행 플랫폼",
+   "tech": "React · Tailwind · Gemini",
+   "links": [
+    {
+     "label": "소스 보기 ↗",
+     "url": "https://github.com/holyjoekang/AI-Apps/tree/master/apps/luxe-china-travel"
+    }
+   ],
+   "bg": "#3a1414"
+  },
+  {
+   "type": "monitor",
+   "x": 0.3,
+   "z": 0.66,
+   "facing": "south",
+   "w": 1.6,
+   "group": "신앙",
+   "title": "사랑 글로벌 아카데미 학사관리",
+   "desc": "학사 관리 시스템",
+   "tech": "React",
+   "links": [
+    {
+     "label": "소스 보기 ↗",
+     "url": "https://github.com/holyjoekang/AI-Apps/tree/master/saga/sarang-haksa"
+    }
+   ],
+   "bg": "#1e2c1e"
+  },
+  {
+   "type": "monitor",
+   "x": 0.7,
+   "z": 0.66,
+   "facing": "south",
+   "w": 1.6,
+   "group": "신앙",
+   "title": "SarangConnect",
+   "desc": "주일 설교",
+   "tech": "AI Studio 앱",
+   "links": [
+    {
+     "label": "소스 보기 ↗",
+     "url": "https://github.com/holyjoekang/AI-Apps/tree/master/saga/sarangconnect"
+    }
+   ],
+   "bg": "#1e2c1e"
+  },
+  {
+   "type": "monitor",
+   "x": 0.9,
+   "z": 0.66,
+   "facing": "south",
+   "w": 1.6,
+   "group": "신앙",
+   "title": "Sarang Connect 매칭",
+   "desc": "신원·신앙 3단계 검증, 주간 큐레이션 매칭, 리트릿 모임, 예비부부 멘토링",
+   "tech": "React · Express · Gemini",
+   "links": [
+    {
+     "label": "소스 보기 ↗",
+     "url": "https://github.com/holyjoekang/AI-Apps/tree/master/saga/sarangmatch"
+    }
+   ],
+   "bg": "#1e2c1e"
+  },
+  {
+   "type": "monitor",
+   "x": 0.5,
+   "z": 0.66,
+   "facing": "south",
+   "w": 1.6,
+   "group": "배움",
+   "title": "VibeCode Academy",
+   "desc": "AI와 함께 모바일 앱을 만드는 바이브 코딩 일일 가이드",
+   "tech": "React · Gemini",
+   "links": [
+    {
+     "label": "AI Studio에서 열기 ↗",
+     "url": "https://ai.studio/apps/drive/105XIRA1tDq9VFXVFCgc-2xYMOEPdVKHp"
+    },
+    {
+     "label": "소스 보기 ↗",
+     "url": "https://github.com/holyjoekang/AI-Apps/tree/master/learning/vibe-coding"
+    }
+   ],
+   "bg": "#2a1e3a"
+  }
+ ]
+}

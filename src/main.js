@@ -11,6 +11,9 @@ import { Hud } from './ui3d/hud.js';
 import { createPanel } from './ui3d/panel.js';
 import { createMenu } from './ui3d/menu.js';
 import { createMinimap } from './ui3d/minimap.js';
+import { loadTextures } from './world/materials.js';
+import { createPost } from './core/post.js';
+import { createOverlay, openTab } from './portal/overlay.js';
 
 const cache = new Map();
 function data(path) {
@@ -27,8 +30,11 @@ const family = isFamily();
 const house = await data('content/house.json');
 const timeline = await data('data/timeline.json');
 
-const site = buildSite(scene, house, timeline, { shadows: renderer.shadowMap.enabled });
-const building = buildBuilding(scene, house, { family });
+const specs = Object.fromEntries(await Promise.all(house.rooms
+  .filter(r => r.stage === 1 && r.wing !== 'hall' && (r.access !== 'family' || family))
+  .map(async r => [r.id, await data(`content/rooms/${r.id}.json`)])));
+const site = buildSite(scene, renderer, house, timeline, { shadows: renderer.shadowMap.enabled, phone: engine.phone });
+const building = buildBuilding(scene, house, { family, specs });
 const clickables = [...site.clickables, ...building.clickables];
 const tickers = [];
 
@@ -38,8 +44,8 @@ const GROUP = { central: '센트럴 · 현재', west: '웨스트윙 · 과거', 
 // 방 꾸미기: 방마다 content/rooms/<id>.json (없으면 2단계 안내판). 잠긴 가족 방은 비워 둔다.
 await Promise.all([...building.rooms.values()].map(async room => {
   if (room.access === 'family' && !family) return;
-  const spec = room.stage === 1 && room.wing !== 'hall' ? await data(`content/rooms/${room.id}.json`) : null;
-  await furnish(room, spec, { data, clickables, tickers });
+  const spec = specs[room.id] || null;
+  await furnish(room, spec, { data, clickables, tickers, blocks: building.blocks });
 }));
 
 // 이동
@@ -65,7 +71,13 @@ function goRoom(id) {
       panel.show({ kind: 'locked', title: `${r.name} — 가족 열쇠가 필요합니다`, body: '이 방은 가족만 들어갈 수 있습니다. 가족 열쇠는 마지막 단계에서 현관의 3D 자물쇠로 엽니다.' });
       return;
     }
-    walker.go(r.cx, r.maxZ - Math.min(4, (r.maxZ - r.minZ) * 0.3), 0, 0);
+    // 들어오는 문(이 방을 b로 가진 첫 문) 안쪽 2.6m에 서서 방 안을 본다
+    const d = house.doors.find(d => d.b === id);
+    if (d) {
+      const [x, z] = d.at, e = 0.3;
+      const n = Math.abs(z - r.maxZ) < e ? [0, -1] : Math.abs(z - r.minZ) < e ? [0, 1] : Math.abs(x - r.minX) < e ? [1, 0] : [-1, 0];
+      walker.go(x + n[0] * 2.6, z + n[1] * 2.6, Math.atan2(-n[0], -n[1]), 0);
+    } else walker.go(r.cx, r.cz, 0, 0);
     return;
   }
   const o = OUTDOOR[id];
@@ -178,7 +190,7 @@ canvas.addEventListener('pointerup', ev => {
       const pitch = Math.atan2((f.y ?? EYE) - EYE, 3);
       if (dist > 0.8) walker.go(f.x, f.z, f.yaw, pitch);
     }
-    panel.show(ex);
+    panel.show(ex, actionsFor(ex));
     return;
   }
   // 바닥: 누른 자리까지 걷는다(1m 앞에서 멈춤)
@@ -198,11 +210,30 @@ addEventListener('keyup', ev => walker.keys.delete(ev.code));
 addEventListener('blur', () => walker.keys.clear());
 function menuOpen() { return menu.open_; }
 
+// 사이트 연결: 같은 출처(holyjoekang.github.io)는 집 안 화면으로, 나머지는 새 탭으로
+const overlay = createOverlay({ onClose: () => { clock.getDelta(); hud.fade(0, 500); } });
+const SAME = 'https://holyjoekang.github.io/';
+async function enter(ex) {
+  await hud.fade(1, 420, 0xfff8ec);
+  overlay.show(ex.url, ex.title);
+}
+function actionsFor(ex) {
+  if (ex.kind === 'app') return (ex.links || []).map((l, i) => ({ label: l.label, primary: i === 0, onClick: () => openTab(l.url) }));
+  if (!ex.url) return [];
+  if (ex.url.startsWith(SAME) && ex.mode !== 'tab') {
+    return [{ label: '들어가기', primary: true, onClick: () => enter(ex) }, { label: '새 탭', onClick: () => openTab(ex.url) }];
+  }
+  return [{ label: ex.kind === 'post' ? '원문 읽기 ↗' : '새 탭에서 열기 ↗', primary: true, onClick: () => openTab(ex.url) }];
+}
+
 // 시작
-engine.onResize((w, h) => hud.resize(w, h));
+const lowQuality = engine.phone || new URLSearchParams(location.search).get('q') === 'low';
+const post = createPost(renderer, scene, camera, !lowQuality);
+engine.onResize((w, h) => { hud.resize(w, h); post.setSize(w, h); });
 engine.resize();
 renderer.compile(scene, camera);
 minimap.snapshot();
+loadTextures(renderer).then(() => minimap.snapshot());   // 실사 텍스처는 첫 화면 뒤에 도착한다
 for (const r of building.rooms.values()) r.items.visible = false;
 if (router.initial) goRoom(router.initial);
 setTimeout(() => site.gate.open(), 900);
@@ -211,6 +242,7 @@ const clock = new THREE.Clock();
 let elapsed = 0, moved = false;
 renderer.setAnimationLoop(() => {
   const dt = Math.min(0.05, clock.getDelta());
+  if (overlay.open) return;               // 사이트를 보는 동안 집은 쉰다
   elapsed += dt;
   if (walker.update(dt) && !moved) moved = true;
   const v = walker.view;
@@ -223,8 +255,8 @@ renderer.setAnimationLoop(() => {
   minimap.update();
   if (hint) hint.visible = (!moved || elapsed < 12) && !menu.open_;
   if (label) label.visible = !menu.open_;
-  renderer.render(scene, camera);
+  post.render();
   hud.render(renderer);
   engine.measure();
 });
-window.__joyhouse = { walker, goRoom, building, hud, panel, menu, renderer, scene, camera };   // 점검용
+window.__joyhouse = { walker, goRoom, building, hud, panel, menu, renderer, scene, camera, actionsFor, overlay, clickables };   // 점검용

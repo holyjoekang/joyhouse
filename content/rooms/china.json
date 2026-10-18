@@ -1,0 +1,96 @@
+{
+ "room": "china",
+ "title": "중국관 — 주재원 9년",
+ "items": [
+  {
+   "type": "moongate",
+   "x": 0.42,
+   "z": 0.5,
+   "facing": "east",
+   "radius": 1.6
+  },
+  {
+   "type": "redLantern",
+   "x": 0.3,
+   "z": 0.3,
+   "y": 3.3
+  },
+  {
+   "type": "redLantern",
+   "x": 0.7,
+   "z": 0.3,
+   "y": 3.3
+  },
+  {
+   "type": "redLantern",
+   "x": 0.3,
+   "z": 0.75,
+   "y": 3.3
+  },
+  {
+   "type": "redLantern",
+   "x": 0.7,
+   "z": 0.75,
+   "y": 3.3
+  },
+  {
+   "type": "poster",
+   "wall": "south",
+   "t": 0.3,
+   "y": 1.9,
+   "w": 1.3,
+   "kicker": "여행 일정표",
+   "title": "충칭 여행",
+   "text": "2026년 6월 · 불맛과 입체도시",
+   "url": "https://holyjoekang.github.io/my-travel-map/itinerary/t-2026-06-03.html",
+   "accent": "#8a1c1c"
+  },
+  {
+   "type": "poster",
+   "wall": "south",
+   "t": 0.7,
+   "y": 1.9,
+   "w": 1.3,
+   "kicker": "여행 일정표",
+   "title": "중국 서부 미식·백주·문화 탐방",
+   "text": "2026년 11월 · 충칭 2박 + 청두 2박, 수정방 양조문화와 삼국지",
+   "url": "https://holyjoekang.github.io/my-travel-map/itinerary/t-2026-11-18.html",
+   "accent": "#8a1c1c"
+  },
+  {
+   "type": "sign",
+   "x": 0.75,
+   "z": 0.15,
+   "facing": "west",
+   "w": 1.8,
+   "title": "중국, 나를 키운 거대한 교실",
+   "text": "2005 베이징 지역전문가, 2009~2015 베이징 주재 총경리, 2022~ 중국 Regional Manager. 원고와 사진은 2단계에 겁니다."
+  },
+  {
+   "type": "monitor",
+   "x": 0.8,
+   "z": 0.86,
+   "facing": "south",
+   "group": "여행 앱",
+   "title": "Luxe China Expeditions",
+   "desc": "중국 문화·미식·백주·역사 맞춤 체험 여행 플랫폼",
+   "tech": "React · Tailwind · Gemini",
+   "bg": "#3a1414",
+   "links": [
+    {
+     "label": "소스 보기 ↗",
+     "url": "https://github.com/holyjoekang/AI-Apps/tree/master/apps/luxe-china-travel"
+    }
+   ]
+  },
+  {
+   "type": "portal",
+   "wall": "north",
+   "t": 0.5,
+   "label": "나의 여행 지도",
+   "url": "https://holyjoekang.github.io/my-travel-map/",
+   "note": "중국 출장·주재 기록이 지도 위에 있습니다.",
+   "color": "#8a1c1c"
+  }
+ ]
+}

@@ -5,6 +5,7 @@ import { makeGlobe } from '../../exhibits/globe.js';
 import { makeNewsstand } from '../../exhibits/newsstand.js';
 import { makePortal } from '../../exhibits/portal-door.js';
 import { makeSign } from '../../exhibits/sign.js';
+import { FURNITURE } from '../../exhibits/furniture.js';
 
 // 방 하나를 content/rooms/<id>.json대로 꾸민다. 방 파일이 없으면 '2단계' 안내판을 세운다.
 // 새 전시물 종류는 BUILDERS에 한 줄 더하면 된다.
@@ -15,6 +16,7 @@ const BUILDERS = {
   bookshelf: async (item, ctx) => makeBookshelf(item, (await ctx.data(item.source))?.books || []),
   globe: async (item, ctx) => makeGlobe(item, await ctx.data(item.land), (await ctx.data(item.source))?.pins || []),
   newsstand: async (item, ctx) => makeNewsstand(item, (await ctx.data(item.source))?.posts || []),
+  ...Object.fromEntries(Object.entries(FURNITURE).map(([k, fn]) => [k, async item => fn(item)])),
 };
 
 const FACING = { south: 0, north: Math.PI, east: Math.PI / 2, west: -Math.PI / 2 };
@@ -47,7 +49,7 @@ export async function furnish(room, spec, ctx) {
       yaw = FACING[item.facing || 'south'];
       nx = Math.sin(yaw); nz = Math.cos(yaw);
     }
-    obj.position.set(x, item.wall && item.y !== undefined ? item.y : 0, z);
+    obj.position.set(x, item.y !== undefined && (item.wall || item.type === 'redLantern') ? item.y : 0, z);
     obj.rotation.y = yaw;
     obj.traverse(o => { if (o.isMesh) o.castShadow = false; });   // 실내에는 햇빛 그림자가 들지 않는다
     room.items.add(obj);
@@ -58,6 +60,12 @@ export async function furnish(room, spec, ctx) {
     const face = { x: x + nx * dist, z: z + nz * dist, yaw, y: viewY };
     obj.traverse(o => { if (o.userData.exhibit) o.userData.exhibit.face ||= face; });
     ctx.clickables.push(obj);
+    // 가구는 몸이 지나가지 못한다 (동서로 돌린 가구는 가로세로를 바꾼다)
+    const fp = obj.userData.footprint;
+    if (fp && ctx.blocks) {
+      const [fw, fd] = Math.abs(Math.sin(yaw)) > 0.5 ? [fp[1], fp[0]] : fp;
+      ctx.blocks.push({ x0: x - fw / 2, x1: x + fw / 2, z0: z - fd / 2, z1: z + fd / 2 });
+    }
     obj.traverse(o => { if (o.userData.tick) ctx.tickers.push(o.userData.tick); });
   }
 }
