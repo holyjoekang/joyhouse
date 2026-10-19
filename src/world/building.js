@@ -289,35 +289,53 @@ export function buildBuilding(scene, house, { family, specs = {} }) {
   return { rooms, blocks, clickables, floors, roomAt };
 }
 
-// 정면 포르티코: 대리석 기둥 6개 + 작은 기와지붕 + 청사초롱
+// 정면 열주랑: 덕수궁 석조전처럼 센트럴 정면 전체에 이오니아식 대리석 기둥 12개.
+// 그 위에 정관헌처럼 기와지붕을 얹어 동서양을 한 몸에 담는다.
 function portico(scene, blocks) {
-  const slab = new THREE.Mesh(new THREE.BoxGeometry(19, 0.12, 6), mats.marble);
-  slab.position.set(0, 0.06, -57.2);
-  slab.receiveShadow = true;
-  scene.add(slab);
-  const colGeo = new THREE.CylinderGeometry(0.38, 0.45, 7.6, 24);
-  const capGeo = new THREE.BoxGeometry(1.1, 0.35, 1.1);
-  for (const x of [-7.2, -4.7, -2.3, 2.3, 4.7, 7.2]) {
-    const col = new THREE.Mesh(colGeo, mats.marble);
-    col.position.set(x, 3.9, -55.4);
-    col.castShadow = true; col.receiveShadow = true;
-    scene.add(col);
-    for (const y of [0.3, 7.85]) {
-      const cap = new THREE.Mesh(capGeo, mats.marble);
-      cap.position.set(x, y, -55.4); cap.castShadow = true;
-      scene.add(cap);
+  const step = new THREE.Mesh(new THREE.BoxGeometry(50, 0.12, 6), mats.marble);
+  step.position.set(0, 0.06, -57.2);
+  step.receiveShadow = true;
+  scene.add(step);
+  const stylobate = new THREE.Mesh(new THREE.BoxGeometry(49, 0.14, 4.6), mats.marble);
+  stylobate.position.set(0, 0.19, -57.6);
+  stylobate.receiveShadow = true;
+  scene.add(stylobate);
+
+  const xs = [2.3, 6.7, 11.1, 15.5, 19.9, 23.8].flatMap(x => [-x, x]);
+  const n = xs.length, m = new THREE.Matrix4(), q = new THREE.Quaternion(), one = new THREE.Vector3(1, 1, 1);
+  const inst = (geo, at) => {
+    const im = new THREE.InstancedMesh(geo, mats.marble, n * at.length);
+    let i = 0;
+    for (const x of xs) for (const [dx, y, rot] of at) {
+      q.setFromAxisAngle(new THREE.Vector3(1, 0, 0), rot || 0);
+      im.setMatrixAt(i++, m.compose(new THREE.Vector3(x + dx, y, -55.4), q, one));
     }
-    blocks.push({ x0: x - 0.5, x1: x + 0.5, z0: -55.9, z1: -54.9 });
-  }
-  const beam = new THREE.Mesh(new THREE.BoxGeometry(17.4, 0.6, 0.7), mats.marble);
-  beam.position.set(0, 8.3, -55.4);
+    im.castShadow = true; im.receiveShadow = true;
+    scene.add(im);
+  };
+  inst(new THREE.CylinderGeometry(0.36, 0.44, 7.3, 24), [[0, 4.0]]);               // 기둥 몸
+  inst(new THREE.BoxGeometry(1.1, 0.22, 1.1), [[0, 0.37]]);                         // 주초
+  inst(new THREE.TorusGeometry(0.46, 0.08, 8, 24), [[0, 0.56, Math.PI / 2]]);       // 아래 쇠시리
+  inst(new THREE.BoxGeometry(1.2, 0.18, 0.8), [[0, 7.75]]);                         // 주두 판
+  inst(new THREE.CylinderGeometry(0.19, 0.19, 0.82, 16), [[-0.5, 7.6, Math.PI / 2], [0.5, 7.6, Math.PI / 2]]);   // 소용돌이(볼류트)
+  for (const x of xs) blocks.push({ x0: x - 0.55, x1: x + 0.55, z0: -55.95, z1: -54.85 });
+
+  // 엔타블러처: 들보 + 치아 장식 띠 + 처마돌림
+  const beam = new THREE.Mesh(new THREE.BoxGeometry(49, 0.55, 0.9), mats.marble);
+  beam.position.set(0, 8.12, -55.4); beam.castShadow = true;
   scene.add(beam);
-  scene.add(hanokRoof({ box: [-8.6, -54.6, 8.6, -60], y: 8.6, rise: 2.2, overhang: 0.9, lift: 0.45 }));
+  const dentil = new THREE.InstancedMesh(new THREE.BoxGeometry(0.16, 0.16, 0.12), mats.marble, 150);
+  for (let i = 0; i < 150; i++) dentil.setMatrixAt(i, m.makeTranslation(-24.2 + i * 0.326, 7.92, -54.92));
+  scene.add(dentil);
+  const cornice = new THREE.Mesh(new THREE.BoxGeometry(49.6, 0.2, 1.2), mats.marble);
+  cornice.position.set(0, 8.48, -55.4);
+  scene.add(cornice);
+  scene.add(hanokRoof({ box: [-24.6, -54.6, 24.6, -60], y: 8.6, rise: 2.2, overhang: 0.9, lift: 0.45 }));
 
   const lantern = new THREE.CylinderGeometry(0.22, 0.22, 0.55, 12);
-  for (const x of [-8.4, 8.4]) {
+  for (const x of [-4.5, 4.5]) {
     const l = new THREE.Mesh(lantern, mats.lantern);
-    l.position.set(x, 6.9, -54.6);
+    l.position.set(x, 6.9, -55.2);
     scene.add(l);
   }
 }

@@ -30,7 +30,7 @@
     <h1>커리어 30년,<br>걸어온 길과 갈 길을 담다</h1>
     <p class="lead">꿈으로 만든 나의 공간으로 다시 탄생하는 죠이하우스.</p>
     <div class="hero-cta">
-      <a class="btn btn-primary" href="#rooms">방 둘러보기</a>
+      <a class="btn btn-primary" href="#house">방 둘러보기</a>
       <a class="btn btn-ghost" href="3d.html">3D로 걸어 보기 →</a>
     </div>
   </div>
@@ -47,12 +47,180 @@
   </div>
 </div>
 
+<section class="block house" id="house">
+  <div class="wrap">
+    <div class="house-plate reveal">
+      <span class="eyebrow">A Cross-Section</span>
+      <h2>Joyhouse 단면도</h2>
+      <p class="muted">덕수궁 석조전의 대리석과 정관헌의 기와를 본뜬 집. 방을 누르면 그 방으로 들어갑니다.</p>
+    </div>
+    <figure class="house-figure reveal">
+      <svg class="house-svg" viewBox="0 80 1200 560" role="group" aria-labelledby="house-title">
+        <title id="house-title">Joyhouse 단면도 — 방을 누르면 해당 쪽으로 이동</title>
+        <defs>
+          <linearGradient id="hs-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3e6d0"/><stop offset="1" stop-color="#faf3e8"/></linearGradient>
+          <pattern id="hs-tile" width="14" height="10" patternUnits="userSpaceOnUse"><rect width="14" height="10" fill="#2b3550"/><path d="M0 9.5 Q7 4 14 9.5" fill="none" stroke="#46527a" stroke-width="1.4"/></pattern>
+          <pattern id="hs-stone" width="40" height="20" patternUnits="userSpaceOnUse"><rect width="40" height="20" fill="#d9cfbd"/><path d="M0 .5H40M20 0V10M0 10.5H40M10 10V20M30 10V20" stroke="#c4b8a2" stroke-width="1"/></pattern>
+        </defs>
+
+        <!-- 배경: 하늘, 해, 북악 능선 -->
+        <rect width="1200" height="640" fill="url(#hs-sky)"/>
+        <circle cx="1030" cy="160" r="50" fill="#e8c88c" opacity=".55"/>
+        <path d="M0 470 Q120 360 250 420 Q360 330 470 400 Q600 300 730 390 Q860 320 960 410 Q1080 350 1200 430 V640 H0Z" fill="#e6dac4"/>
+        <path d="M0 520 Q160 460 320 500 Q520 440 700 495 Q900 450 1200 505 V640 H0Z" fill="#dccfb6"/>
+
+        <!-- 소나무 -->
+        <g fill="#5f7a5a"><rect x="24" y="470" width="8" height="112" fill="#7a5c43"/><path d="M-6 500 Q28 450 62 500Z M0 470 Q28 425 56 470Z M8 442 Q28 405 48 442Z"/></g>
+        <g fill="#5f7a5a"><rect x="1166" y="470" width="8" height="112" fill="#7a5c43"/><path d="M1136 500 Q1170 450 1204 500Z M1142 470 Q1170 425 1198 470Z M1150 442 Q1170 405 1190 442Z"/></g>
+
+        <!-- 몸채(잘린 벽 단면) -->
+        <rect x="60" y="378" width="300" height="182" fill="url(#hs-stone)" stroke="#14213d" stroke-width="2"/>
+        <rect x="840" y="378" width="300" height="182" fill="url(#hs-stone)" stroke="#14213d" stroke-width="2"/>
+        <rect x="360" y="220" width="480" height="340" fill="#efe9dd" stroke="#14213d" stroke-width="2"/>
+
+        <!-- 기와지붕 (처마 끝이 들린 한옥 지붕) -->
+        <path d="M30 372 Q210 392 390 372 L352 322 Q210 330 68 322Z" fill="url(#hs-tile)" stroke="#14213d" stroke-width="2"/>
+        <path d="M62 322 Q210 312 358 322" fill="none" stroke="#14213d" stroke-width="7" stroke-linecap="round"/>
+        <path d="M810 372 Q990 392 1170 372 L1132 322 Q990 330 848 322Z" fill="url(#hs-tile)" stroke="#14213d" stroke-width="2"/>
+        <path d="M842 322 Q990 312 1138 322" fill="none" stroke="#14213d" stroke-width="7" stroke-linecap="round"/>
+        <path d="M318 214 Q600 240 882 214 L812 140 Q600 150 388 140Z" fill="url(#hs-tile)" stroke="#14213d" stroke-width="2"/>
+        <path d="M378 140 Q600 124 822 140" fill="none" stroke="#14213d" stroke-width="9" stroke-linecap="round"/>
+        <path d="M372 131 l-6 -16 l14 10Z M828 131 l6 -16 l-14 10Z" fill="#14213d"/>
+        <!-- 현판 -->
+        <rect x="530" y="160" width="140" height="34" rx="3" fill="#14213d" stroke="#b08d57" stroke-width="3"/>
+        <text x="600" y="183" text-anchor="middle" class="hs-plaque">JOYHOUSE</text>
+
+        <!-- 층 바닥 -->
+        <rect x="360" y="394" width="168" height="10" fill="#c9bea9"/>
+        <rect x="672" y="394" width="168" height="10" fill="#c9bea9"/>
+
+        <!-- ── 방 ── -->
+        <a href="library.html" class="hs-room" data-desc="블루룸 · 나의 서재 — 평생 읽은 책 341권과 최근 읽은 20권">
+          <title>블루룸 · 나의 서재</title>
+          <rect class="hs-wall" x="372" y="232" width="144" height="160" fill="#dbe5f0"/>
+          <g class="hs-ico" fill="none" stroke="#2d4a7a" stroke-width="2.5"><path d="M388 312H500M388 346H500M388 380H500"/></g>
+          <g class="hs-ico"><rect x="392" y="290" width="7" height="22" fill="#2d4a7a"/><rect x="401" y="294" width="6" height="18" fill="#b08d57"/><rect x="409" y="288" width="8" height="24" fill="#8a1c1c"/><rect x="420" y="292" width="6" height="20" fill="#1f6f5a"/><rect x="452" y="292" width="7" height="20" fill="#2d4a7a"/><rect x="461" y="288" width="6" height="24" fill="#b08d57"/><rect x="398" y="326" width="8" height="20" fill="#1f6f5a"/><rect x="408" y="322" width="6" height="24" fill="#2d4a7a"/><rect x="440" y="324" width="7" height="22" fill="#8a1c1c"/><rect x="449" y="328" width="8" height="18" fill="#b08d57"/><rect x="470" y="324" width="6" height="22" fill="#2d4a7a"/><rect x="394" y="360" width="6" height="20" fill="#b08d57"/><rect x="430" y="358" width="8" height="22" fill="#2d4a7a"/><rect x="440" y="362" width="6" height="18" fill="#1f6f5a"/><rect x="480" y="358" width="7" height="22" fill="#8a1c1c"/></g>
+          <text x="444" y="254" class="hs-kicker">BLUE ROOM</text><text x="444" y="278" class="hs-name">서재</text>
+        </a>
+
+        <a href="gallery.html" class="hs-room" data-desc="그랜드 홀 · 고흐 갤러리 — 현관을 열면 맞는 퍼블릭 도메인 원작 9점">
+          <title>그랜드 홀 · 고흐 갤러리</title>
+          <rect class="hs-wall" x="528" y="232" width="144" height="320" fill="#f5ead3"/>
+          <g class="hs-ico">
+            <path d="M600 232V250" stroke="#b08d57" stroke-width="2"/><path d="M582 262 Q600 246 618 262Z" fill="#b08d57"/><circle cx="586" cy="266" r="3" fill="#e8c88c"/><circle cx="600" cy="268" r="3" fill="#e8c88c"/><circle cx="614" cy="266" r="3" fill="#e8c88c"/>
+            <rect x="556" y="318" width="88" height="62" fill="#1d3a6b" stroke="#b08d57" stroke-width="5"/>
+            <path d="M562 350 q10 -10 20 0 t20 0 t20 0 t18 0" fill="none" stroke="#7fa3d6" stroke-width="2.5"/><path d="M562 362 q10 -8 20 0 t20 0 t20 0 t18 0" fill="none" stroke="#5c83c0" stroke-width="2"/>
+            <circle cx="626" cy="334" r="6" fill="#f2d36b"/><circle cx="586" cy="332" r="3" fill="#f2d36b"/><circle cx="606" cy="328" r="2.5" fill="#f2d36b"/><path d="M570 380 L574 340 L580 380Z" fill="#253020"/>
+            <rect x="548" y="400" width="34" height="44" fill="#e3b54a" stroke="#b08d57" stroke-width="4"/><circle cx="565" cy="418" r="7" fill="#c9852c"/>
+            <rect x="618" y="400" width="34" height="44" fill="#4e7fb8" stroke="#b08d57" stroke-width="4"/><path d="M624 438 L646 438 L640 420Z" fill="#c9a24d"/>
+            <path d="M576 552 V500 Q600 470 624 500 V552Z" fill="#14213d"/><path d="M600 486 V552" stroke="#b08d57" stroke-width="2"/>
+            <rect x="540" y="546" width="120" height="6" fill="#8a1c1c"/>
+          </g>
+          <text x="600" y="282" class="hs-kicker">GRAND HALL</text><text x="600" y="306" class="hs-name">그랜드 홀</text>
+        </a>
+
+        <a href="blog.html" class="hs-room" data-desc="레드룸 · 블로그 — 50플러스 인사이트, 매일 갱신되는 최신 글">
+          <title>레드룸 · 블로그</title>
+          <rect class="hs-wall" x="684" y="232" width="144" height="160" fill="#f1d9d4"/>
+          <g class="hs-ico">
+            <rect x="712" y="300" width="40" height="30" fill="#fff" stroke="#8a1c1c" stroke-width="2"/><path d="M718 310H746M718 318H740" stroke="#c9a9a4" stroke-width="2"/>
+            <path d="M770 328 L792 292" stroke="#14213d" stroke-width="3" stroke-linecap="round"/>
+            <rect x="700" y="336" width="112" height="8" fill="#8a1c1c"/><path d="M710 344V384M802 344V384" stroke="#8a1c1c" stroke-width="5"/>
+            <rect x="760" y="318" width="26" height="18" fill="#efe1c8" stroke="#8a1c1c" stroke-width="1.5"/>
+          </g>
+          <text x="756" y="254" class="hs-kicker">RED ROOM</text><text x="756" y="278" class="hs-name">블로그</text>
+        </a>
+
+        <a href="travel.html" class="hs-room" data-desc="맵룸 · 여행 지도 — 30년 출장·주재·여행으로 지나온 도시들">
+          <title>맵룸 · 여행 지도</title>
+          <rect class="hs-wall" x="372" y="404" width="144" height="148" fill="#dfe8db"/>
+          <g class="hs-ico">
+            <circle cx="444" cy="490" r="26" fill="#9cc0d9" stroke="#14213d" stroke-width="2"/><path d="M428 478 q8 -6 14 2 q6 8 -2 14 q-8 4 -12 -4Z M450 486 q10 -4 12 6 q-2 10 -10 8Z" fill="#6f9a62"/>
+            <path d="M412 490 A32 32 0 0 0 476 490" fill="none" stroke="#b08d57" stroke-width="3"/><path d="M444 522V540M430 542H458" stroke="#14213d" stroke-width="4"/>
+            <circle cx="398" cy="470" r="3.5" fill="#8a1c1c"/><circle cx="492" cy="462" r="3.5" fill="#8a1c1c"/><circle cx="488" cy="506" r="3.5" fill="#8a1c1c"/>
+          </g>
+          <text x="444" y="426" class="hs-kicker">MAP ROOM</text><text x="444" y="450" class="hs-name">여행 지도</text>
+        </a>
+
+        <a href="studio.html" class="hs-room" data-desc="오벌 오피스 · AI 작업실 — 직접 만든 AI 앱 10개와 커리어 30년">
+          <title>오벌 오피스 · AI 작업실</title>
+          <rect class="hs-wall" x="684" y="404" width="144" height="148" fill="#f3e9cc"/>
+          <g class="hs-ico">
+            <ellipse cx="756" cy="540" rx="58" ry="9" fill="#2d4a7a"/><ellipse cx="756" cy="540" rx="40" ry="5" fill="none" stroke="#e8c88c" stroke-width="2"/>
+            <rect x="726" y="506" width="60" height="26" fill="#7a5c43"/><rect x="742" y="490" width="28" height="18" rx="2" fill="#14213d"/><path d="M748 498h4M756 498h8" stroke="#7fe0c0" stroke-width="2"/>
+            <path d="M702 532V474M810 532V474" stroke="#7a5c43" stroke-width="2"/><path d="M702 474h16v12h-16Z" fill="#8a1c1c"/><path d="M810 474h-16v12h16Z" fill="#2d4a7a"/>
+          </g>
+          <text x="756" y="426" class="hs-kicker">OVAL OFFICE</text><text x="756" y="450" class="hs-name">AI 작업실</text>
+        </a>
+
+        <a href="china.html" class="hs-room" data-desc="웨스트윙 · 중국관 — 나를 키운 거대한 교실, 주재원 9년">
+          <title>웨스트윙 · 중국관</title>
+          <rect class="hs-wall" x="72" y="390" width="276" height="162" fill="#f0dfca"/>
+          <g class="hs-ico">
+            <path d="M84 540 L84 500 L96 500 L96 492 L106 492 L106 500 L128 500 L128 492 L138 492 L138 500 L170 488 L170 480 L180 480 L180 488 L212 476 L212 468 L222 468 L222 476 L252 470 L252 540Z" fill="#c4a27a" stroke="#7a5c43" stroke-width="2"/>
+            <path d="M300 404V420" stroke="#7a5c43" stroke-width="1.5"/><ellipse cx="300" cy="436" rx="14" ry="17" fill="#c0392b"/><rect x="292" y="417" width="16" height="4" fill="#b08d57"/><rect x="292" y="451" width="16" height="4" fill="#b08d57"/><path d="M300 455v10" stroke="#b08d57" stroke-width="2"/>
+            <path d="M272 540V492M266 540h12" stroke="#7a5c43" stroke-width="3"/><path d="M268 492 Q300 476 332 492" fill="none" stroke="#8a1c1c" stroke-width="4"/>
+          </g>
+          <text x="140" y="414" class="hs-kicker">WEST WING</text><text x="140" y="438" class="hs-name">중국관</text>
+        </a>
+
+        <a href="vision.html" class="hs-room" data-desc="이스트윙 · 비전룸 — Keep121, 한 사람도 빠짐없이 지키다">
+          <title>이스트윙 · 비전룸</title>
+          <rect class="hs-wall" x="852" y="390" width="138" height="162" fill="#e1e6f0"/>
+          <g class="hs-ico">
+            <path d="M902 540 L921 470 L940 540 M921 470 V540" stroke="#7a5c43" stroke-width="3" fill="none"/>
+            <rect x="890" y="452" width="62" height="46" fill="#fff" stroke="#14213d" stroke-width="2"/><text x="921" y="483" text-anchor="middle" class="hs-sign">121</text>
+          </g>
+          <text x="921" y="414" class="hs-kicker">EAST WING</text><text x="921" y="438" class="hs-name">비전룸</text>
+        </a>
+
+        <a href="family.html" class="hs-room" data-desc="패밀리윙 · 가족의 방들 — 뿌리·성장·신앙·가족·유산, 가족 전용">
+          <title>패밀리윙 · 가족의 방들</title>
+          <rect class="hs-wall" x="1002" y="390" width="126" height="162" fill="#f1e2d3"/>
+          <g class="hs-ico">
+            <rect x="1022" y="512" width="86" height="26" rx="8" fill="#b08d57"/><rect x="1016" y="500" width="14" height="38" rx="5" fill="#9c7a48"/><rect x="1100" y="500" width="14" height="38" rx="5" fill="#9c7a48"/>
+            <path d="M1065 490 C1050 478 1046 462 1058 458 C1063 456 1065 461 1065 463 C1065 461 1067 456 1072 458 C1084 462 1080 478 1065 490Z" fill="#c0392b"/>
+          </g>
+          <text x="1065" y="414" class="hs-kicker">FAMILY</text><text x="1065" y="438" class="hs-name">가족</text>
+        </a>
+
+        <!-- 이오니아 기둥: 그랜드 홀 양옆 벽 -->
+        <g fill="#fbf8f2" stroke="#14213d" stroke-width="1.5">
+          <rect x="517" y="236" width="10" height="316"/><rect x="673" y="236" width="10" height="316"/>
+          <path d="M512 236h20M668 236h20M512 552h20M668 552h20" stroke-width="3"/>
+        </g>
+
+        <!-- 기단과 마당 -->
+        <rect x="40" y="560" width="1120" height="20" fill="#d6ccb9" stroke="#14213d" stroke-width="2"/>
+        <rect x="560" y="566" width="80" height="14" fill="#c9bea9"/><path d="M560 572H640" stroke="#14213d" stroke-width="1"/>
+        <rect x="0" y="580" width="1200" height="60" fill="#c8d3b7"/>
+        <path d="M540 640 L568 580 H632 L660 640Z" fill="#e3dccd"/>
+
+        <!-- 토리 -->
+        <g class="hs-tori" aria-hidden="true">
+          <ellipse cx="712" cy="604" rx="18" ry="10" fill="#fbf6ec" stroke="#14213d" stroke-width="1.5"/>
+          <circle cx="732" cy="592" r="9" fill="#fbf6ec" stroke="#14213d" stroke-width="1.5"/>
+          <path d="M727 586 q-4 -6 -1 -10 q4 2 5 7Z M737 586 q4 -6 1 -10 q-4 2 -5 7Z" fill="#e3cfae" stroke="#14213d" stroke-width="1"/>
+          <circle cx="735" cy="592" r="1.4" fill="#14213d"/><circle cx="740" cy="595" r="1.6" fill="#14213d"/>
+          <path d="M696 600 q-8 -8 -4 -14" fill="none" stroke="#14213d" stroke-width="2" stroke-linecap="round"/>
+          <path d="M702 612v8M722 612v8" stroke="#14213d" stroke-width="2.5" stroke-linecap="round"/>
+          <text x="714" y="634" text-anchor="middle" class="hs-kicker">TORI</text>
+        </g>
+      </svg>
+      <figcaption class="house-desc" aria-live="polite">방 위에 마우스를 올리거나 눌러 보세요.</figcaption>
+    </figure>
+    <nav class="house-chips" aria-label="방 바로가기">
+      <a href="gallery.html">그랜드 홀</a><a href="library.html">서재</a><a href="blog.html">블로그</a><a href="travel.html">여행 지도</a><a href="studio.html">AI 작업실</a><a href="china.html">중국관</a><a href="vision.html">비전룸</a><a href="family.html">가족</a>
+    </nav>
+  </div>
+</section>
+
 <section class="block">
   <div class="wrap split">
     <div class="reveal">
       <span class="eyebrow">About the House</span>
-      <h2>백악관의 대리석, 한옥의 기와</h2>
-      <p class="lead">Joyhouse는 '토리아빠'의 개인 기록관입니다. 따로 흩어져 있던 사이트들 — 나의 서재, 나의 여행 지도, 50플러스 인사이트, Keep121 — 이 이 집의 방이 되어 한 지붕 아래 모였습니다.</p>
+      <h2>석조전의 대리석, 정관헌의 기와</h2>
+      <p class="lead">덕수궁에는 대리석 신고전주의 궁전인 석조전과, 서양식 열주 위에 전통 장식을 얹은 정관헌이 나란히 있습니다. 동서양이 한 마당에서 만나는 그 풍경을 본떠 지은 Joyhouse는 '토리아빠'의 개인 기록관입니다. 따로 흩어져 있던 사이트들 — 나의 서재, 나의 여행 지도, 50플러스 인사이트, Keep121 — 이 이 집의 방이 되어 한 지붕 아래 모였습니다.</p>
       <ul class="checks">
         <li><b>센트럴 · 현재</b> — 그랜드 홀, 블루룸, 레드룸, 맵룸, 오벌 오피스</li>
         <li><b>웨스트윙 · 과거</b> — 중국관, 뿌리의 방, 성장의 방</li>

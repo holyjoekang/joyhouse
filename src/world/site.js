@@ -8,6 +8,7 @@ import { textPlane } from '../ui3d/text.js';
 
 const POND = { cx: -46, cz: -35, w: 14, d: 10 };
 const ROSE = { cx: 46, cz: -35 };
+const PAVILION = { cx: 24, cz: -17 };   // 정관헌: 앞뜰 오른쪽 커피 정자
 
 export function buildSite(scene, renderer, house, timeline, { shadows, phone }) {
   const blocks = [], clickables = [], tickers = [];
@@ -54,12 +55,13 @@ export function buildSite(scene, renderer, house, timeline, { shadows, phone }) 
   milestones(scene, timeline, clickables);
 
   // 생울타리: 잔디길 양옆, 연못·로즈가든 디딤돌 자리는 틔운다
+  // 대문에서 이어지는 첫 구간은 덕수궁 돌담길, 집 쪽은 생울타리
+  doldam(scene, [[5.6, -3, 6.6, -9.5], [5.6, -13.5, 6.6, -21], [-6.6, -3, -5.6, -21]], blocks);
   hedges(scene, [
-    [5.6, -3, 6.6, -33, 0.9], [5.6, -39, 6.6, -52, 0.9],
-    [-6.6, -3, -5.6, -21, 0.9], [-6.6, -27, -5.6, -52, 0.9],
+    [5.6, -21, 6.6, -33, 0.9], [5.6, -39, 6.6, -52, 0.9],
+    [-6.6, -27, -5.6, -52, 0.9],
   ], blocks);
   flowerBeds(scene, [
-    [10, -57.2, 23, -58.6, [0xc8323c, 0xf2b8c6, 0xffffff]], [-23, -57.2, -10, -58.6, [0xe0a020, 0xf6e7b0, 0xc84a2a]],
     [7.2, -2.2, 13, -3.8, [0xd94060, 0xf6f0e8, 0x9a5ac8]], [-13, -2.2, -7.2, -3.8, [0xd94060, 0xf6f0e8, 0x9a5ac8]],
   ]);
   for (const x of [-9.5, 9.5]) stoneLantern(scene, x, -53.2);
@@ -67,7 +69,7 @@ export function buildSite(scene, renderer, house, timeline, { shadows, phone }) 
   // 나무: 소나무 숲, 앞마당 은행나무 한 쌍, 대문 곁 느티나무, 집 둘레 단풍
   const r = rng(42), spots = [];
   const ok = (x, z) => !(Math.abs(x) < 84 && z < -52 && z > -98) && !(Math.abs(x) < 9) &&
-    !(Math.hypot(x - POND.cx, z - POND.cz) < 15) && !(Math.hypot(x - ROSE.cx, z - ROSE.cz) < 15) && !(z > -1 && z < 1.5);
+    !(Math.hypot(x - POND.cx, z - POND.cz) < 15) && !(Math.hypot(x - ROSE.cx, z - ROSE.cz) < 15) && !(Math.hypot(x - PAVILION.cx, z - PAVILION.cz) < 11) && !(z > -1 && z < 1.5);
   for (let i = 0; i < 160 && spots.length < 70; i++) {
     const x = (r() < 0.5 ? -1 : 1) * (14 + r() * 76), z = 10 - r() * 120;
     if (ok(x, z)) spots.push({ x, z, s: 0.8 + r() * 0.5, kind: r() < 0.72 ? 'pine' : 'maple', rot: r() * 6 });
@@ -80,6 +82,8 @@ export function buildSite(scene, renderer, house, timeline, { shadows, phone }) 
   plantTrees(scene, [...spots, ...plantLater], blocks);
 
   roseGarden(scene, clickables, blocks);
+  jeonggwanheon(scene, blocks);
+  steppingStones(scene, [[3.6, -11.5], [PAVILION.cx, -11.5]]);
   steppingStones(scene, [[3.6, -36], [ROSE.cx - 10, -36]]);
   steppingStones(scene, [[-3.6, -24], [POND.cx + 3, -24]]);
   mountains(scene);
@@ -87,6 +91,7 @@ export function buildSite(scene, renderer, house, timeline, { shadows, phone }) 
   // 풀잎: 잔디길 양쪽 앞뜰
   const avoid = (x, z) => Math.abs(x) < 3.3 || (Math.abs(x) > 5.4 && Math.abs(x) < 6.8) ||
     Math.hypot(x - POND.cx, z - POND.cz) < 13 || Math.hypot(x - ROSE.cx, z - ROSE.cz) < 13 ||
+    (Math.abs(x - PAVILION.cx) < 7 && Math.abs(z - PAVILION.cz) < 5.5) ||
     (Math.abs(Math.abs(x) - 4.2) < 0.5 && true && false);
   tickers.push(grassField(scene, [{ x0: -34, x1: 34, z0: -54, z1: -1 }], phone ? 16000 : 70000, avoid));
 
@@ -268,5 +273,77 @@ function roseGarden(scene, clickables, blocks) {
     { text: '장미 화단 넷과 토리 동상. 2단계에 토리 사진을 둘레에 겁니다.', size: 40, color: '#5b5245' }] }, 2.2, { lit: true });
   sign.position.set(cx - 10.5, 1.4, cz - 1);
   sign.rotation.y = -Math.PI / 2;
+  scene.add(sign);
+}
+
+// 돌담길: 막돌 담에 기와를 얹는다. box = [x0, z0, x1, z1]
+function doldam(scene, boxes, blocks) {
+  for (const [x0, z0, x1, z1] of boxes) {
+    const w = Math.abs(x1 - x0), d = Math.abs(z1 - z0), cx = (x0 + x1) / 2, cz = (z0 + z1) / 2;
+    const wall = new THREE.Mesh(new THREE.BoxGeometry(w, 1.7, d), repeatFor(mats.stoneWall, d / 2, 0.6));
+    wall.position.set(cx, 0.85, cz); wall.castShadow = wall.receiveShadow = true;
+    scene.add(wall);
+    scene.add(hanokRoof({ box: [x0, z0, x1, z1], y: 1.7, rise: 0.4, overhang: 0.25, lift: 0.04 }));
+    blocks.push({ x0: Math.min(x0, x1), x1: Math.max(x0, x1), z0: Math.min(z0, z1), z1: Math.max(z0, z1) });
+  }
+}
+
+// 정관헌: 덕수궁의 서양식 열주 정자. 가는 기둥 + 놋쇠 주두 + 난간 + 기와지붕, 가운데 찻상.
+function jeonggwanheon(scene, blocks) {
+  const { cx, cz } = PAVILION, W = 11, D = 7;
+  const base = new THREE.Mesh(new THREE.BoxGeometry(W + 0.8, 0.3, D + 0.8), repeatFor(mats.stoneWall, 3, 0.2));
+  base.position.set(cx, 0.15, cz); base.castShadow = base.receiveShadow = true;
+  scene.add(base);
+  const floor = new THREE.Mesh(new THREE.BoxGeometry(W, 0.06, D), repeatFor(mats.wood, W / 2, D / 2));
+  floor.position.set(cx, 0.33, cz); floor.receiveShadow = true;
+  scene.add(floor);
+
+  const spots = [];
+  for (let i = 0; i <= 6; i++) { const x = cx - W / 2 + i * W / 6; spots.push([x, cz - D / 2], [x, cz + D / 2]); }
+  for (const z of [cz - D / 6, cz + D / 6]) spots.push([cx - W / 2, z], [cx + W / 2, z]);
+  const m = new THREE.Matrix4();
+  const put = (geo, mat, y) => {
+    const im = new THREE.InstancedMesh(geo, mat, spots.length);
+    spots.forEach(([x, z], i) => im.setMatrixAt(i, m.makeTranslation(x, y, z)));
+    im.castShadow = true; scene.add(im);
+  };
+  put(new THREE.CylinderGeometry(0.11, 0.13, 3.2, 12), mats.marble, 1.96);
+  put(new THREE.CylinderGeometry(0.26, 0.12, 0.35, 12), mats.brass, 3.65);
+  put(new THREE.BoxGeometry(0.34, 0.12, 0.34), mats.darkWood, 0.42);
+
+  // 난간: 앞(남)쪽 가운데는 드나들 수 있게 틔운다
+  const rail = (x0, z0, x1, z1) => {
+    const len = Math.hypot(x1 - x0, z1 - z0), alongX = Math.abs(x1 - x0) > Math.abs(z1 - z0);
+    for (const y of [0.75, 1.25]) {
+      const r = new THREE.Mesh(alongX ? new THREE.BoxGeometry(len, 0.07, 0.07) : new THREE.BoxGeometry(0.07, 0.07, len), mats.brass);
+      r.position.set((x0 + x1) / 2, y, (z0 + z1) / 2); scene.add(r);
+    }
+    blocks.push({ x0: Math.min(x0, x1) - 0.1, x1: Math.max(x0, x1) + 0.1, z0: Math.min(z0, z1) - 0.1, z1: Math.max(z0, z1) + 0.1 });
+  };
+  rail(cx - W / 2, cz - D / 2, cx + W / 2, cz - D / 2);
+  rail(cx - W / 2, cz - D / 2, cx - W / 2, cz + D / 2);
+  rail(cx + W / 2, cz - D / 2, cx + W / 2, cz + D / 2);
+  rail(cx - W / 2, cz + D / 2, cx - W / 6, cz + D / 2);
+  rail(cx + W / 6, cz + D / 2, cx + W / 2, cz + D / 2);
+
+  const lintel = new THREE.Mesh(new THREE.BoxGeometry(W + 0.4, 0.3, D + 0.4), mats.darkWood);
+  lintel.position.set(cx, 3.92, cz); scene.add(lintel);
+  scene.add(hanokRoof({ box: [cx - W / 2, cz - D / 2, cx + W / 2, cz + D / 2], y: 4.05, rise: 2.4, overhang: 1.1, lift: 0.4 }));
+
+  // 찻상과 의자 둘
+  const table = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.6, 0.06, 24), mats.darkWood);
+  table.position.set(cx, 1.08, cz); table.castShadow = true; scene.add(table);
+  const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.1, 0.72, 8), mats.darkWood);
+  leg.position.set(cx, 0.7, cz); scene.add(leg);
+  for (const s of [-1, 1]) {
+    const seat = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.06, 0.55), mats.wood);
+    seat.position.set(cx + s * 1.1, 0.8, cz); seat.castShadow = true; scene.add(seat);
+  }
+  blocks.push({ x0: cx - 1.5, x1: cx + 1.5, z0: cz - 0.7, z1: cz + 0.7 });
+
+  const sign = textPlane({ width: 768, padding: 36, bg: '#14213d', radius: 12, lines: [
+    { text: '정관헌 靜觀軒', size: 64, weight: 700, color: '#e6cf9f', gap: 10 },
+    { text: '덕수궁의 서양식 열주 정자. 고요히 바라보며 커피 한 잔.', size: 38, color: '#d9dce4' }] }, 2.6, { lit: true });
+  sign.position.set(cx, 3.35, cz + D / 2 + 0.08);
   scene.add(sign);
 }
