@@ -11,6 +11,8 @@ export function createEngine(canvas) {
   renderer.toneMappingExposure = 1.05;
   renderer.shadowMap.enabled = !phone;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.autoUpdate = false;   // 정지한 해: 필요할 때만 needsUpdate 로 다시 그린다
+  renderer.shadowMap.needsUpdate = true;
 
   const scene = new THREE.Scene();
   scene.fog = new THREE.Fog(0xcfdcec, 120, 420);

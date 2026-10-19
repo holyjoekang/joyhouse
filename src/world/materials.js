@@ -187,29 +187,36 @@ export function repeatFor(mat, rx, ry) {
   if (mat.userData.pbr) {
     const s = mat.userData.pbr.rx;
     m.userData.pbr = { id: mat.userData.pbr.id, rx: rx * s, ry: ry * s };
+    m.userData.pbrDone = false;
     users.push(m);
   }
   return m;
 }
 
-export function loadTextures(renderer) {
+// 바깥(첫 화면)에 보이는 텍스처와 실내에서만 보이는 텍스처. 실내 것은 집에 들어설 때 받는다.
+export const OUTDOOR_TEX = ['leafy_grass', 'cobblestone_floor_01', 'gravel', 'grey_roof_tiles', 'japanese_stone_wall',
+  'japanese_cedar_bark', 'painted_plaster_wall', 'marble_01'];
+export const INDOOR_TEX = ['herringbone_parquet', 'wood_planks'];
+
+const texCache = {};
+export function loadTextures(renderer, only) {
   const loader = new THREE.TextureLoader();
   const aniso = Math.min(8, renderer.capabilities.getMaxAnisotropy());
-  const cache = {};
-  const get = (id, kind) => (cache[id + kind] ||= new Promise(res => loader.load(`assets/tex/${id}_${kind}.webp`, t => {
+  const get = (id, kind) => (texCache[id + kind] ||= new Promise(res => loader.load(`assets/tex/${id}_${kind}.webp`, t => {
     t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = aniso;
     if (kind === 'diff') t.colorSpace = THREE.SRGBColorSpace;
     res(t);
   }, undefined, () => res(null))));
-  const ids = [...new Set(users.map(m => m.userData.pbr.id))];
+  const ids = [...new Set(users.map(m => m.userData.pbr.id))].filter(id => !only || only.includes(id));
   return Promise.all(ids.map(async id => {
     const [diff, nor, rough] = await Promise.all(['diff', 'nor', 'rough'].map(k => get(id, k)));
-    for (const m of users.filter(m => m.userData.pbr.id === id)) {
+    for (const m of users.filter(m => m.userData.pbr.id === id && !m.userData.pbrDone)) {
       const { rx, ry } = m.userData.pbr;
       const rep = t => { if (!t) return null; const c = t.clone(); c.repeat.set(rx, ry); c.needsUpdate = true; return c; };
       if (diff) m.map = rep(diff);
       if (nor) { m.normalMap = rep(nor); m.normalScale.set(0.9, 0.9); }
       if (rough) { m.roughnessMap = rep(rough); m.roughness = 1; }
+      m.userData.pbrDone = true;
       m.needsUpdate = true;
     }
   }));

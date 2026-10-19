@@ -11,8 +11,7 @@ import { Hud } from './ui3d/hud.js';
 import { createPanel } from './ui3d/panel.js';
 import { createMenu } from './ui3d/menu.js';
 import { createMinimap } from './ui3d/minimap.js';
-import { loadTextures } from './world/materials.js';
-import { createPost } from './core/post.js';
+import { loadTextures, OUTDOOR_TEX, INDOOR_TEX } from './world/materials.js';
 import { createOverlay, openTab } from './portal/overlay.js';
 
 const cache = new Map();
@@ -27,29 +26,61 @@ const engine = createEngine(canvas);
 const { renderer, scene, camera } = engine;
 const family = isFamily();
 
-const house = await data('content/house.json');
-const timeline = await data('data/timeline.json');
-
+// 첫 화면에 필요한 것만 먼저: 집 배치 + 연표 + 방 목록(작은 JSON). 서로 기다리지 않고 함께 받는다.
+const boot = msg => window.__joyBoot?.(msg);
+boot('집 도면을 펼치는 중');
+const [house, timeline] = await Promise.all([data('content/house.json'), data('data/timeline.json')]);
 const specs = Object.fromEntries(await Promise.all(house.rooms
   .filter(r => r.stage === 1 && r.wing !== 'hall' && (r.access !== 'family' || family))
   .map(async r => [r.id, await data(`content/rooms/${r.id}.json`)])));
+boot('정원과 집을 짓는 중');
 const site = buildSite(scene, renderer, house, timeline, { shadows: renderer.shadowMap.enabled, phone: engine.phone });
 const building = buildBuilding(scene, house, { family, specs });
 const clickables = [...site.clickables, ...building.clickables];
 const tickers = [];
+const blocks = [...building.blocks, ...site.blocks];   // 가구가 들어오면 여기에 더해진다 (충돌 판정이 같은 배열을 본다)
 
 const OUTDOOR = Object.fromEntries(house.outdoor.map(o => [o.id, o]));
 const GROUP = { central: '센트럴 · 현재', west: '웨스트윙 · 과거', east: '이스트윙 · 미래', hall: '회랑' };
 
-// 방 꾸미기: 방마다 content/rooms/<id>.json (없으면 2단계 안내판). 잠긴 가족 방은 비워 둔다.
-await Promise.all([...building.rooms.values()].map(async room => {
-  if (room.access === 'family' && !family) return;
-  const spec = specs[room.id] || null;
-  await furnish(room, spec, { data, clickables, tickers, blocks: building.blocks });
-}));
-
+// 방 꾸미기는 첫 화면 뒤로 미룬다. 방마다 content/rooms/<id>.json (없으면 2단계 안내판), 잠긴 가족 방은 비워 둔다.
+// 대문을 지나 집에 다가가면 그랜드 홀부터, 방에 들어서면 그 방과 이웃 방을 먼저,
+// 그다음 나머지 방을 하나씩 채운다. 그림·책 표지 같은 큰 파일도 이때 받는다.
+const furnished = new Map();
+const queue = [];
+let working = false, indoorTex = null;
+function furnishRoom(id) {
+  if (furnished.has(id)) return furnished.get(id);
+  const room = building.rooms.get(id);
+  const job = !room || (room.access === 'family' && !family) ? Promise.resolve()
+    : furnish(room, specs[room.id] || null, { data, clickables, tickers, blocks }).catch(e => console.warn(id, e));
+  furnished.set(id, job);
+  return job;
+}
+function want(ids, first = false) {
+  const fresh = ids.filter(id => !furnished.has(id) && (first || !queue.includes(id)));
+  if (first) for (const id of fresh) { const i = queue.indexOf(id); if (i >= 0) queue.splice(i, 1); }
+  first ? queue.unshift(...fresh) : queue.push(...fresh);
+  if (!indoorTex) indoorTex = loadTextures(renderer, INDOOR_TEX);
+  pump();
+}
+async function pump() {
+  if (working) return;
+  working = true;
+  while (queue.length) {
+    await furnishRoom(queue.shift());
+    await new Promise(r => (window.requestIdleCallback || setTimeout)(r, { timeout: 300 }));   // 방 하나 채우고 한 숨: 화면이 끊기지 않게
+  }
+  working = false;
+}
+let entered = false;
+function nearHouse(v) {
+  if (entered || v.z > -38) return;
+  entered = true;
+  want(['grandhall']);
+}
 // 이동
-const collider = makeCollider([...building.blocks, ...site.blocks], house.site);
+const collider = makeCollider(blocks, house.site);
 const hud = new Hud();
 const walker = createWalker(camera, collider, house.start, { onFade: v => hud.fade(v) });
 
@@ -130,6 +161,9 @@ function onRoomChange(w) {
   const show = new Set(w.room ? [w.id, ...w.room.neighbors] : ['grandhall']);
   for (const r of building.rooms.values()) r.items.visible = show.has(r.id);
   if (w.room) {
+    entered = true;
+    want([w.id, ...w.room.neighbors], true);
+    want([...building.rooms.keys()]);          // 나머지 방은 뒤에서 차례로
     roomLight.position.set(w.room.cx, w.room.height - 0.8, w.room.cz);
     roomLight.intensity = w.room.height > 6 ? 260 : 120;
   } else roomLight.intensity = 0;
@@ -226,17 +260,25 @@ function actionsFor(ex) {
   return [{ label: ex.kind === 'post' ? '원문 읽기 ↗' : '새 탭에서 열기 ↗', primary: true, onClick: () => openTab(ex.url) }];
 }
 
-// 시작
+// 시작: 후처리(주변광 차폐·빛번짐)는 첫 화면이 뜬 다음에 받아 붙인다. 그동안은 그냥 그린다.
 const lowQuality = engine.phone || new URLSearchParams(location.search).get('q') === 'low';
-const post = createPost(renderer, scene, camera, !lowQuality);
+let post = { render: () => renderer.render(scene, camera), setSize() {} };
 engine.onResize((w, h) => { hud.resize(w, h); post.setSize(w, h); });
 engine.resize();
-renderer.compile(scene, camera);
-minimap.snapshot();
-loadTextures(renderer).then(() => minimap.snapshot());   // 실사 텍스처는 첫 화면 뒤에 도착한다
 for (const r of building.rooms.values()) r.items.visible = false;
 if (router.initial) goRoom(router.initial);
-setTimeout(() => site.gate.open(), 900);
+function afterFirstFrame() {
+  window.__joyBoot?.(null);                   // 로딩 화면 걷기
+  minimap.snapshot();
+  setTimeout(() => site.gate.open(), 900);
+  // 바깥 텍스처 → (집에 들어서면) 실내 텍스처 순서로. 도착하면 같은 재질에 갈아 끼운다.
+  loadTextures(renderer, OUTDOOR_TEX).then(() => minimap.snapshot());
+  if (!lowQuality) import('./core/post.js').then(({ createPost }) => {
+    post = createPost(renderer, scene, camera, true);
+    post.setSize(canvas.clientWidth, canvas.clientHeight);
+  }).catch(e => console.warn('post', e));
+}
+let frameNo = 0;
 
 const clock = new THREE.Clock();
 let elapsed = 0, moved = false;
@@ -249,6 +291,7 @@ renderer.setAnimationLoop(() => {
   const w = whereIs(v.x, v.z);
   if (!here || w.id !== here.id || (w.id === null && here.id !== null)) onRoomChange(w);
   site.update(dt, v);
+  nearHouse(v);
   tickers.forEach(fn => fn(dt, elapsed));
   hud.update(dt);
   panel.update(dt);
@@ -258,5 +301,6 @@ renderer.setAnimationLoop(() => {
   post.render();
   hud.render(renderer);
   engine.measure();
+  if (++frameNo === 1) requestAnimationFrame(afterFirstFrame);
 });
 window.__joyhouse = { walker, goRoom, building, hud, panel, menu, renderer, scene, camera, actionsFor, overlay, clickables };   // 점검용
