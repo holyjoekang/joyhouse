@@ -5,6 +5,7 @@
 
 - 공개 주소: https://holyjoekang.github.io/joyhouse/
 - **2D 홈페이지가 기본**이다(`index.html` 외 방별 쪽). three.js 3D 집은 하위 쪽 `3d.html`로 옮겼다.
+- 건축 모티프는 **덕수궁**: 석조전(대리석 이오니아 열주) + 정관헌(서양식 열주에 기와지붕). 2D 홈의 단면도와 3D의 정면 열주랑·정관헌 정자·돌담길이 같은 그림을 따른다.
 - 사진은 모두 자유 이용 이미지다(Unsplash License · CC BY · 퍼블릭 도메인). 목록은 `credits.html`.
 
 ## 2D 사이트
