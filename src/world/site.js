@@ -93,7 +93,8 @@ export function buildSite(scene, renderer, house, timeline, { shadows, phone }) 
   return {
     blocks, clickables, sky,
     update(dt) {
-      gate.update(dt);
+      // 해는 움직이지 않으므로 그림자 지도는 한 번만 그린다. 대문이 열리는 동안만 다시 그린다.
+      if (gate.update(dt)) renderer.shadowMap.needsUpdate = true;
       tickers.forEach(t => t(dt));
     },
     gate,
@@ -168,11 +169,12 @@ function sotdaemun(scene, plaque, blocks) {
   return {
     open() { opening = true; },
     update(dt) {
-      if (!opening || open >= 1) return;
+      if (!opening || open >= 1) return false;
       open = Math.min(1, open + dt / 2.2);
       const e = 1 - Math.pow(1 - open, 3);
       leaves.forEach(({ hinge, s }) => { hinge.rotation.y = -s * e * Math.PI * 0.55; });
       if (open > 0.6) gateBlock.x0 = gateBlock.x1 = 99;   // 열리면 지나갈 수 있다
+      return true;
     },
   };
 }

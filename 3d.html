@@ -10,8 +10,21 @@
   canvas#world { display: block; width: 100vw; height: 100vh; height: 100dvh; touch-action: none; outline: none; }
   /* 화면에 보이는 UI는 모두 three.js 안에 있다. 아래는 스크립트가 꺼진 경우만 쓰인다. */
   .home-link { position: fixed; left: 12px; top: 12px; z-index: 10; padding: 8px 14px; border-radius: 999px; background: rgba(20, 33, 61, .82); color: #fff; font: 600 14px/1 system-ui, sans-serif; text-decoration: none; }
+  /* 로딩 화면: 첫 프레임이 그려지면 main.js 가 걷는다 */
+  #boot { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; background: linear-gradient(180deg, #cfdcec, #efe6d6); font: 15px/1.6 "Noto Sans KR", system-ui, sans-serif; color: #14213d; transition: opacity .6s; }
+  #boot.done { opacity: 0; pointer-events: none; }
+  #boot .box { text-align: center; padding: 24px; }
+  #boot svg { width: 72px; height: 72px; margin-bottom: 14px; }
+  #boot b { display: block; font-size: 20px; letter-spacing: .02em; margin-bottom: 4px; }
+  #boot .bar { width: 220px; height: 4px; border-radius: 4px; background: rgba(20, 33, 61, .12); margin: 16px auto 8px; overflow: hidden; }
+  #boot .bar i { display: block; height: 100%; width: 30%; background: #b08d57; border-radius: 4px; animation: boot 1.4s ease-in-out infinite; }
+  #boot small { color: #5a6275; }
+  @keyframes boot { 0% { transform: translateX(-100%); } 100% { transform: translateX(340%); } }
   noscript { position: fixed; inset: 0; display: grid; place-items: center; font: 18px sans-serif; }
 </style>
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js" crossorigin>
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.core.js" crossorigin>
+<link rel="modulepreload" href="src/main.js">
 <script type="importmap">
 {
   "imports": {
@@ -22,6 +35,19 @@
 </script>
 </head>
 <body>
+<div id="boot" role="status" aria-live="polite"><div class="box">
+  <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#14213d"/><path d="M5 18 Q20 6 35 18 Q28 16 20 11 Q12 16 5 18Z" fill="#b08d57"/><rect x="10" y="18" width="20" height="15" fill="#fff"/><rect x="13" y="22" width="3" height="11" fill="#b08d57"/><rect x="18.5" y="22" width="3" height="11" fill="#b08d57"/><rect x="24" y="22" width="3" height="11" fill="#b08d57"/></svg>
+  <b>Joyhouse</b><span id="bootMsg">3D 엔진을 받는 중</span>
+  <div class="bar"><i></i></div><small>방 안의 그림과 책은 집에 들어서면 차례로 채워집니다</small>
+</div></div>
+<script>
+  window.__joyBoot = function (msg) {
+    var el = document.getElementById('boot');
+    if (!el) return;
+    if (msg === null) { el.classList.add('done'); setTimeout(function () { el.remove(); }, 700); return; }
+    document.getElementById('bootMsg').textContent = msg;
+  };
+</script>
 <a class="home-link" href="index.html">← 2D 홈</a>
 <canvas id="world" tabindex="0" aria-label="Joyhouse 3D 집. 끌어서 둘러보고, 바닥을 눌러 걷습니다."></canvas>
 <noscript>Joyhouse는 자바스크립트와 WebGL이 필요합니다.</noscript>
