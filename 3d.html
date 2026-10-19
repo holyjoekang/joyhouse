@@ -22,9 +22,6 @@
   @keyframes boot { 0% { transform: translateX(-100%); } 100% { transform: translateX(340%); } }
   noscript { position: fixed; inset: 0; display: grid; place-items: center; font: 18px sans-serif; }
 </style>
-<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js" crossorigin>
-<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.core.js" crossorigin>
-<link rel="modulepreload" href="src/main.js">
 <script type="importmap">
 {
   "imports": {
@@ -33,6 +30,9 @@
   }
 }
 </script>
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js" crossorigin>
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.core.js" crossorigin>
+<link rel="modulepreload" href="src/main.js">
 </head>
 <body>
 <div id="boot" role="status" aria-live="polite"><div class="box">

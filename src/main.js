@@ -27,14 +27,17 @@ const { renderer, scene, camera } = engine;
 const family = isFamily();
 
 // 첫 화면에 필요한 것만 먼저: 집 배치 + 연표 + 방 목록(작은 JSON). 서로 기다리지 않고 함께 받는다.
-const boot = msg => window.__joyBoot?.(msg);
-boot('집 도면을 펼치는 중');
+// 로딩 문구를 바꾼 뒤 한 프레임 쉬어 화면이 실제로 그려지게 한다. 캐시에서 다시 열 때는
+// 기다릴 일이 없어 쉬지 않으면 무거운 작업이 이어 붙어 로딩 화면이 멈춘 것처럼 보인다.
+const boot = msg => { window.__joyBoot?.(msg); return new Promise(r => requestAnimationFrame(() => setTimeout(r, 0))); };
+await boot('집 도면을 펼치는 중');
 const [house, timeline] = await Promise.all([data('content/house.json'), data('data/timeline.json')]);
 const specs = Object.fromEntries(await Promise.all(house.rooms
   .filter(r => r.stage === 1 && r.wing !== 'hall' && (r.access !== 'family' || family))
   .map(async r => [r.id, await data(`content/rooms/${r.id}.json`)])));
-boot('정원과 집을 짓는 중');
+await boot('정원을 가꾸는 중');
 const site = buildSite(scene, renderer, house, timeline, { shadows: renderer.shadowMap.enabled, phone: engine.phone });
+await boot('집을 짓는 중');
 const building = buildBuilding(scene, house, { family, specs });
 const clickables = [...site.clickables, ...building.clickables];
 const tickers = [];
@@ -49,11 +52,21 @@ const GROUP = { central: '센트럴 · 현재', west: '웨스트윙 · 과거', 
 const furnished = new Map();
 const queue = [];
 let working = false, indoorTex = null;
+// 전시물은 무대 밖 그룹에 먼저 꾸미고, 셰이더를 비동기로 컴파일한 뒤에 방에 들인다.
+// 그래야 방에 들어서는 순간 컴파일 때문에 화면이 멈추지 않는다.
+async function furnishInto(room) {
+  const live = room.items, stage = new THREE.Group();
+  room.items = stage;
+  try { await furnish(room, specs[room.id] || null, { data, clickables, tickers, blocks }); }
+  finally { room.items = live; }
+  await renderer.compileAsync(stage, camera, scene).catch(() => {});
+  if (stage.children.length) live.add(...stage.children);
+}
 function furnishRoom(id) {
   if (furnished.has(id)) return furnished.get(id);
   const room = building.rooms.get(id);
   const job = !room || (room.access === 'family' && !family) ? Promise.resolve()
-    : furnish(room, specs[room.id] || null, { data, clickables, tickers, blocks }).catch(e => console.warn(id, e));
+    : furnishInto(room).catch(e => console.warn(id, e));
   furnished.set(id, job);
   return job;
 }
@@ -267,16 +280,23 @@ engine.onResize((w, h) => { hud.resize(w, h); post.setSize(w, h); });
 engine.resize();
 for (const r of building.rooms.values()) r.items.visible = false;
 if (router.initial) goRoom(router.initial);
+// 첫 화면의 셰이더를 미리, 막지 않고 컴파일한다(KHR_parallel_shader_compile). 그동안 로딩 화면은 살아 있다.
+await boot('빛과 그림자를 맞추는 중');
+await Promise.all([renderer.compileAsync(scene, camera), renderer.compileAsync(hud.scene, hud.camera)]).catch(() => {});
 function afterFirstFrame() {
   window.__joyBoot?.(null);                   // 로딩 화면 걷기
   minimap.snapshot();
   setTimeout(() => site.gate.open(), 900);
   // 바깥 텍스처 → (집에 들어서면) 실내 텍스처 순서로. 도착하면 같은 재질에 갈아 끼운다.
-  loadTextures(renderer, OUTDOOR_TEX).then(() => minimap.snapshot());
-  if (!lowQuality) import('./core/post.js').then(({ createPost }) => {
-    post = createPost(renderer, scene, camera, true);
-    post.setSize(canvas.clientWidth, canvas.clientHeight);
-  }).catch(e => console.warn('post', e));
+  // 후처리는 텍스처가 자리 잡고 브라우저가 한가할 때 붙인다.
+  loadTextures(renderer, OUTDOOR_TEX).then(() => {
+    minimap.snapshot();
+    if (lowQuality) return;
+    (window.requestIdleCallback || setTimeout)(() => import('./core/post.js').then(({ createPost }) => {
+      post = createPost(renderer, scene, camera, true);
+      post.setSize(canvas.clientWidth, canvas.clientHeight);
+    }).catch(e => console.warn('post', e)), { timeout: 2000 });
+  });
 }
 let frameNo = 0;
 
