@@ -239,6 +239,18 @@ function lightbox() {
   document.addEventListener("keydown", e => { if (e.key === "Escape") box.classList.remove("on"); });
 }
 
+function houseMap() {
+  const desc = document.querySelector(".house-desc");
+  if (!desc) return;
+  const idle = desc.textContent;
+  document.querySelectorAll(".hs-room").forEach(a => {
+    const show = () => { desc.textContent = a.dataset.desc; };
+    a.addEventListener("mouseenter", show);
+    a.addEventListener("focus", show);
+    a.addEventListener("mouseleave", () => { desc.textContent = idle; });
+  });
+}
+
 function reveal() {
   const els = document.querySelectorAll(".reveal");
   if (!("IntersectionObserver" in window)) return els.forEach(e => e.classList.add("in"));
@@ -252,6 +264,7 @@ header();
 footer();
 heroSlides();
 lightbox();
+houseMap();
 reveal();
 document.querySelectorAll("[data-render]").forEach(el =>
   R[el.dataset.render](el).catch(err => { console.error(err); el.innerHTML = '<p class="muted">자료를 불러오지 못했습니다.</p>'; }));
