@@ -175,10 +175,24 @@ const SETS = {
   stoneWall: ['japanese_stone_wall', 1], bark: ['japanese_cedar_bark', 1.5], wood: ['wood_planks', 1],
   darkWood: ['wood_planks', 1],
 };
+// 텍스처 자리는 처음부터 1×1 자리표시 텍스처로 채워 둔다. 실사 텍스처가 오면 같은 자리에
+// 갈아 끼우기만 하므로 셰이더를 다시 컴파일하지 않는다(그 컴파일이 PC에서 화면을 멈추게 했다).
+function solid(r, g, b, srgb) {
+  const t = new THREE.DataTexture(new Uint8Array([r, g, b, 255]), 1, 1);
+  if (srgb) t.colorSpace = THREE.SRGBColorSpace;
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  t.needsUpdate = true;
+  return t;
+}
+const BLANK = { map: solid(255, 255, 255, true), normal: solid(128, 128, 255), rough: solid(255, 255, 255) };
 const users = [];
 for (const [k, [id, scale]] of Object.entries(SETS)) {
-  mats[k].userData.pbr = { id, rx: scale, ry: scale };
-  users.push(mats[k]);
+  const m = mats[k];
+  m.userData.pbr = { id, rx: scale, ry: scale };
+  m.map ||= BLANK.map;
+  m.normalMap = BLANK.normal;
+  m.roughnessMap = BLANK.rough;
+  users.push(m);
 }
 
 export function repeatFor(mat, rx, ry) {
@@ -216,8 +230,7 @@ export function loadTextures(renderer, only) {
       if (diff) m.map = rep(diff);
       if (nor) { m.normalMap = rep(nor); m.normalScale.set(0.9, 0.9); }
       if (rough) { m.roughnessMap = rep(rough); m.roughness = 1; }
-      m.userData.pbrDone = true;
-      m.needsUpdate = true;
+      m.userData.pbrDone = true;            // 자리가 같으니 needsUpdate(재컴파일)는 하지 않는다
     }
   }));
 }
