@@ -873,5 +873,119 @@
   "license": "Unsplash License",
   "license_url": "https://unsplash.com/license",
   "page": "https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b"
+ },
+ "faith-notes-moses": {
+  "file": "assets/photos/faith-notes-moses.webp",
+  "alt": "신앙 · 지킬 수 없을 때, 맡기는 믿음",
+  "source": "openverse",
+  "title": "Finding Moses — Jacopo Tintoretto",
+  "creator": "themet",
+  "creator_url": null,
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.rawpixel.com/image/9185345/image-discovery-painting-baby-moses-foundling"
+ },
+ "faith-notes-jeremiah": {
+  "file": "assets/photos/faith-notes-jeremiah.webp",
+  "alt": "신앙 · 갇힌 자리에서, 부르짖으라",
+  "source": "openverse",
+  "title": "Jeremiah Lamenting the Destruction of Jerusalem — Rembrandt",
+  "creator": "Public domain",
+  "creator_url": null,
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.rawpixel.com/image/7665534/image-art-vintage-public-domain"
+ },
+ "faith-notes-yes": {
+  "file": "assets/photos/faith-notes-yes.webp",
+  "alt": "신앙 · '예'만 되시는 하나님",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8"
+ },
+ "faith-notes-psalm": {
+  "file": "assets/photos/faith-notes-psalm.webp",
+  "alt": "신앙 · 기가 막힐 웅덩이에서 건지시는 분",
+  "source": "openverse",
+  "title": "King David playing the harp",
+  "creator": "dullhunk",
+  "creator_url": "https://www.flickr.com/photos/14829735@N00",
+  "license": "Public Domain Mark",
+  "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+  "page": "https://www.flickr.com/photos/14829735@N00/52299848941"
+ },
+ "faith-bible-faithful": {
+  "file": "assets/photos/faith-bible-faithful.webp",
+  "alt": "신앙 · '미쁘다'는 무슨 뜻일까",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1504052434569-70ad5836ab65"
+ },
+ "faith-bible-hardened": {
+  "file": "assets/photos/faith-bible-hardened.webp",
+  "alt": "신앙 · '강퍅하다' — 굳어 버린 마음",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1509316785289-025f5b846b35"
+ },
+ "faith-bible-hypocrite": {
+  "file": "assets/photos/faith-bible-hypocrite.webp",
+  "alt": "신앙 · '외식하는 자'는 밖에서 밥 먹는 사람이 아니다",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1437603568260-1950d3ca6eab"
+ },
+ "faith-bible-compassion": {
+  "file": "assets/photos/faith-bible-compassion.webp",
+  "alt": "신앙 · '긍휼' — 어머니의 태에서 나온 말",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1555252333-9f8e92e65df9"
+ },
+ "faith-work-avodah": {
+  "file": "assets/photos/faith-work-avodah.webp",
+  "alt": "신앙 · 아보다 — 일과 예배는 한 단어였다",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1500382017468-9049fed747ef"
+ },
+ "faith-work-monday": {
+  "file": "assets/photos/faith-work-monday.webp",
+  "alt": "신앙 · 한 치도 예외 없는 — 월요일의 신앙",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1517817748493-49ec54a32465"
+ },
+ "faith-work-cobbler": {
+  "file": "assets/photos/faith-work-cobbler.webp",
+  "alt": "신앙 · 루터의 구두 수선공 — 소명과 그 함정",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1449505278894-297fdb3edbc1"
+ },
+ "faith-work-ai": {
+  "file": "assets/photos/faith-work-ai.webp",
+  "alt": "신앙 · AI가 대신할 수 없는 일터의 영성",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1544027993-37dbfe43562a"
  }
 }

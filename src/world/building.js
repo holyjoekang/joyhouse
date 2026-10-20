@@ -285,6 +285,7 @@ export function buildBuilding(scene, house, { family, specs = {} }) {
   scene.add(hanokRoof({ box: [-36, -75, -25.4, -81], y: 4.5, rise: 1.8, overhang: 1, lift: 0.25 }));
   scene.add(hanokRoof({ box: [25.4, -75, 36, -81], y: 4.5, rise: 1.8, overhang: 1, lift: 0.25 }));
   scene.add(hanokRoof({ box: [36, -54, 54, -66], y: 4.5, rise: 3, overhang: 1.5, lift: 0.5 }));   // 아이디어 랩 별채
+  scene.add(hanokRoof({ box: [-54, -54, -36, -66], y: 4.5, rise: 3, overhang: 1.5, lift: 0.5 }));   // 신앙 별채
 
   portico(scene, blocks);
   return { rooms, blocks, clickables, floors, roomAt };

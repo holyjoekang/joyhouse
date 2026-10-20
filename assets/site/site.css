@@ -363,3 +363,27 @@ section.house { padding-top: 72px; }
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s, transform .8s; }
 .reveal.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } .hero-slides img { transition: none; } html { scroll-behavior: auto; } }
+
+/* 신앙: 연재별 카드 목록 + 글 상세 */
+.faith-series { margin-bottom: 64px; }
+.faith-series-head { border-left: 4px solid var(--tc); padding-left: 18px; margin-bottom: 26px; }
+.faith-series-head h2 { margin-bottom: .2em; }
+.faith-series-head p { color: var(--ink-2); margin: 0; }
+.faith-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.faith-card { display: flex; flex-direction: column; background: var(--paper); border: 1px solid #efe9de; border-top: 4px solid var(--tc); border-radius: var(--radius); overflow: hidden; text-decoration: none; color: inherit; box-shadow: var(--shadow); transition: transform .25s, box-shadow .25s; }
+.faith-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.faith-img { aspect-ratio: 4 / 3; overflow: hidden; background: #eee; }
+.faith-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
+.faith-card:hover .faith-img img { transform: scale(1.05); }
+.faith-body { padding: 16px 18px 20px; }
+.faith-body h3 { font-size: 1.08rem; margin: .3em 0 .4em; }
+.faith-body p { font-size: .9rem; color: var(--ink-2); margin: 0; line-height: 1.6; }
+.faith-article { max-width: 720px; }
+.faith-article > p { font-size: 1.06rem; line-height: 1.95; margin: 0 0 1.3em; }
+.faith-meta { display: flex; justify-content: space-between; gap: 12px; color: var(--ink-2); font-size: .9rem; border-bottom: 1px solid var(--line); padding-bottom: 10px; margin-bottom: 22px; }
+.faith-meta span { color: var(--tc); font-weight: 700; }
+.faith-verse { margin: 0 0 32px; padding: 20px 24px; background: #faf6ee; border-left: 4px solid var(--tc); font-family: var(--serif); font-size: 1.08rem; line-height: 1.8; }
+.faith-q { margin: 36px 0 40px; padding: 22px 24px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+.faith-q p { margin: 0; font-family: var(--serif); font-size: 1.1rem; }
+@media (max-width: 1080px) { .faith-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .faith-grid { grid-template-columns: 1fr; } .faith-article > p { font-size: 1rem; } }

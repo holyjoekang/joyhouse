@@ -116,6 +116,19 @@ PHOTOS = [
     ("ideas-ai-job-training-saas-2", "unsplash", "1517245386807-bb43f82c33c4", "아이디어 랩 · AI 맞춤형 직무·직급 교육 SaaS", 1000),
     ("ideas-jeju-blueberry-ai", "openverse", "66d2d1d8-2bd2-413b-8a08-06aa08cd29fb", "Blueberries (3084735551)", 1400),
     ("ideas-jeju-blueberry-ai-2", "unsplash", "1500651230702-0e2d8a49d4ad", "아이디어 랩 · AI 블루베리 팜 컨설팅(제주)", 1000),
+    # 신앙(faith.html · faith-post.html · 3D 신앙 방) — 퍼블릭 도메인 명화·Unsplash
+    ("faith-notes-moses", "openverse", "8f45b669-ea6b-4cf1-8e99-b19c14b59ce1", "신앙 · 지킬 수 없을 때, 맡기는 믿음", 1400),
+    ("faith-notes-jeremiah", "openverse", "3c7e4304-9c00-4bc1-b242-da56263a54e9", "신앙 · 갇힌 자리에서, 부르짖으라", 1400),
+    ("faith-notes-yes", "unsplash", "1470252649378-9c29740c9fa8", "신앙 · '예'만 되시는 하나님", 1400),
+    ("faith-notes-psalm", "openverse", "3cebde40-5776-45ad-bc11-525775679c56", "신앙 · 기가 막힐 웅덩이에서 건지시는 분", 1400),
+    ("faith-bible-faithful", "unsplash", "1504052434569-70ad5836ab65", "신앙 · '미쁘다'는 무슨 뜻일까", 1400),
+    ("faith-bible-hardened", "unsplash", "1509316785289-025f5b846b35", "신앙 · '강퍅하다' — 굳어 버린 마음", 1400),
+    ("faith-bible-hypocrite", "unsplash", "1437603568260-1950d3ca6eab", "신앙 · '외식하는 자'는 밖에서 밥 먹는 사람이 아니다", 1400),
+    ("faith-bible-compassion", "unsplash", "1555252333-9f8e92e65df9", "신앙 · '긍휼' — 어머니의 태에서 나온 말", 1400),
+    ("faith-work-avodah", "unsplash", "1500382017468-9049fed747ef", "신앙 · 아보다 — 일과 예배는 한 단어였다", 1400),
+    ("faith-work-monday", "unsplash", "1517817748493-49ec54a32465", "신앙 · 한 치도 예외 없는 — 월요일의 신앙", 1400),
+    ("faith-work-cobbler", "unsplash", "1449505278894-297fdb3edbc1", "신앙 · 루터의 구두 수선공 — 소명과 그 함정", 1400),
+    ("faith-work-ai", "unsplash", "1544027993-37dbfe43562a", "신앙 · AI가 대신할 수 없는 일터의 영성", 1400),
 ]
 
 
