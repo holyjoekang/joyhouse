@@ -10,6 +10,7 @@ const NAV = [
   ["studio.html", "작업실"],
   ["china.html", "중국관"],
   ["vision.html", "비전"],
+  ["ideas.html", "아이디어"],
   ["family.html", "가족"],
 ];
 
@@ -64,6 +65,7 @@ function footer() {
       <li><a href="studio.html">오벌 오피스 · 작업실</a></li></ul></div>
     <div><h4>윙</h4><ul>
       <li><a href="china.html">중국관 · 주재원 9년</a></li><li><a href="vision.html">비전룸 · Keep121</a></li>
+      <li><a href="ideas.html">아이디어 랩 · 창업 아이디어 30</a></li>
       <li><a href="family.html">가족의 방들</a></li><li><a href="3d.html">3D 투어</a></li></ul></div>
     <div><h4>바깥 사이트</h4><ul>
       <li><a href="${LINKS.bookshelf}">나의 서재</a></li><li><a href="${LINKS.travel}">나의 여행 지도</a></li>
@@ -112,6 +114,111 @@ async function creditFor(img) {
 
 /* ── 렌더러 ── */
 const R = {};
+
+// 아이디어 랩: 목록(필터 칩 + 카드)과 상세(공통 틀 10블록). 대장은 content/ideas.json
+const photo = name => `assets/photos/${name}.webp`;
+const ideaCard = (it, th) => `
+  <a class="idea-card" href="idea.html?id=${esc(it.id)}" data-theme="${it.theme}" style="--tc:${th.color}">
+    <div class="idea-img"><img src="${photo(it.img.hero)}" alt="" loading="lazy"><span class="idea-no">${String(it.no).padStart(2, "0")}</span></div>
+    <div class="idea-body">
+      <span class="card-kicker" style="color:${th.color}">${esc(th.name)} · ${esc(it.stage)}</span>
+      <h3>${esc(it.title)}</h3>
+      <p>${esc(it.one)}</p>
+      <div class="idea-badges"><span>초기자본 ${esc(it.capital)}</span><span>목표 ${esc(it.goal)}</span></div>
+    </div>
+  </a>`;
+
+R.ideas = async el => {
+  const { themes, ideas, featured } = await json("content/ideas.json");
+  const chips = [["all", "전체", ideas.length], ...Object.entries(themes).map(([k, t]) => [k, t.name, ideas.filter(i => i.theme === k).length])];
+  el.innerHTML = `
+    <a class="idea-featured" href="${esc(featured.href)}">
+      <img src="${photo(featured.img)}" alt="" loading="lazy">
+      <div><span class="card-kicker">${esc(featured.stage)} · 아이디어에서 사업으로</span><h3>${esc(featured.title)}</h3><p>${esc(featured.one)}</p></div>
+    </a>
+    <div class="idea-filter" role="toolbar" aria-label="테마로 거르기">${chips.map(([k, n, c], i) =>
+      `<button data-f="${k}" aria-pressed="${i === 0}"${k !== "all" ? ` style="--tc:${themes[k].color}"` : ""}>${esc(n)} <small>${c}</small></button>`).join("")}</div>
+    <div class="idea-grid">${ideas.map(it => ideaCard(it, themes[it.theme])).join("")}</div>`;
+  el.querySelector(".idea-filter").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    el.querySelectorAll(".idea-filter button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    el.querySelectorAll(".idea-card").forEach(c => { c.hidden = b.dataset.f !== "all" && c.dataset.theme !== b.dataset.f; });
+  });
+};
+
+R.idea = async el => {
+  const { themes, ideas } = await json("content/ideas.json");
+  const id = new URLSearchParams(location.search).get("id");
+  const k = Math.max(0, ideas.findIndex(i => i.id === id)), it = ideas[k], th = themes[it.theme];
+  const same = ideas.filter(i => i.theme === it.theme), s = same.indexOf(it);
+  const prev = same[(s - 1 + same.length) % same.length], next = same[(s + 1) % same.length];
+  const li = a => a.map(x => `<li>${esc(x)}</li>`).join("");
+  const C = it.canvas;
+  const cell = (cls, label, v) => `<div class="bmc-${cls}"><h4>${label}</h4><p>${esc(v)}</p></div>`;
+  document.title = `${it.title} — 아이디어 랩 · Joyhouse`;
+  const hero = document.querySelector(".page-hero");
+  hero.style.backgroundImage = `url('${photo(it.img.hero)}')`;
+  hero.querySelector(".wrap").innerHTML = `
+    <div class="crumbs"><a href="index.html">홈</a> / <a href="ideas.html">아이디어 랩</a> / ${String(it.no).padStart(2, "0")}</div>
+    <span class="eyebrow">${esc(th.name)} · ${esc(th.en)}</span>
+    <h1>${esc(it.title)}</h1>
+    <p>${esc(it.one)}</p>
+    <div class="idea-tags"><span>${esc(it.stage)}</span><span>초기자본 ${esc(it.capital)}</span><span>목표 ${esc(it.goal)}</span>${it.tags.map(t => `<span>${esc(t)}</span>`).join("")}</div>`;
+  creditFor({ getAttribute: () => photo(it.img.hero) }).then(t => { hero.querySelector(".photo-credit").innerHTML = t; });
+  el.style.setProperty("--tc", th.color);
+  el.innerHTML = `
+  <section class="block"><div class="wrap">
+    <div class="idea-ps reveal">
+      <div><span class="eyebrow">Problem</span><h2>문제</h2><ul class="checks x">${li(it.problem)}</ul></div>
+      <div><span class="eyebrow">Solution</span><h2>해결</h2><ul class="checks">${li(it.solution)}</ul></div>
+    </div>
+    <div class="idea-who reveal"><span class="eyebrow">Customers</span><h3>타깃 고객</h3><ul>${li(it.customers)}</ul></div>
+  </div></section>
+
+  <section class="block alt"><div class="wrap">
+    <div class="sec-head reveal"><div><span class="eyebrow">Business Model</span><h2>비즈니스 모델</h2></div>
+      <p class="lead">비즈니스 모델 캔버스 9칸으로 정리했습니다.</p></div>
+    <div class="bmc reveal">
+      ${cell("part", "핵심 파트너", C.part)}${cell("act", "핵심 활동", C.act)}${cell("res", "핵심 자원", C.res)}
+      ${cell("value", "가치 제안", C.value)}${cell("rel", "고객 관계", C.rel)}${cell("chan", "채널", C.chan)}
+      ${cell("seg", "고객 세그먼트", C.seg)}${cell("cost", "비용 구조", C.cost)}${cell("rev", "수익원", C.rev)}
+    </div>
+    <div class="idea-money reveal">
+      <h3>수익 구조 <small>추정치</small></h3>
+      <table>${it.money.rows.map(([a, b]) => `<tr><th>${esc(a)}</th><td>${esc(b)}</td></tr>`).join("")}</table>
+      <p class="muted">${esc(it.money.note)}</p>
+    </div>
+  </div></section>
+
+  <section class="block"><div class="wrap split">
+    <div class="reveal">
+      <span class="eyebrow">Market</span><h2>시장과 경쟁</h2>
+      <table class="idea-alt"><thead><tr><th>대안·경쟁</th><th>한계</th></tr></thead><tbody>
+        ${it.market.alt.map(([a, b]) => `<tr><td>${esc(a)}</td><td>${esc(b)}</td></tr>`).join("")}</tbody></table>
+      <p class="idea-edge"><b>차별점</b> ${esc(it.market.edge)}</p>
+    </div>
+    <div class="figure reveal"><img src="${photo(it.img.body)}" alt="" loading="lazy"></div>
+  </div></section>
+
+  <section class="block alt"><div class="wrap">
+    <div class="sec-head reveal"><div><span class="eyebrow">Roadmap</span><h2>실행 로드맵</h2></div></div>
+    <ol class="idea-road reveal">${it.roadmap.map(([w, t]) => `<li><b>${esc(w)}</b><span>${esc(t)}</span></li>`).join("")}</ol>
+    <div class="idea-risk reveal"><h3>리스크와 검증 과제</h3>
+      <table><thead><tr><th>핵심 가정</th><th>검증 방법</th></tr></thead><tbody>
+        ${it.risks.map(([a, b]) => `<tr><td>${esc(a)}</td><td>${esc(b)}</td></tr>`).join("")}</tbody></table></div>
+  </div></section>
+
+  <section class="block"><div class="wrap">
+    <blockquote class="idea-why reveal"><span class="eyebrow">Why me</span><p>${esc(it.why)}</p></blockquote>
+    <nav class="idea-pager reveal" aria-label="같은 테마의 다른 아이디어">
+      <a href="idea.html?id=${esc(prev.id)}">← ${esc(prev.title)}</a>
+      <a href="ideas.html">목록</a>
+      <a href="idea.html?id=${esc(next.id)}">${esc(next.title)} →</a>
+    </nav>
+    <p class="muted idea-note">개인 노트에서 옮겨 정리한 아이디어입니다. 금액은 모두 추정치이며 실제 사업 계획과 다를 수 있습니다.</p>
+  </div></section>`;
+  reveal();
+};
 
 R.books = async el => {
   const { books } = await json("data/books_top20.json");

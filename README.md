@@ -6,6 +6,7 @@
 - 공개 주소: https://holyjoekang.github.io/joyhouse/
 - **2D 홈페이지가 기본**이다(`index.html` 외 방별 쪽). three.js 3D 집은 하위 쪽 `3d.html`로 옮겼다.
 - 건축 모티프는 **덕수궁**: 석조전(대리석 이오니아 열주) + 정관헌(서양식 열주에 기와지붕). 2D 홈의 단면도와 3D의 정면 열주랑·정관헌 정자·돌담길이 같은 그림을 따른다.
+- 아이디어 랩의 내용은 `content/ideas.json` 한 파일이다. 2D 목록·상세와 3D 아이디어 랩(이스트윙 앞 별채, `content/rooms/ideas.json`)이 같이 읽는다. 금액은 모두 추정치다.
 - 사진은 모두 자유 이용 이미지다(Unsplash License · CC BY · 퍼블릭 도메인). 목록은 `credits.html`.
 
 ## 2D 사이트
@@ -20,6 +21,8 @@
 | `studio.html` | 오벌 오피스 | 커리어 연표, AI 앱 10개 |
 | `china.html` | 중국관 | 주재원 9년, 중국 서부 일정표 |
 | `vision.html` | 비전룸 | Keep121 소개 일곱 장 |
+| `ideas.html` | 아이디어 랩 | 창업 아이디어 30개 목록(테마 필터), Keep121 특별 카드 |
+| `idea.html?id=…` | 아이디어 랩 | 아이디어 상세: 문제·해결·고객·비즈니스 모델 캔버스·수익 구조·시장·로드맵·검증 과제 |
 | `family.html` | 가족의 방들 | 가족 전용 방 안내 |
 | `credits.html` | — | 사진·그림 출처 |
 | `3d.html` | — | three.js 3D 투어(예전 첫 화면) |
