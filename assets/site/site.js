@@ -9,6 +9,7 @@ const NAV = [
   ["travel.html", "여행"],
   ["studio.html", "작업실"],
   ["china.html", "중국관"],
+  ["faith.html", "신앙"],
   ["vision.html", "비전"],
   ["ideas.html", "아이디어"],
   ["family.html", "가족"],
@@ -64,7 +65,7 @@ function footer() {
       <li><a href="blog.html">레드룸 · 블로그</a></li><li><a href="travel.html">맵룸 · 여행 지도</a></li>
       <li><a href="studio.html">오벌 오피스 · 작업실</a></li></ul></div>
     <div><h4>윙</h4><ul>
-      <li><a href="china.html">중국관 · 주재원 9년</a></li><li><a href="vision.html">비전룸 · Keep121</a></li>
+      <li><a href="china.html">중국관 · 주재원 9년</a></li><li><a href="faith.html">신앙 · 말씀과 일</a></li><li><a href="vision.html">비전룸 · Keep121</a></li>
       <li><a href="ideas.html">아이디어 랩 · 창업 아이디어 30</a></li>
       <li><a href="family.html">가족의 방들</a></li><li><a href="3d.html">3D 투어</a></li></ul></div>
     <div><h4>바깥 사이트</h4><ul>
@@ -226,6 +227,58 @@ R.idea = async el => {
     <p class="muted idea-note">개인 노트에서 옮겨 정리한 아이디어입니다. 금액은 모두 추정치이며 실제 사업 계획과 다를 수 있습니다.</p>
   </div></section>`;
   reveal();
+};
+
+// 신앙: 연재 3개(말씀 노트·쉽게 읽는 성경·일과 신앙)와 글 12편. 대장은 content/faith.json
+const faithCard = (p, se) => `
+  <a class="faith-card" href="faith-post.html?id=${esc(p.id)}" style="--tc:${se.color}">
+    <div class="faith-img"><img src="${photo(p.img)}" alt="" loading="lazy"></div>
+    <div class="faith-body">
+      <span class="card-kicker" style="color:${se.color}">${esc(se.name)} · ${esc(p.scripture)}</span>
+      <h3>${esc(p.title)}</h3>
+      <p>${esc(p.summary)}</p>
+    </div>
+  </a>`;
+
+R.faith = async el => {
+  const { series, posts } = await json("content/faith.json");
+  el.innerHTML = series.map(se => `
+    <section class="faith-series reveal" id="${se.id}" style="--tc:${se.color}">
+      <div class="faith-series-head"><span class="eyebrow">${esc(se.en)}</span><h2>${esc(se.name)}</h2><p>${esc(se.desc)}</p></div>
+      <div class="faith-grid">${posts.filter(p => p.series === se.id).map(p => faithCard(p, se)).join("")}</div>
+    </section>`).join("");
+  reveal();
+};
+
+R.faithPost = async el => {
+  const { series, posts } = await json("content/faith.json");
+  const id = new URLSearchParams(location.search).get("id");
+  const p = posts.find(x => x.id === id) || posts[0], se = series.find(x => x.id === p.series);
+  const same = posts.filter(x => x.series === p.series), s = same.indexOf(p);
+  const prev = same[(s - 1 + same.length) % same.length], next = same[(s + 1) % same.length];
+  document.title = `${p.title} — 신앙 · Joyhouse`;
+  const hero = document.querySelector(".page-hero");
+  hero.style.backgroundImage = `url('${photo(p.img)}')`;
+  hero.querySelector(".wrap").innerHTML = `
+    <div class="crumbs"><a href="index.html">홈</a> / <a href="faith.html">신앙</a> / <a href="faith.html#${se.id}">${esc(se.name)}</a></div>
+    <span class="eyebrow">${esc(se.name)} · ${esc(se.en)}</span>
+    <h1>${esc(p.title)}</h1>
+    <p>${esc(p.summary)}</p>`;
+  creditFor({ getAttribute: () => photo(p.img) }).then(t => { hero.querySelector(".photo-credit").innerHTML = t; });
+  el.style.setProperty("--tc", se.color);
+  el.innerHTML = `
+  <section class="block"><div class="wrap faith-article">
+    <div class="faith-meta"><span>${esc(p.scripture)}</span><time datetime="${esc(p.date)}">${esc(p.date.replaceAll("-", ". "))}</time></div>
+    <blockquote class="faith-verse">${esc(p.verse)}</blockquote>
+    ${p.body.map(t => `<p>${esc(t)}</p>`).join("")}
+    <aside class="faith-q"><span class="eyebrow">For Reflection</span><p>${esc(p.question)}</p></aside>
+    <nav class="idea-pager" aria-label="같은 연재의 다른 글">
+      <a href="faith-post.html?id=${esc(prev.id)}">← ${esc(prev.title)}</a>
+      <a href="faith.html#${se.id}">목록</a>
+      <a href="faith-post.html?id=${esc(next.id)}">${esc(next.title)} →</a>
+    </nav>
+    <p class="muted idea-note">설교를 듣고 남긴 기록과 공부 노트를 바탕으로 다시 쓴 글입니다. 성경 인용은 개역개정.</p>
+  </div></section>`;
 };
 
 R.books = async el => {
