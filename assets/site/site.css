@@ -309,6 +309,13 @@ section.dark .era span { color: #c8cfdd; }
 .idea-alt thead th, .idea-risk thead th { font-size: .78rem; letter-spacing: .06em; color: var(--muted); }
 .idea-edge { margin-top: 16px; padding: 14px 18px; border-radius: 10px; background: color-mix(in srgb, var(--tc) 9%, var(--paper)); }
 .idea-edge b { color: var(--tc); margin-right: 6px; }
+.idea-detail-table { margin-bottom: 26px; background: var(--paper); border-radius: var(--radius); padding: 22px 26px; box-shadow: var(--shadow); }
+.idea-detail-table h3 { color: var(--tc); }
+.idea-detail-table .table-scroll { overflow-x: auto; }
+.idea-detail-table table { width: 100%; border-collapse: collapse; font-size: .93rem; min-width: 520px; }
+.idea-detail-table th, .idea-detail-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-2); }
+.idea-detail-table thead th { font-size: .78rem; letter-spacing: .06em; color: var(--muted); }
+.idea-detail-table tbody th { color: var(--navy); font-weight: 700; white-space: nowrap; }
 .idea-road { list-style: none; padding: 0; margin: 0 0 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; counter-reset: r; }
 .idea-road li { background: var(--paper); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow); border-top: 4px solid var(--tc); }
 .idea-road b { display: block; font-family: var(--serif); color: var(--tc); margin-bottom: 6px; }

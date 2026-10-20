@@ -174,6 +174,14 @@ R.idea = async el => {
     </div>
     <div class="idea-who reveal"><span class="eyebrow">Customers</span><h3>타깃 고객</h3><ul>${li(it.customers)}</ul></div>
   </div></section>
+  ${(it.details || []).length ? `
+  <section class="block tight"><div class="wrap">
+    <div class="sec-head reveal"><div><span class="eyebrow">How it works</span><h2>프로그램 구성</h2></div></div>
+    ${it.details.map(t => `<div class="idea-detail-table reveal"><h3>${esc(t.title)}</h3><div class="table-scroll"><table>
+      <thead><tr>${t.head.map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead>
+      <tbody>${t.rows.map(r => `<tr>${r.map((c, i) => i ? `<td>${esc(c)}</td>` : `<th>${esc(c)}</th>`).join("")}</tr>`).join("")}</tbody>
+    </table></div></div>`).join("")}
+  </div></section>` : ""}
 
   <section class="block alt"><div class="wrap">
     <div class="sec-head reveal"><div><span class="eyebrow">Business Model</span><h2>비즈니스 모델</h2></div>
