@@ -327,5 +327,551 @@
   "license": "Unsplash License",
   "license_url": "https://unsplash.com/license",
   "page": "https://images.unsplash.com/photo-1519681393784-d120267933ba"
+ },
+ "ideas-daon-pathfinder": {
+  "file": "assets/photos/ideas-daon-pathfinder.webp",
+  "alt": "아이디어 랩 · 다온 라이프 패스파인더",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289"
+ },
+ "ideas-daon-pathfinder-2": {
+  "file": "assets/photos/ideas-daon-pathfinder-2.webp",
+  "alt": "Senior couple walks hand in hand down a tiled sidewalk, with",
+  "source": "openverse",
+  "title": "Senior couple walks hand in hand down a tiled sidewalk, with motorcycles parked along the side. The man holds a hat in his free hand.",
+  "creator": "Nilo Velez",
+  "creator_url": "https://www.nilovelez.com",
+  "license": "CC CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://wordpress.org/photos/photo/844665d7c6/"
+ },
+ "ideas-senior-college": {
+  "file": "assets/photos/ideas-senior-college.webp",
+  "alt": "아이디어 랩 · 다온 시니어 칼리지",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1509062522246-3755977927d7"
+ },
+ "ideas-senior-college-2": {
+  "file": "assets/photos/ideas-senior-college-2.webp",
+  "alt": "아이디어 랩 · 다온 시니어 칼리지",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655"
+ },
+ "ideas-second-stage-academy": {
+  "file": "assets/photos/ideas-second-stage-academy.webp",
+  "alt": "아이디어 랩 · 세컨드스테이지 아카데미",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f"
+ },
+ "ideas-second-stage-academy-2": {
+  "file": "assets/photos/ideas-second-stage-academy-2.webp",
+  "alt": "아이디어 랩 · 세컨드스테이지 아카데미",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1516307365426-bea591f05011"
+ },
+ "ideas-retirement-gpt": {
+  "file": "assets/photos/ideas-retirement-gpt.webp",
+  "alt": "아이디어 랩 · Retirement Path Finder GPT",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3"
+ },
+ "ideas-retirement-gpt-2": {
+  "file": "assets/photos/ideas-retirement-gpt-2.webp",
+  "alt": "아이디어 랩 · Retirement Path Finder GPT",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4"
+ },
+ "ideas-senior-youtube-studio": {
+  "file": "assets/photos/ideas-senior-youtube-studio.webp",
+  "alt": "아이디어 랩 · 시니어 AI 유튜브 자동화 스튜디오",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1485846234645-a62644f84728"
+ },
+ "ideas-senior-youtube-studio-2": {
+  "file": "assets/photos/ideas-senior-youtube-studio-2.webp",
+  "alt": "아이디어 랩 · 시니어 AI 유튜브 자동화 스튜디오",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1478737270239-2f02b77fc618"
+ },
+ "ideas-under65-outsourcing": {
+  "file": "assets/photos/ideas-under65-outsourcing.webp",
+  "alt": "아이디어 랩 · 언더65 사무 아웃소싱 플랫폼",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173"
+ },
+ "ideas-under65-outsourcing-2": {
+  "file": "assets/photos/ideas-under65-outsourcing-2.webp",
+  "alt": "아이디어 랩 · 언더65 사무 아웃소싱 플랫폼",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1508780709619-79562169bc64"
+ },
+ "ideas-sports-totalcare": {
+  "file": "assets/photos/ideas-sports-totalcare.webp",
+  "alt": "아이디어 랩 · 5060 스포츠 토탈케어",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8"
+ },
+ "ideas-sports-totalcare-2": {
+  "file": "assets/photos/ideas-sports-totalcare-2.webp",
+  "alt": "아이디어 랩 · 5060 스포츠 토탈케어",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b"
+ },
+ "ideas-senior-ai-class": {
+  "file": "assets/photos/ideas-senior-ai-class.webp",
+  "alt": "아이디어 랩 · 시니어 AI 교실",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1528605248644-14dd04022da1"
+ },
+ "ideas-senior-ai-class-2": {
+  "file": "assets/photos/ideas-senior-ai-class-2.webp",
+  "alt": "아이디어 랩 · 시니어 AI 교실",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40"
+ },
+ "ideas-true-story-65": {
+  "file": "assets/photos/ideas-true-story-65.webp",
+  "alt": "아이디어 랩 · 실화탐사 65+ 유튜브 채널",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1584515933487-779824d29309"
+ },
+ "ideas-true-story-65-2": {
+  "file": "assets/photos/ideas-true-story-65-2.webp",
+  "alt": "아이디어 랩 · 실화탐사 65+ 유튜브 채널",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc"
+ },
+ "ideas-sea-retirement": {
+  "file": "assets/photos/ideas-sea-retirement.webp",
+  "alt": "아이디어 랩 · 50+ 동남아 은퇴살이 컨설팅",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1519046904884-53103b34b206"
+ },
+ "ideas-sea-retirement-2": {
+  "file": "assets/photos/ideas-sea-retirement-2.webp",
+  "alt": "아이디어 랩 · 50+ 동남아 은퇴살이 컨설팅",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
+ },
+ "ideas-agetech-distribution": {
+  "file": "assets/photos/ideas-agetech-distribution.webp",
+  "alt": "아이디어 랩 · 한중일 에이지테크 유통·케어 컨설팅",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e"
+ },
+ "ideas-agetech-distribution-2": {
+  "file": "assets/photos/ideas-agetech-distribution-2.webp",
+  "alt": "아이디어 랩 · 한중일 에이지테크 유통·케어 컨설팅",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2"
+ },
+ "ideas-senior-china-tour": {
+  "file": "assets/photos/ideas-senior-china-tour.webp",
+  "alt": "아이디어 랩 · 시니어 중국 체험 여행",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1537531383496-f4749b8032cf"
+ },
+ "ideas-china-edu-consulting-2": {
+  "file": "assets/photos/ideas-china-edu-consulting-2.webp",
+  "alt": "아이디어 랩 · 프리미엄 중국 여행·교육 컨설팅",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1543269865-cbf427effbad"
+ },
+ "ideas-k-stay-luggage": {
+  "file": "assets/photos/ideas-k-stay-luggage.webp",
+  "alt": "아이디어 랩 · K-스테이 수하물 플랫폼",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1436491865332-7a61a109cc05"
+ },
+ "ideas-k-stay-luggage-2": {
+  "file": "assets/photos/ideas-k-stay-luggage-2.webp",
+  "alt": "아이디어 랩 · K-스테이 수하물 플랫폼",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1538485399081-7191377e8241"
+ },
+ "ideas-ai-travel-platform": {
+  "file": "assets/photos/ideas-ai-travel-platform.webp",
+  "alt": "아이디어 랩 · AI 글로벌 여행 플랫폼",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83"
+ },
+ "ideas-ai-travel-platform-2": {
+  "file": "assets/photos/ideas-ai-travel-platform-2.webp",
+  "alt": "아이디어 랩 · AI 글로벌 여행 플랫폼",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1488085061387-422e29b40080"
+ },
+ "ideas-kc-investment-link": {
+  "file": "assets/photos/ideas-kc-investment-link.webp",
+  "alt": "아이디어 랩 · 한중 스타트업 투자 유치 프로그램",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1540575467063-178a50c2df87"
+ },
+ "ideas-kc-investment-link-2": {
+  "file": "assets/photos/ideas-kc-investment-link-2.webp",
+  "alt": "아이디어 랩 · 한중 스타트업 투자 유치 프로그램",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c"
+ },
+ "ideas-central-asia-students": {
+  "file": "assets/photos/ideas-central-asia-students.webp",
+  "alt": "Registan, Samarkand, Uzbekistan (6134033311)",
+  "source": "openverse",
+  "title": "Registan, Samarkand, Uzbekistan (6134033311)",
+  "creator": "Fabio Achilli from Milano, Italy",
+  "creator_url": "https://www.flickr.com/people/63503049@N03",
+  "license": "CC BY 2.0",
+  "license_url": "https://creativecommons.org/licenses/by/2.0/",
+  "page": "https://commons.wikimedia.org/w/index.php?curid=109954550"
+ },
+ "ideas-central-asia-students-2": {
+  "file": "assets/photos/ideas-central-asia-students-2.webp",
+  "alt": "아이디어 랩 · 중앙아시아 유학생 한국 연계",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
+ },
+ "ideas-china-robot-distribution": {
+  "file": "assets/photos/ideas-china-robot-distribution.webp",
+  "alt": "아이디어 랩 · 중국 서비스로봇 한국 총판",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1531746790731-6c087fecd65a"
+ },
+ "ideas-china-robot-distribution-2": {
+  "file": "assets/photos/ideas-china-robot-distribution-2.webp",
+  "alt": "아이디어 랩 · 중국 서비스로봇 한국 총판",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1555255707-c07966088b7b"
+ },
+ "ideas-poizon-export": {
+  "file": "assets/photos/ideas-poizon-export.webp",
+  "alt": "아이디어 랩 · POIZON 활용 해외 수출",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1549298916-b41d501d3772"
+ },
+ "ideas-poizon-export-2": {
+  "file": "assets/photos/ideas-poizon-export-2.webp",
+  "alt": "아이디어 랩 · POIZON 활용 해외 수출",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55"
+ },
+ "ideas-kbucks-smart-retail": {
+  "file": "assets/photos/ideas-kbucks-smart-retail.webp",
+  "alt": "아이디어 랩 · kbucks 스마트 유통",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d"
+ },
+ "ideas-kbucks-smart-retail-2": {
+  "file": "assets/photos/ideas-kbucks-smart-retail-2.webp",
+  "alt": "아이디어 랩 · kbucks 스마트 유통",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da"
+ },
+ "ideas-china-import-agency": {
+  "file": "assets/photos/ideas-china-import-agency.webp",
+  "alt": "아이디어 랩 · 중국 구매대행 + 수입 판매",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1578575437130-527eed3abbec"
+ },
+ "ideas-china-import-agency-2": {
+  "file": "assets/photos/ideas-china-import-agency-2.webp",
+  "alt": "아이디어 랩 · 중국 구매대행 + 수입 판매",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1556740738-b6a63e27c4df"
+ },
+ "ideas-nextgen-logistics": {
+  "file": "assets/photos/ideas-nextgen-logistics.webp",
+  "alt": "아이디어 랩 · NextGen 크로스보더 물류 컨설팅",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3"
+ },
+ "ideas-nextgen-logistics-2": {
+  "file": "assets/photos/ideas-nextgen-logistics-2.webp",
+  "alt": "아이디어 랩 · NextGen 크로스보더 물류 컨설팅",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1460925895917-afdab827c52f"
+ },
+ "ideas-sme-export-platform": {
+  "file": "assets/photos/ideas-sme-export-platform.webp",
+  "alt": "아이디어 랩 · 중소기업 소비재 수출 플랫폼",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1472851294608-062f824d29cc"
+ },
+ "ideas-sme-export-platform-2": {
+  "file": "assets/photos/ideas-sme-export-platform-2.webp",
+  "alt": "아이디어 랩 · 중소기업 소비재 수출 플랫폼",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1497366216548-37526070297c"
+ },
+ "ideas-sea-kfashion-commerce": {
+  "file": "assets/photos/ideas-sea-kfashion-commerce.webp",
+  "alt": "아이디어 랩 · 동남아 K-패션 크로스보더 커머스",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07"
+ },
+ "ideas-sea-kfashion-commerce-2": {
+  "file": "assets/photos/ideas-sea-kfashion-commerce-2.webp",
+  "alt": "아이디어 랩 · 동남아 K-패션 크로스보더 커머스",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1441986300917-64674bd600d8"
+ },
+ "ideas-k-mealkit-o4o": {
+  "file": "assets/photos/ideas-k-mealkit-o4o.webp",
+  "alt": "아이디어 랩 · K-밀키트 O4O 플랫폼",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1553163147-622ab57be1c7"
+ },
+ "ideas-k-mealkit-o4o-2": {
+  "file": "assets/photos/ideas-k-mealkit-o4o-2.webp",
+  "alt": "아이디어 랩 · K-밀키트 O4O 플랫폼",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1590301157890-4810ed352733"
+ },
+ "ideas-unmanned-stores": {
+  "file": "assets/photos/ideas-unmanned-stores.webp",
+  "alt": "아이디어 랩 · 무인매장 체인",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1556745757-8d76bdb6984b"
+ },
+ "ideas-unmanned-stores-2": {
+  "file": "assets/photos/ideas-unmanned-stores-2.webp",
+  "alt": "아이디어 랩 · 무인매장 체인",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1542838132-92c53300491e"
+ },
+ "ideas-sme-ax-consulting": {
+  "file": "assets/photos/ideas-sme-ax-consulting.webp",
+  "alt": "아이디어 랩 · 중소기업 AX 교육·전환 컨설팅",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0"
+ },
+ "ideas-sme-ax-consulting-2": {
+  "file": "assets/photos/ideas-sme-ax-consulting-2.webp",
+  "alt": "아이디어 랩 · 중소기업 AX 교육·전환 컨설팅",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf"
+ },
+ "ideas-genai-bootcamp": {
+  "file": "assets/photos/ideas-genai-bootcamp.webp",
+  "alt": "아이디어 랩 · 생성형 AI 스타트업 8시간 실습 교육",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1606857521015-7f9fcf423740"
+ },
+ "ideas-genai-bootcamp-2": {
+  "file": "assets/photos/ideas-genai-bootcamp-2.webp",
+  "alt": "아이디어 랩 · 생성형 AI 스타트업 8시간 실습 교육",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1498050108023-c5249f4df085"
+ },
+ "ideas-ai-job-training-saas": {
+  "file": "assets/photos/ideas-ai-job-training-saas.webp",
+  "alt": "아이디어 랩 · AI 맞춤형 직무·직급 교육 SaaS",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1505373877841-8d25f7d46678"
+ },
+ "ideas-ai-job-training-saas-2": {
+  "file": "assets/photos/ideas-ai-job-training-saas-2.webp",
+  "alt": "아이디어 랩 · AI 맞춤형 직무·직급 교육 SaaS",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4"
+ },
+ "ideas-jeju-blueberry-ai": {
+  "file": "assets/photos/ideas-jeju-blueberry-ai.webp",
+  "alt": "Blueberries (3084735551)",
+  "source": "openverse",
+  "title": "Blueberries (3084735551)",
+  "creator": "Josefine Stenudd from Gothenburg, Sweden",
+  "creator_url": "https://www.flickr.com/people/72616463@N00",
+  "license": "CC BY 2.0",
+  "license_url": "https://creativecommons.org/licenses/by/2.0/",
+  "page": "https://commons.wikimedia.org/w/index.php?curid=35778992"
+ },
+ "ideas-jeju-blueberry-ai-2": {
+  "file": "assets/photos/ideas-jeju-blueberry-ai-2.webp",
+  "alt": "아이디어 랩 · AI 블루베리 팜 컨설팅(제주)",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad"
+ },
+ "ideas-senior-china-tour-2": {
+  "file": "assets/photos/ideas-senior-china-tour-2.webp",
+  "alt": "아이디어 랩 · 시니어 중국 체험 여행",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1528360983277-13d401cdc186"
+ },
+ "ideas-china-edu-consulting": {
+  "file": "assets/photos/ideas-china-edu-consulting.webp",
+  "alt": "아이디어 랩 · 프리미엄 중국 여행·교육 컨설팅",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b"
  }
 }

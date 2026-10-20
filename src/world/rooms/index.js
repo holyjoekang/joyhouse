@@ -5,6 +5,7 @@ import { makeGlobe } from '../../exhibits/globe.js';
 import { makeNewsstand } from '../../exhibits/newsstand.js';
 import { makePortal } from '../../exhibits/portal-door.js';
 import { makeSign } from '../../exhibits/sign.js';
+import { makeIdeaCard } from '../../exhibits/idea-card.js';
 import { FURNITURE } from '../../exhibits/furniture.js';
 
 // 방 하나를 content/rooms/<id>.json대로 꾸민다. 방 파일이 없으면 '2단계' 안내판을 세운다.
@@ -13,6 +14,7 @@ const BUILDERS = {
   frame: async item => makeFrame(item),
   sign: async item => makeSign(item),
   portal: async item => makePortal(item),
+  ideaCard: async item => makeIdeaCard(item),
   bookshelf: async (item, ctx) => makeBookshelf(item, (await ctx.data(item.source))?.books || []),
   globe: async (item, ctx) => makeGlobe(item, await ctx.data(item.land), (await ctx.data(item.source))?.pins || []),
   newsstand: async (item, ctx) => makeNewsstand(item, (await ctx.data(item.source))?.posts || []),
