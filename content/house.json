@@ -19,7 +19,7 @@
   {"id": "stairs", "name": "계단", "sub": "옥상 전망대", "wing": "central", "box": [8, -78, 24, -96], "height": 6, "access": "guest", "stage": 2},
   {"id": "westhall", "name": "서쪽 회랑", "sub": "과거로", "wing": "hall", "box": [-36, -75, -24, -81], "height": 4.5, "access": "guest", "stage": 1},
   {"id": "easthall", "name": "동쪽 회랑", "sub": "미래로", "wing": "hall", "box": [24, -75, 36, -81], "height": 4.5, "access": "guest", "stage": 1},
-  {"id": "china", "name": "중국관", "sub": "주재원 9년", "wing": "west", "box": [-54, -66, -36, -90], "height": 4.5, "access": "guest", "stage": 1},
+  {"id": "china", "name": "중국관", "sub": "중국 생활 7년", "wing": "west", "box": [-54, -66, -36, -90], "height": 4.5, "access": "guest", "stage": 1},
   {"id": "roots", "name": "뿌리의 방", "sub": "부모님·고향", "wing": "west", "box": [-72, -66, -54, -78], "height": 4.5, "access": "family", "stage": 1},
   {"id": "growth", "name": "성장의 방", "sub": "학창·군·대학", "wing": "west", "box": [-72, -78, -54, -90], "height": 4.5, "access": "family", "stage": 2},
   {"id": "faith", "name": "신앙의 방", "sub": "사랑의교회", "wing": "east", "box": [54, -78, 72, -90], "height": 4.5, "access": "family", "stage": 2},
