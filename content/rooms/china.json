@@ -91,6 +91,20 @@
    "url": "https://holyjoekang.github.io/my-travel-map/",
    "note": "중국 출장·주재 기록이 지도 위에 있습니다.",
    "color": "#8a1c1c"
+  },
+  {
+   "type": "ideaCard",
+   "wall": "east",
+   "t": 0.2,
+   "y": 1.75,
+   "w": 1.3,
+   "kicker": "Photo Essay · 北情會",
+   "title": "짜장면은 식어도, 북정회는 안 식는다",
+   "text": "2026.10.19 · 대륙의 전우 10인, 가을밤의 기록",
+   "note": "중국 주재 시절을 함께 뛴 동료들이 20년 근무를 마치고 돌아온 본부장을 환영한 밤.",
+   "img": "assets/photos/china-bukjunghoe-1.webp",
+   "url": "china-bukjunghoe.html",
+   "accent": "#b3202a"
   }
  ]
 }
