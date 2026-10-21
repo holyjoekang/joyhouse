@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="중국 주재 시절을 함께한 전우들의 모임 북정회(北情會), 2026년 가을밤의 포토 에세이.">
+<meta property="og:image" content="assets/photos/china-bukjunghoe-1.webp">
+<link rel="icon" href="assets/site/favicon.svg" type="image/svg+xml">
+<title>북정회 가을밤 실록 — 중국관 · Joyhouse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=Nanum+Pen+Script&family=Noto+Serif+KR:wght@600;900&display=swap">
+<style>
+/* Layout: 중국집 메뉴판 × 만화 컷 — 붉은 옻칠 띠, 금색 테두리, 핑크 벽지, 비취색 포인트 */
+:root{
+  --bg:#fbf3ea; --paper:#fffaf3; --ink:#2a1b17; --muted:#7a6258;
+  --red:#b3202a; --red-deep:#6e0f16; --gold:#d6a531; --jade:#1f8a70; --pink:#d9467c; --sky:#b9cfe0;
+  --line:#ead8c3; --bubble:#ffffff; --bubble-ink:#1b1b1b; --chat:#b2c7d9; --chat-ink:#2b3a4a;
+  --f-display:"Black Han Sans","Noto Sans KR",system-ui,sans-serif;
+  --f-serif:"Noto Serif KR","Nanum Myeongjo",serif;
+  --f-body:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-hand:"Nanum Pen Script","Gowun Dodum",cursive;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1c1412; --paper:#261b18; --ink:#f3e7dc; --muted:#c3a99b; --red:#e2464f; --red-deep:#5a0d13;
+  --gold:#e6b94a; --jade:#3cbf9b; --pink:#ef6b9b; --sky:#2c3e4e; --line:#4a352d;
+  --bubble:#fffdf8; --bubble-ink:#1b1b1b; --chat:#2c3d4d; --chat-ink:#dbe7f2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1c1412; --paper:#261b18; --ink:#f3e7dc; --muted:#c3a99b; --red:#e2464f; --red-deep:#5a0d13;
+  --gold:#e6b94a; --jade:#3cbf9b; --pink:#ef6b9b; --sky:#2c3e4e; --line:#4a352d;
+  --bubble:#fffdf8; --bubble-ink:#1b1b1b; --chat:#2c3d4d; --chat-ink:#dbe7f2; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16.5px;line-height:1.8;word-break:keep-all;margin:0}
+.wrap{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+img{max-width:100%;display:block}
+h1,h2,h3{text-wrap:balance;margin:0}
+p{margin:0}
+
+/* HERO */
+.hero{background:radial-gradient(circle at 20% 0%,#d8343d 0,var(--red-deep) 70%);color:#fff7e6;padding-block:44px 0;position:relative;overflow:hidden}
+.hero::before{content:"福 喜 酒 友 情 北";position:absolute;inset:auto -20px 40% auto;font-family:var(--f-serif);font-size:9rem;font-weight:900;opacity:.06;white-space:nowrap;letter-spacing:.2em}
+.eyebrow{font-size:.8rem;letter-spacing:.35em;color:#f3c75b;text-transform:uppercase}
+.hero h1{font-family:var(--f-display);font-size:clamp(2.1rem,6.5vw,3.9rem);line-height:1.15;margin-top:10px}
+.hero h1 .hz{font-family:var(--f-serif);font-weight:900;color:#f3c75b;display:block;font-size:.62em;letter-spacing:.12em;margin-bottom:6px}
+.hero .lede{max-width:40em;margin-top:16px;color:#ffe9d6;font-size:1.05rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{border:1.5px solid #f3c75b;color:#fff3d6;border-radius:999px;padding:4px 14px;font-size:.92rem;background:rgba(0,0,0,.18)}
+.chip b{color:#f3c75b}
+.hero-photo{margin-top:30px;position:relative;border:6px solid #f3c75b;border-bottom:0;border-radius:18px 18px 0 0;overflow:hidden}
+
+/* comic bubbles */
+.pic{position:relative}
+.bub{position:absolute;background:var(--bubble);color:var(--bubble-ink);font-family:var(--f-hand);font-size:clamp(15px,2.6vw,25px);line-height:1.15;padding:.35em .7em;border-radius:1em;border:2.5px solid #1b1b1b;box-shadow:3px 3px 0 #1b1b1b;max-width:44%;z-index:2}
+.bub::after{content:"";position:absolute;width:14px;height:14px;background:var(--bubble);border:2.5px solid #1b1b1b;border-top:0;border-left:0;transform:rotate(45deg)}
+.bub.dn::after{bottom:-9px;left:22px}
+.bub.dnr::after{bottom:-9px;right:22px;transform:rotate(45deg)}
+.bub.up::after{top:-9px;left:22px;transform:rotate(225deg)}
+.bub.think{border-style:dashed;box-shadow:none;background:#fff8d8}
+.bub.think::after{display:none}
+.stamp{position:absolute;font-family:var(--f-display);color:#fff;background:var(--pink);padding:.15em .55em;border:3px solid #1b1b1b;transform:rotate(-8deg);font-size:clamp(18px,3.6vw,36px);box-shadow:4px 4px 0 #1b1b1b;z-index:2}
+.stamp.gold{background:var(--gold);color:#1b1b1b;transform:rotate(6deg)}
+.stamp.jade{background:var(--jade)}
+
+/* sections */
+section{padding-block:56px}
+.sec-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+.sec-head .hz{font-family:var(--f-serif);font-weight:900;font-size:2.3rem;color:var(--red);line-height:1}
+.sec-head h2{font-family:var(--f-display);font-size:clamp(1.5rem,4vw,2.1rem);font-weight:400}
+.sec-head .tag{font-size:.8rem;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;width:100%}
+.prose{max-width:40em;display:grid;gap:16px}
+.prose b{color:var(--red)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.stat{background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:2px}
+.stat .n{font-family:var(--f-display);font-size:2.3rem;line-height:1;color:var(--red);font-variant-numeric:tabular-nums}
+.stat:nth-child(2) .n{color:var(--jade)} .stat:nth-child(3) .n{color:var(--pink)} .stat:nth-child(4) .n{color:var(--gold)}
+.stat:nth-child(5) .n{color:var(--jade)} .stat:nth-child(6) .n{color:var(--pink)}
+.stat .l{font-weight:700} .stat .s{font-size:.85rem;color:var(--muted);line-height:1.5}
+
+/* menu board */
+.menu{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:start}
+.menu-board{background:var(--red-deep);color:#ffeccc;border:4px double var(--gold);border-radius:12px;padding:22px 24px}
+.menu-board h3{font-family:var(--f-serif);font-weight:900;color:#f3c75b;font-size:1.4rem;text-align:center;letter-spacing:.3em;margin-bottom:12px}
+.mi{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:baseline;padding-block:9px;border-bottom:1px dashed rgba(243,199,91,.4)}
+.mi:last-child{border-bottom:0}
+.mi .k{font-family:var(--f-serif);color:#f3c75b;font-weight:900}
+.mi .d small{display:block;color:#e8c9b3;font-size:.86rem;line-height:1.5}
+.mi .p{font-family:var(--f-hand);font-size:1.35rem;color:#fff}
+.polaroid{background:#fff;padding:10px 10px 0;box-shadow:0 10px 30px rgba(0,0,0,.18);transform:rotate(1.5deg);border-radius:4px}
+.polaroid figcaption{font-family:var(--f-hand);color:#333;font-size:1.4rem;text-align:center;padding:8px 4px 10px}
+.note{margin-top:14px;font-size:.92rem;color:var(--muted);background:var(--paper);border-left:4px solid var(--jade);padding:10px 14px;border-radius:0 10px 10px 0}
+
+/* film strip */
+.strip{background:#1b1b1b;border-radius:12px;padding:22px 14px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;position:relative}
+.strip::before,.strip::after{content:"";position:absolute;left:10px;right:10px;height:8px;background:repeating-linear-gradient(90deg,#fff 0 10px,transparent 10px 22px);opacity:.75}
+.strip::before{top:7px}.strip::after{bottom:7px}
+.frame{display:grid;gap:6px;min-width:0}
+.frame img{border-radius:4px;aspect-ratio:4/3;object-fit:cover;width:100%}
+.frame span{color:#f3c75b;font-family:var(--f-hand);font-size:1.25rem;line-height:1.2;text-align:center}
+.frame .no{color:#ccc;font-family:var(--f-body);font-size:.75rem;letter-spacing:.2em}
+
+/* lineup */
+.lineup{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.mem{background:var(--paper);border:2px solid var(--line);border-radius:16px;padding:18px;display:grid;gap:8px;align-content:start;position:relative}
+.mem .top{display:flex;align-items:center;gap:12px}
+.mem .av{width:46px;height:46px;flex:none;border-radius:50%;display:grid;place-items:center;font-family:var(--f-serif);font-weight:900;font-size:1.25rem;color:#fff;background:var(--c,var(--red))}
+.mem .nm{font-weight:700;font-size:1.08rem;line-height:1.3}
+.mem .nm small{display:block;color:var(--muted);font-weight:400;font-size:.82rem}
+.mem p{font-size:.95rem;line-height:1.65}
+.mem .tg{justify-self:start;font-size:.78rem;font-weight:700;color:var(--c,var(--red));border:1.5px solid var(--c,var(--red));border-radius:999px;padding:1px 10px}
+.mem.star{border-color:var(--gold);background:linear-gradient(160deg,var(--paper),color-mix(in srgb,var(--gold) 14%,var(--paper)))}
+.mem.star::after{content:"오늘의 주인공";position:absolute;top:-12px;right:14px;background:var(--gold);color:#1b1b1b;font-size:.75rem;font-weight:700;padding:2px 10px;border-radius:999px}
+
+/* awards */
+.awards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.aw{border-radius:14px;padding:16px;background:var(--c);color:#fff;display:grid;gap:4px}
+.aw .t{font-family:var(--f-display);font-size:1.3rem;line-height:1.2}
+.aw .w{font-weight:700;opacity:.95}
+.aw .why{font-size:.88rem;line-height:1.5;opacity:.92}
+
+/* counter battle */
+.battle{display:grid;grid-template-columns:1fr;gap:18px}
+.battle .pic{border:4px solid #1b1b1b;border-radius:6px;overflow:hidden;background:#000}
+.panel-label{position:absolute;left:0;top:0;background:#1b1b1b;color:#fff;font-family:var(--f-display);padding:2px 10px;font-size:.95rem;z-index:3}
+.zoom{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:20px;align-items:center;margin-top:20px;background:var(--paper);border:2px solid var(--line);border-radius:16px;padding:16px}
+.zoom .pic{border-radius:50%;overflow:hidden;aspect-ratio:1;border:5px solid var(--pink);max-width:300px;justify-self:center;width:100%}
+.zoom .pic img{width:100%;height:100%;object-fit:cover;object-position:35% 60%}
+.zoom h3{font-family:var(--f-display);font-weight:400;font-size:1.5rem;color:var(--pink)}
+.rules{margin:10px 0 0;padding-left:1.2em;display:grid;gap:4px;font-size:.95rem}
+
+/* chat */
+.chat{background:var(--chat);border-radius:20px;padding:24px 18px;display:grid;gap:14px}
+.chat .day{justify-self:center;background:rgba(0,0,0,.18);color:#fff;font-size:.8rem;padding:2px 12px;border-radius:999px}
+.msg{display:grid;grid-template-columns:40px minmax(0,1fr);gap:10px}
+.msg .av{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;color:#fff;font-weight:700;background:var(--c,var(--red))}
+.msg .who{font-size:.82rem;color:var(--chat-ink);font-weight:700}
+.msg .txt{background:#fff;color:#222;padding:10px 14px;border-radius:4px 14px 14px 14px;max-width:34em;font-size:.95rem;line-height:1.6;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.msg.me{grid-template-columns:minmax(0,1fr);justify-items:end}
+.msg.me .txt{background:#fee500;border-radius:14px 4px 14px 14px}
+
+/* boarding pass */
+.pass{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr);border-radius:18px;overflow:hidden;background:var(--paper);border:2px solid var(--line);box-shadow:0 12px 30px rgba(0,0,0,.08)}
+.pass .main{padding:22px 24px;display:grid;gap:14px;border-right:3px dashed var(--line)}
+.pass .hd{display:flex;justify-content:space-between;align-items:center;background:var(--jade);color:#fff;margin:-22px -24px 0;padding:10px 24px;font-family:var(--f-display);letter-spacing:.06em}
+.route{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.route .ap{font-family:var(--f-display);font-size:2.6rem;line-height:1;color:var(--ink)}
+.route .ap small{display:block;font-family:var(--f-body);font-size:.8rem;color:var(--muted)}
+.route .plane{flex:1;min-width:60px;border-top:2px dotted var(--muted);position:relative;height:0}
+.route .plane::after{content:"✈";position:absolute;right:-4px;top:-15px;color:var(--jade);font-size:1.3rem}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.kv div{font-size:.95rem}.kv small{display:block;color:var(--muted);font-size:.75rem;letter-spacing:.1em}
+.pass .stub{padding:22px 18px;display:grid;gap:10px;align-content:start;background:color-mix(in srgb,var(--gold) 10%,var(--paper))}
+.barcode{height:54px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 7px,transparent 7px 9px,var(--ink) 9px 10px,transparent 10px 13px)}
+.closing{margin-top:34px;text-align:center;display:grid;gap:10px;justify-items:center}
+.closing .big{font-family:var(--f-serif);font-weight:900;font-size:clamp(1.4rem,4vw,2rem);color:var(--red)}
+
+footer{background:var(--red-deep);color:#f3dcc9;text-align:center;padding-block:26px;font-size:.88rem}
+footer b{color:#f3c75b}
+
+.band{background:var(--paper);border-block:2px solid var(--line)}
+.swipe{display:none;margin:0 0 8px;font-size:.85rem;color:var(--muted)}
+.band.pink{background:color-mix(in srgb,var(--pink) 9%,var(--bg))}
+
+@media (max-width:1000px){.awards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:720px){
+  .menu,.battle,.zoom,.pass{grid-template-columns:1fr}
+  .pass .main{border-right:0;border-bottom:3px dashed var(--line)}
+  section{padding-block:40px}
+  .sec-head{gap:10px;margin-bottom:16px}
+  .sec-head .hz{font-size:1.9rem}
+  .hero{padding-block:32px 0}
+  .hero-photo{border-width:4px;margin-top:22px}
+  .strip{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;padding:22px 12px;-webkit-overflow-scrolling:touch}
+  .frame{flex:0 0 80%;scroll-snap-align:center}
+  .swipe{display:block}
+  .mi{grid-template-columns:auto minmax(0,1fr);row-gap:2px}
+  .mi .p{grid-column:2;font-size:1.15rem;color:#f3c75b;line-height:1.1}
+  .menu-board{padding:18px 16px}
+  .polaroid{transform:none}
+  .mem{padding:14px 16px;gap:6px}
+  .mem p{font-size:.93rem}
+  .battle .pic img{aspect-ratio:4/3;object-fit:cover;width:100%}
+  .panel-label{top:auto;bottom:0;left:auto;right:0}
+  .zoom{padding:14px}
+  .zoom .pic{max-width:200px}
+  .pass .main{padding:18px 16px}
+  .pass .hd{margin:-18px -16px 0;padding:10px 16px;font-size:.85rem}
+  .route .ap{font-size:2rem}
+  .chat{padding:18px 12px}
+  .msg{grid-template-columns:34px minmax(0,1fr);gap:8px}
+  .msg .av{width:34px;height:34px;border-radius:12px}
+  .lineup{grid-template-columns:1fr}
+  .awards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .bub{border-width:2px;box-shadow:2px 2px 0 #1b1b1b;max-width:52%}
+  .hide-sm{display:none}
+}
+@media (prefers-reduced-motion:no-preference){
+  .stamp{animation:pop .5s ease-out both}
+  @keyframes pop{from{transform:scale(.6) rotate(-20deg)}to{}}
+}
+/* Joyhouse 돌아가기 띠 */
+.jh-back{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px max(16px,env(safe-area-inset-left,0px));background:var(--red-deep);border-bottom:2px solid var(--gold);font-size:.92rem}
+.jh-back a{color:#f3c75b;text-decoration:none;font-weight:700}
+.jh-back a:hover{text-decoration:underline}
+</style>
+
+</head>
+<body>
+<nav class="jh-back" aria-label="Joyhouse"><a href="china.html">← 중국관</a><a href="index.html">Joyhouse</a></nav>
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">北情會 · 2026 Q4 Photo Essay</div>
+    <h1><span class="hz">久别重逢</span>짜장면은 식어도, 북정회는 안 식는다</h1>
+    <p class="lede">20년 중국 근무를 마치고 돌아오는 황 본부장을 환영하러, 대륙에서 함께 뛰던 전우 <b style="color:#f3c75b">10명</b>이 역삼동 중국집 핑크빛 방에 모였습니다. 배추전 한 접시, 수정방 한 잔, 그리고 20년 치 이야기 보따리. 그날 밤의 기록입니다.</p>
+    <div class="chips">
+      <span class="chip">📅 <b>2026.10.19 (월)</b> 18:30</span>
+      <span class="chip">📍 역삼동 <b>그옛날손짜장</b></span>
+      <span class="chip">👥 회원 <b>10인</b> 전원 출석</span>
+    </div>
+    <div class="hero-photo pic">
+      <img src="assets/photos/china-bukjunghoe-1.webp" alt="북정회 회원 10명이 중국집 긴 테이블에 둘러앉아 카메라를 보며 웃고 있다">
+      <div class="bub dn" style="left:3%;top:6%">따봉은 하나뿐이지만<br>마음은 열 개입니다 👍</div>
+      <div class="bub dnr hide-sm" style="right:2%;top:5%">뒷줄 얼굴 다 나왔나요?<br>…하나, 둘, 셋 열 명 OK</div>
+      <div class="stamp" style="left:42%;bottom:6%">전원 출석!</div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="hz">數</span><h2>숫자로 보는 그날 밤</h2></div>
+    <div class="stats">
+      <div class="stat"><span class="n">10</span><span class="l">명 참석</span><span class="s">핑크 벽지 방이 꽉 찼습니다</span></div>
+      <div class="stat"><span class="n">20</span><span class="l">년 중국 근무</span><span class="s">황 본부장, 드디어 귀임</span></div>
+      <div class="stat"><span class="n">7</span><span class="l">개 도시</span><span class="s">본부장님이 누빈 대륙 지도</span></div>
+      <div class="stat"><span class="n">6</span><span class="l">종 백주 총대리상</span><span class="s">다음 날 단톡방에 연락처 공개</span></div>
+      <div class="stat"><span class="n">500</span><span class="l">평 텃밭</span><span class="s">가평, 양 전무님의 제2 사무실</span></div>
+      <div class="stat"><span class="n">∞</span><span class="l">번의 건배</span><span class="s">세다가 포기했습니다 (기록 담당 자백)</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band pink">
+  <div class="wrap">
+    <div class="sec-head"><span class="hz">菜</span><h2>오늘의 메뉴판</h2><span class="tag">그옛날손짜장 · 북정회 특선 코스(비공식)</span></div>
+    <div class="menu">
+      <div class="menu-board">
+        <h3>北情會 菜單</h3>
+        <div class="mi"><span class="k">白酒</span><span class="d">수정방(水井坊)<small>오늘 밤 잔을 채운 주인공. 한 모금에 베이징의 밤이 소환됨</small></span><span class="p">추억 무한</span></div>
+        <div class="mi"><span class="k">推薦</span><span class="d">마오푸(毛铺) 백주 이야기<small>황 본부장 추천 술. 다음 날 총대리상 연락처까지 소개해 준 애프터서비스 포함</small></span><span class="p">특별해설</span></div>
+        <div class="mi"><span class="k">煎餅</span><span class="d">배추전<small>중국집에서 배추전? 다음 날 장 차관님 카톡에 극찬으로 등장</small></span><span class="p">강력추천</span></div>
+        <div class="mi"><span class="k">炸醬</span><span class="d">손짜장<small>면은 손으로, 수다는 입으로. 둘 다 쫄깃했습니다</small></span><span class="p">간판메뉴</span></div>
+        <div class="mi"><span class="k">紅菜</span><span class="d">이름 모를 빨간 요리<small>이름을 아는 사람이 없었으나 접시는 비었다는 증언 다수</small></span><span class="p">미스터리</span></div>
+        <div class="mi"><span class="k">話題</span><span class="d">로봇·자율주행·AI 데이터센터<small>주 대표님 특별 강연. 디저트 대신 제공됨</small></span><span class="p">무료</span></div>
+      </div>
+      <div>
+        <figure class="polaroid" style="margin:0">
+          <img src="assets/photos/china-bukjunghoe-2.webp" alt="테이블 위 배추전, 빨간 요리, 채소볶음, 반찬 접시들">
+          <figcaption>배추전은 오른쪽 위, 백주잔은 오른쪽 아래 ↘</figcaption>
+        </figure>
+        <p class="note">벽에 붙은 <b>요일할인메뉴 ₩10,000</b>(잡채밥·송이밥·삼선볶음밥·삼선짜장·마파덮밥)는 아무도 시키지 않았습니다. 오늘은 할인보다 우정이 우선이었으니까요.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="hz">乾</span><h2>건배 3연속 촬영기</h2><span class="tag">사진 담당: "한 장만 더요!" (세 번 함)</span></div>
+    <p class="swipe">👉 옆으로 넘겨 보세요 (TAKE 1~3)</p>
+    <div class="strip">
+      <div class="frame"><span class="no">TAKE 1</span><img src="assets/photos/china-bukjunghoe-3.webp" alt="건배 전 기념 촬영"><span>"일단 웃으세요~"<br>잔은 아직 테이블 위</span></div>
+      <div class="frame"><span class="no">TAKE 2</span><img src="assets/photos/china-bukjunghoe-4.webp" alt="열 명이 잔을 높이 든 장면"><span>"잔 드세요!"<br>열 개의 잔, 일제히 상승</span></div>
+      <div class="frame"><span class="no">TAKE 3</span><img src="assets/photos/china-bukjunghoe-5.webp" alt="옆 각도에서 다시 찍은 건배 장면"><span>"각도 바꿔서 한 번 더!"<br>팔이 슬슬 저려옴</span></div>
+    </div>
+    <div class="pic" style="margin-top:22px;border-radius:14px;overflow:hidden;border:4px solid var(--gold)">
+      <img src="assets/photos/china-bukjunghoe-6.webp" alt="북정회 회원들이 잔을 들어 건배하는 장면 확대">
+      <div class="bub dn" style="left:3%;top:4%">위하여!! 🥂</div>
+      <div class="bub dnr hide-sm" style="right:3%;top:4%">건강을 위하여!<br>(이 잔은 물입니다…아마도)</div>
+      <div class="bub think" style="left:28%;bottom:20%">“뒷줄은 잔만 보이게 들면 됨”</div>
+      <div class="stamp gold" style="right:4%;bottom:5%">干杯!</div>
+    </div>
+    <div class="prose" style="margin-top:24px">
+      <p>건배사는 단순했습니다. <b>"다시 만난 반가움과 건강을 위하여!"</b> 대륙에서 밤새 협상하고, 영수증에 풀칠하고, 출장 가방을 싸고 풀던 시절을 함께 지나온 사람들이라 말이 길 필요가 없었습니다. 잔이 부딪히는 소리 한 번이면 20년이 연결됩니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="sec-head"><span class="hz">人</span><h2>출연진 소개 · 북정회 10인</h2><span class="tag">가나다 순 아님 · 존재감 순도 아님 · 그냥 기록자 마음대로</span></div>
+    <div class="lineup">
+      <div class="mem star" style="--c:#c99418"><div class="top"><span class="av">黃</span><span class="nm">황 본부장<small>20년 중국 근무 마치고 귀임</small></span></div><p>중국 7개 도시를 누빈 대륙통. 수정방 잔을 들고 마오푸(毛铺) 백주를 소개하며 후베이의 역사와 술맛을 동시에 강의하는 '걸어 다니는 백주 백과'.</p><span class="tg">백주 소믈리에</span></div>
+      <div class="mem" style="--c:#b3202a"><div class="top"><span class="av">張</span><span class="nm">장 차관님<small>모임의 MC</small></span></div><p>영수증에 손수 풀칠하던 주재원 시절부터 장관 에피소드까지. 마이크 없이도 라디오스타 생방송이 가능합니다.</p><span class="tg">이야기 보따리</span></div>
+      <div class="mem" style="--c:#1f8a70"><div class="top"><span class="av">朱</span><span class="nm">주 대표님<small>한·중 로봇 협력</small></span></div><p>모임 다음 날 바로 베이징행. 짜장면 먹고 짜장면 본고장으로 출근하는 진정한 한중 셔틀러. 자율주행·AI 데이터센터 최신 소식 전달.</p><span class="tg">내일 베이징</span></div>
+      <div class="mem" style="--c:#4d7c2a"><div class="top"><span class="av">梁</span><span class="nm">양 전무님<small>현역 상임감사</small></span></div><p>평일엔 날카로운 감사, 주말엔 가평 500평 텃밭의 농장주. 감사 지적사항: "배추가 너무 잘 자람".</p><span class="tg">액티브 시니어</span></div>
+      <div class="mem" style="--c:#2f6fb0"><div class="top"><span class="av">朴</span><span class="nm">박 대표님<small>태평양을 오가는 아빠</small></span></div><p>해외의 자녀들을 만나러 태평양을 오가는 글로벌 아빠. 항공 마일리지가 북정회 전체 합계를 넘을 것으로 추정됩니다.</p><span class="tg">마일리지 부자</span></div>
+      <div class="mem" style="--c:#d9467c"><div class="top"><span class="av">李</span><span class="nm">이 대표님<small>중국 여행 다녀옴</small></span></div><p>지인 부부와 함께한 멋진 중국 여행 후기로 좌중의 부러움을 한 몸에. 사진 보여줄 때마다 한숨 소리 증가.</p><span class="tg">부러움 유발자</span></div>
+      <div class="mem" style="--c:#6b4bb0"><div class="top"><span class="av">韓</span><span class="nm">한 교수님<small>소프트웨어 공학</small></span></div><p>후학을 키우는 현역 교수. 오늘 모임의 버그는 '시간이 너무 빨리 감' 하나뿐이라는 코드 리뷰 의견.</p><span class="tg">학구파</span></div>
+      <div class="mem" style="--c:#7a5a3a"><div class="top"><span class="av">郭</span><span class="nm">곽 본부장님<small>모임의 버팀목</small></span></div><p>말수는 적어도 존재감은 큰 사람. 다음 날 아침 "가을 날씨만큼 상쾌했다"는 카톡으로 모임을 완벽하게 마감.</p><span class="tg">묵직한 활력소</span></div>
+      <div class="mem" style="--c:#c4572a"><div class="top"><span class="av">金</span><span class="nm">김 대표님<small>오랜만의 귀환</small></span></div><p>오랜만에 나타났는데 오히려 더 젊어진 미스터리. 비결 공개 요청이 쇄도했으나 끝내 함구.</p><span class="tg">동안 의혹</span></div>
+      <div class="mem" style="--c:#1d5c63"><div class="top"><span class="av">姜</span><span class="nm">토리아빠<small>이 글의 기록 담당</small></span></div><p>9년 중국 주재 경력의 중국어 담당. 오늘은 통역 대신 카메라와 메모장을 들고 건배 횟수 세기에 도전했다가 실패.</p><span class="tg">기록관</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="hz">獎</span><h2>제1회 북정회 가을 어워드</h2><span class="tag">심사위원: 배추전 · 상금: 없음 · 명예: 무한</span></div>
+    <div class="awards">
+      <div class="aw" style="--c:#b3202a"><span class="t">🎤 입담 대상</span><span class="w">장 차관님</span><span class="why">2시간 동안 웃음 끊김 0회</span></div>
+      <div class="aw" style="--c:#c99418"><span class="t">🍶 백주 박사상</span><span class="w">황 본부장님</span><span class="why">총대리상 연락처까지 A/S</span></div>
+      <div class="aw" style="--c:#1f8a70"><span class="t">✈️ 최단 귀국·출국상</span><span class="w">주 대표님</span><span class="why">회식 → 12시간 뒤 베이징</span></div>
+      <div class="aw" style="--c:#4d7c2a"><span class="t">🥬 귀농 선행학습상</span><span class="w">양 전무님</span><span class="why">500평이면 배추전 1만 장</span></div>
+      <div class="aw" style="--c:#2f6fb0"><span class="t">🌏 태평양 횡단상</span><span class="w">박 대표님</span><span class="why">태평양 상공 어딘가</span></div>
+      <div class="aw" style="--c:#d9467c"><span class="t">📸 염장상</span><span class="w">이 대표님</span><span class="why">여행 사진 1장당 부러움 10배</span></div>
+      <div class="aw" style="--c:#6b4bb0"><span class="t">📚 학구상</span><span class="w">한 교수님</span><span class="why">회식 중에도 강의안 생각한 혐의</span></div>
+      <div class="aw" style="--c:#7a5a3a"><span class="t">🪨 든든상</span><span class="w">곽 본부장님</span><span class="why">있으면 안심, 없으면 허전</span></div>
+      <div class="aw" style="--c:#c4572a"><span class="t">✨ 동안상</span><span class="w">김 대표님</span><span class="why">시간이 거꾸로 가는 중</span></div>
+      <div class="aw" style="--c:#1d5c63"><span class="t">📝 기록상</span><span class="w">토리아빠</span><span class="why">셀프 수여 논란 있음</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band pink">
+  <div class="wrap">
+    <div class="sec-head"><span class="hz">戰</span><h2>계산대 대첩</h2><span class="tag">카운터 앞, 소리 없는 지갑 전쟁</span></div>
+    <div class="battle">
+      <div class="pic">
+        <span class="panel-label">제1막 · 선제공격</span>
+        <img src="assets/photos/china-bukjunghoe-7.webp" alt="회원들이 계산대 앞에 모여 있고 한 명이 휴대폰을 꺼내는 장면">
+        <div class="bub dn" style="left:30%;top:4%">사장님, 여기요!<br>제가 할게요!</div>
+        <div class="bub think hide-sm" style="left:3%;top:60%">(구경이 제일 재밌다)</div>
+      </div>
+      <div class="pic">
+        <span class="panel-label">제2막 · 반격</span>
+        <img src="assets/photos/china-bukjunghoe-8.webp" alt="한 회원이 웃으며 카드를 내밀고 주변 회원들이 웃고 있는 장면">
+        <div class="bub dnr" style="right:4%;top:4%">아이고, 제가 벌써<br>카드 드렸는데요? 😄</div>
+        <div class="bub dn hide-sm" style="left:22%;top:4%">…다음엔 제가 꼭!</div>
+        <div class="stamp jade" style="left:4%;bottom:6%">K.O.</div>
+      </div>
+    </div>
+    <div class="zoom">
+      <div class="pic"><img src="assets/photos/china-bukjunghoe-9.webp" alt="카드가 계산대 직원 손에 건네지는 결정적 순간 확대"></div>
+      <div>
+        <h3>결정적 순간 (확대)</h3>
+        <p>판정은 0.5초 만에 끝났습니다. 카드가 사장님 손에 먼저 닿는 사람이 이깁니다. 나머지는 웃으며 "다음엔 제가!"를 외치는 것으로 경기가 마무리됩니다.</p>
+        <ol class="rules">
+          <li>지갑은 먼저 꺼내는 사람이 아니라 먼저 <b>내미는</b> 사람이 이긴다.</li>
+          <li>진 사람은 다음 모임 계산권을 자동 획득한다 (구두 계약).</li>
+          <li>사장님은 끝까지 중립을 지킨다.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="prose" style="margin-top:22px">
+      <p>서로 밥값을 내겠다며 실랑이하는 풍경. 수십 년 우정이 아니면 나올 수 없는 장면입니다. 계산대를 둘러싼 함박웃음이 그날 밤 가장 따뜻한 사진이 됐습니다.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="hz">訊</span><h2>다음 날 아침, 단톡방</h2><span class="tag">북정회 카톡방 · 10월 20일</span></div>
+    <div class="chat">
+      <span class="day">2026년 10월 20일 화요일</span>
+      <div class="msg" style="--c:#b3202a"><span class="av">張</span><div><div class="who">장 차관</div><div class="txt">어제 간만에 좋은 자리 감사드립니다. 20년 중국 근무를 멋지게 마무리하신 황 본부장님의 포스를 실감했습니다. 중국집 배추전도 참 맛있었네요. 내년에는 홍콩의 총영사님 응원하러 홍콩으로 갑시다! ^^</div></div></div>
+      <div class="msg" style="--c:#c99418"><span class="av">黃</span><div><div class="who">황 본부장</div><div class="txt">어제 말씀드렸던 毛铺를 포함한 6개 백주 총대리상 연락처 안내드립니다. 제 소개로 연락하셨다고 하면 잘 챙겨줄 겁니다. 좋은 자리 감사드립니다!</div></div></div>
+      <div class="msg" style="--c:#7a5a3a"><span class="av">郭</span><div><div class="who">곽 본부장</div><div class="txt">선선해진 가을 날씨만큼이나 상쾌했던 모임이었습니다. ^^ 모두 환절기 건강 유의하시고 다음 모임에서 뵙겠습니다.</div></div></div>
+      <div class="msg" style="--c:#d9467c"><span class="av">友</span><div><div class="who">이 대표 · 한 교수 · 박 대표</div><div class="txt">벌써 다음 모임이 기대됩니다. 오랜만에 즐거운 시간이었습니다. 모두 늘 건강하시고 행복하세요~</div></div></div>
+      <div class="msg me"><div class="txt">어제 사진 정리해서 포토에세이로 올립니다 📸 건배 횟수는 끝내 못 셌습니다 🙏</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="sec-head"><span class="hz">約</span><h2>다음 정거장, 홍콩</h2><span class="tag">아직 예약 안 됨 · 마음만 발권 완료</span></div>
+    <div class="pass">
+      <div class="main">
+        <div class="hd"><span>BOARDING PASS · 北情會航空</span><span>BJ 2027</span></div>
+        <div class="route">
+          <span class="ap">ICN<small>서울 · 인천</small></span>
+          <span class="plane"></span>
+          <span class="ap">HKG<small>홍콩</small></span>
+        </div>
+        <div class="kv">
+          <div><small>승객</small>북정회 10인 + α</div>
+          <div><small>탑승 목적</small>홍콩의 총영사님 응원</div>
+          <div><small>좌석</small>아무 데나, 같이만</div>
+          <div><small>기내식</small>백주 반입 협의 중</div>
+          <div><small>게이트</small>久别重逢</div>
+          <div><small>출발</small>2027년 중 (날짜 미정)</div>
+        </div>
+      </div>
+      <div class="stub">
+        <b>BJ 2027 · HKG</b>
+        <span style="font-size:.9rem;color:var(--muted)">이 탑승권은 다음 모임 참석 의무를 포함합니다. 환불 불가.</span>
+        <div class="barcode" role="img" aria-label="장식용 바코드"></div>
+      </div>
+    </div>
+    <div class="closing">
+      <span class="big">花樣年華 지나, 다음 20년도 함께</span>
+      <p class="prose" style="text-align:center">대륙에서 보낸 가장 뜨거운 시절을 함께 지나온 우리. 짜장면 한 그릇과 백주 한 잔이면 언제든 그때로 돌아갑니다.<br>다음은 홍콩에서, 그다음은 또 어디에서든. 북정회는 계속됩니다.</p>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">© 2026 <b>북정회 北情會</b> 포토 에세이 · 기록 토리아빠 · 사진 속 말풍선은 기록자의 상상입니다</div></footer>
+</body>
+</html>
