@@ -11,7 +11,7 @@
   "hall": {"label": "회랑", "wall": "plaster"}
  },
  "rooms": [
-  {"id": "grandhall", "name": "그랜드 홀", "sub": "고흐 갤러리", "wing": "central", "box": [-8, -60, 8, -78], "height": 9, "access": "guest", "stage": 1},
+  {"id": "grandhall", "name": "그랜드 홀", "sub": "고흐 갤러리 · 명예의 전당", "wing": "central", "box": [-8, -60, 8, -78], "height": 9, "access": "guest", "stage": 1},
   {"id": "blueroom", "name": "블루룸", "sub": "나의 서재", "wing": "central", "box": [-24, -60, -8, -78], "height": 6, "access": "guest", "stage": 1},
   {"id": "redroom", "name": "레드룸", "sub": "블로그", "wing": "central", "box": [8, -60, 24, -78], "height": 6, "access": "guest", "stage": 1},
   {"id": "maproom", "name": "맵룸", "sub": "여행 지도", "wing": "central", "box": [-24, -78, -8, -96], "height": 6, "access": "guest", "stage": 1},
