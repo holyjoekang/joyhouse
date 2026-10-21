@@ -127,6 +127,7 @@ function goRoom(id) {
   const o = OUTDOOR[id];
   if (o) {
     const [x0, z0, x1, z1] = o.box;
+    if (id === 'farm') return walker.go(x0 + 2, Math.min(z0, z1) + 24, -Math.PI / 2, 0);   // 스마트팜 길목에서 동쪽을 본다
     walker.go((x0 + x1) / 2, Math.max(z0, z1) + (id === 'gate' ? 6 : -2), 0, 0);
   }
 }
