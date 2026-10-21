@@ -10,6 +10,7 @@
     world_land.json   맵룸 지구본 육지   ← my-travel-map data/world_land.json 그대로
     books_top20.json  블루룸 책장 앞면   ← mybookshelf 최근 읽은 책 20권 (+ assets/books/ 표지)
     blog_latest.json  레드룸 가판대     ← 네이버 블로그 RSS 최신 글 12편
+    assets/site/blog_feed.js  같은 글을 담은 독립 스크립트 (blog.html, 다른 사이트에도 <script>로 삽입)
 
 파이썬 3.10+, 표준 라이브러리만 쓴다. 한 출처가 실패해도 나머지는 만든다.
 """
@@ -168,6 +169,33 @@ def blog_latest(_src):
         if len(items) == 12:
             break
     write("blog_latest.json", {"posts": items})
+    blog_feed_js(items)
+
+
+FEED_JS = """// 자동 생성: scripts/sync_sources.py — 직접 고치지 마세요.
+// <div data-naver-feed data-limit="6"></div> 에 네이버 블로그 최신 글을 그린다.
+(() => {
+const POSTS = %s;
+const esc = s => String(s).replace(/[&<>"']/g, c => `&#${c.charCodeAt(0)};`);
+const day = s => { const d = new Date(s); return isNaN(d) ? "" : d.toISOString().slice(0, 10).replace(/-/g, "."); };
+const fresh = s => Date.now() - new Date(s) < 3 * 864e5;
+const draw = () => document.querySelectorAll("[data-naver-feed]").forEach(el => {
+  el.innerHTML = POSTS.slice(0, +el.dataset.limit || POSTS.length).map(p => `
+<a class="post" href="${esc(p.url)}" target="_blank" rel="noopener">
+  <span class="card-kicker">${esc(p.category)}${fresh(p.date) ? " · NEW" : ""}</span>
+  <h3>${esc(p.title)}</h3><p>${esc(p.summary)}</p><time>${day(p.date)} · 원문 읽기 ↗</time>
+</a>`).join("");
+});
+document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", draw) : draw();
+})();
+"""
+
+
+def blog_feed_js(items):
+    posts = [{**p, "title": re.sub(r"\s*#\S.*$", "", p["title"])} for p in items]
+    (ROOT / "assets" / "site" / "blog_feed.js").write_text(
+        FEED_JS % json.dumps(posts, ensure_ascii=False), encoding="utf-8")
+    print("  assets/site/blog_feed.js")
 
 
 def main():
