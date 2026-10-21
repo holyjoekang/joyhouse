@@ -14,6 +14,7 @@
 파이썬 3.10+, 표준 라이브러리만 쓴다. 한 출처가 실패해도 나머지는 만든다.
 """
 import argparse
+import email.utils
 import json
 import re
 import sys
@@ -131,7 +132,26 @@ def books_top20(src):
             pass
         out.append({"title": b["title"], "author": b.get("author") or "",
                     "read": read_date(b["firstReadDate"]), "cover": cover})
-    write("books_top20.json", {"books": out})
+    out = blog_books(out) + out
+    write("books_top20.json", {"books": out[:20]})
+
+
+def blog_books(shelf):
+    """서재에 아직 없는 RSS의 [독서노트] 글을 맨 앞에 끼운다."""
+    have = {re.sub(r"\s", "", b["title"]) for b in shelf}
+    new = []
+    for it in ET.fromstring(fetch(RSS)).iter("item"):
+        t = it.findtext("title") or ""
+        if "독서노트" not in t:
+            continue
+        m = re.search(r"『(.+?)』", t)
+        name = m[1] if m else re.sub(r"#\S+|\[독서노트\]", "", t).strip()
+        if re.sub(r"\s", "", name) in have:
+            continue
+        d = email.utils.parsedate_to_datetime(it.findtext("pubDate")).date()
+        new.append({"title": name, "author": "", "read": d.isoformat(), "cover": "",
+                    "url": (it.findtext("link") or "").split("?")[0]})
+    return new
 
 
 def blog_latest(_src):
