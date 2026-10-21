@@ -5,6 +5,7 @@ import { buildSky } from './sky.js';
 import { plantTrees, grassField, hedges, flowerBeds, stoneLantern, mountains, rng } from './nature.js';
 import { buildPond, toriStatue } from './pond.js';
 import { textPlane } from '../ui3d/text.js';
+import { buildFarm } from './farm.js';
 
 const POND = { cx: -46, cz: -35, w: 14, d: 10 };
 const ROSE = { cx: 46, cz: -35 };
@@ -87,6 +88,7 @@ export function buildSite(scene, renderer, house, timeline, { shadows, phone }) 
   steppingStones(scene, [[3.6, -36], [ROSE.cx - 10, -36]]);
   steppingStones(scene, [[-3.6, -24], [POND.cx + 3, -24]]);
   mountains(scene);
+  if (house.farm) buildFarm(scene, house.farm, { blocks, clickables, tickers, phone });
 
   // 풀잎: 잔디길 양쪽 앞뜰
   const avoid = (x, z) => Math.abs(x) < 3.3 || (Math.abs(x) > 5.4 && Math.abs(x) < 6.8) ||
