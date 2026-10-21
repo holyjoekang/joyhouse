@@ -183,6 +183,62 @@
    "img": "assets/photos/faith-bible-grammar.webp",
    "url": "faith.html#bible",
    "accent": "#2d4a7a"
+  },
+  {
+   "type": "ideaCard",
+   "wall": "east",
+   "t": 0.1,
+   "y": 1.75,
+   "w": 1.2,
+   "kicker": "성경 이야기 · 창세기 1~2장",
+   "title": "천지창조 — 혼돈에서 질서로, 그리고 안식",
+   "text": "성경의 첫 장면은 과학 교과서가 아니라 고백이다. 이 세상은 우연이 아니라 선하게 지어졌다는.",
+   "note": "성경의 첫 장면은 과학 교과서가 아니라 고백이다. 이 세상은 우연이 아니라 선하게 지어졌다는.",
+   "img": "assets/photos/faith-story-creation.webp",
+   "url": "faith-post.html?id=creation",
+   "accent": "#7a4a1c"
+  },
+  {
+   "type": "ideaCard",
+   "wall": "east",
+   "t": 0.25,
+   "y": 1.75,
+   "w": 1.2,
+   "kicker": "성경 이야기 · 누가복음 15:11~32",
+   "title": "탕자의 비유 — 멀리서 달려오는 아버지",
+   "text": "이 비유의 주인공은 집 나간 아들일까, 집에 있던 형일까, 아니면 기다린 아버지일까.",
+   "note": "이 비유의 주인공은 집 나간 아들일까, 집에 있던 형일까, 아니면 기다린 아버지일까.",
+   "img": "assets/photos/faith-story-prodigal.webp",
+   "url": "faith-post.html?id=prodigal",
+   "accent": "#7a4a1c"
+  },
+  {
+   "type": "ideaCard",
+   "wall": "east",
+   "t": 0.75,
+   "y": 1.75,
+   "w": 1.2,
+   "kicker": "성경 이야기 · 요나 1장",
+   "title": "요나 1장 — 다시스로 가는 배",
+   "text": "동쪽 니느웨로 가라 하셨는데 서쪽 끝 다시스로 떠난 선지자. 폭풍 속에서 잠든 사람.",
+   "note": "동쪽 니느웨로 가라 하셨는데 서쪽 끝 다시스로 떠난 선지자. 폭풍 속에서 잠든 사람.",
+   "img": "assets/photos/faith-story-jonah-1.webp",
+   "url": "faith-post.html?id=jonah-1",
+   "accent": "#7a4a1c"
+  },
+  {
+   "type": "ideaCard",
+   "wall": "east",
+   "t": 0.9,
+   "y": 1.75,
+   "w": 1.2,
+   "kicker": "성경 이야기 · 전체 보기",
+   "title": "성경 이야기 26편",
+   "text": "구약 이야기 · 신약 이야기 · 요나 이야기",
+   "note": "창조에서 부활까지, 성경의 대표 장면을 이야기로 따라간 글 모음.",
+   "img": "assets/photos/faith-story-last-supper.webp",
+   "url": "faith.html#story",
+   "accent": "#7a4a1c"
   }
  ]
 }

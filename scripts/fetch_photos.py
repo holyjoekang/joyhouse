@@ -167,6 +167,32 @@ PHOTOS = [
     ("faith-bible-can-do-all", "openverse", "71d2445f-ccb4-4ae8-9478-ed0de7b611d7", "신앙 · 빌립보서 4:13과 예레미야 29:11 — 축복 구절의 원래 자리", 1400),
     ("faith-bible-temple-body", "openverse", "fcc05cbf-93a9-4185-8d61-b351587db365", "신앙 · '너희가 하나님의 성전'과 '감당치 못할 시험'", 1400),
     ("faith-bible-in-my-name", "openverse", "6d27382c-501d-44ef-b3de-f6516af602e6", "신앙 · '내 이름으로 구하라'와 '내 이름으로 일컫는 내 백성'", 1400),
+    # 신앙 · 성경 이야기 — 메트로폴리탄 미술관 퍼블릭 도메인(CC0) 소장품
+    ("faith-story-creation", "met", "458971", "신앙 · 천지창조 — 혼돈에서 질서로, 그리고 안식", 1400),
+    ("faith-story-fall", "met", "428305", "신앙 · 에덴과 타락 — '네가 어디 있느냐'", 1400),
+    ("faith-story-noah", "met", "335674", "신앙 · 노아의 방주 — 심판의 물결 위에 뜬 은혜", 1400),
+    ("faith-story-abraham", "met", "436911", "신앙 · 아브라함의 부르심 — 별을 세어 보라", 1400),
+    ("faith-story-joseph", "met", "341466", "신앙 · 요셉의 채색옷 — 악을 선으로 바꾸시는 하나님", 1400),
+    ("faith-story-jacob", "met", "371674", "신앙 · 야곱의 하나님 — 할아버지의 하나님, 아버지의 하나님, 그리고 나의 하나님", 1400),
+    ("faith-story-burning-bush", "met", "436205", "신앙 · 모세와 불타는 떨기나무 — 여든 살에 받은 부르심", 1400),
+    ("faith-story-red-sea", "met", "359558", "신앙 · 홍해를 건너다 — 앞은 바다, 뒤는 군대", 1400),
+    ("faith-story-sinai", "met", "436913", "신앙 · 시내산의 십계명 — 자유를 지키는 울타리", 1400),
+    ("faith-story-david", "met", "436912", "신앙 · 다윗과 골리앗 — 전쟁은 여호와께 속한 것", 1400),
+    ("faith-story-daniel", "met", "891635", "신앙 · 다니엘과 사자 굴 — 창문을 열고 하루 세 번", 1400),
+    ("faith-story-nativity", "met", "437231", "신앙 · 구유에 누인 아기 — 가장 낮은 곳으로 오신 왕", 1400),
+    ("faith-story-baptism", "met", "440393", "신앙 · 요단강의 세례와 광야의 시험", 1400),
+    ("faith-story-beatitudes", "met", "209287", "신앙 · 산상수훈과 팔복 — 뒤집힌 행복의 목록", 1400),
+    ("faith-story-samaritan", "met", "436115", "신앙 · 선한 사마리아인 — '누가 나의 이웃입니까'", 1400),
+    ("faith-story-loaves", "met", "437821", "신앙 · 오병이어 — 한 아이의 도시락으로 시작된 기적", 1400),
+    ("faith-story-prodigal", "met", "340664", "신앙 · 탕자의 비유 — 멀리서 달려오는 아버지", 1400),
+    ("faith-story-zacchaeus", "met", "471107", "신앙 · 삭개오 — 뽕나무 위의 세리장을 부르신 이름", 1400),
+    ("faith-story-last-supper", "met", "459131", "신앙 · 최후의 만찬 — 떡과 잔, 그리고 대야와 수건", 1400),
+    ("faith-story-cross", "met", "910391", "신앙 · 십자가 — '다 이루었다'", 1400),
+    ("faith-story-resurrection", "met", "468590", "신앙 · 빈 무덤 — 죽음 너머의 아침", 1400),
+    ("faith-story-jonah-1", "met", "349348", "신앙 · 요나 1장 — 다시스로 가는 배", 1400),
+    ("faith-story-jonah-2", "met", "912949", "신앙 · 요나 2장 — 물고기 뱃속의 기도", 1400),
+    ("faith-story-jonah-3", "met", "322620", "신앙 · 요나 3장 — 니느웨가 베옷을 입다", 1400),
+    ("faith-story-jonah-4", "met", "453683", "신앙 · 요나 4장 — 박넝쿨과 하나님의 질문", 1400),
 ]
 
 
@@ -182,6 +208,12 @@ def source_info(src: str, pid: str) -> tuple[str, dict]:
                 {"creator": "Unsplash", "license": "Unsplash License",
                  "license_url": "https://unsplash.com/license",
                  "page": f"https://images.unsplash.com/photo-{pid}"})
+    if src == "met":   # 메트로폴리탄 미술관 Open Access(CC0) 소장품
+        obj = json.loads(get(f"https://collectionapi.metmuseum.org/public/collection/v1/objects/{pid}"))
+        return (obj["primaryImage"] or obj["primaryImageSmall"],
+                {"title": obj["title"], "creator": obj.get("artistDisplayName") or "The Metropolitan Museum of Art",
+                 "license": "CC0 1.0", "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+                 "page": obj.get("objectURL")})
     meta = json.loads(get(f"https://api.openverse.org/v1/images/{pid}/"))
     return meta["url"], {
         "title": meta.get("title"), "creator": meta.get("creator"),

@@ -537,6 +537,24 @@
   "license_url": "https://unsplash.com/license",
   "page": "https://images.unsplash.com/photo-1537531383496-f4749b8032cf"
  },
+ "ideas-senior-china-tour-2": {
+  "file": "assets/photos/ideas-senior-china-tour-2.webp",
+  "alt": "아이디어 랩 · 시니어 중국 체험 여행",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1528360983277-13d401cdc186"
+ },
+ "ideas-china-edu-consulting": {
+  "file": "assets/photos/ideas-china-edu-consulting.webp",
+  "alt": "아이디어 랩 · 프리미엄 중국 여행·교육 컨설팅",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b"
+ },
  "ideas-china-edu-consulting-2": {
   "file": "assets/photos/ideas-china-edu-consulting-2.webp",
   "alt": "아이디어 랩 · 프리미엄 중국 여행·교육 컨설팅",
@@ -856,24 +874,6 @@
   "license_url": "https://unsplash.com/license",
   "page": "https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad"
  },
- "ideas-senior-china-tour-2": {
-  "file": "assets/photos/ideas-senior-china-tour-2.webp",
-  "alt": "아이디어 랩 · 시니어 중국 체험 여행",
-  "source": "unsplash",
-  "creator": "Unsplash",
-  "license": "Unsplash License",
-  "license_url": "https://unsplash.com/license",
-  "page": "https://images.unsplash.com/photo-1528360983277-13d401cdc186"
- },
- "ideas-china-edu-consulting": {
-  "file": "assets/photos/ideas-china-edu-consulting.webp",
-  "alt": "아이디어 랩 · 프리미엄 중국 여행·교육 컨설팅",
-  "source": "unsplash",
-  "creator": "Unsplash",
-  "license": "Unsplash License",
-  "license_url": "https://unsplash.com/license",
-  "page": "https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b"
- },
  "faith-notes-moses": {
   "file": "assets/photos/faith-notes-moses.webp",
   "alt": "신앙 · 지킬 수 없을 때, 맡기는 믿음",
@@ -1131,17 +1131,6 @@
   "license_url": "https://creativecommons.org/licenses/by/2.0/",
   "page": "https://www.flickr.com/photos/56650987@N08/15225860608"
  },
- "faith-bible-watchful": {
-  "file": "assets/photos/faith-bible-watchful.webp",
-  "alt": "신앙 · '권고', '근신', '분부' — 돌보심과 깨어 있음",
-  "source": "openverse",
-  "title": "Lion",
-  "creator": "cheetah100",
-  "creator_url": "https://www.flickr.com/photos/58982967@N00",
-  "license": "CC BY 2.0",
-  "license_url": "https://creativecommons.org/licenses/by/2.0/",
-  "page": "https://www.flickr.com/photos/58982967@N00/74687658"
- },
  "faith-bible-substance": {
   "file": "assets/photos/faith-bible-substance.webp",
   "alt": "신앙 · '실상', '증거', '확증' — 믿음은 막연한 기대가 아니다",
@@ -1219,17 +1208,6 @@
   "license_url": "https://creativecommons.org/licenses/by/2.0/",
   "page": "https://www.flickr.com/photos/98676224@N00/76936896"
  },
- "faith-bible-can-do-all": {
-  "file": "assets/photos/faith-bible-can-do-all.webp",
-  "alt": "신앙 · 빌립보서 4:13과 예레미야 29:11 — 축복 구절의 원래 자리",
-  "source": "openverse",
-  "title": "Prison Window",
-  "creator": "freedom-studios",
-  "creator_url": "https://www.flickr.com/photos/60097993@N05",
-  "license": "CC BY 2.0",
-  "license_url": "https://creativecommons.org/licenses/by/2.0/",
-  "page": "https://www.flickr.com/photos/60097993@N05/5911639155"
- },
  "faith-bible-job-friend": {
   "file": "assets/photos/faith-bible-job-friend.webp",
   "alt": "신앙 · '네 시작은 미약하였으나' — 욥의 친구가 한 말",
@@ -1285,17 +1263,6 @@
   "license_url": "https://creativecommons.org/licenses/by/2.0/",
   "page": "https://www.flickr.com/photos/91994044@N00/11578805655"
  },
- "faith-bible-temple-body": {
-  "file": "assets/photos/faith-bible-temple-body.webp",
-  "alt": "신앙 · '너희가 하나님의 성전'과 '감당치 못할 시험'",
-  "source": "openverse",
-  "title": "Tintinhull House - door",
-  "creator": "ell brown",
-  "creator_url": "https://www.flickr.com/photos/39415781@N06",
-  "license": "CC BY 2.0",
-  "license_url": "https://creativecommons.org/licenses/by/2.0/",
-  "page": "https://www.flickr.com/photos/39415781@N06/7178656018"
- },
  "faith-bible-hard-ot": {
   "file": "assets/photos/faith-bible-hard-ot.webp",
   "alt": "신앙 · 120년, 계명성, 바위에 메어치는 자 — 구약의 어려운 구절 셋",
@@ -1317,17 +1284,6 @@
   "license": "CC BY 2.0",
   "license_url": "https://creativecommons.org/licenses/by/2.0/",
   "page": "https://www.flickr.com/photos/153584064@N07/28510903567"
- },
- "faith-bible-in-my-name": {
-  "file": "assets/photos/faith-bible-in-my-name.webp",
-  "alt": "신앙 · '내 이름으로 구하라'와 '내 이름으로 일컫는 내 백성'",
-  "source": "openverse",
-  "title": "a hermit praying in the ruins of a roman temple",
-  "creator": "Xuan Che",
-  "creator_url": "https://www.flickr.com/photos/69275268@N00",
-  "license": "CC BY 2.0",
-  "license_url": "https://creativecommons.org/licenses/by/2.0/",
-  "page": "https://www.flickr.com/photos/69275268@N00/8337551320"
  },
  "faith-bible-take-off-shoes": {
   "file": "assets/photos/faith-bible-take-off-shoes.webp",
@@ -1394,5 +1350,299 @@
   "license": "CC BY 2.0",
   "license_url": "https://creativecommons.org/licenses/by/2.0/",
   "page": "https://www.flickr.com/photos/40837632@N05/3795866926"
+ },
+ "faith-bible-watchful": {
+  "file": "assets/photos/faith-bible-watchful.webp",
+  "alt": "신앙 · '권고', '근신', '분부' — 돌보심과 깨어 있음",
+  "source": "openverse",
+  "title": "Lion",
+  "creator": "cheetah100",
+  "creator_url": "https://www.flickr.com/photos/58982967@N00",
+  "license": "CC BY 2.0",
+  "license_url": "https://creativecommons.org/licenses/by/2.0/",
+  "page": "https://www.flickr.com/photos/58982967@N00/74687658"
+ },
+ "faith-bible-can-do-all": {
+  "file": "assets/photos/faith-bible-can-do-all.webp",
+  "alt": "신앙 · 빌립보서 4:13과 예레미야 29:11 — 축복 구절의 원래 자리",
+  "source": "openverse",
+  "title": "Prison Window",
+  "creator": "freedom-studios",
+  "creator_url": "https://www.flickr.com/photos/60097993@N05",
+  "license": "CC BY 2.0",
+  "license_url": "https://creativecommons.org/licenses/by/2.0/",
+  "page": "https://www.flickr.com/photos/60097993@N05/5911639155"
+ },
+ "faith-bible-temple-body": {
+  "file": "assets/photos/faith-bible-temple-body.webp",
+  "alt": "신앙 · '너희가 하나님의 성전'과 '감당치 못할 시험'",
+  "source": "openverse",
+  "title": "Tintinhull House - door",
+  "creator": "ell brown",
+  "creator_url": "https://www.flickr.com/photos/39415781@N06",
+  "license": "CC BY 2.0",
+  "license_url": "https://creativecommons.org/licenses/by/2.0/",
+  "page": "https://www.flickr.com/photos/39415781@N06/7178656018"
+ },
+ "faith-bible-in-my-name": {
+  "file": "assets/photos/faith-bible-in-my-name.webp",
+  "alt": "신앙 · '내 이름으로 구하라'와 '내 이름으로 일컫는 내 백성'",
+  "source": "openverse",
+  "title": "a hermit praying in the ruins of a roman temple",
+  "creator": "Xuan Che",
+  "creator_url": "https://www.flickr.com/photos/69275268@N00",
+  "license": "CC BY 2.0",
+  "license_url": "https://creativecommons.org/licenses/by/2.0/",
+  "page": "https://www.flickr.com/photos/69275268@N00/8337551320"
+ },
+ "faith-story-creation": {
+  "file": "assets/photos/faith-story-creation.webp",
+  "alt": "신앙 · 천지창조 — 혼돈에서 질서로, 그리고 안식",
+  "source": "met",
+  "title": "The Creation of the World and the Expulsion from Paradise",
+  "creator": "Giovanni di Paolo (Giovanni di Paolo di Grazia)",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/458971"
+ },
+ "faith-story-fall": {
+  "file": "assets/photos/faith-story-fall.webp",
+  "alt": "신앙 · 에덴과 타락 — '네가 어디 있느냐'",
+  "source": "met",
+  "title": "Adam and Eve Hide Themselves, from The Story of Adam and Eve",
+  "creator": "Heinrich Aldegrever",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/428305"
+ },
+ "faith-story-noah": {
+  "file": "assets/photos/faith-story-noah.webp",
+  "alt": "신앙 · 노아의 방주 — 심판의 물결 위에 뜬 은혜",
+  "source": "met",
+  "title": "Noah and the animals entering the ark",
+  "creator": "Giovanni Benedetto Castiglione (Il Grechetto)",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/335674"
+ },
+ "faith-story-abraham": {
+  "file": "assets/photos/faith-story-abraham.webp",
+  "alt": "신앙 · 아브라함의 부르심 — 별을 세어 보라",
+  "source": "met",
+  "title": "Abraham",
+  "creator": "Lorenzo Monaco (Piero di Giovanni)",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/436911"
+ },
+ "faith-story-joseph": {
+  "file": "assets/photos/faith-story-joseph.webp",
+  "alt": "신앙 · 요셉의 채색옷 — 악을 선으로 바꾸시는 하나님",
+  "source": "met",
+  "title": "Joseph Recognized by his Brothers",
+  "creator": "Charles Antoine Coypel",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/341466"
+ },
+ "faith-story-jacob": {
+  "file": "assets/photos/faith-story-jacob.webp",
+  "alt": "신앙 · 야곱의 하나님 — 할아버지의 하나님, 아버지의 하나님, 그리고 나의 하나님",
+  "source": "met",
+  "title": "Jacob Wrestling with the Angel",
+  "creator": "Eugène Delacroix",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/371674"
+ },
+ "faith-story-burning-bush": {
+  "file": "assets/photos/faith-story-burning-bush.webp",
+  "alt": "신앙 · 모세와 불타는 떨기나무 — 여든 살에 받은 부르심",
+  "source": "met",
+  "title": "Landscape with Moses and the Burning Bush",
+  "creator": "Domenichino (Domenico Zampieri)",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/436205"
+ },
+ "faith-story-red-sea": {
+  "file": "assets/photos/faith-story-red-sea.webp",
+  "alt": "신앙 · 홍해를 건너다 — 앞은 바다, 뒤는 군대",
+  "source": "met",
+  "title": "The Crossing of the Red Sea",
+  "creator": "Orazio Farinati",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/359558"
+ },
+ "faith-story-sinai": {
+  "file": "assets/photos/faith-story-sinai.webp",
+  "alt": "신앙 · 시내산의 십계명 — 자유를 지키는 울타리",
+  "source": "met",
+  "title": "Moses",
+  "creator": "Lorenzo Monaco (Piero di Giovanni)",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/436913"
+ },
+ "faith-story-david": {
+  "file": "assets/photos/faith-story-david.webp",
+  "alt": "신앙 · 다윗과 골리앗 — 전쟁은 여호와께 속한 것",
+  "source": "met",
+  "title": "David",
+  "creator": "Lorenzo Monaco (Piero di Giovanni)",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/436912"
+ },
+ "faith-story-daniel": {
+  "file": "assets/photos/faith-story-daniel.webp",
+  "alt": "신앙 · 다니엘과 사자 굴 — 창문을 열고 하루 세 번",
+  "source": "met",
+  "title": "Daniel Praying",
+  "creator": "William Holman Hunt",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/891635"
+ },
+ "faith-story-nativity": {
+  "file": "assets/photos/faith-story-nativity.webp",
+  "alt": "신앙 · 구유에 누인 아기 — 가장 낮은 곳으로 오신 왕",
+  "source": "met",
+  "title": "The Adoration of the Shepherds",
+  "creator": "L'Ortolano (Giovanni Battista Benvenuti)",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/437231"
+ },
+ "faith-story-baptism": {
+  "file": "assets/photos/faith-story-baptism.webp",
+  "alt": "신앙 · 요단강의 세례와 광야의 시험",
+  "source": "met",
+  "title": "The Baptism of Christ",
+  "creator": "Jacopo Bassano (Jacopo da Ponte)",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/440393"
+ },
+ "faith-story-beatitudes": {
+  "file": "assets/photos/faith-story-beatitudes.webp",
+  "alt": "신앙 · 산상수훈과 팔복 — 뒤집힌 행복의 목록",
+  "source": "met",
+  "title": "Christ Preaching",
+  "creator": "Russian Painter",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/209287"
+ },
+ "faith-story-samaritan": {
+  "file": "assets/photos/faith-story-samaritan.webp",
+  "alt": "신앙 · 선한 사마리아인 — '누가 나의 이웃입니까'",
+  "source": "met",
+  "title": "The Good Samaritan",
+  "creator": "Alexandre-Gabriel Decamps",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/436115"
+ },
+ "faith-story-loaves": {
+  "file": "assets/photos/faith-story-loaves.webp",
+  "alt": "신앙 · 오병이어 — 한 아이의 도시락으로 시작된 기적",
+  "source": "met",
+  "title": "The Miracle of the Loaves and Fishes",
+  "creator": "Jacopo Tintoretto (Jacopo Robusti)",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/437821"
+ },
+ "faith-story-prodigal": {
+  "file": "assets/photos/faith-story-prodigal.webp",
+  "alt": "신앙 · 탕자의 비유 — 멀리서 달려오는 아버지",
+  "source": "met",
+  "title": "The Prodigal Son",
+  "creator": "Salvator Rosa",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/340664"
+ },
+ "faith-story-zacchaeus": {
+  "file": "assets/photos/faith-story-zacchaeus.webp",
+  "alt": "신앙 · 삭개오 — 뽕나무 위의 세리장을 부르신 이름",
+  "source": "met",
+  "title": "Roundel with Christ and Zacchaeus",
+  "creator": "The Metropolitan Museum of Art",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/471107"
+ },
+ "faith-story-last-supper": {
+  "file": "assets/photos/faith-story-last-supper.webp",
+  "alt": "신앙 · 최후의 만찬 — 떡과 잔, 그리고 대야와 수건",
+  "source": "met",
+  "title": "The Last Supper",
+  "creator": "Ugolino da Siena (Ugolino di Nerio)",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/459131"
+ },
+ "faith-story-cross": {
+  "file": "assets/photos/faith-story-cross.webp",
+  "alt": "신앙 · 십자가 — '다 이루었다'",
+  "source": "met",
+  "title": "Christ on the Cross",
+  "creator": "Cecco del Caravaggio (Francesco Buoneri)",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/910391"
+ },
+ "faith-story-resurrection": {
+  "file": "assets/photos/faith-story-resurrection.webp",
+  "alt": "신앙 · 빈 무덤 — 죽음 너머의 아침",
+  "source": "met",
+  "title": "Manuscript Illumination with the Holy Women at the Tomb in an Initial A, from an Antiphonary",
+  "creator": "Girolamo dai Libri",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/468590"
+ },
+ "faith-story-jonah-1": {
+  "file": "assets/photos/faith-story-jonah-1.webp",
+  "alt": "신앙 · 요나 1장 — 다시스로 가는 배",
+  "source": "met",
+  "title": "Landscape with a Ship and Jonah and the Whale",
+  "creator": "Lucas Gassel",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/349348"
+ },
+ "faith-story-jonah-2": {
+  "file": "assets/photos/faith-story-jonah-2.webp",
+  "alt": "신앙 · 요나 2장 — 물고기 뱃속의 기도",
+  "source": "met",
+  "title": "Jonah and the Whale",
+  "creator": "Luca Ciamberlano",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/912949"
+ },
+ "faith-story-jonah-3": {
+  "file": "assets/photos/faith-story-jonah-3.webp",
+  "alt": "신앙 · 요나 3장 — 니느웨가 베옷을 입다",
+  "source": "met",
+  "title": "Assyrian Crown-Prince",
+  "creator": "The Metropolitan Museum of Art",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/322620"
+ },
+ "faith-story-jonah-4": {
+  "file": "assets/photos/faith-story-jonah-4.webp",
+  "alt": "신앙 · 요나 4장 — 박넝쿨과 하나님의 질문",
+  "source": "met",
+  "title": "\"Jonah and the Whale\", Folio Probably from a Jami al-Tavarikh (Compendium of Chronicles)",
+  "creator": "The Metropolitan Museum of Art",
+  "license": "CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.metmuseum.org/art/collection/search/453683"
  }
 }
