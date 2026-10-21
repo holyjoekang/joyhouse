@@ -65,7 +65,7 @@ function footer() {
       <li><a href="blog.html">레드룸 · 블로그</a></li><li><a href="travel.html">맵룸 · 여행 지도</a></li>
       <li><a href="studio.html">오벌 오피스 · 작업실</a></li></ul></div>
     <div><h4>윙</h4><ul>
-      <li><a href="china.html">중국관 · 주재원 9년</a></li><li><a href="faith.html">신앙 · 말씀과 일</a></li><li><a href="vision.html">비전룸 · Keep121</a></li>
+      <li><a href="china.html">중국관 · 중국 생활 7년</a></li><li><a href="faith.html">신앙 · 말씀과 일</a></li><li><a href="vision.html">비전룸 · Keep121</a></li>
       <li><a href="ideas.html">아이디어 랩 · 창업 아이디어 30</a></li>
       <li><a href="family.html">가족의 방들</a></li><li><a href="3d.html">3D 투어</a></li></ul></div>
     <div><h4>바깥 사이트</h4><ul>
@@ -286,6 +286,29 @@ R.faithPost = async el => {
     </nav>
     <p class="muted idea-note">설교를 듣고 남긴 기록과 공부 노트를 바탕으로 다시 쓴 글입니다. 성경 인용은 개역개정.</p>
   </div></section>`;
+};
+
+// 중국관: 블로그 칼럼 아카이브(주제 7개, 필터 칩 + 글 목록). 대장은 content/china.json
+R.chinaColumns = async el => {
+  const { groups, count } = await json("content/china.json");
+  const chips = [["all", "전체", count], ...groups.map(g => [g.id, g.name.replace(/^연재 /, ""), g.posts.length])];
+  el.innerHTML = `
+    <div class="idea-filter cc-filter" role="toolbar" aria-label="주제로 거르기">${chips.map(([k, n, c], i) =>
+      `<button type="button" data-f="${k}" aria-pressed="${i === 0}">${esc(n)} <small>${c}</small></button>`).join("")}</div>
+    ${groups.map(g => `
+    <section class="cc-group" data-g="${g.id}" id="cc-${g.id}" style="--tc:${g.color}">
+      <div class="faith-series-head"><span class="eyebrow">${esc(g.en)}</span><h3>${esc(g.name)}</h3><p>${esc(g.desc)}</p></div>
+      <ol class="cc-list">${[...g.posts].sort((a, b) => a.date.localeCompare(b.date)).map(p => `
+        <li><a href="${esc(p.url)}" target="_blank" rel="noopener">
+          <time datetime="${p.date}">${p.date.slice(0, 7).replace("-", ". ")}</time>
+          <b>${esc(p.title)}</b><span>${esc(p.note)}</span></a></li>`).join("")}</ol>
+    </section>`).join("")}`;
+  const bar = el.querySelector(".cc-filter");
+  bar.addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    bar.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    el.querySelectorAll(".cc-group").forEach(g => { g.hidden = b.dataset.f !== "all" && g.dataset.g !== b.dataset.f; });
+  });
 };
 
 R.books = async el => {
