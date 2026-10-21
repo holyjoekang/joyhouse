@@ -231,7 +231,7 @@ R.idea = async el => {
 
 // 신앙: 연재 3개(말씀 노트·쉽게 읽는 성경·일과 신앙)와 글 12편. 대장은 content/faith.json
 const faithCard = (p, se) => `
-  <a class="faith-card" href="faith-post.html?id=${esc(p.id)}" style="--tc:${se.color}">
+  <a class="faith-card" href="faith-post.html?id=${esc(p.id)}" data-topic="${p.topic || ""}" style="--tc:${se.color}">
     <div class="faith-img"><img src="${photo(p.img)}" alt="" loading="lazy"></div>
     <div class="faith-body">
       <span class="card-kicker" style="color:${se.color}">${esc(se.name)} · ${esc(p.scripture)}</span>
@@ -245,8 +245,15 @@ R.faith = async el => {
   el.innerHTML = series.map(se => `
     <section class="faith-series reveal" id="${se.id}" style="--tc:${se.color}">
       <div class="faith-series-head"><span class="eyebrow">${esc(se.en)}</span><h2>${esc(se.name)}</h2><p>${esc(se.desc)}</p></div>
+      ${se.topics ? `<div class="idea-filter faith-filter" role="toolbar" aria-label="주제로 거르기">${[["all", "전체"], ...Object.entries(se.topics)].map(([k, n], i) =>
+        `<button data-f="${k}" aria-pressed="${i === 0}">${esc(n)} <small>${posts.filter(p => p.series === se.id && (k === "all" || p.topic === k)).length}</small></button>`).join("")}</div>` : ""}
       <div class="faith-grid">${posts.filter(p => p.series === se.id).map(p => faithCard(p, se)).join("")}</div>
     </section>`).join("");
+  el.querySelectorAll(".faith-filter").forEach(bar => bar.addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    bar.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    bar.parentElement.querySelectorAll(".faith-card").forEach(c => { c.hidden = b.dataset.f !== "all" && c.dataset.topic !== b.dataset.f; });
+  }));
   reveal();
 };
 
