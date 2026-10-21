@@ -1,6 +1,20 @@
 {
  "books": [
   {
+   "title": "빨강의 자서전",
+   "author": "",
+   "read": "2026-10-21",
+   "cover": "",
+   "url": "https://blog.naver.com/joekang/224449411293"
+  },
+  {
+   "title": "미라클 모닝 After 50",
+   "author": "",
+   "read": "2026-10-09",
+   "cover": "",
+   "url": "https://blog.naver.com/joekang/224435939040"
+  },
+  {
    "title": "웰컴 홈, 우리집 학교",
    "author": "",
    "read": "2026-03-09",
@@ -107,18 +121,6 @@
    "author": "최인아",
    "read": "2024-08-19",
    "cover": "assets/books/17.jpg"
-  },
-  {
-   "title": "일류의 조건",
-   "author": "사이토 다카시",
-   "read": "2024-07-24",
-   "cover": "assets/books/18.jpg"
-  },
-  {
-   "title": "인생 맛의 기억",
-   "author": "조광제",
-   "read": "2024-06-01",
-   "cover": "assets/books/19.jpg"
   }
  ]
 }

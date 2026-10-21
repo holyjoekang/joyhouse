@@ -315,7 +315,7 @@ R.books = async el => {
   const { books } = await json("data/books_top20.json");
   const n = +el.dataset.limit || books.length;
   el.innerHTML = books.slice(0, n).map(b => `
-<a class="book" href="${LINKS.bookshelf}">
+<a class="book" href="${esc(b.url || LINKS.bookshelf)}">
   <div class="book-cover">${b.cover ? `<img src="${esc(b.cover)}" alt="${esc(b.title)} 표지" loading="lazy">` : esc(b.title)}</div>
   <h4>${esc(b.title)}</h4><small>${esc(b.author || "—")} · ${esc((b.read || "").slice(0, 7))}</small>
 </a>`).join("");
