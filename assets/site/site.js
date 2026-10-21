@@ -288,6 +288,29 @@ R.faithPost = async el => {
   </div></section>`;
 };
 
+// 중국관: 블로그 칼럼 아카이브(주제 7개, 필터 칩 + 글 목록). 대장은 content/china.json
+R.chinaColumns = async el => {
+  const { groups, count } = await json("content/china.json");
+  const chips = [["all", "전체", count], ...groups.map(g => [g.id, g.name.replace(/^연재 /, ""), g.posts.length])];
+  el.innerHTML = `
+    <div class="idea-filter cc-filter" role="toolbar" aria-label="주제로 거르기">${chips.map(([k, n, c], i) =>
+      `<button type="button" data-f="${k}" aria-pressed="${i === 0}">${esc(n)} <small>${c}</small></button>`).join("")}</div>
+    ${groups.map(g => `
+    <section class="cc-group" data-g="${g.id}" id="cc-${g.id}" style="--tc:${g.color}">
+      <div class="faith-series-head"><span class="eyebrow">${esc(g.en)}</span><h3>${esc(g.name)}</h3><p>${esc(g.desc)}</p></div>
+      <ol class="cc-list">${[...g.posts].sort((a, b) => a.date.localeCompare(b.date)).map(p => `
+        <li><a href="${esc(p.url)}" target="_blank" rel="noopener">
+          <time datetime="${p.date}">${p.date.slice(0, 7).replace("-", ". ")}</time>
+          <b>${esc(p.title)}</b><span>${esc(p.note)}</span></a></li>`).join("")}</ol>
+    </section>`).join("")}`;
+  const bar = el.querySelector(".cc-filter");
+  bar.addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    bar.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    el.querySelectorAll(".cc-group").forEach(g => { g.hidden = b.dataset.f !== "all" && g.dataset.g !== b.dataset.f; });
+  });
+};
+
 R.books = async el => {
   const { books } = await json("data/books_top20.json");
   const n = +el.dataset.limit || books.length;
