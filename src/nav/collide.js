@@ -1,8 +1,13 @@
 // 벽·기둥·담은 바닥 위 직사각형(x0..x1, z0..z1)으로만 다룬다. 몸 반지름 R만큼 띄운다.
 export function makeCollider(blocks, site, R = 0.35) {
-  function resolve(p) {
+  // 대지 밖으로만 못 나가게 (하늘에서 볼 때는 벽을 넘는다)
+  function clamp(p) {
     p.x = Math.max(site.x0 + 1, Math.min(site.x1 - 1, p.x));
     p.z = Math.max(site.z1 + 1, Math.min(site.z0 - 1, p.z));
+    return p;
+  }
+  function resolve(p) {
+    clamp(p);
     for (const b of blocks) {
       const x0 = b.x0 - R, x1 = b.x1 + R, z0 = b.z0 - R, z1 = b.z1 + R;
       if (p.x <= x0 || p.x >= x1 || p.z <= z0 || p.z >= z1) continue;
@@ -26,5 +31,5 @@ export function makeCollider(blocks, site, R = 0.35) {
       return true;
     });
   }
-  return { resolve, blocked };
+  return { resolve, blocked, clamp };
 }

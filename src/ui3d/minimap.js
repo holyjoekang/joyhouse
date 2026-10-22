@@ -16,9 +16,12 @@ export function createMinimap(hud, renderer, scene, site, getView) {
 
   function snapshot() {
     const fog = scene.fog; scene.fog = null;
+    const hide = scene.children.filter(o => o.userData.noMap && o.visible);   // 비·눈·구름·별은 빼고 찍는다
+    hide.forEach(o => { o.visible = false; });
     renderer.setRenderTarget(rt);
     renderer.render(scene, cam);
     renderer.setRenderTarget(null);
+    hide.forEach(o => { o.visible = true; });
     scene.fog = fog;
   }
 

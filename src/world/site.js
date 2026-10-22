@@ -7,6 +7,7 @@ import { buildPond, toriStatue } from './pond.js';
 import { textPlane } from '../ui3d/text.js';
 import { buildFarm } from './farm.js';
 import { buildBukchon, bukchonGround } from './bukchon.js';
+import { createLights } from './lights.js';
 
 const POND = { cx: -46, cz: -35, w: 14, d: 10 };
 const ROSE = { cx: 46, cz: -35 };
@@ -15,10 +16,12 @@ const PAVILION = { cx: 24, cz: -17 };   // 정관헌: 앞뜰 오른쪽 커피 �
 export function buildSite(scene, renderer, house, timeline, { shadows, phone }) {
   const blocks = [], clickables = [], tickers = [];
 
-  // 늦은 오후 해: 서남쪽에서 비스듬히 들어와 그림자가 길다
+  // 해 자리는 처음 값일 뿐, atmosphere.js 가 지금 시각·날씨에 맞춰 옮긴다
   const sunDir = new THREE.Vector3(0.62, 0.5, 0.6).normalize();
   const sky = buildSky(scene, renderer, sunDir);
-  scene.add(new THREE.HemisphereLight(0xdfe9ff, 0x6b5a40, 0.55));
+  const hemi = new THREE.HemisphereLight(0xdfe9ff, 0x6b5a40, 0.55);
+  scene.add(hemi);
+  const lights = createLights(scene, { phone });
   const sun = new THREE.DirectionalLight(0xffe6c4, 3.2);
   sun.target.position.set(0, 0, -50);
   sun.position.copy(sunDir).multiplyScalar(160).add(sun.target.position);
@@ -66,7 +69,12 @@ export function buildSite(scene, renderer, house, timeline, { shadows, phone }) 
   flowerBeds(scene, [
     [7.2, -2.2, 13, -3.8, [0xd94060, 0xf6f0e8, 0x9a5ac8]], [-13, -2.2, -7.2, -3.8, [0xd94060, 0xf6f0e8, 0x9a5ac8]],
   ]);
-  for (const x of [-9.5, 9.5]) stoneLantern(scene, x, -53.2);
+  for (const x of [-9.5, 9.5]) {
+    const g = stoneLantern(scene, x, -53.2);
+    g.children[g.children.length - 1].material = lights.glass;   // 화사석 불빛도 밤에만 켠다
+    lights.add(x, 1.61, -53.2, 0, 0.6);
+  }
+  nightLights(scene, lights, blocks);
 
   // 나무: 소나무 숲, 앞마당 은행나무 한 쌍, 대문 곁 느티나무, 집 둘레 단풍
   const r = rng(42), spots = [];
@@ -90,7 +98,8 @@ export function buildSite(scene, renderer, house, timeline, { shadows, phone }) 
   steppingStones(scene, [[3.6, -36], [ROSE.cx - 10, -36]]);
   steppingStones(scene, [[-3.6, -24], [POND.cx + 3, -24]]);
   mountains(scene);
-  buildBukchon(scene, house.street, { blocks, clickables });
+  buildBukchon(scene, house.street, { blocks, clickables, lights });
+  lights.build();
   if (house.farm) buildFarm(scene, house.farm, { blocks, clickables, tickers, phone });
 
   // 풀잎: 잔디길 양쪽 앞뜰
@@ -101,7 +110,7 @@ export function buildSite(scene, renderer, house, timeline, { shadows, phone }) 
   tickers.push(grassField(scene, [{ x0: -34, x1: 34, z0: -54, z1: -1 }], phone ? 16000 : 70000, avoid));
 
   return {
-    blocks, clickables, sky,
+    blocks, clickables, sky, sun, hemi, lights,
     groundAt: bukchonGround,
     update(dt) {
       // 해는 움직이지 않으므로 그림자 지도는 한 번만 그린다. 대문이 열리는 동안만 다시 그린다.
@@ -110,6 +119,26 @@ export function buildSite(scene, renderer, house, timeline, { shadows, phone }) 
     },
     gate,
   };
+}
+
+// 밤 조명 자리: 잔디길 가로등, 대문 밖 길목, 꽃담 등, 대문 초롱, 정관헌 펜던트, 집 정면 초롱
+function nightLights(scene, lights, blocks) {
+  const lamps = [[-8.5, 0, 5], [8.5, 0, 5]];
+  for (const z of [-8.3, -21.6, -35, -48.3]) lamps.push([-4.9, 0, z], [4.9, 0, z]);
+  lights.gardenLamps(lamps);
+  for (const [x, , z] of lamps) blocks.push({ x0: x - 0.25, x1: x + 0.25, z0: z - 0.25, z1: z + 0.25 });
+  const wall = [];
+  for (let k = 1; k <= 7; k++) for (const s of [-1, 1]) wall.push([s * 12 * k, 0, 0.37], [s * 12 * k, 0, -0.37]);
+  lights.wallLamps(wall);
+  lights.chorong([[-2.4, 4.45, 1.35], [2.4, 4.45, 1.35], [-2.4, 4.45, -1.35], [2.4, 4.45, -1.35]]);
+  const { cx, cz } = PAVILION;
+  const pendant = new THREE.Mesh(new THREE.SphereGeometry(0.22, 16, 12), lights.glass);
+  pendant.position.set(cx, 3.25, cz);
+  const chain = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.5, 4), mats.brass);
+  chain.position.set(cx, 3.6, cz);
+  scene.add(pendant, chain);
+  lights.add(cx, 3.25, cz, 0.36, 1.1);
+  for (const x of [-4.5, 4.5]) lights.add(x, 6.9, -55.2, 0, 1.2);
 }
 
 function steppingStones(scene, [[x0, z0], [x1, z1]]) {

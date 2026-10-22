@@ -17,10 +17,13 @@ export function createPost(renderer, scene, camera, enabled) {
   ao.updatePdMaterial({ lumaPhi: 10, depthPhi: 2, normalPhi: 3, radius: 6, rings: 2, samples: 12 });
   ao.blendIntensity = 0.85;
   composer.addPass(ao);
-  composer.addPass(new UnrealBloomPass(new THREE.Vector2(size.x, size.y), 0.18, 0.5, 0.92));
+  const bloom = new UnrealBloomPass(new THREE.Vector2(size.x, size.y), 0.18, 0.5, 0.92);
+  composer.addPass(bloom);
   composer.addPass(new OutputPass());
   return {
     render: () => composer.render(),
+    // 밤(v → 1)일수록 등불이 번지게
+    setGlow(v) { bloom.strength = 0.18 + 0.55 * v; bloom.threshold = 0.92 - 0.32 * v; },
     setSize(w, h) { composer.setPixelRatio(renderer.getPixelRatio()); composer.setSize(w, h); },
   };
 }
