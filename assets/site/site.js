@@ -66,7 +66,7 @@ function footer() {
       <li><a href="studio.html">오벌 오피스 · 작업실</a></li></ul></div>
     <div><h4>윙</h4><ul>
       <li><a href="china.html">중국관 · 중국 생활 7년</a></li><li><a href="faith.html">신앙 · 말씀과 일</a></li><li><a href="vision.html">비전룸 · Keep121</a></li>
-      <li><a href="ideas.html">아이디어 랩 · 창업 아이디어 30</a></li>
+      <li><a href="ideas.html">아이디어 랩 · 창업 아이디어 31</a></li>
       <li><a href="family.html">가족의 방들</a></li><li><a href="3d.html">3D 투어</a></li></ul></div>
     <div><h4>바깥 사이트</h4><ul>
       <li><a href="${LINKS.bookshelf}">나의 서재</a></li><li><a href="${LINKS.travel}">나의 여행 지도</a></li>
@@ -164,7 +164,8 @@ R.idea = async el => {
     <span class="eyebrow">${esc(th.name)} · ${esc(th.en)}</span>
     <h1>${esc(it.title)}</h1>
     <p>${esc(it.one)}</p>
-    <div class="idea-tags"><span>${esc(it.stage)}</span><span>초기자본 ${esc(it.capital)}</span><span>목표 ${esc(it.goal)}</span>${it.tags.map(t => `<span>${esc(t)}</span>`).join("")}</div>`;
+    <div class="idea-tags"><span>${esc(it.stage)}</span><span>초기자본 ${esc(it.capital)}</span><span>목표 ${esc(it.goal)}</span>${it.tags.map(t => `<span>${esc(t)}</span>`).join("")}</div>${it.page ? `
+    <div class="hero-cta"><a class="btn btn-primary" href="${esc(it.page.href)}">${esc(it.page.label)} →</a></div>` : ""}`;
   creditFor({ getAttribute: () => photo(it.img.hero) }).then(t => { hero.querySelector(".photo-credit").innerHTML = t; });
   el.style.setProperty("--tc", th.color);
   el.innerHTML = `
