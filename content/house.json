@@ -26,7 +26,7 @@
   {"id": "family", "name": "가족관", "sub": "아내·가족", "wing": "east", "box": [36, -78, 54, -90], "height": 4.5, "access": "family", "stage": 1},
   {"id": "legacy", "name": "유산의 방", "sub": "편지·타임캡슐", "wing": "east", "box": [54, -66, 72, -78], "height": 4.5, "access": "family", "stage": 2},
   {"id": "chapel", "name": "신앙", "sub": "말씀·성경·일과 신앙", "wing": "west", "box": [-54, -54, -36, -66], "height": 4.5, "access": "guest", "stage": 1},
-  {"id": "ideas", "name": "아이디어 랩", "sub": "창업 아이디어 30", "wing": "east", "box": [36, -54, 54, -66], "height": 4.5, "access": "guest", "stage": 1},
+  {"id": "ideas", "name": "아이디어 랩", "sub": "창업 아이디어 31", "wing": "east", "box": [36, -54, 54, -66], "height": 4.5, "access": "guest", "stage": 1},
   {"id": "vision", "name": "비전룸", "sub": "Keep121", "wing": "east", "box": [36, -66, 54, -78], "height": 4.5, "access": "guest", "stage": 1}
  ],
  "doors": [
