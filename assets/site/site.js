@@ -32,7 +32,8 @@ const MARK = `<svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
 
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const cache = {};
-const json = path => (cache[path] ||= fetch(path).then(r => r.ok ? r.json() : Promise.reject(new Error(path))));
+// content/*.json 은 자주 바뀌므로 매번 서버에 재확인한다(바뀌지 않았으면 304라 가볍다)
+const json = path => (cache[path] ||= fetch(path, { cache: "no-cache" }).then(r => r.ok ? r.json() : Promise.reject(new Error(path))));
 const here = (location.pathname.split("/").pop() || "index.html");
 
 function header() {
@@ -150,13 +151,20 @@ R.ideas = async el => {
 R.idea = async el => {
   const { themes, ideas } = await json("content/ideas.json");
   const id = new URLSearchParams(location.search).get("id");
-  const k = Math.max(0, ideas.findIndex(i => i.id === id)), it = ideas[k], th = themes[it.theme];
+  const k = ideas.findIndex(i => i.id === id);
+  if (k < 0) {
+    document.querySelector(".page-hero h1").textContent = "아이디어를 찾을 수 없습니다";
+    el.innerHTML = `<section class="block"><div class="wrap"><p>주소가 바뀌었거나 아직 반영 중입니다. <a href="ideas.html">아이디어 목록</a>에서 다시 골라 주세요.</p></div></section>`;
+    return;
+  }
+  const it = ideas[k], th = themes[it.theme];
   const same = ideas.filter(i => i.theme === it.theme), s = same.indexOf(it);
   const prev = same[(s - 1 + same.length) % same.length], next = same[(s + 1) % same.length];
   const li = a => a.map(x => `<li>${esc(x)}</li>`).join("");
   const C = it.canvas;
   const cell = (cls, label, v) => `<div class="bmc-${cls}"><h4>${label}</h4><p>${esc(v)}</p></div>`;
   document.title = `${it.title} — 아이디어 랩 · Joyhouse`;
+  document.querySelector('meta[name="description"]')?.setAttribute("content", it.one);
   const hero = document.querySelector(".page-hero");
   hero.style.backgroundImage = `url('${photo(it.img.hero)}')`;
   hero.querySelector(".wrap").innerHTML = `
