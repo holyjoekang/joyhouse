@@ -103,6 +103,7 @@ export function createAtmosphere({ scene, renderer, sky, sun, hemi, lights, phon
       storm: { near: 40, far: 200 }, snow: { near: 40, far: 190 }, fog: { near: 12, far: 110 } }[k]);
 
     lights.setLevel(lit);
+    scene.userData.lit = lit;   // 스마트팜 온실 LED가 읽는다
     mats.paperDoor.emissive.copy(mix(0x3a2c14, 0xa8692a, lit));
     mats.paperDoor.emissiveIntensity = 0.25 + 1.5 * lit;
     mats.lantern.emissiveIntensity = 0.9 + 2.8 * lit;
