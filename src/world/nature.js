@@ -95,7 +95,7 @@ export function plantTrees(scene, spots, blocks) {
       const leaves = new THREE.InstancedMesh(shape.leaves, LEAF[kind], list.length);
       list.forEach((s, i) => {
         q.setFromAxisAngle(up, s.rot || 0);
-        m.compose(new THREE.Vector3(s.x, 0, s.z), q, new THREE.Vector3(s.s, s.s, s.s));
+        m.compose(new THREE.Vector3(s.x, s.y || 0, s.z), q, new THREE.Vector3(s.s, s.s, s.s));
         trunk.setMatrixAt(i, m); leaves.setMatrixAt(i, m);
         blocks.push({ x0: s.x - 0.45, x1: s.x + 0.45, z0: s.z - 0.45, z1: s.z + 0.45 });
       });

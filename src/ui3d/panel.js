@@ -8,7 +8,7 @@ export function createPanel(hud) {
   let card = null, t = 0, current = null, actions = [];
   const buttons = [];
 
-  const KIND = { portal: '포털', artwork: '작품', post: '블로그 글', locked: '가족 전용', milestone: '이정표', sign: '안내', app: 'AI-Apps 작업실' };
+  const KIND = { portal: '포털', artwork: '작품', post: '블로그 글', locked: '가족 전용', milestone: '이정표', sign: '안내', app: 'AI-Apps 작업실', company: '북촌 골목 · 벗의 일터' };
 
   function btnSpec(label, primary) {
     return { bg: primary ? '#1f4a7a' : '#3a2b1e', padding: 10, radius: 10, align: 'center',

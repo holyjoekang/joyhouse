@@ -2,9 +2,10 @@
 // 앞 방향은 (-sin yaw, -cos yaw): yaw 0이면 북쪽(-z, 집 쪽)을 본다.
 export const EYE = 1.6;
 
-export function createWalker(camera, collider, start, { onFade }) {
+// ground(x, z): 그 자리 땅 높이(언덕 골목). 없으면 평지.
+export function createWalker(camera, collider, start, { onFade, ground = () => 0 }) {
   const goal = { x: start.x, z: start.z, yaw: start.yaw || 0, pitch: 0 };
-  const view = { ...goal };
+  const view = { ...goal, y: ground(goal.x, goal.z) };
   const keys = new Set();
   let busy = false;
 
@@ -30,7 +31,7 @@ export function createWalker(camera, collider, start, { onFade }) {
       busy = true;
       await onFade(1);
       Object.assign(goal, { x: target.x, z: target.z, yaw: yaw ?? goal.yaw, pitch });
-      Object.assign(view, goal);
+      Object.assign(view, goal, { y: ground(goal.x, goal.z) });
       await onFade(0);
       busy = false;
     } else {
@@ -57,7 +58,8 @@ export function createWalker(camera, collider, start, { onFade }) {
     view.yaw += (goal.yaw - view.yaw) * k;
     view.pitch += (goal.pitch - view.pitch) * k;
     collider.resolve(view);          // 따라가는 길에도 벽을 뚫지 않는다
-    camera.position.set(view.x, EYE, view.z);
+    view.y += (ground(view.x, view.z) - view.y) * Math.min(1, dt * 10);
+    camera.position.set(view.x, EYE + view.y, view.z);
     camera.rotation.set(view.pitch, view.yaw, 0, 'YXZ');
     return d || s;
   }
