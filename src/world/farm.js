@@ -59,9 +59,10 @@ export function buildFarm(scene, F, { blocks, clickables, tickers, phone }) {
   for (const x of [x0 + 1.5, x1 - 1.5]) flat(scene, 3, F.d - 6, M.green, x, F.cz, 0.02);
 
   // 집에서 오는 길: 정문 앞에서 남쪽으로 내려와 동쪽으로 간다
-  const roadLen = x0 - F.road;
-  flat(scene, 5, gateZ - 8, repeatFor(mats.gravel, 1.2, 3), F.road, (gateZ + 8) / 2 + 1.25, 0.03);
-  flat(scene, roadLen, 5, repeatFor(mats.gravel, roadLen / 4, 1.2), F.road + roadLen / 2, gateZ, 0.03);
+  // 박석길: 정문 바로 앞에서 내려오고, 서쪽은 북촌 골목 어귀까지 이어 길이 끊기지 않는다
+  const down = gateZ + 2.5 - 0.3, west = F.road - 14, roadLen = x0 - west;
+  flat(scene, 5, down, repeatFor(mats.path, 5 / 3, down / 3), F.road, 0.3 + down / 2, 0.03);
+  flat(scene, roadLen, 5, repeatFor(mats.path, roadLen / 3, 5 / 3), west + roadLen / 2, gateZ, 0.032);
 
   // 안쪽 차량 동선: 길목 가로길, 남쪽 가로길, 가운데 길과 양옆 길로 고리를 이룬다
   const southZ = Z(172);
