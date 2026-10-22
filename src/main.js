@@ -14,6 +14,7 @@ import { createMinimap } from './ui3d/minimap.js';
 import { loadTextures, OUTDOOR_TEX, INDOOR_TEX } from './world/materials.js';
 import { createOverlay, openTab } from './portal/overlay.js';
 import { createAtmosphere } from './world/atmosphere.js';
+import { STREAM_SPOT } from './world/stream.js';
 
 const cache = new Map();
 function data(path) {
@@ -130,6 +131,7 @@ function goRoom(id) {
   const o = OUTDOOR[id];
   if (o) {
     const [x0, z0, x1, z1] = o.box;
+    if (id === 'stream') return walker.go(...STREAM_SPOT, 0);
     if (id === 'bukchon') return walker.go(x1 + 3, 20, Math.PI / 2, 0);   // 골목 어귀에서 서쪽 언덕을 본다
     if (id === 'farm') return walker.go(x0 + 2, Math.min(z0, z1) + 24, -Math.PI / 2, 0);   // 스마트팜 길목에서 동쪽을 본다
     walker.go((x0 + x1) / 2, Math.max(z0, z1) + (id === 'gate' ? 6 : -2), 0, 0);

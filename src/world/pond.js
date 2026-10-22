@@ -5,7 +5,7 @@ import { rng, stoneLantern } from './nature.js';
 import { textPlane } from '../ui3d/text.js';
 
 // 물결 법선맵: 겹친 사인파로 그린 캔버스. 매 프레임 두 장을 서로 다른 방향으로 흘린다.
-function rippleNormal() {
+export function rippleNormal() {
   const S = 256, c = document.createElement('canvas');
   c.width = c.height = S;
   const ctx = c.getContext('2d'), img = ctx.createImageData(S, S);

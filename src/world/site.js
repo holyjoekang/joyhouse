@@ -4,6 +4,7 @@ import { hanokRoof } from './roof.js';
 import { buildSky } from './sky.js';
 import { plantTrees, grassField, hedges, flowerBeds, stoneLantern, mountains, rng } from './nature.js';
 import { buildPond, toriStatue } from './pond.js';
+import { buildStream } from './stream.js';
 import { textPlane } from '../ui3d/text.js';
 import { buildFarm } from './farm.js';
 import { buildBukchon, bukchonGround } from './bukchon.js';
@@ -90,6 +91,8 @@ export function buildSite(scene, renderer, house, timeline, { shadows, phone }) 
   for (const [x, z] of [[-30, -58], [30, -58], [-80, -60], [80, -60], [-26, -100], [26, -100]]) spots.push({ x, z, s: 1.0, kind: 'maple', rot: x });
   const plantLater = [];
   tickers.push(buildPond(scene, POND, blocks, clickables, s => plantLater.push(s)));
+  const stream = buildStream(scene, { blocks, clickables, lights, phone, plant: s => plantLater.push(s) });
+  tickers.push(stream.tick);
   plantTrees(scene, [...spots, ...plantLater], blocks);
 
   roseGarden(scene, clickables, blocks);
@@ -108,6 +111,7 @@ export function buildSite(scene, renderer, house, timeline, { shadows, phone }) 
     (Math.abs(x - PAVILION.cx) < 7 && Math.abs(z - PAVILION.cz) < 5.5) ||
     (Math.abs(Math.abs(x) - 4.2) < 0.5 && true && false);
   tickers.push(grassField(scene, [{ x0: -34, x1: 34, z0: -54, z1: -1 }], phone ? 16000 : 70000, avoid));
+  tickers.push(grassField(scene, [stream.grass.area], phone ? 8000 : 30000, stream.grass.avoid));
 
   return {
     blocks, clickables, sky, sun, hemi, lights,
