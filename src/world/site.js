@@ -6,6 +6,7 @@ import { plantTrees, grassField, hedges, flowerBeds, stoneLantern, mountains, rn
 import { buildPond, toriStatue } from './pond.js';
 import { buildStream } from './stream.js';
 import { buildGuide } from './guide.js';
+import { buildSigns } from './signs.js';
 import { textPlane } from '../ui3d/text.js';
 import { buildFarm } from './farm.js';
 import { buildBukchon, bukchonGround } from './bukchon.js';
@@ -95,6 +96,7 @@ export function buildSite(scene, renderer, house, timeline, { shadows, phone }) 
   const stream = buildStream(scene, { blocks, clickables, lights, phone, plant: s => plantLater.push(s) });
   tickers.push(stream.tick);
   buildGuide(scene, house, { pond: POND }, { blocks, clickables });
+  buildSigns(scene, house, { blocks, clickables });
   plantTrees(scene, [...spots, ...plantLater], blocks);
 
   roseGarden(scene, clickables, blocks);

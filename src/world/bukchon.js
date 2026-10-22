@@ -12,7 +12,7 @@ const TOP = 6;
 export const PATH = [[-12, 20], [-30, 20], [-40, 30], [-56, 32], [-64, 22], [-80, 20]];
 const WIDTH = 4;
 // 상점 자리: 가운데, 정면이 보는 쪽(+1 남 / -1 북)
-const LOTS = [
+export const LOTS = [
   { x: -24, z: 13.5, face: 1 },
   { x: -46, z: 40, face: -1 },
   { x: -48, z: 22, face: 1 },

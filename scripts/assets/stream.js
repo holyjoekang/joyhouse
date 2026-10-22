@@ -8,6 +8,7 @@ import { textPlane } from '../ui3d/text.js';
 export const BEND = [[-93, 60], [-76, 64], [-58, 74], [-46, 92], [-52, 110], [-40, 128], [-18, 136], [0, 150], [6, 170], [24, 186], [52, 198]];
 const PATH_OFF = 6.5, PATH_W = 2.4, ENTRY = [0, 12];
 export const STREAM_SPOT = [];   // 메뉴 '개울길': 다리 앞 산책로에서 다리를 본다. buildStream이 채운다
+export const SPUR = { at: null };   // 갈래길 위 t(0..1) 자리. 이정표가 개울길 쪽을 가리킬 때 쓴다
 
 // 굽은 선을 따라 띠를 깐다. off = 가운데선에서 옆으로 민 거리, w = 띠 폭
 function ribbon(pts, off, w, y, vScale = 1) {
@@ -101,6 +102,7 @@ export function buildStream(scene, { blocks, clickables, lights, plant, phone })
   const [jx, jz] = side(pts, near, PATH_OFF);
   const link = new THREE.QuadraticBezierCurve(new THREE.Vector2(...ENTRY), new THREE.Vector2(ENTRY[0] - 2, (ENTRY[1] + jz) / 2 + 4), new THREE.Vector2(jx, jz));
   const spur = new THREE.Mesh(ribbon(link.getSpacedPoints(Math.round(link.getLength() / 1.5)), 0, PATH_W, 0.021, 0.5), repeatFor(mats.path, PATH_W / 3, PATH_W / 1.5));
+  SPUR.at = t => link.getPoint(t);
   spur.receiveShadow = true; spur.userData.floor = 'outside';
   scene.add(spur);
 
@@ -156,11 +158,13 @@ export function buildStream(scene, { blocks, clickables, lights, plant, phone })
   const sign = textPlane({ width: 768, padding: 36, bg: '#f7f1e3', radius: 16, lines: [
     { text: '개울길', size: 72, weight: 700, gap: 10 },
     { text: '물소리를 따라 걷는 산책로. 다리를 건너면 석등 쉼터.', size: 40, color: '#5b5245' }] }, 2.2, { lit: true });
-  sign.position.set(ENTRY[0] + 3.4, 1.4, ENTRY[1] + 0.5);
-  sign.rotation.y = -Math.PI / 2;
+  const sp = link.getPoint(0.3), st = link.getTangent(0.3), syaw = Math.atan2(-st.x, -st.y);
+  sign.position.set(sp.x + st.y * 2.8, 1.4, sp.y - st.x * 2.8);
+  sign.rotation.y = syaw;
+  for (const lx of [-0.95, 0.95]) { const leg = new THREE.Mesh(new THREE.BoxGeometry(0.12, 1.7, 0.12), mats.darkWood); leg.position.set(lx, -0.55, -0.06); leg.castShadow = true; sign.add(leg); }
   scene.add(sign);
   sign.userData.exhibit = { kind: 'sign', title: '개울길', body: '대문 밖 남서쪽을 굽이쳐 흐르는 개울과, 동쪽 둑을 따라 이어지는 산책로입니다. 가운데 나무다리를 건너면 석등 쉼터가 있습니다.',
-    face: { x: ENTRY[0] - 1, z: ENTRY[1] + 0.5, yaw: -Math.PI / 2 } };
+    face: { x: sp.x + st.y * 2.8 - st.x * 4, z: sp.y - st.x * 2.8 - st.y * 4, yaw: syaw } };
   clickables.push(sign);
 
   // 물가 풀숲: 둑에서 산책로 사이
