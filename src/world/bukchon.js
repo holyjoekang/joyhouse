@@ -29,15 +29,15 @@ export function bukchonGround(x, z) {
 }
 const hAt = x => TOP * smooth((x - ZONE.x1) / (ZONE.x0 + 6 - ZONE.x1));
 
-export function buildBukchon(scene, street, { blocks, clickables }) {
+export function buildBukchon(scene, street, { blocks, clickables, lights }) {
   hill(scene);
   retainingWalls(scene, blocks);
   alley(scene);
   const shops = street?.shops || [];
-  LOTS.forEach((lot, i) => hanokShop(scene, lot, shops[i] || { name: `[지인 기업 ${i + 1}]` }, { blocks, clickables }));
+  LOTS.forEach((lot, i) => hanokShop(scene, lot, shops[i] || { name: `[지인 기업 ${i + 1}]` }, { blocks, clickables, lights }));
   overlook(scene, blocks);
   entrySign(scene, clickables);
-  lanterns(scene);
+  lanterns(scene, lights);
   plantTrees(scene, [[-34, 40], [-60, 42], [-84, 40], [-84, 11], [-58, 12], [-36, 11]]
     .map(([x, z], i) => ({ x, z, y: hAt(x), s: 0.8 + (i % 3) * 0.15, kind: i % 2 ? 'pine' : 'maple', rot: i })), blocks);
 }
@@ -121,7 +121,7 @@ function alley(scene) {
 }
 
 // 한옥 상점: 막돌 기단 + 회벽 몸채 + 기둥 + 창호 + 기와지붕 + 처마 밑 현판
-function hanokShop(scene, lot, shop, { blocks, clickables }) {
+function hanokShop(scene, lot, shop, { blocks, clickables, lights }) {
   const { x, z, face } = lot, W = LOT_W, D = LOT_D;
   const base = Math.max(hAt(x - W / 2), hAt(x + W / 2)) + 0.45;
   const g = new THREE.Group();
@@ -146,6 +146,9 @@ function hanokShop(scene, lot, shop, { blocks, clickables }) {
     ...(shop.sub ? [{ text: shop.sub, size: 40, color: '#d9dce4' }] : [])] }, 3.6, { lit: true });
   plaque.position.set(0, base + H - 0.15 - plaque.userData.height / 2, D / 2 - 0.3);
   g.add(plaque);
+
+  // 처마 끝 양쪽에 청사초롱
+  lights.chorong([-1, 1].map(s => [x + s * (W / 2 - 0.7), base + H - 0.3, z + face * (D / 2 + 0.25), hAt(x)]));
 
   const front = z + face * (D / 2 + 1.6);
   g.userData.exhibit = { kind: 'company', title: shop.name, body: shop.body || '이 자리에는 지인의 기업 소개가 들어갑니다.',
@@ -187,16 +190,18 @@ function entrySign(scene, clickables) {
   scene.add(g); clickables.push(g);
 }
 
-function lanterns(scene) {
+// 골목 초롱: 나무 기둥에 팔을 내어 청사초롱을 단다
+function lanterns(scene, lights) {
   const spots = [[-20, 22.6], [-33.2, 26.8], [-44, 33.6], [-56, 27.9], [-68, 23.8], [-77, 17.6]];
-  const post = new THREE.InstancedMesh(new THREE.BoxGeometry(0.12, 2.4, 0.12), mats.darkWood, spots.length);
-  const lamp = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.2, 0.2, 0.42, 10), mats.lantern, spots.length);
+  const post = new THREE.InstancedMesh(new THREE.BoxGeometry(0.12, 2.7, 0.12), mats.darkWood, spots.length);
+  const arm = new THREE.InstancedMesh(new THREE.BoxGeometry(0.55, 0.08, 0.08), mats.darkWood, spots.length);
   const m = new THREE.Matrix4();
   spots.forEach(([x, z], i) => {
     const y = hAt(x);
-    post.setMatrixAt(i, m.makeTranslation(x, y + 1.2, z));
-    lamp.setMatrixAt(i, m.makeTranslation(x, y + 2.2, z));
+    post.setMatrixAt(i, m.makeTranslation(x, y + 1.35, z));
+    arm.setMatrixAt(i, m.makeTranslation(x + 0.24, y + 2.62, z));
   });
-  post.castShadow = true;
-  scene.add(post, lamp);
+  post.castShadow = arm.castShadow = true;
+  scene.add(post, arm);
+  lights.chorong(spots.map(([x, z]) => [x + 0.45, hAt(x) + 2.0, z, hAt(x)]));
 }

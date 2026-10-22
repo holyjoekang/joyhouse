@@ -13,6 +13,7 @@ import { createMenu } from './ui3d/menu.js';
 import { createMinimap } from './ui3d/minimap.js';
 import { loadTextures, OUTDOOR_TEX, INDOOR_TEX } from './world/materials.js';
 import { createOverlay, openTab } from './portal/overlay.js';
+import { createAtmosphere } from './world/atmosphere.js';
 
 const cache = new Map();
 function data(path) {
@@ -42,6 +43,8 @@ const building = buildBuilding(scene, house, { family, specs });
 const clickables = [...site.clickables, ...building.clickables];
 const tickers = [];
 const blocks = [...building.blocks, ...site.blocks];   // 가구가 들어오면 여기에 더해진다 (충돌 판정이 같은 배열을 본다)
+// 지금 서울의 시각·날씨로 하늘과 빛을 맞추고, 어두우면 등을 켠다
+const atmos = createAtmosphere({ scene, renderer, sky: site.sky, sun: site.sun, hemi: site.hemi, lights: site.lights, phone: engine.phone });
 
 const OUTDOOR = Object.fromEntries(house.outdoor.map(o => [o.id, o]));
 const GROUP = { central: '센트럴 · 현재', west: '웨스트윙 · 과거', east: '이스트윙 · 미래', hall: '회랑' };
@@ -143,21 +146,39 @@ const entries = [
 const menu = createMenu(hud, entries, e => goRoom(e.id));
 const minimap = createMinimap(hud, renderer, scene, house.site, () => walker.view);
 
-let label = null, hint = null, here = undefined;
+// '하늘에서 보기' 석판: 방 바로가기 아래. 누르면 높이 올라 내려다보고, 다시 누르면 내려앉는다.
+let flyBtn = null;
+const flySpec = () => ({ bg: walker.flying ? '#1f4a7a' : '#2f2419', padding: 12, radius: 12, align: 'center',
+  lines: [{ text: walker.flying ? '걸어서 보기' : '하늘에서 보기', size: hud.fs, weight: 700, color: '#f4e2b8' }] });
+function placeFly() {
+  if (!flyBtn) flyBtn = hud.slab(flySpec(), hud.fs * 8.6, { depth: 14, onClick: toggleFly });
+  else hud.setSlab(flyBtn, flySpec(), hud.fs * 8.6);
+  hud.place(flyBtn, hud.w - flyBtn.userData.w - 16, 16 + flyBtn.userData.h + 10, 50);
+}
+hud.add(new THREE.Group(), placeFly);
+function toggleFly() {
+  panel.hide();
+  walker.toggleFly();
+  placeFly();
+}
+
+let label = null, hint = null, here = undefined, infoShown = '';
 function setLabel(w) {
   const fs = hud.fs, spec = { bg: '#fbf6ea', padding: 12, radius: 12, lines: [
     { text: w.group, size: fs * 0.62, color: '#9a6a2e', weight: 700, gap: 2 },
     { text: w.name, size: fs * 1.05, weight: 700, gap: 2 },
-    { text: w.sub || '', size: fs * 0.75, color: '#6a6258' }] };
+    { text: w.sub || '', size: fs * 0.75, color: '#6a6258', gap: 4 },
+    { text: atmos.info(), size: fs * 0.68, color: '#1f4a7a', weight: 700 }] };
   const pw = Math.min(300, hud.w * 0.5);
   if (!label) { label = hud.slab(spec, pw, { depth: 12 }); label.userData.passThrough = true; }
   else hud.setSlab(label, spec, pw);
   hud.place(label, 16, 16, 40);
+  infoShown = atmos.info();
 }
 hud.add(new THREE.Group(), () => { if (here) setLabel(here); });
 const hintSpec = () => ({ bg: '#2f2419', padding: 12, radius: 12, lines: [
   { text: engine.phone || hud.w < 600 ? '끌어서 둘러보기 · 바닥을 눌러 걷기'
-    : '끌어서 둘러보기 · 바닥을 눌러 걷기 · W A S D / 방향키 · M 방 바로가기', size: hud.fs * 0.8, color: '#f4e2b8' }] });
+    : '끌어서 둘러보기 · 바닥을 눌러 걷기 · W A S D / 방향키 · M 방 바로가기 · B 하늘 보기', size: hud.fs * 0.8, color: '#f4e2b8' }] });
 hud.add(new THREE.Group(), (w, h) => {
   const pw = Math.min(w - 32 - Math.max(120, Math.min(220, w * 0.28)) - 16, 520);
   if (!hint) { hint = hud.slab(hintSpec(), pw, { depth: 10 }); hint.userData.passThrough = true; }
@@ -249,10 +270,16 @@ canvas.addEventListener('pointerup', ev => {
   const k = Math.max(0, len - 1) / len;
   walker.go(v.x + (p.x - v.x) * k, v.z + (p.z - v.z) * k, Math.atan2(-(p.x - v.x), -(p.z - v.z)), 0);
 });
-canvas.addEventListener('wheel', ev => { ev.preventDefault(); if (!menuOpen()) walker.walk(-Math.sign(ev.deltaY) * 1.2); }, { passive: false });
+canvas.addEventListener('wheel', ev => {
+  ev.preventDefault();
+  if (menuOpen()) return;
+  if (walker.flying) walker.climb(Math.sign(ev.deltaY) * 8);   // 하늘에서는 휠이 높이
+  else walker.walk(-Math.sign(ev.deltaY) * 1.2);
+}, { passive: false });
 addEventListener('keydown', ev => {
   if (ev.code === 'Escape') { panel.hide(); menu.close(); return; }
   if (ev.code === 'KeyM') { menu.toggle(); return; }
+  if (ev.code === 'KeyB') { toggleFly(); return; }
   walker.keys.add(ev.code);
 });
 addEventListener('keyup', ev => walker.keys.delete(ev.code));
@@ -303,13 +330,15 @@ function afterFirstFrame() {
 let frameNo = 0;
 
 const clock = new THREE.Clock();
-let elapsed = 0, moved = false;
+let elapsed = 0, moved = false, infoAge = 0;
 renderer.setAnimationLoop(() => {
   const dt = Math.min(0.05, clock.getDelta());
   if (overlay.open) return;               // 사이트를 보는 동안 집은 쉰다
   elapsed += dt;
   if (walker.update(dt) && !moved) moved = true;
   const v = walker.view;
+  atmos.update(dt, camera.position, walker.alt, post);
+  if ((infoAge += dt) > 20 && here) { infoAge = 0; if (atmos.info() !== infoShown) setLabel(here); }
   const w = whereIs(v.x, v.z);
   if (!here || w.id !== here.id || (w.id === null && here.id !== null)) onRoomChange(w);
   site.update(dt, v);
