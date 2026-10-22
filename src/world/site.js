@@ -6,6 +6,7 @@ import { plantTrees, grassField, hedges, flowerBeds, stoneLantern, mountains, rn
 import { buildPond, toriStatue } from './pond.js';
 import { textPlane } from '../ui3d/text.js';
 import { buildFarm } from './farm.js';
+import { buildBukchon, bukchonGround } from './bukchon.js';
 
 const POND = { cx: -46, cz: -35, w: 14, d: 10 };
 const ROSE = { cx: 46, cz: -35 };
@@ -70,7 +71,8 @@ export function buildSite(scene, renderer, house, timeline, { shadows, phone }) 
   // 나무: 소나무 숲, 앞마당 은행나무 한 쌍, 대문 곁 느티나무, 집 둘레 단풍
   const r = rng(42), spots = [];
   const ok = (x, z) => !(Math.abs(x) < 84 && z < -52 && z > -98) && !(Math.abs(x) < 9) &&
-    !(Math.hypot(x - POND.cx, z - POND.cz) < 15) && !(Math.hypot(x - ROSE.cx, z - ROSE.cz) < 15) && !(Math.hypot(x - PAVILION.cx, z - PAVILION.cz) < 11) && !(z > -1 && z < 1.5);
+    !(Math.hypot(x - POND.cx, z - POND.cz) < 15) && !(Math.hypot(x - ROSE.cx, z - ROSE.cz) < 15) && !(Math.hypot(x - PAVILION.cx, z - PAVILION.cz) < 11) && !(z > -1 && z < 1.5) &&
+    !(x < -10 && z > 1.5);   // 대문 밖 서쪽은 북촌 골목 자리
   for (let i = 0; i < 160 && spots.length < 70; i++) {
     const x = (r() < 0.5 ? -1 : 1) * (14 + r() * 76), z = 10 - r() * 120;
     if (ok(x, z)) spots.push({ x, z, s: 0.8 + r() * 0.5, kind: r() < 0.72 ? 'pine' : 'maple', rot: r() * 6 });
@@ -88,6 +90,7 @@ export function buildSite(scene, renderer, house, timeline, { shadows, phone }) 
   steppingStones(scene, [[3.6, -36], [ROSE.cx - 10, -36]]);
   steppingStones(scene, [[-3.6, -24], [POND.cx + 3, -24]]);
   mountains(scene);
+  buildBukchon(scene, house.street, { blocks, clickables });
   if (house.farm) buildFarm(scene, house.farm, { blocks, clickables, tickers, phone });
 
   // 풀잎: 잔디길 양쪽 앞뜰
@@ -99,6 +102,7 @@ export function buildSite(scene, renderer, house, timeline, { shadows, phone }) 
 
   return {
     blocks, clickables, sky,
+    groundAt: bukchonGround,
     update(dt) {
       // 해는 움직이지 않으므로 그림자 지도는 한 번만 그린다. 대문이 열리는 동안만 다시 그린다.
       if (gate.update(dt)) renderer.shadowMap.needsUpdate = true;

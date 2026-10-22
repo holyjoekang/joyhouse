@@ -95,7 +95,7 @@ function nearHouse(v) {
 // 이동
 const collider = makeCollider(blocks, house.site);
 const hud = new Hud();
-const walker = createWalker(camera, collider, house.start, { onFade: v => hud.fade(v) });
+const walker = createWalker(camera, collider, house.start, { onFade: v => hud.fade(v), ground: site.groundAt });
 
 function whereIs(x, z) {
   const r = building.roomAt(x, z);
@@ -127,6 +127,7 @@ function goRoom(id) {
   const o = OUTDOOR[id];
   if (o) {
     const [x0, z0, x1, z1] = o.box;
+    if (id === 'bukchon') return walker.go(x1 + 3, 20, Math.PI / 2, 0);   // 골목 어귀에서 서쪽 언덕을 본다
     if (id === 'farm') return walker.go(x0 + 2, Math.min(z0, z1) + 24, -Math.PI / 2, 0);   // 스마트팜 길목에서 동쪽을 본다
     walker.go((x0 + x1) / 2, Math.max(z0, z1) + (id === 'gate' ? 6 : -2), 0, 0);
   }
