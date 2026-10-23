@@ -10,6 +10,7 @@ import { buildSigns } from './signs.js';
 import { textPlane } from '../ui3d/text.js';
 import { buildBukchon, bukchonGround } from './bukchon.js';
 import { createLights } from './lights.js';
+import { buildChurch } from './church.js';
 
 const POND = { cx: -46, cz: -35, w: 14, d: 10 };
 const ROSE = { cx: 46, cz: -35 };
@@ -115,6 +116,7 @@ export function buildSite(scene, renderer, house, { shadows, phone }, { blocks, 
       mountains(into);
     }],
     ['북촌 골목', into => buildBukchon(into, house.street, { blocks, clickables, lights })],
+    ['하회교회', into => { if (house.church) buildChurch(into, house.church, { blocks, clickables, lights }); }],
     ['스마트팜', async into => {
       if (!house.farm) return;
       const { buildFarm } = await import('./farm.js');   // 코드 파일째 나중에 받는다

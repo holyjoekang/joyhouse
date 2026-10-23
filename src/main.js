@@ -181,6 +181,7 @@ function goRoom(id) {
     const [x0, z0, x1, z1] = o.box;
     if (id === 'stream') return walker.go(...STREAM_SPOT, 0);
     if (id === 'bukchon') return walker.go(x1 + 3, 20, Math.PI / 2, 0);   // 골목 어귀에서 서쪽 언덕을 본다
+    if (id === 'church' && house.church) return walker.go(house.church.x, house.church.z - 9, Math.PI, 0);   // 종탑 앞에서 교회를 본다
     if (id === 'pandora') { loadGarden(); return walker.go((x0 + x1) / 2, Math.min(z0, z1) - 3, Math.PI, 0); }   // 정원 들머리에서 남쪽을 본다
     if (id === 'farm') return walker.go(x0 + 2, Math.min(z0, z1) + 24, -Math.PI / 2, 0);   // 스마트팜 길목에서 동쪽을 본다
     walker.go((x0 + x1) / 2, Math.max(z0, z1) + (id === 'gate' ? 6 : -2), 0, 0);

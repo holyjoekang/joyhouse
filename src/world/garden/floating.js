@@ -8,7 +8,7 @@ function islandGeo(seed, rad) {
   const bumps = Array.from({ length: 6 }, () => [r() * 6.28, r() * 3.14, 0.1 + r() * 0.15]);
   for (let i = 0; i < p.count; i++) {
     let x = p.getX(i), y = p.getY(i), z = p.getZ(i);
-    const th = Math.atan2(z, x), ph = Math.acos(y / rad);
+    const th = Math.atan2(z, x), ph = Math.acos(Math.max(-1, Math.min(1, y / rad)));
     let k = 1;
     for (const [bt, bp, s] of bumps) k += s * Math.cos((th - bt) * 3) * Math.sin(ph * 2 + bp);
     if (y > 0) y *= 0.25; else { y *= 1.9; const t = -y / (rad * 1.9); x *= 1 - t * 0.55; z *= 1 - t * 0.55; }
