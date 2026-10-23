@@ -1,124 +1,124 @@
 {
  "books": [
   {
-   "title": "12 1",
-   "author": "2 부와 성공을 부르는 12가지 원칙",
-   "read": "2026-10-23",
-   "cover": "assets/books/00.jpg?v=7833879a"
-  },
-  {
    "title": "빨강의 자서전",
    "author": "앤 카슨",
    "read": "2026-10-21",
-   "cover": "assets/books/01.jpg?v=ce06cb87"
+   "cover": "assets/books/00.jpg?v=ce06cb87"
   },
   {
    "title": "미라클 모닝 After 50",
    "author": "",
    "read": "2026-10-09",
-   "cover": "assets/books/02.jpg?v=f64fa515"
+   "cover": "assets/books/01.jpg?v=f64fa515"
   },
   {
    "title": "하네스 엔지니어링 with 클로드 코드",
    "author": "",
    "read": "2026-10-05",
-   "cover": "assets/books/03.jpg?v=6e6a75fe"
+   "cover": "assets/books/02.jpg?v=6e6a75fe"
   },
   {
    "title": "2026 머니 트렌드 리포트",
    "author": "",
    "read": "2026-09-23",
-   "cover": "assets/books/04.jpg?v=7f70bdd3"
+   "cover": "assets/books/03.jpg?v=7f70bdd3"
   },
   {
    "title": "심리검사와 평가",
    "author": "",
    "read": "2026-09-11",
-   "cover": "assets/books/05.jpg?v=437e3818"
+   "cover": "assets/books/04.jpg?v=437e3818"
   },
   {
    "title": "윗집 부부",
    "author": "",
    "read": "2026-09-09",
-   "cover": "assets/books/06.jpg?v=f22378bd"
+   "cover": "assets/books/05.jpg?v=f22378bd"
   },
   {
    "title": "바로바로 클로드 with 코워크, 스킬, 클로드 코드, 디자인",
    "author": "",
    "read": "2026-08-06",
-   "cover": ""
+   "cover": "assets/books/06.jpg?v=9f91d3dd"
   },
   {
    "title": "최소한의 세금공부",
    "author": "",
    "read": "2026-05-26",
-   "cover": "assets/books/08.jpg?v=ad772f79"
+   "cover": "assets/books/07.jpg?v=ad772f79"
   },
   {
    "title": "혼자 공부하는 바이브 코딩 with 클로드 코드",
    "author": "",
    "read": "2026-05-26",
-   "cover": "assets/books/09.jpg?v=a5abce03"
+   "cover": "assets/books/08.jpg?v=a5abce03"
   },
   {
    "title": "이게 되네? 제미나이 완전 미친 활용법 81제",
    "author": "",
    "read": "2026-05-11",
-   "cover": ""
+   "cover": "assets/books/09.jpg?v=53b960a3"
   },
   {
    "title": "내면 근력",
    "author": "",
    "read": "2026-05-06",
-   "cover": "assets/books/11.jpg?v=8a1408be"
+   "cover": "assets/books/10.jpg?v=8a1408be"
   },
   {
    "title": "2026~2027 대한민국 산업지도",
    "author": "",
    "read": "2026-04-13",
-   "cover": ""
+   "cover": "assets/books/11.jpg?v=72f6c41f"
   },
   {
    "title": "나쁜 날들에 필요한 말들",
    "author": "",
    "read": "2026-04-09",
-   "cover": "assets/books/13.jpg?v=9b4eba02"
+   "cover": "assets/books/12.jpg?v=9b4eba02"
   },
   {
    "title": "명료함",
    "author": "",
    "read": "2026-04-08",
-   "cover": "assets/books/14.jpg?v=22269b35"
+   "cover": "assets/books/13.jpg?v=22269b35"
   },
   {
    "title": "웰컴 홈, 우리집 학교",
    "author": "",
    "read": "2026-03-09",
-   "cover": ""
+   "cover": "assets/books/14.jpg?v=55bff141"
   },
   {
    "title": "주역",
    "author": "",
    "read": "2026-02-16",
-   "cover": "assets/books/16.jpg?v=493a63e1"
+   "cover": "assets/books/15.jpg?v=493a63e1"
   },
   {
    "title": "퇴직의 정석",
    "author": "",
    "read": "2026-02-13",
-   "cover": "assets/books/17.jpg?v=40e05a47"
+   "cover": "assets/books/16.jpg?v=40e05a47"
   },
   {
    "title": "도마복음의 진실. 1",
    "author": "",
    "read": "2026-02-09",
-   "cover": ""
+   "cover": "assets/books/17.jpg?v=9c435870"
   },
   {
    "title": "오십에 읽는 주역",
    "author": "",
    "read": "2026-02-08",
-   "cover": "assets/books/19.jpg?v=fa1a746b"
+   "cover": "assets/books/18.jpg?v=fa1a746b"
+  },
+  {
+   "title": "오십에 읽는 논어",
+   "author": "",
+   "read": "2026-02-02",
+   "cover": "assets/books/19.jpg?v=3f4d1c98"
   }
  ]
 }

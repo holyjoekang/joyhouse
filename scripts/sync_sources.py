@@ -124,7 +124,7 @@ def books_top20(src):
     for b in dated:
         if len(out) == 20:
             break
-        stem = re.sub(r"\s+", "_", b["title"].strip())
+        stem = re.sub(r"[^\w가-힣]+", "_", b["title"]).strip("_")   # mybookshelf book_info.slug 와 같은 규칙
         cover = ""
         try:
             img = src.read("mybookshelf", f"data/book_info/{stem}.jpg")
