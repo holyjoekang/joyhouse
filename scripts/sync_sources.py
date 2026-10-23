@@ -136,7 +136,29 @@ def books_top20(src):
         out.append({"title": b["title"], "author": b.get("author") or "",
                     "read": read_date(b["firstReadDate"]), "cover": cover})
     out = blog_books(out) + out
-    write("books_top20.json", {"books": out[:20]})
+    # 서재에 꽂힌 책 수: mybookshelf 앱이 실제로 보여 주는 권수(기억으로 복원한 책 포함)
+    try:
+        total = len(src.json("mybookshelf", "app/data/library.json"))
+    except Exception:
+        total = len(books)
+    write("books_top20.json", {"total": total, "books": out[:20]})
+    book_total_text(total)
+
+
+# 글 속 '평생 읽은 책 N권' · 메타 설명의 권수를 실제 수로 맞춘다(숫자 칸은 화면이 books_top20.json 에서 읽는다)
+BOOK_TEXT = ["index.html", "library.html", "content/pages.json", "content/rooms/blueroom.json"]
+
+
+def book_total_text(total):
+    pat = re.compile(r"(평생 (?:읽은|읽어 온) 책 )\d+(권)")
+    for name in BOOK_TEXT:
+        p = ROOT / name
+        if p.exists():
+            t = p.read_text(encoding="utf-8")
+            t2 = pat.sub(lambda m: f"{m.group(1)}{total}{m.group(2)}", t)
+            t2 = re.sub(r'(data-src="data/books_top20.json#total">)\d+(</b>)', rf"\g<1>{total}\2", t2)
+            if t2 != t:
+                p.write_text(t2, encoding="utf-8")
 
 
 def blog_books(shelf):

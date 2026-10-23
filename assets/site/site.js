@@ -422,7 +422,8 @@ R.posters = async el => {
 R.count = async el => {
   const [file, key] = el.dataset.src.split("#");
   const d = await json(file);
-  el.textContent = d[key].length;
+  const v = d[key];
+  el.textContent = Array.isArray(v) ? v.length : v;   // 목록이면 개수, 숫자면 그대로
 };
 
 R.credits = async el => {
