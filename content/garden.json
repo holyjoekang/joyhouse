@@ -1,12 +1,15 @@
 {
-  "_note": "판도라 정원(대문 밖 남쪽). box = [x0, z0, x1, z1]. active 를 souls|floating|forest|supertrees 중 하나로. 3d.html?garden=… 로 미리 본다.",
+  "_note": "판도라 정원(대문 밖 남쪽). box = [x0, z0, x1, z1]. active 는 souls|floating|forest|supertrees 하나, 또는 두 안의 목록(나란히, layout 칸). 3d.html?garden=… 로 미리 본다.",
   "box": [
     30,
     28,
-    104,
-    150
+    112,
+    188
   ],
-  "active": "souls",
+  "active": [
+    "souls",
+    "floating"
+  ],
   "designs": [
     {
       "id": "souls",
@@ -32,5 +35,19 @@
       "sub": "싱가포르 가든스 바이 더 베이의 철골 나무 숲",
       "body": "16~34m 철골 나무 열한 그루가 숲을 이룹니다. 줄기는 풀과 꽃이 덮인 수직 정원, 꼭대기는 나팔처럼 벌어진 격자 우산입니다. 큰 두 그루를 하늘길이 잇고, 밤이면 격자에 불이 들어와 보라·파랑·초록·무지개로 바뀌는 빛의 쇼가 펼쳐집니다."
     }
-  ]
+  ],
+  "layout": {
+    "souls": [
+      30,
+      28,
+      104,
+      106
+    ],
+    "floating": [
+      40,
+      106,
+      112,
+      188
+    ]
+  }
 }

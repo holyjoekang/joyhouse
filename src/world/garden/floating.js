@@ -18,14 +18,14 @@ function islandGeo(seed, rad) {
   return geo;
 }
 
-export function build(g, { cx, cz, entry }, { blocks }) {
-  const r = rng(52);
+export function build(g, { cx, cz, entry, w = 74, d = 122 }, { blocks }) {
+  const r = rng(52), kx = w / 74, kz = d / 122;   // 칸이 작으면 섬 자리·숲을 그만큼 좁힌다
   const rock = body(0x5d5a66, { flatShading: true }), turf = body(0x2d5a4c, { flatShading: true });
   const vine = glow(0x37e0c8, { tip: 0x6fa8ff, day: 0.5, night: 2.3, pulse: 0.35, speed: 0.8, sway: 0.5, hang: true });
   const crown = glow(0x3fe0b0, { tip: 0xd3ff7a, day: 0.55, night: 2.0, pulse: 0.3, sway: 0.25 });
   const isles = [
-    { x: cx + 4, z: cz + 6, y: 21, rad: 9, still: true }, { x: cx - 18, z: cz - 14, y: 27, rad: 6 }, { x: cx + 20, z: cz - 18, y: 17, rad: 5 },
-    { x: cx - 16, z: cz + 30, y: 32, rad: 7 }, { x: cx + 22, z: cz + 34, y: 24, rad: 4.5 }, { x: cx - 4, z: cz - 36, y: 36, rad: 3.5 },
+    { x: cx + 4 * kx, z: cz + 6 * kz, y: 21, rad: 9, still: true }, { x: cx - 18 * kx, z: cz - 14 * kz, y: 27, rad: 6 }, { x: cx + 20 * kx, z: cz - 18 * kz, y: 17, rad: 5 },
+    { x: cx - 16 * kx, z: cz + 30 * kz, y: 32, rad: 7 }, { x: cx + 22 * kx, z: cz + 34 * kz, y: 24, rad: 4.5 }, { x: cx - 4 * kx, z: cz - 36 * kz, y: 36, rad: 3.5 },
   ];
   const bob = [];
   isles.forEach((s, i) => {
@@ -91,7 +91,7 @@ export function build(g, { cx, cz, entry }, { blocks }) {
     return new THREE.CanvasTexture(c);
   })();
   const mists = [0.5, 1.3, 2.4].map((y, i) => {
-    const m = new THREE.Mesh(new THREE.PlaneGeometry(70, 70), new THREE.MeshBasicMaterial({ map: mistTex, color: 0x7fe9ff, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false }));
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, d), new THREE.MeshBasicMaterial({ map: mistTex, color: 0x7fe9ff, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false }));
     m.rotation.set(-Math.PI / 2, 0, i * 2); m.position.set(cx, y, cz); g.add(m);
     return m;
   });
@@ -111,16 +111,16 @@ export function build(g, { cx, cz, entry }, { blocks }) {
 
   // 바닥: 빛 고사리 숲
   const ferns = [];
-  for (let i = 0; i < 1500; i++) {
-    const x = cx + (r() - 0.5) * 70, z = cz + (r() - 0.5) * 116;
+  for (let i = 0; i < 1500 * kx * kz; i++) {
+    const x = cx + (r() - 0.5) * (w - 4), z = cz + (r() - 0.5) * (d - 6);
     if (Math.hypot(x - fx, z - fz) < 10 || (Math.abs(x - ax) < 3 && z < cz)) continue;
     ferns.push({ x, z, s: 0.5 + r() * 1.3, ry: r() * 6 });
   }
   instances(g, tuft(7, 0.05), glow(0x2fc9d6, { tip: 0xb8ff8a, day: 0.5, night: 1.6, pulse: 0.3, sway: 0.2 }), ferns);
 
-  moss(g, { x: cx, z: cz, r: 40, colors: ['#37e0c8', '#6fa8ff', '#d3ff7a', '#2f7bff'], step: 0x9ff8ff, seed: 17 });
+  moss(g, { x: cx, z: cz, r: Math.min(40, Math.max(w, d) * 0.5), colors: ['#37e0c8', '#6fa8ff', '#d3ff7a', '#2f7bff'], step: 0x9ff8ff, seed: 17 });
   glowPath(g, [entry, [ax, az + 4], [cx - 8, cz - 16], [fx + 6, fz + 10]], glow(0xc8fff4, { day: 0.8, night: 1.8, pulse: 0.2 }));
-  motes(g, { count: 420, x: cx, z: cz, r: 36, y0: 0.5, y1: 9, color: 0xffd98a, size: 0.26, wander: 2, seed: 31, day: 0 });
+  motes(g, { count: 420, x: cx, z: cz, r: Math.min(36, Math.max(w, d) * 0.45), y0: 0.5, y1: 9, color: 0xffd98a, size: 0.26, wander: 2, seed: 31, day: 0 });
   motes(g, { count: 320, x: fx, z: fz, r: 12, y0: 0.2, y1: 6, color: 0x9ff3ff, size: 0.5, rise: 0.6, wander: 1, seed: 32, day: 0.2 });
 
   return {

@@ -8,6 +8,8 @@ import json, pathlib, re
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "src"
 BOX = [30, 28, 104, 150]   # x0, z0, x1, z1 — 농장 길(z≈20) 남쪽, 개울 산책로 동쪽, 농장 울타리(x=122) 서쪽
+# 두 안을 나란히 둘 때(active 가 목록): 첫 안은 북쪽 칸, 둘째 안은 바로 남쪽 칸(개울 굽이 동쪽, 농장 울타리 서쪽까지)
+PAIR = [[30, 28, 104, 106], [40, 106, 112, 188]]
 
 
 def patch(path, old, new):
@@ -20,7 +22,7 @@ def patch(path, old, new):
 
 # 1) 정원 데이터
 garden = {
-    "_note": "판도라 정원(대문 밖 남쪽). box = [x0, z0, x1, z1]. active 를 souls|floating|forest|supertrees 중 하나로. 3d.html?garden=… 로 미리 본다.",
+    "_note": "판도라 정원(대문 밖 남쪽). box = [x0, z0, x1, z1]. active 는 souls|floating|forest|supertrees 하나, 또는 두 안의 목록(나란히, layout 칸). 3d.html?garden=… 로 미리 본다.",
     "box": BOX,
     "active": "souls",
     "designs": [
@@ -38,13 +40,19 @@ gp = ROOT / "content/garden.json"
 if gp.exists():
     garden["active"] = json.loads(gp.read_text()).get("active", garden["active"])   # 고른 안은 지킨다
 if __import__("sys").argv[1:2]:
-    garden["active"] = __import__("sys").argv[1]   # python scripts/pandora_garden.py supertrees
+    a = __import__("sys").argv[1].split(",")   # python scripts/pandora_garden.py supertrees  |  souls,floating
+    garden["active"] = a if len(a) > 1 else a[0]
+ids = garden["active"] if isinstance(garden["active"], list) else [garden["active"]]
+if len(ids) > 1:
+    garden["layout"] = dict(zip(ids, PAIR))
+    garden["box"] = [min(b[0] for b in PAIR), min(b[1] for b in PAIR), max(b[2] for b in PAIR), max(b[3] for b in PAIR)]
 gp.write_text(json.dumps(garden, ensure_ascii=False, indent=2) + "\n")
 
 # 2) 메뉴·이름판: 야외 목록에 정원 추가
 hp = ROOT / "content/house.json"
-act = next(d for d in garden["designs"] if d["id"] == garden["active"])   # 메뉴·이름판은 고른 안의 이름을 쓴다
-entry = {"id": "pandora", "name": act["name"], "sub": act["sub"], "box": BOX}
+act = [next(d for d in garden["designs"] if d["id"] == i) for i in ids]   # 메뉴·이름판은 고른 안의 이름을 쓴다
+entry = {"id": "pandora", "name": " · ".join(d["name"] for d in act), "sub": act[0]["sub"] if len(act) == 1 else "두 정원이 나란히",
+         "box": garden["box"]}
 line = json.dumps(entry, ensure_ascii=False)
 t = re.sub(r'\{"id": "pandora"[^}]*\}, ', "", hp.read_text())
 hp.write_text(t.replace('{"id": "farm", "name": "스마트팜"', line + ', {"id": "farm", "name": "스마트팜"', 1))
