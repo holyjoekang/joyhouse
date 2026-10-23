@@ -4,8 +4,9 @@ import { textPlane } from '../../ui3d/text.js';
 
 // 판도라 정원(대문 밖 남쪽 빈터). 첫 화면에는 싣지 않고, 걸어서 다가가거나 하늘에서 보거나
 // 메뉴로 갈 때 이 파일과 고른 디자인 하나만 받아 짓는다. 디자인은 content/garden.json 의 active,
-// 점검용 주소 인자 ?garden=souls|floating|forest 가 이긴다.
-const DESIGNS = { souls: () => import('./souls.js'), floating: () => import('./floating.js'), forest: () => import('./forest.js') };
+// 점검용 주소 인자 ?garden=souls|floating|forest|supertrees 가 이긴다.
+const DESIGNS = { souls: () => import('./souls.js'), floating: () => import('./floating.js'), forest: () => import('./forest.js'),
+  supertrees: () => import('./supertrees.js') };
 
 export async function buildGarden(scene, spec, { blocks, clickables }) {
   const want = new URLSearchParams(location.search).get('garden');
