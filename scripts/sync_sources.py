@@ -16,6 +16,7 @@
 """
 import argparse
 import email.utils
+import hashlib
 import json
 import re
 import sys
@@ -127,8 +128,9 @@ def books_top20(src):
         cover = ""
         try:
             img = src.read("mybookshelf", f"data/book_info/{stem}.jpg")
-            cover = f"assets/books/{len(out):02d}.jpg"
-            (ROOT / cover).write_bytes(img)
+            path = f"assets/books/{len(out):02d}.jpg"
+            (ROOT / path).write_bytes(img)
+            cover = f"{path}?v={hashlib.md5(img).hexdigest()[:8]}"   # 자리 번호가 같아도 새 표지면 주소가 바뀐다
         except Exception:
             pass
         out.append({"title": b["title"], "author": b.get("author") or "",
