@@ -1,0 +1,272 @@
+{
+ "heroes": {
+  "blog.html": {
+   "bg": "assets/photos/pen-writing.webp",
+   "crumb": "레드룸",
+   "eyebrow": "Central · Red Room",
+   "title": "레드룸 — 50플러스 인사이트",
+   "textHtml": "오십 이후의 일과 배움, 신앙, 창업 이야기를 씁니다. 네이버 블로그 blog.naver.com/joekang 의 글이 매일 이 방의 가판대에 새로 꽂힙니다.",
+   "ctas": [
+    {
+     "primary": true,
+     "href": "https://holyjoekang.github.io/myblog/",
+     "text": "블로그 홈페이지",
+     "newTab": false
+    },
+    {
+     "primary": false,
+     "href": "https://blog.naver.com/joekang",
+     "text": "네이버 블로그 ↗",
+     "newTab": true
+    }
+   ]
+  },
+  "china.html": {
+   "bg": "assets/photos/forbidden-city.webp",
+   "crumb": "중국관",
+   "eyebrow": "West Wing · China Hall",
+   "title": "중국, 나를 키운 거대한 교실",
+   "textHtml": "2002년 니하오만 외우고 떠난 첫 베이징 출장, 2005년 지역전문가 1년, 2009~2015년 베이징 주재 총경리, 2022년부터 중국 Regional Manager. 지역전문가 1년과 주재 6년, 7년의 중국 생활과 수많은 출장. 사람과 시장과 문화를 배운 그 교실의 기록이 이 방에 있습니다.",
+   "ctas": [
+    {
+     "primary": true,
+     "href": "#columns",
+     "text": "칼럼 97편 읽기",
+     "newTab": false
+    },
+    {
+     "primary": false,
+     "href": "https://blog.naver.com/joekang",
+     "text": "네이버 블로그 ↗",
+     "newTab": true
+    }
+   ]
+  },
+  "credits.html": {
+   "bg": "assets/photos/mountain-sea.webp",
+   "crumb": "출처",
+   "eyebrow": "Credits",
+   "title": "사진·그림 출처",
+   "textHtml": "이 사이트의 사진은 모두 자유 이용이 허락된 이미지입니다. Unsplash License 사진과 Openverse(Flickr)를 통해 찾은 CC BY 사진, 위키미디어 공용의 퍼블릭 도메인 그림을 썼습니다.",
+   "ctas": []
+  },
+  "faith.html": {
+   "bg": "assets/photos/faith-work-avodah.webp",
+   "crumb": "신앙",
+   "eyebrow": "West Wing · Faith",
+   "title": "신앙 — 말씀과 일",
+   "textHtml": "주일과 새벽에 들은 말씀을 붙들고 한 주를 살며 남긴 묵상, 성경의 낯선 낱말을 풀어 본 공부, 그리고 일터에서 신앙을 산다는 것에 대한 노트입니다.",
+   "ctas": [
+    {
+     "primary": true,
+     "href": "#notes",
+     "text": "말씀 노트",
+     "newTab": false
+    },
+    {
+     "primary": false,
+     "href": "#bible",
+     "text": "쉽게 읽는 성경",
+     "newTab": false
+    },
+    {
+     "primary": false,
+     "href": "#story",
+     "text": "성경 이야기",
+     "newTab": false
+    },
+    {
+     "primary": false,
+     "href": "#work",
+     "text": "일과 신앙",
+     "newTab": false
+    },
+    {
+     "primary": false,
+     "href": "3d.html#/room/chapel",
+     "text": "3D 신앙 방 →",
+     "newTab": false
+    }
+   ]
+  },
+  "family.html": {
+   "bg": "assets/photos/family-sunset.webp",
+   "crumb": "가족의 방들",
+   "eyebrow": "Family Wing",
+   "title": "가족의 방들",
+   "textHtml": "부모님과 고향, 학창 시절, 신앙, 아내와 아이들, 그리고 다음 세대에 남길 편지. 이 방들은 가족에게만 열립니다.",
+   "ctas": []
+  },
+  "gallery.html": {
+   "bg": "assets/photos/library-round.webp",
+   "crumb": "그랜드 홀",
+   "eyebrow": "Central · Grand Hall",
+   "title": "그랜드 홀 — 고흐 갤러리 & 30년의 커리어",
+   "textHtml": "현관을 열면 정면 위에 〈별이 빛나는 밤〉이 걸려 있습니다. 집의 상징인 〈아를의 침실〉부터 마지막 해의 〈꽃 피는 아몬드 나무〉까지, 아홉 점을 걸었습니다. 그림 아래 벽에는 1996년 입사부터 베이징 주재, 해외사업그룹장을 거쳐 지금까지, 삼성SDS에서 보낸 30년을 칸딘스키의 그림과 함께 일곱 장면으로 걸어 두었습니다.",
+   "ctas": [
+    {
+     "primary": true,
+     "href": "#career",
+     "text": "커리어 30년 보기",
+     "newTab": false
+    }
+   ]
+  },
+  "ideas.html": {
+   "bg": "assets/photos/desk-notebook.webp",
+   "crumb": "아이디어 랩",
+   "eyebrow": "East Wing · Idea Lab",
+   "title": "아이디어 랩 — 창업 아이디어 31",
+   "textHtml": "지난 몇 년 동안 개인 노트에 쌓아 온 사업 아이디어 가운데 31개를 골랐습니다. 모두 같은 틀(문제 → 해결 → 비즈니스 모델 → 로드맵 → 검증 과제)로 정리해, 서로 비교하며 볼 수 있습니다.",
+   "ctas": [
+    {
+     "primary": true,
+     "href": "#ideas",
+     "text": "아이디어 보기",
+     "newTab": false
+    },
+    {
+     "primary": false,
+     "href": "3d.html#/room/ideas",
+     "text": "3D 아이디어 랩 →",
+     "newTab": false
+    }
+   ]
+  },
+  "library.html": {
+   "bg": "assets/photos/library-hall.webp",
+   "crumb": "블루룸",
+   "eyebrow": "Central · Blue Room",
+   "title": "블루룸 — 나의 서재",
+   "textHtml": "네이버 블로그에 23년 동안 쌓인 독서 기록, 집 책장 사진, 기억으로 되살린 학창 시절 책을 한곳에 모았습니다.",
+   "ctas": [
+    {
+     "primary": true,
+     "href": "https://holyjoekang.github.io/mybookshelf/app/",
+     "text": "나의 서재 열기",
+     "newTab": false
+    }
+   ]
+  },
+  "studio.html": {
+   "bg": "assets/photos/coworking.webp",
+   "crumb": "오벌 오피스",
+   "eyebrow": "Central · Oval Office",
+   "title": "오벌 오피스 — 현재의 나",
+   "textHtml": "해외시스템개발 대리로 시작해 베이징 주재 총경리, 홈IoT 해외사업그룹장을 거쳐 지금은 물류 글로벌 중국 Regional Manager. 그리고 퇴근 후에는 AI로 앱을 만듭니다.",
+   "ctas": []
+  },
+  "travel.html": {
+   "bg": "assets/photos/travel-map.webp",
+   "crumb": "맵룸",
+   "eyebrow": "Central · Map Room",
+   "title": "맵룸 — 나의 여행 지도",
+   "textHtml": "1996년 첫 출장부터 지금까지, 출장과 주재 그리고 가족과의 여행으로 지나온 도시들입니다. 지도와 연표로 남기고 그때의 직책과 시대까지 함께 적었습니다.",
+   "ctas": [
+    {
+     "primary": true,
+     "href": "https://holyjoekang.github.io/my-travel-map/",
+     "text": "여행 지도 열기",
+     "newTab": false
+    }
+   ]
+  },
+  "vision.html": {
+   "bg": "assets/photos/group-friends.webp",
+   "crumb": "비전룸",
+   "eyebrow": "East Wing · Vision Room",
+   "title": "Keep121 — 한 사람도 빠짐없이, 지키다",
+   "textHtml": "부모님과 함께한 중국 여행, 휴게소에서 버스를 착각한 한 어르신 때문에 26명의 일정이 멈췄습니다. 그날의 경험이 단체 안전 플랫폼 Keep121의 출발점이 되었습니다.",
+   "ctas": [
+    {
+     "primary": true,
+     "href": "https://holyjoekang.github.io/keep121/",
+     "text": "Keep121 홈페이지",
+     "newTab": false
+    }
+   ]
+  }
+ },
+ "rooms": [
+  {
+   "href": "gallery.html",
+   "img": "assets/photos/library-round.webp",
+   "kicker": "Central · Grand Hall",
+   "title": "그랜드 홀",
+   "text": "현관을 열면 맞는 고흐 갤러리 9점과 삼성SDS 30년의 커리어.",
+   "size": "big"
+  },
+  {
+   "href": "library.html",
+   "img": "assets/photos/library-lights.webp",
+   "kicker": "Blue Room",
+   "title": "나의 서재",
+   "text": "평생 읽은 책 341권과 최근 읽은 20권.",
+   "size": ""
+  },
+  {
+   "href": "blog.html",
+   "img": "assets/photos/pen-writing.webp",
+   "kicker": "Red Room",
+   "title": "블로그",
+   "text": "50플러스 인사이트 — 매일 갱신되는 최신 글.",
+   "size": ""
+  },
+  {
+   "href": "travel.html",
+   "img": "assets/photos/travel-map.webp",
+   "kicker": "Map Room",
+   "title": "여행 지도",
+   "text": "30년 출장·주재·여행으로 지나온 도시들.",
+   "size": ""
+  },
+  {
+   "href": "studio.html",
+   "img": "assets/photos/coworking.webp",
+   "kicker": "Oval Office",
+   "title": "AI 작업실",
+   "text": "직접 만든 AI 앱 10개와 커리어 30년.",
+   "size": ""
+  },
+  {
+   "href": "china.html",
+   "img": "assets/photos/forbidden-city.webp",
+   "kicker": "West Wing",
+   "title": "중국관",
+   "text": "나를 키운 거대한 교실, 중국 생활 7년.",
+   "size": ""
+  },
+  {
+   "href": "faith.html",
+   "img": "assets/photos/faith-bible-faithful.webp",
+   "kicker": "West Wing · Faith",
+   "title": "신앙",
+   "text": "말씀 노트 · 쉽게 읽는 성경 · 성경 이야기 · 일과 신앙, 76편의 글.",
+   "size": ""
+  },
+  {
+   "href": "vision.html",
+   "img": "assets/photos/group-friends.webp",
+   "kicker": "East Wing",
+   "title": "비전룸 · Keep121",
+   "text": "한 사람도 빠짐없이, 지키다.",
+   "size": ""
+  },
+  {
+   "href": "family.html",
+   "img": "assets/photos/family-sunset.webp",
+   "kicker": "Family Wing",
+   "title": "가족의 방들",
+   "text": "뿌리·성장·신앙·가족·유산 — 가족 전용.",
+   "size": ""
+  },
+  {
+   "href": "ideas.html",
+   "img": "assets/photos/desk-notebook.webp",
+   "kicker": "East Wing · Idea Lab",
+   "title": "아이디어 랩 — 창업 아이디어 31",
+   "text": "시니어·중국·커머스·AI·농업, 다섯 갈래 서른한 개의 사업 아이디어와 비즈니스 모델.",
+   "size": "wide"
+  }
+ ]
+}

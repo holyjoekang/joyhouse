@@ -140,3 +140,8 @@ GitHub Actions(`.github/workflows/pages.yml`)가 매일 06:00 KST에 같은 일�
 2. `content/rooms/<id>.json`에 전시물(`frame`·`sign`·`portal`·`bookshelf`·`globe`·`newsstand`)을 적고 `stage`를 1로.
 
 `private/`(가족 사진 원본)은 커밋하지 않는다.
+
+## 동적 페이지
+
+- `content/pages.json` — 2D 페이지 맨 위 배너(페이지별)와 홈의 '집 안의 방' 카드. `assets/site/site.js`가 그린다(`scripts/make_pages_dynamic.py`로 옮김).
+- 나머지 목록(책·글·도시·연표·아이디어·신앙)도 `data/`·`content/`의 JSON에서 그린다. 긴 단독 글(`simda.html`, `china-bukjunghoe.html`)만 HTML 그대로다.

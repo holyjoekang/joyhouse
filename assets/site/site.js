@@ -467,6 +467,26 @@ function reveal() {
   els.forEach(e => io.observe(e));
 }
 
+// 페이지 맨 위 배너와 홈의 방 카드. 글은 content/pages.json 에서 고친다.
+R.hero = async el => {
+  const h = (await json("content/pages.json")).heroes[here];
+  if (!h) return;
+  el.style.backgroundImage = `url('${h.bg}')`;
+  el.innerHTML = `<div class="wrap">
+    <div class="crumbs"><a href="index.html">홈</a> / ${esc(h.crumb)}</div>
+    <span class="eyebrow">${esc(h.eyebrow)}</span>
+    <h1>${esc(h.title)}</h1>
+    <p>${h.textHtml}</p>
+    ${h.ctas.length ? `<div class="hero-cta">${h.ctas.map(c => `<a class="btn ${c.primary ? "btn-primary" : "btn-ghost"}" href="${esc(c.href)}"${c.newTab ? ' target="_blank" rel="noopener"' : ""}>${esc(c.text)}</a>`).join("")}</div>` : ""}
+  </div>`;
+};
+R.rooms = async el => {
+  const { rooms } = await json("content/pages.json");
+  el.innerHTML = rooms.map(r => `
+<a class="room-card ${esc(r.size)} reveal in" href="${esc(r.href)}"><img src="${esc(r.img)}" alt="" loading="lazy">
+  <div><span class="card-kicker">${esc(r.kicker)}</span><h3>${esc(r.title)}</h3><p>${esc(r.text)}</p></div></a>`).join("");
+};
+
 header();
 footer();
 heroSlides();
