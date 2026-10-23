@@ -28,22 +28,54 @@ const engine = createEngine(canvas);
 const { renderer, scene, camera } = engine;
 const family = isFamily();
 
-// 첫 화면에 필요한 것만 먼저: 집 배치 + 연표 + 방 목록(작은 JSON). 서로 기다리지 않고 함께 받는다.
+// 첫 화면에 필요한 것만 먼저: 집 배치(작은 JSON) → 하늘·땅·박석길·대문. 본채와 나머지 정원은 첫 화면 뒤에 단계별로.
 // 로딩 문구를 바꾼 뒤 한 프레임 쉬어 화면이 실제로 그려지게 한다. 캐시에서 다시 열 때는
 // 기다릴 일이 없어 쉬지 않으면 무거운 작업이 이어 붙어 로딩 화면이 멈춘 것처럼 보인다.
 const boot = msg => { window.__joyBoot?.(msg); return new Promise(r => requestAnimationFrame(() => setTimeout(r, 0))); };
 await boot('집 도면을 펼치는 중');
-const [house, timeline] = await Promise.all([data('content/house.json'), data('data/timeline.json')]);
-const specs = Object.fromEntries(await Promise.all(house.rooms
-  .filter(r => r.stage === 1 && r.wing !== 'hall' && (r.access !== 'family' || family))
-  .map(async r => [r.id, await data(`content/rooms/${r.id}.json`)])));
-await boot('정원을 가꾸는 중');
-const site = buildSite(scene, renderer, house, timeline, { shadows: renderer.shadowMap.enabled, phone: engine.phone });
-await boot('집을 짓는 중');
-const building = buildBuilding(scene, house, { family, specs });
-const clickables = [...site.clickables, ...building.clickables];
-const tickers = [];
-const blocks = [...building.blocks, ...site.blocks];   // 가구가 들어오면 여기에 더해진다 (충돌 판정이 같은 배열을 본다)
+const house = await data('content/house.json');
+const clickables = [], tickers = [];
+const blocks = [];   // 본채·정원·가구가 들어오면 여기에 더해진다 (충돌 판정이 같은 배열을 본다)
+const site = buildSite(scene, renderer, house, { shadows: renderer.shadowMap.enabled, phone: engine.phone }, { blocks, clickables });
+// 본채는 첫 화면 뒤에 짓는다(주소가 방을 가리키면 첫 화면 전에). 그때까지는 빈 집.
+let specs = {};
+let building = { ready: false, rooms: new Map(), roomAt: () => null, floors: [] };
+let pendingRoom = null;
+
+// 무대 밖 그룹에 짓고, 셰이더를 막지 않고 컴파일한 뒤 장면에 들인다(들이는 순간 화면이 멈추지 않게)
+async function stageIn(build) {
+  const into = new THREE.Group();
+  into.userData = scene.userData;   // 스마트팜 온실이 밤 정도(lit)를 읽는다
+  await build(into);
+  await renderer.compileAsync(into, camera, scene).catch(() => {});
+  if (into.children.length) scene.add(...into.children);
+}
+async function buildHouse() {
+  specs = Object.fromEntries(await Promise.all(house.rooms
+    .filter(r => r.stage === 1 && r.wing !== 'hall' && (r.access !== 'family' || family))
+    .map(async r => [r.id, await data(`content/rooms/${r.id}.json`)])));
+  await stageIn(into => {
+    const b = buildBuilding(into, house, { family, specs });
+    for (const r of b.rooms.values()) r.items.visible = false;
+    blocks.push(...b.blocks);
+    clickables.push(...b.clickables);
+    building = Object.assign(b, { ready: true });
+  });
+  renderer.shadowMap.needsUpdate = true;
+  here = undefined;   // 이름판·방 처리를 다시
+  if (pendingRoom) { const id = pendingRoom; pendingRoom = null; goRoom(id); }
+}
+// 첫 화면 뒤: 본채 → 정원 단계들. 단계 사이엔 한 숨 쉰다.
+async function growWorld() {
+  const idle = () => new Promise(r => (window.requestIdleCallback || setTimeout)(r, { timeout: 200 }));
+  if (!building.ready) await buildHouse();
+  for (const [name, build] of site.stages) {
+    await idle();
+    await stageIn(into => build(into, { data })).catch(e => console.warn(name, e));
+    site.settle();
+  }
+  minimap.snapshot();
+}
 // 지금 서울의 시각·날씨로 하늘과 빛을 맞추고, 어두우면 등을 켠다
 const atmos = createAtmosphere({ scene, renderer, sky: site.sky, sun: site.sun, hemi: site.hemi, lights: site.lights, phone: engine.phone });
 
@@ -92,7 +124,7 @@ async function pump() {
 }
 let entered = false;
 function nearHouse(v) {
-  if (entered || v.z > -38) return;
+  if (entered || v.z > -38 || !building.ready) return;
   entered = true;
   want(['grandhall']);
 }
@@ -128,6 +160,7 @@ function whereIs(x, z) {
 
 // 방으로 가기: 방 가운데, 북쪽(안쪽)을 바라보게. 잠긴 방은 문 앞 안내만.
 function goRoom(id) {
+  if (!building.ready && house.rooms.some(r => r.id === id)) { pendingRoom = id; return; }   // 본채가 지어지면 간다
   const r = building.rooms.get(id);
   if (r) {
     if (r.access === 'family' && !family) {
@@ -325,8 +358,7 @@ const lowQuality = engine.phone || new URLSearchParams(location.search).get('q')
 let post = { render: () => renderer.render(scene, camera), setSize() {} };
 engine.onResize((w, h) => { hud.resize(w, h); post.setSize(w, h); });
 engine.resize();
-for (const r of building.rooms.values()) r.items.visible = false;
-if (router.initial) goRoom(router.initial);
+if (router.initial) { await boot('집을 짓는 중'); await buildHouse(); goRoom(router.initial); }
 // 첫 화면의 셰이더를 미리, 막지 않고 컴파일한다(KHR_parallel_shader_compile). 그동안 로딩 화면은 살아 있다.
 await boot('빛과 그림자를 맞추는 중');
 await Promise.all([renderer.compileAsync(scene, camera), renderer.compileAsync(hud.scene, hud.camera)]).catch(() => {});
@@ -334,12 +366,11 @@ function afterFirstFrame() {
   window.__joyBoot?.(null);                   // 로딩 화면 걷기
   minimap.snapshot();
   setTimeout(() => site.gate.open(), 900);
-  // 먼 곳(스마트팜·개울 풀숲)은 첫 화면이 뜬 뒤 한가할 때 짓는다
-  (window.requestIdleCallback || setTimeout)(() => site.later({ blocks, clickables })
-    .then(() => renderer.compileAsync(scene, camera)).then(() => minimap.snapshot()).catch(e => console.warn('later', e)), { timeout: 1500 });
+  // 본채와 나머지 정원은 첫 화면이 뜬 뒤 차례로 들인다
+  const grown = growWorld().catch(e => console.warn('grow', e));
   // 바깥 텍스처 → (집에 들어서면) 실내 텍스처 순서로. 도착하면 같은 재질에 갈아 끼운다.
   // 후처리는 텍스처가 자리 잡고 브라우저가 한가할 때 붙인다.
-  loadTextures(renderer, OUTDOOR_TEX).then(() => {
+  Promise.all([loadTextures(renderer, OUTDOOR_TEX), grown]).then(() => {
     minimap.snapshot();
     if (lowQuality) return;
     (window.requestIdleCallback || setTimeout)(() => import('./core/post.js').then(({ createPost }) => {
@@ -377,4 +408,4 @@ renderer.setAnimationLoop(() => {
   engine.measure();
   if (++frameNo === 1) requestAnimationFrame(afterFirstFrame);
 });
-window.__joyhouse = { walker, goRoom, building, hud, panel, menu, renderer, scene, camera, actionsFor, overlay, clickables };   // 점검용
+window.__joyhouse = { walker, goRoom, get building() { return building; }, hud, panel, menu, renderer, scene, camera, actionsFor, overlay, clickables };   // 점검용

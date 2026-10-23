@@ -52,7 +52,7 @@ export function buildSky(scene, renderer, sunDir) {
   let envRT = null;
   function bakeEnv() {
     const old = envRT;
-    envRT = pmrem.fromScene(envScene, 0.03);
+    envRT = pmrem.fromScene(envScene, 0.03, 0.1, 100, { size: old ? 128 : 64 });
     scene.environment = envRT.texture;
     old?.dispose();
   }

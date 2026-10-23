@@ -12,7 +12,8 @@ BOX = [30, 28, 104, 150]   # x0, z0, x1, z1 — 농장 길(z≈20) 남쪽, 개�
 
 def patch(path, old, new):
     t = path.read_text()
-    if new in t: return
+    if new and new in t: return
+    if not new and old not in t: return
     assert t.count(old) == 1, f"{path.name}: anchor not found: {old[:60]}"
     path.write_text(t.replace(old, new))
 
@@ -61,10 +62,11 @@ patch(SRC / "world/lights.js", """    pools.renderOrder = 2;
 
 # 4) site.js: 스마트팜과 개울 풀숲은 later() 로
 s = SRC / "world/site.js"
-patch(s, "import { buildFarm } from './farm.js';\n", "")
-patch(s, "  if (house.farm) buildFarm(scene, house.farm, { blocks, clickables, tickers, phone });\n", "")
-patch(s, "  tickers.push(grassField(scene, [stream.grass.area], phone ? 8000 : 30000, stream.grass.avoid));\n", "")
-patch(s, """    groundAt: bukchonGround,
+FAST = "stages" in s.read_text()   # scripts/fast_boot.py 가 단계별 짓기로 바꾼 뒤에는 4)·5)의 later() 는 쓰지 않는다
+if not FAST: patch(s, "import { buildFarm } from './farm.js';\n", "")
+if not FAST: patch(s, "  if (house.farm) buildFarm(scene, house.farm, { blocks, clickables, tickers, phone });\n", "")
+if not FAST: patch(s, "  tickers.push(grassField(scene, [stream.grass.area], phone ? 8000 : 30000, stream.grass.avoid));\n", "")
+if not FAST: patch(s, """    groundAt: bukchonGround,
 """, """    groundAt: bukchonGround,
     // 첫 화면 뒤에 짓는 먼 곳: 스마트팜(파일째 나중에 받는다), 개울 풀숲. 막는 것·누를 것은 main 의 배열에 더한다.
     async later(out) {
@@ -100,7 +102,7 @@ function nearGarden(v) {
 }
 // 이동
 const collider""")
-patch(m, """  // 바깥 텍스처 → (집에 들어서면)""", """  // 먼 곳(스마트팜·개울 풀숲)은 첫 화면이 뜬 뒤 한가할 때 짓는다
+if not FAST: patch(m, """  // 바깥 텍스처 → (집에 들어서면)""", """  // 먼 곳(스마트팜·개울 풀숲)은 첫 화면이 뜬 뒤 한가할 때 짓는다
   (window.requestIdleCallback || setTimeout)(() => site.later({ blocks, clickables })
     .then(() => renderer.compileAsync(scene, camera)).then(() => minimap.snapshot()).catch(e => console.warn('later', e)), { timeout: 1500 });
   // 바깥 텍스처 → (집에 들어서면)""")
@@ -114,7 +116,7 @@ patch(SRC / "world/sky.js", """  bakeEnv();
   scene.environmentIntensity = 0.55;""", """  scene.environmentIntensity = 0.55;   // 첫 굽기는 atmosphere.js 의 apply() 가 한다""")
 # 7) README: 로딩 순서와 정원
 r = ROOT / "README.md"
-patch(r, """2. **첫 프레임 뒤**: 바깥 텍스처(잔디·박석·기와·벽) → 후처리(주변광 차폐·빛번짐)를 붙인다.
+if not FAST: patch(r, """2. **첫 프레임 뒤**: 바깥 텍스처(잔디·박석·기와·벽) → 후처리(주변광 차폐·빛번짐)를 붙인다.
 """, """2. **첫 프레임 뒤**: 먼 곳(스마트팜 — 코드 파일째, 개울 풀숲)을 한가할 때 짓고, 바깥 텍스처(잔디·박석·기와·벽) → 후처리(주변광 차폐·빛번짐)를 붙인다.
 """)
 patch(r, """4. **방에 들어서면**: 그 방과 이웃 방을 먼저, 나머지 방은 하나씩 차례로 채운다. 실내 텍스처(마루·목재)도 이때 받는다.

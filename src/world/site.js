@@ -8,7 +8,6 @@ import { buildStream } from './stream.js';
 import { buildGuide } from './guide.js';
 import { buildSigns } from './signs.js';
 import { textPlane } from '../ui3d/text.js';
-import { buildFarm } from './farm.js';
 import { buildBukchon, bukchonGround } from './bukchon.js';
 import { createLights } from './lights.js';
 
@@ -16,8 +15,8 @@ const POND = { cx: -46, cz: -35, w: 14, d: 10 };
 const ROSE = { cx: 46, cz: -35 };
 const PAVILION = { cx: 24, cz: -17 };   // 정관헌: 앞뜰 오른쪽 커피 정자
 
-export function buildSite(scene, renderer, house, timeline, { shadows, phone }) {
-  const blocks = [], clickables = [], tickers = [];
+export function buildSite(scene, renderer, house, { shadows, phone }, { blocks, clickables }) {
+  const tickers = [];
 
   // 해 자리는 처음 값일 뿐, atmosphere.js 가 지금 시각·날씨에 맞춰 옮긴다
   const sunDir = new THREE.Vector3(0.62, 0.5, 0.6).normalize();
@@ -59,77 +58,76 @@ export function buildSite(scene, renderer, house, timeline, { shadows, phone }) 
   scene.add(court);
 
   const gate = sotdaemun(scene, house.plaque, blocks);
-  flowerWall(scene, blocks);
-  milestones(scene, timeline, clickables);
-
-  // 생울타리: 잔디길 양옆, 연못·로즈가든 디딤돌 자리는 틔운다
-  // 대문에서 이어지는 첫 구간은 덕수궁 돌담길, 집 쪽은 생울타리
-  doldam(scene, [[5.6, -3, 6.6, -9.5], [5.6, -13.5, 6.6, -21], [-6.6, -3, -5.6, -21]], blocks);
-  hedges(scene, [
-    [5.6, -21, 6.6, -33, 0.9], [5.6, -39, 6.6, -52, 0.9],
-    [-6.6, -27, -5.6, -52, 0.9],
-  ], blocks);
-  flowerBeds(scene, [
-    [7.2, -2.2, 13, -3.8, [0xd94060, 0xf6f0e8, 0x9a5ac8]], [-13, -2.2, -7.2, -3.8, [0xd94060, 0xf6f0e8, 0x9a5ac8]],
-  ]);
-  for (const x of [-9.5, 9.5]) {
-    const g = stoneLantern(scene, x, -53.2);
-    g.children[g.children.length - 1].material = lights.glass;   // 화사석 불빛도 밤에만 켠다
-    lights.add(x, 1.61, -53.2, 0, 0.6);
-  }
-  nightLights(scene, lights, blocks);
-
-  // 나무: 소나무 숲, 앞마당 은행나무 한 쌍, 대문 곁 느티나무, 집 둘레 단풍
-  const r = rng(42), spots = [];
-  const ok = (x, z) => !(Math.abs(x) < 84 && z < -52 && z > -98) && !(Math.abs(x) < 9) &&
-    !(Math.hypot(x - POND.cx, z - POND.cz) < 15) && !(Math.hypot(x - ROSE.cx, z - ROSE.cz) < 15) && !(Math.hypot(x - PAVILION.cx, z - PAVILION.cz) < 11) && !(z > -1 && z < 1.5) &&
-    !(x < -10 && z > 1.5);   // 대문 밖 서쪽은 북촌 골목 자리
-  for (let i = 0; i < 160 && spots.length < 70; i++) {
-    const x = (r() < 0.5 ? -1 : 1) * (14 + r() * 76), z = 10 - r() * 120;
-    if (ok(x, z)) spots.push({ x, z, s: 0.8 + r() * 0.5, kind: r() < 0.72 ? 'pine' : 'maple', rot: r() * 6 });
-  }
-  for (const x of [-15.5, 15.5]) spots.push({ x, z: -50.5, s: 1.25, kind: 'ginkgo', rot: x });
-  spots.push({ x: 15, z: -7, s: 1.6, kind: 'zelkova', rot: 2 });
-  for (const [x, z] of [[-30, -58], [30, -58], [-80, -60], [80, -60], [-26, -100], [26, -100]]) spots.push({ x, z, s: 1.0, kind: 'maple', rot: x });
   const plantLater = [];
-  tickers.push(buildPond(scene, POND, blocks, clickables, s => plantLater.push(s)));
-  const stream = buildStream(scene, { blocks, clickables, lights, phone, plant: s => plantLater.push(s) });
-  tickers.push(stream.tick);
-  buildGuide(scene, house, { pond: POND }, { blocks, clickables });
-  buildSigns(scene, house, { blocks, clickables });
-  plantTrees(scene, [...spots, ...plantLater], blocks);
+  let stream = null;
 
-  roseGarden(scene, clickables, blocks);
-  jeonggwanheon(scene, blocks);
-  steppingStones(scene, [[3.6, -11.5], [PAVILION.cx, -11.5]]);
-  steppingStones(scene, [[3.6, -36], [ROSE.cx - 10, -36]]);
-  steppingStones(scene, [[-3.6, -24], [POND.cx + 3, -24]]);
-  mountains(scene);
-  buildBukchon(scene, house.street, { blocks, clickables, lights });
-  lights.build();
-  if (house.farm) buildFarm(scene, house.farm, { blocks, clickables, tickers, phone });
-
-  // 풀잎: 잔디길 양쪽 앞뜰
-  const avoid = (x, z) => Math.abs(x) < 3.3 || (Math.abs(x) > 5.4 && Math.abs(x) < 6.8) ||
-    Math.hypot(x - POND.cx, z - POND.cz) < 13 || Math.hypot(x - ROSE.cx, z - ROSE.cz) < 13 ||
-    (Math.abs(x - PAVILION.cx) < 7 && Math.abs(z - PAVILION.cz) < 5.5) ||
-    (Math.abs(Math.abs(x) - 4.2) < 0.5 && true && false);
-  tickers.push(grassField(scene, [{ x0: -34, x1: 34, z0: -54, z1: -1 }], phone ? 16000 : 70000, avoid));
-  tickers.push(grassField(scene, [stream.grass.area], phone ? 8000 : 30000, stream.grass.avoid));
+  // 첫 화면 뒤에 들이는 것들. 단계마다 into(무대 밖 그룹)에 짓는다. main 이 셰이더를 컴파일한 뒤 장면에 옮긴다.
+  const stages = [
+    ['앞뜰', async (into, { data }) => {
+      flowerWall(into, blocks);
+      milestones(into, await data('data/timeline.json') || [], clickables);
+      // 생울타리: 잔디길 양옆, 연못·로즈가든 디딤돌 자리는 틔운다
+      // 대문에서 이어지는 첫 구간은 덕수궁 돌담길, 집 쪽은 생울타리
+      doldam(into, [[5.6, -3, 6.6, -9.5], [5.6, -13.5, 6.6, -21], [-6.6, -3, -5.6, -21]], blocks);
+      hedges(into, [
+        [5.6, -21, 6.6, -33, 0.9], [5.6, -39, 6.6, -52, 0.9],
+        [-6.6, -27, -5.6, -52, 0.9],
+      ], blocks);
+      flowerBeds(into, [
+        [7.2, -2.2, 13, -3.8, [0xd94060, 0xf6f0e8, 0x9a5ac8]], [-13, -2.2, -7.2, -3.8, [0xd94060, 0xf6f0e8, 0x9a5ac8]],
+      ]);
+      for (const x of [-9.5, 9.5]) {
+        const g = stoneLantern(into, x, -53.2);
+        g.children[g.children.length - 1].material = lights.glass;   // 화사석 불빛도 밤에만 켠다
+        lights.add(x, 1.61, -53.2, 0, 0.6);
+      }
+      nightLights(into, lights, blocks);
+      roseGarden(into, clickables, blocks);
+      jeonggwanheon(into, blocks);
+      steppingStones(into, [[3.6, -11.5], [PAVILION.cx, -11.5]]);
+      steppingStones(into, [[3.6, -36], [ROSE.cx - 10, -36]]);
+      steppingStones(into, [[-3.6, -24], [POND.cx + 3, -24]]);
+      // 풀잎: 잔디길 양쪽 앞뜰
+      const avoid = (x, z) => Math.abs(x) < 3.3 || (Math.abs(x) > 5.4 && Math.abs(x) < 6.8) ||
+        Math.hypot(x - POND.cx, z - POND.cz) < 13 || Math.hypot(x - ROSE.cx, z - ROSE.cz) < 13 ||
+        (Math.abs(x - PAVILION.cx) < 7 && Math.abs(z - PAVILION.cz) < 5.5);
+      tickers.push(grassField(into, [{ x0: -34, x1: 34, z0: -54, z1: -1 }], phone ? 16000 : 70000, avoid));
+    }],
+    ['연못·개울·나무', into => {
+      // 나무: 소나무 숲, 앞마당 은행나무 한 쌍, 대문 곁 느티나무, 집 둘레 단풍
+      const r = rng(42), spots = [];
+      const ok = (x, z) => !(Math.abs(x) < 84 && z < -52 && z > -98) && !(Math.abs(x) < 9) &&
+        !(Math.hypot(x - POND.cx, z - POND.cz) < 15) && !(Math.hypot(x - ROSE.cx, z - ROSE.cz) < 15) && !(Math.hypot(x - PAVILION.cx, z - PAVILION.cz) < 11) && !(z > -1 && z < 1.5) &&
+        !(x < -10 && z > 1.5);   // 대문 밖 서쪽은 북촌 골목 자리
+      for (let i = 0; i < 160 && spots.length < 70; i++) {
+        const x = (r() < 0.5 ? -1 : 1) * (14 + r() * 76), z = 10 - r() * 120;
+        if (ok(x, z)) spots.push({ x, z, s: 0.8 + r() * 0.5, kind: r() < 0.72 ? 'pine' : 'maple', rot: r() * 6 });
+      }
+      for (const x of [-15.5, 15.5]) spots.push({ x, z: -50.5, s: 1.25, kind: 'ginkgo', rot: x });
+      spots.push({ x: 15, z: -7, s: 1.6, kind: 'zelkova', rot: 2 });
+      for (const [x, z] of [[-30, -58], [30, -58], [-80, -60], [80, -60], [-26, -100], [26, -100]]) spots.push({ x, z, s: 1.0, kind: 'maple', rot: x });
+      tickers.push(buildPond(into, POND, blocks, clickables, s => plantLater.push(s)));
+      stream = buildStream(into, { blocks, clickables, lights, phone, plant: s => plantLater.push(s) });
+      tickers.push(stream.tick);
+      buildGuide(into, house, { pond: POND }, { blocks, clickables });
+      buildSigns(into, house, { blocks, clickables });
+      plantTrees(into, [...spots, ...plantLater], blocks);
+      mountains(into);
+    }],
+    ['북촌 골목', into => buildBukchon(into, house.street, { blocks, clickables, lights })],
+    ['스마트팜', async into => {
+      if (!house.farm) return;
+      const { buildFarm } = await import('./farm.js');   // 코드 파일째 나중에 받는다
+      buildFarm(into, house.farm, { blocks, clickables, tickers, phone });
+    }],
+    ['개울 풀숲', into => { if (stream) tickers.push(grassField(into, [stream.grass.area], phone ? 8000 : 30000, stream.grass.avoid)); }],
+  ];
 
   return {
-    blocks, clickables, sky, sun, hemi, lights,
+    sky, sun, hemi, lights, stages,
     groundAt: bukchonGround,
-    // 첫 화면 뒤에 짓는 먼 곳: 스마트팜(파일째 나중에 받는다), 개울 풀숲. 막는 것·누를 것은 main 의 배열에 더한다.
-    async later(out) {
-      if (house.farm) {
-        const { buildFarm } = await import('./farm.js');
-        buildFarm(scene, house.farm, { blocks: out.blocks, clickables: out.clickables, tickers, phone });
-        lights.build();
-      }
-      tickers.push(grassField(scene, [stream.grass.area], phone ? 8000 : 30000, stream.grass.avoid));
-      renderer.shadowMap.needsUpdate = true;
-    },
+    // 단계 하나를 지은 뒤: 새 등기구의 빛 웅덩이, 그림자 다시 그리기
+    settle() { lights.build(); renderer.shadowMap.needsUpdate = true; },
     update(dt) {
       // 해는 움직이지 않으므로 그림자 지도는 한 번만 그린다. 대문이 열리는 동안만 다시 그린다.
       if (gate.update(dt)) renderer.shadowMap.needsUpdate = true;
