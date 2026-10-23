@@ -96,6 +96,21 @@ function nearHouse(v) {
   entered = true;
   want(['grandhall']);
 }
+// 판도라 정원: 첫 화면에는 없다. 25m 안으로 다가가거나, 하늘에서 보거나, 메뉴로 갈 때 받아 짓는다.
+let garden = null, gardenJob = null;
+function loadGarden() {
+  gardenJob ??= Promise.all([data('content/garden.json'), import('./world/garden/index.js')])
+    .then(([spec, mod]) => spec && mod.buildGarden(scene, spec, { blocks, clickables }))
+    .then(gd => { garden = gd; renderer.shadowMap.needsUpdate = true; setTimeout(() => minimap.snapshot(), 1800); })
+    .catch(e => console.warn('garden', e));
+  return gardenJob;
+}
+function nearGarden(v) {
+  if (gardenJob || !OUTDOOR.pandora) return;
+  const [x0, z0, x1, z1] = OUTDOOR.pandora.box;
+  const dx = Math.max(Math.min(x0, x1) - v.x, 0, v.x - Math.max(x0, x1)), dz = Math.max(Math.min(z0, z1) - v.z, 0, v.z - Math.max(z0, z1));
+  if (walker.flying || Math.hypot(dx, dz) < 25) loadGarden();
+}
 // 이동
 const collider = makeCollider(blocks, house.site);
 const hud = new Hud();
@@ -133,6 +148,7 @@ function goRoom(id) {
     const [x0, z0, x1, z1] = o.box;
     if (id === 'stream') return walker.go(...STREAM_SPOT, 0);
     if (id === 'bukchon') return walker.go(x1 + 3, 20, Math.PI / 2, 0);   // 골목 어귀에서 서쪽 언덕을 본다
+    if (id === 'pandora') { loadGarden(); return walker.go((x0 + x1) / 2, Math.min(z0, z1) - 3, Math.PI, 0); }   // 정원 들머리에서 남쪽을 본다
     if (id === 'farm') return walker.go(x0 + 2, Math.min(z0, z1) + 24, -Math.PI / 2, 0);   // 스마트팜 길목에서 동쪽을 본다
     walker.go((x0 + x1) / 2, Math.max(z0, z1) + (id === 'gate' ? 6 : -2), 0, 0);
   }
@@ -318,6 +334,9 @@ function afterFirstFrame() {
   window.__joyBoot?.(null);                   // 로딩 화면 걷기
   minimap.snapshot();
   setTimeout(() => site.gate.open(), 900);
+  // 먼 곳(스마트팜·개울 풀숲)은 첫 화면이 뜬 뒤 한가할 때 짓는다
+  (window.requestIdleCallback || setTimeout)(() => site.later({ blocks, clickables })
+    .then(() => renderer.compileAsync(scene, camera)).then(() => minimap.snapshot()).catch(e => console.warn('later', e)), { timeout: 1500 });
   // 바깥 텍스처 → (집에 들어서면) 실내 텍스처 순서로. 도착하면 같은 재질에 갈아 끼운다.
   // 후처리는 텍스처가 자리 잡고 브라우저가 한가할 때 붙인다.
   loadTextures(renderer, OUTDOOR_TEX).then(() => {
@@ -345,6 +364,8 @@ renderer.setAnimationLoop(() => {
   if (!here || w.id !== here.id || (w.id === null && here.id !== null)) onRoomChange(w);
   site.update(dt, v);
   nearHouse(v);
+  nearGarden(v);
+  garden?.update(dt, v);
   tickers.forEach(fn => fn(dt, elapsed));
   hud.update(dt);
   panel.update(dt);

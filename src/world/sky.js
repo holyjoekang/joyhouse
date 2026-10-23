@@ -56,8 +56,7 @@ export function buildSky(scene, renderer, sunDir) {
     scene.environment = envRT.texture;
     old?.dispose();
   }
-  bakeEnv();
-  scene.environmentIntensity = 0.55;
+  scene.environmentIntensity = 0.55;   // 첫 굽기는 atmosphere.js 의 apply() 가 한다
 
   // dir: 해 방향(지평선 아래면 y < 0). a = 대기 상태 { turbidity, rayleigh, cloud(0..1), cloudColor, stars(0..1), groundColor }
   function update(dir, a) {

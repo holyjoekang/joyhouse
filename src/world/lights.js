@@ -86,12 +86,14 @@ export function createLights(scene, { phone }) {
   // 바닥의 빛 웅덩이: 모든 등기구 아래 (build()에서 등기구가 다 모인 뒤 만든다)
   let pools = null;
   function build() {
+    if (pools) { scene.remove(pools); pools.geometry.dispose(); pools.material.map.dispose(); pools.material.dispose(); }
     const near = fixtures.filter(f => f.y - f.gy < 8);
     const mat = new THREE.MeshBasicMaterial({ map: poolTexture(), transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false });
     pools = new THREE.InstancedMesh(new THREE.PlaneGeometry(1, 1).rotateX(-Math.PI / 2), mat, near.length);
     const m = new THREE.Matrix4();
     near.forEach((f, i) => { const s = 3 + (f.y - f.gy) * 1.1 * f.power; pools.setMatrixAt(i, m.makeScale(s, 1, s).setPosition(f.x, f.gy + 0.07, f.z)); });
     pools.renderOrder = 2;
+    pools.material.opacity = 0.42 * level;
     scene.add(pools);
   }
 

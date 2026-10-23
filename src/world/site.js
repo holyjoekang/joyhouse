@@ -120,6 +120,16 @@ export function buildSite(scene, renderer, house, timeline, { shadows, phone }) 
   return {
     blocks, clickables, sky, sun, hemi, lights,
     groundAt: bukchonGround,
+    // 첫 화면 뒤에 짓는 먼 곳: 스마트팜(파일째 나중에 받는다), 개울 풀숲. 막는 것·누를 것은 main 의 배열에 더한다.
+    async later(out) {
+      if (house.farm) {
+        const { buildFarm } = await import('./farm.js');
+        buildFarm(scene, house.farm, { blocks: out.blocks, clickables: out.clickables, tickers, phone });
+        lights.build();
+      }
+      tickers.push(grassField(scene, [stream.grass.area], phone ? 8000 : 30000, stream.grass.avoid));
+      renderer.shadowMap.needsUpdate = true;
+    },
     update(dt) {
       // 해는 움직이지 않으므로 그림자 지도는 한 번만 그린다. 대문이 열리는 동안만 다시 그린다.
       if (gate.update(dt)) renderer.shadowMap.needsUpdate = true;
