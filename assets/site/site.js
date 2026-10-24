@@ -66,7 +66,7 @@ function footer() {
       <li><a href="blog.html">레드룸 · 블로그</a></li><li><a href="travel.html">맵룸 · 여행 지도</a></li>
       <li><a href="studio.html">오벌 오피스 · 작업실</a></li></ul></div>
     <div><h4>윙</h4><ul>
-      <li><a href="china.html">중국관 · 중국 생활 7년</a></li><li><a href="faith.html">신앙 · 말씀과 일</a></li><li><a href="vision.html">비전룸 · Keep121</a></li>
+      <li><a href="china.html">중국관 · 중국 생활 7년</a></li><li><a href="faith.html">신앙 · 말씀과 일</a></li><li><a href="vision.html">비전룸 · 세 번째 30년</a></li>
       <li><a href="ideas.html">아이디어 랩 · 창업 아이디어 31</a></li>
       <li><a href="family.html">가족의 방들</a></li><li><a href="3d.html">3D 투어</a></li></ul></div>
     <div><h4>바깥 사이트</h4><ul>
@@ -503,6 +503,8 @@ R.hero = async el => {
     ${h.ctas.length ? `<div class="hero-cta">${h.ctas.map(c => `<a class="btn ${c.primary ? "btn-primary" : "btn-ghost"}" href="${esc(c.href)}"${c.newTab ? ' target="_blank" rel="noopener"' : ""}>${esc(c.text)}</a>`).join("")}</div>` : ""}
   </div>`;
 };
+// 비전룸 — 그리는 코드는 vision.js, 글은 content/vision.json
+R.vision = async el => (await import("./vision.js")).default(el, json, esc);
 R.rooms = async el => {
   const { rooms } = await json("content/pages.json");
   el.innerHTML = rooms.map(r => `
