@@ -36,6 +36,7 @@ HTML = """<!doctype html>
 </section>
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script type="module" src="assets/site/site.js"></script>
 <script type="module" src="assets/site/hella.js"></script>
 </body>
@@ -43,7 +44,7 @@ HTML = """<!doctype html>
 """
 
 HERO = {
-    "bg": "assets/photos/laptop-dark.webp",
+    "bg": "assets/photos/hella-engine.webp",
     "crumb": "오벌 오피스 / 컨설팅 룸",
     "eyebrow": "Oval Office · Consulting Room",
     "title": "컨설팅 룸 — 헬라코리아 신사업 개발",
@@ -60,7 +61,7 @@ CARD = """<section class="block alt" id="consulting">
       <p class="lead">AI 에이전트로 리서치하고 3라운드로 평가한 중소기업 신사업 개발 자문 공간입니다. 1차 협의 자료와 주간·월간 운영 설계를 담았습니다. 고객 자료라 암호로 잠가 두었습니다.</p>
       <a class="btn btn-dark" href="consulting-hella.html">컨설팅 룸 들어가기 🔒</a>
     </div>
-    <div class="figure reveal"><img src="assets/photos/laptop-dark.webp" alt="컨설팅 룸" loading="lazy"></div>
+    <div class="figure reveal"><img src="assets/photos/hella-mechanic.webp" alt="엔진을 정비하는 정비사" loading="lazy"></div>
   </div>
 </section>
 """

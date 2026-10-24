@@ -1663,81 +1663,59 @@
   "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
   "page": "https://www.metmuseum.org/art/collection/search/453683"
  },
- "kandinsky-composition-7": {
-  "file": "assets/art/kandinsky-composition-7.webp",
-  "alt": "칸딘스키 〈구성 VII〉 1913",
-  "source": "wikimedia",
-  "title": "구성 VII",
-  "creator": "바실리 칸딘스키",
-  "creator_url": "",
-  "license": "퍼블릭 도메인",
-  "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-  "page": "https://commons.wikimedia.org/wiki/File:Vassily_Kandinsky,_1913_-_Composition_7.jpg"
+ "hella-mechanic": {
+  "file": "assets/photos/hella-mechanic.webp",
+  "alt": "장갑을 끼고 엔진을 정비하는 정비사",
+  "source": "openverse",
+  "title": "Public Works Fleet Division, Greenville",
+  "creator": null,
+  "creator_url": null,
+  "license": "CC CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.rawpixel.com/image/9659059/image-person-fire-public-domain"
  },
- "kandinsky-composition-8": {
-  "file": "assets/art/kandinsky-composition-8.webp",
-  "alt": "칸딘스키 〈구성 VIII〉 1923",
-  "source": "wikimedia",
-  "title": "구성 VIII",
-  "creator": "바실리 칸딘스키",
-  "creator_url": "",
-  "license": "퍼블릭 도메인",
-  "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-  "page": "https://commons.wikimedia.org/wiki/File:Vassily_Kandinsky,_1923_-_Composition_8,_huile_sur_toile,_140_cm_x_201_cm,_Musée_Guggenheim,_New_York.jpg"
+ "hella-engine": {
+  "file": "assets/photos/hella-engine.webp",
+  "alt": "엔진 블록",
+  "source": "openverse",
+  "title": "Motor, engine, detail black and",
+  "creator": null,
+  "creator_url": null,
+  "license": "CC CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.rawpixel.com/image/5903123/photo-image-public-domain-technology-free"
  },
- "kandinsky-several-circles": {
-  "file": "assets/art/kandinsky-several-circles.webp",
-  "alt": "칸딘스키 〈몇 개의 원〉 1926",
-  "source": "wikimedia",
-  "title": "몇 개의 원",
-  "creator": "바실리 칸딘스키",
-  "creator_url": "",
-  "license": "퍼블릭 도메인",
-  "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-  "page": "https://commons.wikimedia.org/wiki/File:Vassily_Kandinsky,_1926_-_Several_Circles,_Gugg_0910_25.jpg"
+ "hella-truck": {
+  "file": "assets/photos/hella-truck.webp",
+  "alt": "도로 위의 대형 트럭",
+  "source": "openverse",
+  "title": null,
+  "creator": null,
+  "creator_url": null,
+  "license": "CC CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.rawpixel.com/image/6047629/free-public-domain-cc0-photo"
  },
- "kandinsky-on-white-2": {
-  "file": "assets/art/kandinsky-on-white-2.webp",
-  "alt": "칸딘스키 〈흰색 위에 II〉 1923",
-  "source": "wikimedia",
-  "title": "흰색 위에 II",
-  "creator": "바실리 칸딘스키",
-  "creator_url": "",
-  "license": "퍼블릭 도메인",
-  "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-  "page": "https://commons.wikimedia.org/wiki/File:Vassily_Kandinsky,_1923_-_On_White_II.jpg"
+ "hella-port": {
+  "file": "assets/photos/hella-port.webp",
+  "alt": "컨테이너 항만",
+  "source": "openverse",
+  "title": "Containers port, ship dock",
+  "creator": null,
+  "creator_url": null,
+  "license": "CC CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.rawpixel.com/image/11101869/containers-port-ship-dock"
  },
- "kandinsky-composition-10": {
-  "file": "assets/art/kandinsky-composition-10.webp",
-  "alt": "칸딘스키 〈구성 X〉 1939",
-  "source": "wikimedia",
-  "title": "구성 X",
-  "creator": "바실리 칸딘스키",
-  "creator_url": "",
-  "license": "퍼블릭 도메인",
-  "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-  "page": "https://commons.wikimedia.org/wiki/File:Vassily_Kandinsky,_1939_-_Composition_10.jpg"
- },
- "kandinsky-composition-7-detail": {
-  "file": "assets/art/kandinsky-composition-7-detail.webp",
-  "alt": "칸딘스키 〈구성 VII (부분)〉 1913",
-  "source": "wikimedia",
-  "title": "구성 VII (부분)",
-  "creator": "바실리 칸딘스키",
-  "creator_url": "",
-  "license": "퍼블릭 도메인",
-  "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-  "page": "https://commons.wikimedia.org/wiki/File:Vassily_Kandinsky,_1913_-_Composition_7.jpg"
- },
- "kandinsky-composition-8-detail": {
-  "file": "assets/art/kandinsky-composition-8-detail.webp",
-  "alt": "칸딘스키 〈구성 VIII (부분)〉 1923",
-  "source": "wikimedia",
-  "title": "구성 VIII (부분)",
-  "creator": "바실리 칸딘스키",
-  "creator_url": "",
-  "license": "퍼블릭 도메인",
-  "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-  "page": "https://commons.wikimedia.org/wiki/File:Vassily_Kandinsky,_1923_-_Composition_8,_huile_sur_toile,_140_cm_x_201_cm,_Musée_Guggenheim,_New_York.jpg"
+ "hella-warehouse": {
+  "file": "assets/photos/hella-warehouse.webp",
+  "alt": "물류 창고 선반",
+  "source": "openverse",
+  "title": null,
+  "creator": null,
+  "creator_url": null,
+  "license": "CC CC0 1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://www.rawpixel.com/image/6057556/free-public-domain-cc0-photo"
  }
 }
