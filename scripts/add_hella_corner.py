@@ -5,7 +5,7 @@
 - consulting-hella.html  새 쪽 (암호 잠금, assets/site/hella.js 가 그린다)
 - content/pages.json     새 쪽의 머리 배너
 - studio.html            컨설팅 룸 카드
-- .github/workflows/pages.yml  매일 동기화 때 잠금 파일(data/hella/vault.json)도 새로 만든다
+- .github/workflows/pages.yml  배포 때 hella.css·js 캐시 무효화 (잠금 파일은 운영 가동 전까지 손으로 만든다)
 """
 import json
 from pathlib import Path
@@ -47,7 +47,7 @@ HERO = {
     "crumb": "오벌 오피스 / 컨설팅 룸",
     "eyebrow": "Oval Office · Consulting Room",
     "title": "컨설팅 룸 — 헬라코리아 신사업 개발",
-    "textHtml": "역량 진단에서 출발해 품목을 찾고, 3라운드로 평가하고, 매주·매월 시그널과 KPI로 점검합니다. 고객 자료가 있어 암호로 잠가 두었습니다.",
+    "textHtml": "역량 진단에서 출발해 품목을 찾고 3라운드로 평가한 1차 협의 자료와, 앞으로 매주·매월 점검할 운영 설계를 담았습니다. 고객 자료라 암호로 잠가 두었습니다.",
     "ctas": [{"primary": True, "href": "#vault", "text": "들어가기", "newTab": False},
              {"primary": False, "href": "studio.html", "text": "작업실로", "newTab": False}],
 }
@@ -57,7 +57,7 @@ CARD = """<section class="block alt" id="consulting">
     <div class="reveal">
       <span class="eyebrow">Consulting Room</span>
       <h2>컨설팅 룸 — 헬라코리아</h2>
-      <p class="lead">AI 에이전트로 리서치하고, 3라운드로 평가하고, 매주·매월 시그널과 KPI로 점검하는 중소기업 신사업 개발 운영실입니다. 고객 자료라 암호로 잠가 두었습니다.</p>
+      <p class="lead">AI 에이전트로 리서치하고 3라운드로 평가한 중소기업 신사업 개발 자문 공간입니다. 1차 협의 자료와 주간·월간 운영 설계를 담았습니다. 고객 자료라 암호로 잠가 두었습니다.</p>
       <a class="btn btn-dark" href="consulting-hella.html">컨설팅 룸 들어가기 🔒</a>
     </div>
     <div class="figure reveal"><img src="assets/photos/laptop-dark.webp" alt="컨설팅 룸" loading="lazy"></div>
@@ -85,17 +85,19 @@ def main():
 
     st = ROOT / "studio.html"
     s = st.read_text(encoding="utf-8")
-    if 'id="consulting"' not in s:
-        s = s.replace('<section class="cta-band"', CARD + '<section class="cta-band"', 1)
-        st.write_text(s, encoding="utf-8")
+    if 'id="consulting"' in s:  # 이미 있으면 새 문안으로 바꾼다
+        a = s.index('<section class="block alt" id="consulting">')
+        s = s[:a] + s[s.index('<section class="cta-band"', a):]
+    s = s.replace('<section class="cta-band"', CARD + '<section class="cta-band"', 1)
+    st.write_text(s, encoding="utf-8")
 
     wf = ROOT / ".github" / "workflows" / "pages.yml"
     w = wf.read_text(encoding="utf-8")
-    if "컨설팅 룸 잠금 파일" not in w:
-        anchor = "      - name: 바뀐 데이터 커밋"
-        assert anchor in w
-        w = w.replace(anchor, STEP + anchor, 1)
-        wf.write_text(w, encoding="utf-8")
+    # 운영 가동 전(1차 협의 단계)에는 매일 동기화에 붙이지 않는다. 잠금 파일은 손으로 만든다:
+    #   python scripts/build_hella_vault.py --local <AI-Apps 클론>
+    # 가동할 때는 이 조건을 뒤집어 STEP 을 '바뀐 데이터 커밋' 앞에 넣는다.
+    if STEP in w:
+        wf.write_text(w.replace(STEP, ""), encoding="utf-8")
     # 배포 때 hella.css·js 도 site.css·js 처럼 ?v= 를 붙여 캐시를 깬다
     old = r'sed -i -E "s#assets/site/site\.(css|js)\"#assets/site/site.\1?v=$V\"#" *.html'
     new = r'sed -i -E "s#assets/site/(site|hella)\.(css|js)\"#assets/site/\1.\2?v=$V\"#" *.html'

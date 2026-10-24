@@ -27,13 +27,6 @@ jobs:
           python-version: "3.11"
       - name: 데이터 동기화
         run: python scripts/sync_sources.py
-      - name: 컨설팅 룸 잠금 파일
-        env:
-          HELLA_PASSWORD: ${{ secrets.HELLA_PASSWORD }}
-          HELLA_SRC_TOKEN: ${{ secrets.HELLA_SRC_TOKEN }}
-        run: |
-          pip install -q cryptography
-          python scripts/build_hella_vault.py || echo "vault 갱신 실패 — 지난 파일을 둔다"
       - name: 바뀐 데이터 커밋
         run: |
           if [ -n "$(git status --porcelain data assets/books assets/site/blog_feed.js)" ]; then

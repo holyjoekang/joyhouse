@@ -96,7 +96,15 @@ ${items.map(i => `<article class="hv-item">
   }],
   signals: ["시그널", d => {
     const s = d.signals || {};
-    if (!s.signals?.length) return empty("주간 에이전트가 아직 시그널을 모으지 않았습니다.");
+    if (!s.signals?.length) return `<section class="hv-panel"><h3>설계 단계 — 가동 전</h3>
+<p>1차 협의에서 범위를 정한 뒤 가동하면, 매주 월요일 아래 시그널을 모아 이 화면과 주간 브리프에 올립니다.</p>
+${table(["구분", "내용", "원천"], [
+  ["환율·운임", "USD·CNY/KRW, 해상 운임 → 랜디드코스트 재계산", "공개 환율 API, 실견적 입력"],
+  ["시장 뉴스", "기유 품귀·엔진오일 가격, 불스원·카포스 등 경쟁 동향", "뉴스 검색"],
+  ["규제", "화학제품안전법 안전확인, 대기환경보전법 첨가제, 회수·처분 공지", "환경부·KEITI·공정위·뉴스"],
+  ["수요·경쟁가", "품목 키워드 검색량, 쇼핑 최저가", "네이버 데이터랩·쇼핑 API (키 필요)"],
+  ["실적", "판매·견적·총판 피드백 → KPI", "구글 시트 (박 대표·본부장 입력)"],
+].map(r => `<tr>${r.map(c => `<td>${esc(c)}</td>`).join("")}</tr>`))}</section>`;
     return `<p class="muted">${esc(s.week || "")} · 갱신 ${esc(s.updated || "")}</p>` + table(["구분", "내용", "값", "변화", "출처"],
       s.signals.map(x => `<tr class="lv-${esc(x.level)}"><td>${chip(x.type)}</td><td>${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a>` : esc(x.title)}</td>
         <td>${esc(x.value ?? "")}</td><td>${esc(x.delta ?? "")}</td><td>${esc(x.source || "")} ${esc(x.date || "")}</td></tr>`));
