@@ -230,6 +230,7 @@ ${items.map(i => `<article class="hv-item">
   ${i.gate && i.gate !== "—" ? `<p class="hv-gate"><b>게이트</b> ${esc(i.gate)}</p>` : ""}
   ${i.next && i.next !== "—" ? `<p><b>다음</b> ${esc(i.next)}</p>` : ""}
   ${i.synergy && i.synergy !== "—" ? `<p class="hv-syn"><b>트럭온 시너지</b> ${esc(i.synergy)}</p>` : ""}
+  ${i.online ? `<p class="hv-online"><b>네이버</b> ${esc(i.online)}</p>` : ""}
 </article>`).join("") || empty("없음")}</section>`;
     }).join("")}</div>`;
   }, (el, d) => {
