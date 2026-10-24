@@ -3,8 +3,8 @@
     python scripts/build_hella_vault.py                    # GitHub(AI-Apps master)에서 읽는다 (CI 기본)
     python scripts/build_hella_vault.py --local ../AI-Apps # 클론해 둔 AI-Apps에서 읽는다
 
-암호는 환경변수 HELLA_PASSWORD (없으면 초기값 88888888).
-암호를 바꾸려면 joyhouse 저장소 Secrets 의 HELLA_PASSWORD 를 바꾸고 워크플로를 다시 돌린다.
+암호는 환경변수 HELLA_PASSWORD, 없으면 private/hella_password.txt (git에 올라가지 않는 파일) 에서 읽는다.
+공개 저장소라 암호를 코드에 적지 않는다. 바꾸려면 그 파일(또는 Secrets 의 HELLA_PASSWORD)을 고치고 다시 만든다.
 원천 저장소를 비공개로 옮기면 HELLA_SRC_TOKEN(읽기 권한 토큰)을 Secrets에 넣는다.
 
 AES-256-GCM, 키는 PBKDF2-SHA256(250,000회)로 만든다. 브라우저는 WebCrypto로 같은 방식으로 푼다.
@@ -125,7 +125,10 @@ def main():
     bundle = collect(Source(args.local))
     if not bundle.get("profile"):
         sys.exit("profile.json 을 읽지 못해 지난 vault 를 그대로 둔다")
-    password = os.environ.get("HELLA_PASSWORD") or "88888888"
+    pw_file = ROOT / "private" / "hella_password.txt"
+    password = os.environ.get("HELLA_PASSWORD") or (pw_file.read_text(encoding="utf-8").strip() if pw_file.exists() else "")
+    if not password:
+        sys.exit("암호가 없습니다: HELLA_PASSWORD 환경변수나 private/hella_password.txt 를 두세요")
     if unchanged(bundle, password):
         print("  data/hella/vault.json  (바뀐 내용 없음)")
         return
