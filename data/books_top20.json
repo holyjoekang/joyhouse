@@ -2,6 +2,13 @@
  "total": 782,
  "books": [
   {
+   "title": "최재붕의 AI 트렌드 2027, 굳이 책으로 읽어야 할까?",
+   "author": "",
+   "read": "2026-10-25",
+   "cover": "",
+   "url": "https://blog.naver.com/joekang/224452764971"
+  },
+  {
    "title": "빨강의 자서전",
    "author": "앤 카슨",
    "read": "2026-10-21",
@@ -114,12 +121,6 @@
    "author": "",
    "read": "2026-02-08",
    "cover": "assets/books/18.jpg?v=fa1a746b"
-  },
-  {
-   "title": "오십에 읽는 논어",
-   "author": "",
-   "read": "2026-02-02",
-   "cover": "assets/books/19.jpg?v=3f4d1c98"
   }
  ]
 }
