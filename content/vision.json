@@ -108,6 +108,8 @@
    "items": [
     {
      "name": "나",
+     "art": "self_portrait",
+     "artCap": "빈센트 반 고흐, 자화상 · 1887",
      "en": "Self",
      "color": "#2d4a7a",
      "aim": "배움을 멈추지 않는 사람",
@@ -117,6 +119,8 @@
     },
     {
      "name": "가족",
+     "art": "rhone",
+     "artCap": "빈센트 반 고흐, 론 강의 별빛 · 1888",
      "en": "Family",
      "color": "#b08d57",
      "aim": "늘 함께하는 부부, 수평으로 이어지는 가정",
@@ -126,6 +130,8 @@
     },
     {
      "name": "일",
+     "art": "sunflowers",
+     "artCap": "빈센트 반 고흐, 해바라기 · 1888",
      "en": "Work",
      "color": "#1f6f5a",
      "aim": "경험이 쓰임이 되는 일",
@@ -135,6 +141,8 @@
     },
     {
      "name": "관계",
+     "art": "cafe_terrace",
+     "artCap": "빈센트 반 고흐, 밤의 카페 테라스 · 1888",
      "en": "Relationships",
      "color": "#8a1c1c",
      "aim": "오래된 인연을 잇고, 새 세대와 친구가 되는 사람",
@@ -144,6 +152,8 @@
     },
     {
      "name": "건강",
+     "art": "almond",
+     "artCap": "빈센트 반 고흐, 꽃 피는 아몬드 나무 · 1890",
      "en": "Health",
      "color": "#3c8d6e",
      "aim": "끝까지 내 발로 달리는 몸",
@@ -153,6 +163,8 @@
     },
     {
      "name": "신앙",
+     "art": "starry_night",
+     "artCap": "빈센트 반 고흐, 별이 빛나는 밤 · 1889",
      "en": "Faith",
      "color": "#6b4f8a",
      "aim": "삶 전체가 예배가 되는 일",

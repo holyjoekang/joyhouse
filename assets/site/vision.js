@@ -39,7 +39,7 @@ export default async function vision(el, json, esc) {
 </svg>`;
     return `${head(s)}<div class="v-wheel-wrap">${svg}<div class="v-wheel-side"><p class="lead">${esc(s.side)}</p>${list(s.rules)}</div></div>
 <div class="grid grid-3 v-areas">${s.items.map((it, i) => `
-<article class="card v-area" id="v-${i}" style="--c:${it.color}"><div class="card-body">
+<article class="card v-area" id="v-${i}" style="--c:${it.color}">${it.art ? `<figure class="card-img" style="margin:0"><img src="assets/art/${esc(it.art)}.webp" alt="${esc(it.artCap)}" loading="lazy"><figcaption>${esc(it.artCap)}</figcaption></figure>` : ""}<div class="card-body">
   <span class="card-kicker">${esc(it.en)}</span><h3>${esc(it.name)} — ${esc(it.aim)}</h3>
   <p>${esc(it.text)}</p>
   <dl><dt>2037의 모습</dt><dd>${esc(it.picture)}</dd><dt>지금의 습관</dt><dd>${esc(it.habit)}</dd></dl>
