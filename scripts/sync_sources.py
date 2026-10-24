@@ -217,9 +217,15 @@ document.readyState === "loading" ? document.addEventListener("DOMContentLoaded"
 
 def blog_feed_js(items):
     posts = [{**p, "title": re.sub(r"\s*#\S.*$", "", p["title"])} for p in items]
-    (ROOT / "assets" / "site" / "blog_feed.js").write_text(
-        FEED_JS % json.dumps(posts, ensure_ascii=False), encoding="utf-8")
+    js = FEED_JS % json.dumps(posts, ensure_ascii=False)
+    (ROOT / "assets" / "site" / "blog_feed.js").write_text(js, encoding="utf-8")
     print("  assets/site/blog_feed.js")
+    # 글이 바뀌면 blog.html의 ?v= 값도 바꿔 브라우저 캐시를 무효화한다
+    ver = hashlib.md5(js.encode()).hexdigest()[:8]
+    page = ROOT / "blog.html"
+    html = re.sub(r'assets/site/blog_feed\.js(\?v=\w+)?"', f'assets/site/blog_feed.js?v={ver}"',
+                  page.read_text(encoding="utf-8"))
+    page.write_text(html, encoding="utf-8")
 
 
 def main():
