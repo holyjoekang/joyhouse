@@ -408,6 +408,28 @@ R.apps = async el => {
 </div></article>`).join("");
 };
 
+// 이 집을 지은 방법 — content/making.json 의 부분(data-part)을 그린다. data-brief 면 단계 제목만.
+R.making = async el => {
+  const d = await json("content/making.json");
+  const part = el.dataset.part;
+  if (part === "intro") { el.textContent = d.intro; return; }
+  if (part === "stats") el.innerHTML = `<div class="stats making-stats">${d.stats.map(s =>
+    `<div class="stat"><b>${esc(s.value)}</b><span>${esc(s.label)}</span></div>`).join("")}</div>`;
+  if (part === "steps") el.innerHTML = `<ol class="grid grid-3 make-steps">${d.steps.map((s, n) => `
+<li class="card reveal in"><div class="card-body"><span class="make-no">${n + 1}</span>
+  <span class="card-kicker">${esc(s.tool)}</span><h3>${esc(s.title)}</h3>${el.dataset.brief ? "" : `<p>${esc(s.text)}</p>`}</div></li>`).join("")}</ol>`;
+  if (part === "methods") el.innerHTML = `<div class="grid grid-2">${d.methods.map(m => `
+<article class="card reveal in"><div class="card-body"><h3>${esc(m.title)}</h3><p>${esc(m.text)}</p></div></article>`).join("")}</div>`;
+  if (part === "modules") el.innerHTML = `<div class="grid grid-3">${d.modules.map((m, n) => `
+<article class="card app-card reveal in"><div class="card-body">
+  <div class="app-icon" style="background:${APP_COLORS[n % APP_COLORS.length]}">${esc(m.name[0])}</div>
+  <h3>${esc(m.name)}</h3><p>${esc(m.text)}</p><div><span class="tag">${esc(m.file)}</span></div></div></article>`).join("")}</div>`;
+  if (part === "plans") el.innerHTML = `<div class="grid grid-3">${d.plans.map(p => `
+<article class="card reveal in"><div class="card-body"><span class="card-kicker">${esc(p.kicker)}</span><h3>${esc(p.title)}</h3>
+  <p>${esc(p.text)}</p><ul class="make-list">${p.items.map(i => `<li>${esc(i)}</li>`).join("")}</ul></div></article>`).join("")}</div>`;
+  if (part === "roadmap") el.innerHTML = `<ol class="make-road">${d.roadmap.map(r => `<li>${esc(r)}</li>`).join("")}</ol>`;
+};
+
 R.posters = async el => {
   const { items } = await json(`content/rooms/${el.dataset.room}.json`);
   const photos = (el.dataset.photos || "").split(",").filter(Boolean);

@@ -402,3 +402,12 @@ section.house { padding-top: 72px; }
 .cc-list b { font-family: var(--serif); font-weight: 600; font-size: 1rem; line-height: 1.45; }
 .cc-list span { font-size: .87rem; color: var(--ink-2); line-height: 1.6; margin-top: 4px; }
 @media (max-width: 760px) { .cc-list { grid-template-columns: 1fr; } .cc-list a { grid-template-columns: 1fr; } .cc-list time { grid-row: auto; padding: 0 0 2px; } }
+
+/* making */
+.making-stats { margin: 0 0 28px; }
+.make-steps { list-style: none; padding: 0; margin: 0; }
+.make-no { float: right; font: 700 2rem/1 var(--serif); color: var(--gold); }
+.make-list { margin: 12px 0 0; padding-left: 1.1em; color: var(--muted); font-size: .92rem; }
+.make-road { display: flex; flex-wrap: wrap; gap: 12px; list-style: none; counter-reset: r; padding: 0; margin: 28px 0 0; }
+.make-road li { counter-increment: r; flex: 1 1 220px; padding: 14px 18px; border-left: 3px solid var(--gold); background: var(--paper); border-radius: var(--radius); }
+.make-road li::before { content: counter(r) "단계 · "; font-weight: 700; color: var(--navy); }

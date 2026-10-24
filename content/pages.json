@@ -206,6 +206,27 @@
      "newTab": false
     }
    ]
+  },
+  "making.html": {
+   "bg": "assets/photos/laptop-dark.webp",
+   "crumb": "오벌 오피스 / 이 집을 지은 방법",
+   "eyebrow": "Oval Office · How it was built",
+   "title": "AI와 대화로 지은 집",
+   "textHtml": "코드를 손으로 짜지 않고 AI에게 말로 일을 시켜 지었습니다. 그 절차와 방법을 공개하고, 모듈로 다듬어 강의·개인 사이트·중소기업 사이트로 넓혀 갑니다.",
+   "ctas": [
+    {
+     "primary": true,
+     "href": "#steps",
+     "text": "절차 보기",
+     "newTab": false
+    },
+    {
+     "primary": false,
+     "href": "#plans",
+     "text": "확장 계획",
+     "newTab": false
+    }
+   ]
   }
  },
  "rooms": [
