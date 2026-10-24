@@ -202,6 +202,8 @@ section.dark .era span { color: #c8cfdd; }
 .map-box .land { fill: #2a3a5e; stroke: #3c4f7a; stroke-width: .4; }
 .map-box .pin { fill: #f2c46b; stroke: #fff; stroke-width: .6; opacity: .92; }
 .map-box .pin:hover { fill: #ff7a59; }
+.map-box .gmap { width: 100%; aspect-ratio: 16 / 9; min-height: 320px; border-radius: 10px; overflow: hidden; }
+@media (max-width: 700px) { .map-box .gmap { aspect-ratio: 4 / 5; } }
 .pin-list { columns: 4 160px; column-gap: 24px; font-size: .9rem; padding: 0; list-style: none; }
 .pin-list li { break-inside: avoid; display: flex; justify-content: space-between; border-bottom: 1px dashed var(--line); padding: 6px 0; }
 .pin-list b { color: var(--gold); }
