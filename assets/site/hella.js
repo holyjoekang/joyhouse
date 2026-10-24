@@ -75,6 +75,29 @@ const TABS = {
   ${table(["자산", "활용", "병목", "신뢰도"], (p.capabilities || []).map(x => `<tr><td><b>${esc(x.asset)}</b></td><td>${esc(x.use)}</td><td>${esc(x.bottleneck)}</td><td>${conf(x.c)}</td></tr>`))}</section>
 ${kpi}`;
   }],
+  online: ["온라인 현황", d => {
+    const o = d.online;
+    if (!o) return empty("네이버 조회 결과가 아직 없습니다.");
+    const yoy = v => v == null ? "—" : `${v > 0 ? "+" : ""}${v}%`;
+    const bar = (v, max) => `<span class="hv-bar-row"><i style="width:${Math.max(1, Math.min(100, v / max * 100))}%"></i><b>${v ?? "—"}</b></span>`;
+    const trend = (rows, label) => {
+      const max = Math.max(...rows.map(r => r.recent), 1);
+      return table([label, "최근 3개월 관심도", "1년 전 같은 기간", "변화"], rows.map(r =>
+        `<tr><td><b>${esc(r.name)}</b></td><td class="hv-barcell">${bar(r.recent, max)}</td><td>${r.year_ago}</td><td>${yoy(r.yoy)}</td></tr>`));
+    };
+    const smax = Math.max(...o.shopping.map(r => r.vs_wiper || 0), 1);
+    return `<p class="muted">${esc(o.source)} · ${esc(o.period)} · 조회 ${esc(o.updated)} · 지수는 각 조회 안에서 가장 높은 구간 = 100인 상대값</p>
+${o.notes?.length ? `<section class="hv-panel"><h3>해석</h3><ul class="hv-notes">${o.notes.map(n => `<li>${esc(n)}</li>`).join("")}</ul></section>` : ""}
+<section class="hv-panel"><h3>브랜드 검색 관심도 (네이버 통합검색)</h3>${trend(o.brand_trend, "브랜드")}</section>
+<section class="hv-panel"><h3>헬라 제품군별 검색 관심도</h3>${trend(o.hella_lines, "제품군")}</section>
+<section class="hv-panel"><h3>후보 품목 쇼핑 클릭 (와이퍼 = 100 기준)</h3>
+  ${table(["키워드", "등급", "분야", "클릭 지수", "전년비"], o.shopping.map(r =>
+    `<tr><td><b>${esc(r.name)}</b></td><td>${chip(r.tier)}</td><td>${esc(r.category)}</td><td class="hv-barcell">${bar(r.vs_wiper ?? 0, smax)}</td><td>${yoy(r.yoy)}</td></tr>`))}</section>
+<section class="hv-panel"><h3>온라인 언급 (블로그)</h3>
+  ${table(["검색어", "글 수", "최근 글"], o.mentions.map(m => `<tr><td><b>${esc(m.query)}</b></td>
+    <td>${Object.entries(m.counts).map(([k, v]) => `${esc(k)} ${Number(v).toLocaleString("ko-KR")}`).join("<br>")}</td>
+    <td>${m.recent.map(r => `<a href="${esc(r.link)}" target="_blank" rel="noopener">${esc(r.title)}</a> <small class="muted">${esc(r.by)} ${esc(r.date)}</small>`).join("<br>")}</td></tr>`))}</section>`;
+  }],
   plan: ["통합 권고안", d => {
     const r = (d.reports || []).find(r => r.id === "integrated");
     return r ? `<article class="hv-md">${md(r.md)}</article>` : empty("통합 권고안이 아직 없습니다.");

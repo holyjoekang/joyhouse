@@ -72,3 +72,8 @@
   .hv-md { padding: 16px; }
   .hv-timeline li { grid-template-columns: 1fr; }
 }
+.hv-barcell { min-width: 180px; }
+.hv-bar-row { display: flex; align-items: center; gap: 8px; }
+.hv-bar-row i { display: block; height: 10px; border-radius: 5px; background: var(--gold); }
+.hv-bar-row b { font-size: .85rem; color: var(--navy); }
+.hv-notes { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; color: var(--ink-2); }

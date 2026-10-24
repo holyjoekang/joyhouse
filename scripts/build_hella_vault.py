@@ -29,7 +29,7 @@ OUT = ROOT / "data" / "hella" / "vault.json"
 REPO, BRANCH = "holyjoekang/AI-Apps", "master"
 BASE = "databank/5. AI Use case/hella-korea"
 ITER = 250_000
-DATA = ["profile", "pipeline", "kpis", "assumptions", "decisions", "signals"]
+DATA = ["profile", "online", "pipeline", "kpis", "assumptions", "decisions", "signals"]
 # 사이트의 '리포트' 탭에 늘 싣는 문서 (주간·월간 리포트는 ops/reports/index.json 에서 더한다)
 FIXED = [
     ("integrated", "report", "통합 권고안 — 헬라코리아 신사업 개발", "ops/reports/통합권고안_헬라코리아 신사업 개발.md"),
