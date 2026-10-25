@@ -502,3 +502,35 @@ section.house { padding-top: 72px; }
 @media (max-width: 620px) { .v-road::before { left: 7px; } .v-road li { grid-template-columns: 1fr; gap: 6px; padding-left: 32px; } .v-road li::before { left: 1px; } .v-road-age { text-align: left; } }
 .v-qs { margin: 0; padding-left: 1.2em; color: var(--ink-2); }
 .v-qs li { margin-bottom: 8px; }
+
+/* 신앙: 기도제목 카드 · 연재 사이 배너 (scripts/faith_prayer_banners.py) */
+.prayer-card { margin-bottom: 64px; background: linear-gradient(160deg, #fffdf8, #f6efe2); border: 1px solid #ebe1cd; border-top: 4px solid var(--gold); border-radius: var(--radius); box-shadow: var(--shadow); padding: 34px 36px; }
+.prayer-head h2 { margin-bottom: .25em; }
+.prayer-head h2 small { font: 700 .8rem var(--sans); color: var(--gold); vertical-align: middle; margin-left: 6px; }
+.prayer-meta { color: var(--muted); font-size: .88rem; margin: 0 0 14px; }
+.prayer-keys span { display: inline-block; margin: 0 8px 8px 0; padding: 4px 14px; border-radius: 999px; background: var(--navy); color: #fff; font-size: .85rem; font-weight: 500; }
+.prayer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 20px; }
+.prayer-sec { background: var(--paper); border: 1px solid #efe9de; border-radius: 12px; padding: 20px 22px; }
+.prayer-sec h3 { font-size: 1.08rem; display: flex; align-items: center; gap: 10px; }
+.prayer-sec h3 b { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--gold); color: #fff; font: 700 .85rem/28px var(--sans); text-align: center; }
+.prayer-close { margin-top: 22px; padding: 24px 26px; background: var(--navy); color: #eef0f5; border-radius: 12px; }
+.prayer-close h3 { color: #fff; }
+.prayer-close p { margin: 0 0 .8em; line-height: 1.85; }
+.prayer-close blockquote { margin: 0 0 .5em; font: 700 1.1rem/1.5 var(--serif); color: #e7cf9f; }
+.faith-banner { position: relative; margin: 0 0 64px; border-radius: var(--radius); overflow: hidden; aspect-ratio: 4 / 1; min-height: 180px; box-shadow: var(--shadow); }
+.faith-banner img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.faith-banner figcaption { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 6%; background: linear-gradient(90deg, rgba(20, 33, 61, .82), rgba(20, 33, 61, .25)); }
+.faith-banner .eyebrow { color: #e7cf9f; margin-bottom: .4em; }
+.faith-banner p { margin: 0; font: 700 clamp(1.3rem, 3.2vw, 2.2rem)/1.35 var(--serif); color: #fff; text-shadow: 0 2px 12px rgba(0, 0, 0, .35); }
+@media (max-width: 720px) { .prayer-card { padding: 24px 18px; } .prayer-grid { grid-template-columns: 1fr; } .faith-banner { aspect-ratio: 2 / 1; } }
+
+/* 신앙: 기도제목 소제목 목록 · 연재 더보기 카드 (scripts/faith_series_page.py) */
+.prayer-sec ul { margin: 6px 0 0; padding-left: 1.1em; color: var(--ink-2); }
+.prayer-sec li { margin: 4px 0; }
+.prayer-sec li::marker { color: var(--gold); }
+.faith-more { justify-content: center; align-items: center; text-align: center; padding: 28px 20px; background: linear-gradient(160deg, #fffdf8, #f3ecdf); }
+.faith-more .eyebrow { color: var(--tc); margin-bottom: .2em; }
+.faith-more b { font: 700 3rem/1 var(--serif); color: var(--tc); }
+.faith-more h3 { font-size: 1.1rem; margin: .5em 0 .3em; }
+.faith-more p { font-size: .85rem; color: var(--muted); margin: 0 0 14px; }
+.faith-more-go { display: inline-block; padding: 7px 18px; border-radius: 999px; background: var(--tc); color: #fff; font-size: .88rem; font-weight: 700; }

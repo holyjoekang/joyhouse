@@ -249,21 +249,83 @@ const faithCard = (p, se) => `
     </div>
   </a>`;
 
+// 기도제목: 해마다 한 장씩 쌓인다. 최신 카드만 펼친 채로 시작
+const prayerCard = p => `
+  <article class="prayer-card reveal" id="prayer-${esc(p.id)}">
+    <div class="prayer-head">
+      <span class="eyebrow">Prayer · ${esc(p.year)}</span>
+      <h2>${esc(p.title)} <small>v${esc(p.version)}</small></h2>
+      <p class="prayer-meta">작성: ${esc(p.written)}${p.revised?.length ? ` | 수정: ${p.revised.map(esc).join(", ")}` : ""}</p>
+      <div class="prayer-keys">${(p.keywords || []).map(k => `<span>${esc(k)}</span>`).join("")}</div>
+    </div>
+    <div class="prayer-grid">${p.sections.map((s, n) => `
+        <section class="prayer-sec"><h3><b>${n + 1}</b>${esc(s.title)}</h3>
+          <ul>${s.items.map(it => `<li>${esc(it.h)}</li>`).join("")}</ul>
+        </section>`).join("")}</div>
+      ${p.closing ? `<div class="prayer-close"><h3>${esc(p.closing.title)}</h3>
+        ${p.closing.body.map(t => `<p>${esc(t)}</p>`).join("")}
+        ${p.closing.quotes.map(q => `<blockquote>"${esc(q)}"</blockquote>`).join("")}
+        <p>${esc(p.closing.end)}</p></div>` : ""}
+  </article>`;
+
+const faithBanner = b => `
+  <figure class="faith-banner reveal"><img src="${photo(b.img)}" alt="" loading="lazy">
+    <figcaption><span class="eyebrow">${esc(b.eyebrow)}</span><p>${esc(b.text)}</p></figcaption>
+  </figure>`;
+
+const faithList = se => se.featured ? `faith-series.html?s=${se.id}` : `faith.html#${se.id}`;
+const faithFilter = (se, posts) => se.topics ? `<div class="idea-filter faith-filter" role="toolbar" aria-label="주제로 거르기">${[["all", "전체"], ...Object.entries(se.topics)].map(([k, n], i) =>
+  `<button data-f="${k}" aria-pressed="${i === 0}">${esc(n)} <small>${posts.filter(p => p.series === se.id && (k === "all" || p.topic === k)).length}</small></button>`).join("")}</div>` : "";
+const faithFilterWire = el => el.querySelectorAll(".faith-filter").forEach(bar => bar.addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  bar.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  bar.parentElement.querySelectorAll(".faith-card").forEach(c => { c.hidden = b.dataset.f !== "all" && c.dataset.topic !== b.dataset.f; });
+}));
+const faithMore = (se, posts) => `
+  <a class="faith-card faith-more" href="${faithList(se)}" style="--tc:${se.color}">
+    <span class="eyebrow">More</span>
+    <b>${posts.filter(p => p.series === se.id).length}</b>
+    <h3>${esc(se.name)} 전체 보기</h3>
+    <p>${Object.values(se.topics || {}).map(esc).join(" · ")}</p>
+    <span class="faith-more-go">더보기 →</span>
+  </a>`;
+
 R.faith = async el => {
-  const { series, posts } = await json("content/faith.json");
-  el.innerHTML = series.map(se => `
+  const { prayers = [], banners = [], series, posts } = await json("content/faith.json");
+  el.innerHTML = [...prayers].sort((a, b) => b.year - a.year).map(prayerCard).join("") + series.map(se => `
     <section class="faith-series reveal" id="${se.id}" style="--tc:${se.color}">
       <div class="faith-series-head"><span class="eyebrow">${esc(se.en)}</span><h2>${esc(se.name)}</h2><p>${esc(se.desc)}</p></div>
-      ${se.topics ? `<div class="idea-filter faith-filter" role="toolbar" aria-label="주제로 거르기">${[["all", "전체"], ...Object.entries(se.topics)].map(([k, n], i) =>
-        `<button data-f="${k}" aria-pressed="${i === 0}">${esc(n)} <small>${posts.filter(p => p.series === se.id && (k === "all" || p.topic === k)).length}</small></button>`).join("")}</div>` : ""}
-      <div class="faith-grid">${posts.filter(p => p.series === se.id).map(p => faithCard(p, se)).join("")}</div>
-    </section>`).join("");
-  el.querySelectorAll(".faith-filter").forEach(bar => bar.addEventListener("click", e => {
-    const b = e.target.closest("button"); if (!b) return;
-    bar.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
-    bar.parentElement.querySelectorAll(".faith-card").forEach(c => { c.hidden = b.dataset.f !== "all" && c.dataset.topic !== b.dataset.f; });
-  }));
+      ${se.featured ? "" : faithFilter(se, posts)}
+      <div class="faith-grid">${se.featured
+        ? se.featured.map(id => posts.find(p => p.id === id)).map(p => faithCard(p, se)).join("") + faithMore(se, posts)
+        : posts.filter(p => p.series === se.id).map(p => faithCard(p, se)).join("")}</div>
+    </section>${banners.filter(b => b.after === se.id).map(faithBanner).join("")}`).join("");
+  faithFilterWire(el);
   reveal();
+};
+
+// 연재 전체 목록 서브 페이지: faith-series.html?s=bible
+R.faithSeries = async el => {
+  const { series, posts } = await json("content/faith.json");
+  const sid = new URLSearchParams(location.search).get("s");
+  const se = series.find(x => x.id === sid) || series.find(x => x.featured);
+  const list = posts.filter(p => p.series === se.id);
+  document.title = `${se.name} — 신앙 · Joyhouse`;
+  const hero = document.querySelector(".page-hero");
+  hero.style.backgroundImage = `url('${photo(se.img)}')`;
+  hero.querySelector(".wrap").innerHTML = `
+    <div class="crumbs"><a href="index.html">홈</a> / <a href="faith.html">신앙</a> / ${esc(se.name)}</div>
+    <span class="eyebrow">${esc(se.en)} · ${list.length}편</span>
+    <h1>${esc(se.name)}</h1>
+    <p>${esc(se.desc)}</p>`;
+  creditFor({ getAttribute: () => photo(se.img) }).then(t => { hero.querySelector(".photo-credit").innerHTML = t; });
+  el.innerHTML = `
+    <section class="faith-series" id="${se.id}" style="--tc:${se.color}">
+      ${faithFilter(se, posts)}
+      <div class="faith-grid">${list.map(p => faithCard(p, se)).join("")}</div>
+    </section>
+    <p><a class="btn btn-line" href="faith.html#${se.id}">← 신앙 방으로</a></p>`;
+  faithFilterWire(el);
 };
 
 R.faithPost = async el => {
@@ -276,7 +338,7 @@ R.faithPost = async el => {
   const hero = document.querySelector(".page-hero");
   hero.style.backgroundImage = `url('${photo(p.img)}')`;
   hero.querySelector(".wrap").innerHTML = `
-    <div class="crumbs"><a href="index.html">홈</a> / <a href="faith.html">신앙</a> / <a href="faith.html#${se.id}">${esc(se.name)}</a></div>
+    <div class="crumbs"><a href="index.html">홈</a> / <a href="faith.html">신앙</a> / <a href="${faithList(se)}">${esc(se.name)}</a></div>
     <span class="eyebrow">${esc(se.name)} · ${esc(se.en)}</span>
     <h1>${esc(p.title)}</h1>
     <p>${esc(p.summary)}</p>`;
@@ -290,7 +352,7 @@ R.faithPost = async el => {
     <aside class="faith-q"><span class="eyebrow">For Reflection</span><p>${esc(p.question)}</p></aside>
     <nav class="idea-pager" aria-label="같은 연재의 다른 글">
       <a href="faith-post.html?id=${esc(prev.id)}">← ${esc(prev.title)}</a>
-      <a href="faith.html#${se.id}">목록</a>
+      <a href="${faithList(se)}">목록</a>
       <a href="faith-post.html?id=${esc(next.id)}">${esc(next.title)} →</a>
     </nav>
     <p class="muted idea-note">설교를 듣고 남긴 기록과 공부 노트를 바탕으로 다시 쓴 글입니다. 성경 인용은 개역개정.</p>

@@ -1,5 +1,145 @@
 {
  "_note": "신앙 방(faith.html · faith-post.html · 3D 신앙 방)이 읽는 대장. 설교를 듣고 남긴 기록과 공부 노트를 바탕으로 다시 쓴 글이며, 설교 원문은 싣지 않는다. 성경 인용은 개역개정의 짧은 구절만.",
+ "prayers": [
+  {
+   "id": "2026",
+   "year": 2026,
+   "title": "2026년 기도제목",
+   "version": "2.1",
+   "written": "2026년 1월 1일",
+   "revised": [
+    "1월 4일",
+    "1월 7일",
+    "6월 30일"
+   ],
+   "keywords": [
+    "위대한 하강",
+    "전적 위탁",
+    "가족의 회복"
+   ],
+   "sections": [
+    {
+     "title": "신앙의 회복과 새로운 사명",
+     "items": [
+      {
+       "h": "전적 위탁의 삶"
+      },
+      {
+       "h": "새벽 기도의 지속"
+      },
+      {
+       "h": "지난 30년, 다음 30년"
+      },
+      {
+       "h": "자녀와의 관계 회복"
+      }
+     ]
+    },
+    {
+     "title": "부부의 사랑과 자녀의 자립",
+     "items": [
+      {
+       "h": "부부 관계의 심화"
+      },
+      {
+       "h": "보석이의 회복과 새 출발"
+      },
+      {
+       "h": "효정이의 대학원과 신앙"
+      }
+     ]
+    },
+    {
+     "title": "양가 부모님과 가족의 화목",
+     "items": [
+      {
+       "h": "부모님의 건강과 효도"
+      },
+      {
+       "h": "포용하는 마음"
+      },
+      {
+       "h": "가족 공동체의 회복"
+      }
+     ]
+    },
+    {
+     "title": "사회적 관계에서 주는 사람으로",
+     "items": [
+      {
+       "h": "멘토들과의 교류"
+      },
+      {
+       "h": "나눔과 섬김"
+      },
+      {
+       "h": "공동체에 대한 감사"
+      }
+     ]
+    },
+    {
+     "title": "사랑의교회와 한국교회, 카톨릭성당",
+     "items": [
+      {
+       "h": "사랑의교회와 SaGA"
+      },
+      {
+       "h": "예배의 축복"
+      },
+      {
+       "h": "한국교회의 갱신"
+      }
+     ]
+    },
+    {
+     "title": "영육간의 건강과 청지기 정신",
+     "items": [
+      {
+       "h": "건강한 몸과 절제의 삶"
+      },
+      {
+       "h": "말씀 연구와 지적 성장"
+      },
+      {
+       "h": "재정의 청지기 정신"
+      }
+     ]
+    }
+   ],
+   "closing": {
+    "title": "맺는 기도",
+    "body": [
+     "2026년 한 해는 저를 중심으로 뻗어 있는 모든 관계의 실타래가 사랑과 신뢰로 풀려, 가문을 다시 일으키고 사회에 선한 유산(Legacy)을 남기는 원년이 되기를 간절히 소망합니다.",
+     "이 모든 관계는 마치 '에벤에셀의 하나님'께서 세우신 기념비와 같으니, 여기까지 우리를 도우신 주님의 은혜가 온 가족과 지인들에게 강물처럼 흐르기를 기도합니다."
+    ],
+    "quotes": [
+     "The best is yet to come.",
+     "Expect Great Things from God, Attempt Great Things for God."
+    ],
+    "end": "이 고백처럼 2026년이 제 인생 이후 30년이 더욱 빛나는 '인생 2막'의 원년이 되기를 함께 소망합니다."
+   }
+  }
+ ],
+ "banners": [
+  {
+   "after": "notes",
+   "img": "faith-bible-shema",
+   "eyebrow": "With All Your Heart",
+   "text": "사람에게는 진심, 하나님께는 전심"
+  },
+  {
+   "after": "bible",
+   "img": "faith-story-resurrection",
+   "eyebrow": "Beyond Recovery",
+   "text": "회복을 넘어 부흥으로"
+  },
+  {
+   "after": "story",
+   "img": "faith-story-abraham",
+   "eyebrow": "Genesis 18:14",
+   "text": "여호와께 능치 못한 일이 있겠느냐"
+  }
+ ],
  "series": [
   {
    "id": "notes",
@@ -20,7 +160,20 @@
     "old": "옛말·한자어",
     "misread": "오해하기 쉬운 구절",
     "jewish": "유대 생활 관용구"
-   }
+   },
+   "featured": [
+    "mippeum",
+    "compassion",
+    "psalm23",
+    "eagle",
+    "fruit",
+    "hesed",
+    "can-do-all",
+    "job-friend",
+    "money",
+    "shema",
+    "eye-for-eye"
+   ]
   },
   {
    "id": "story",
@@ -33,7 +186,20 @@
     "ot": "구약 이야기",
     "nt": "신약 이야기",
     "jonah": "요나 이야기"
-   }
+   },
+   "featured": [
+    "big-picture",
+    "creation",
+    "abraham",
+    "joseph",
+    "red-sea",
+    "david",
+    "nativity",
+    "samaritan",
+    "prodigal",
+    "cross",
+    "resurrection"
+   ]
   },
   {
    "id": "work",
