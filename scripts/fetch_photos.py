@@ -118,6 +118,8 @@ PHOTOS = [
     ("ideas-ai-job-training-saas-2", "unsplash", "1517245386807-bb43f82c33c4", "아이디어 랩 · AI 맞춤형 직무·직급 교육 SaaS", 1000),
     ("ideas-jeju-blueberry-ai", "openverse", "66d2d1d8-2bd2-413b-8a08-06aa08cd29fb", "Blueberries (3084735551)", 1400),
     ("ideas-jeju-blueberry-ai-2", "unsplash", "1500651230702-0e2d8a49d4ad", "아이디어 랩 · AI 블루베리 팜 컨설팅(제주)", 1000),
+    ("ideas-buyeo-tomato-upcycle", "openverse", "c0ae6272-dfa9-492f-9b67-382d7a24d175", "Tomato Greenhouse", 1400),
+    ("ideas-buyeo-tomato-upcycle-2", "openverse", "a9ae8d37-3393-4206-af7f-32f158c622c0", "아이디어 랩 · 부여 스마트팜 토마토 업사이클 가공", 1000),
     # 신앙(faith.html · faith-post.html · 3D 신앙 방) — 퍼블릭 도메인 명화·Unsplash
     ("faith-notes-moses", "openverse", "8f45b669-ea6b-4cf1-8e99-b19c14b59ce1", "신앙 · 지킬 수 없을 때, 맡기는 믿음", 1400),
     ("faith-notes-jeremiah", "openverse", "3c7e4304-9c00-4bc1-b242-da56263a54e9", "신앙 · 갇힌 자리에서, 부르짖으라", 1400),
