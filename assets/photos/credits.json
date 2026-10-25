@@ -892,6 +892,28 @@
   "license_url": "https://unsplash.com/license",
   "page": "https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad"
  },
+ "ideas-buyeo-tomato-upcycle": {
+  "file": "assets/photos/ideas-buyeo-tomato-upcycle.webp",
+  "alt": "Tomato Greenhouse",
+  "source": "openverse",
+  "title": "Tomato Greenhouse",
+  "creator": "elias_daniel",
+  "creator_url": "https://www.flickr.com/photos/58853173@N00",
+  "license": "CC BY 2.0",
+  "license_url": "https://creativecommons.org/licenses/by/2.0/",
+  "page": "https://www.flickr.com/photos/58853173@N00/8127933029"
+ },
+ "ideas-buyeo-tomato-upcycle-2": {
+  "file": "assets/photos/ideas-buyeo-tomato-upcycle-2.webp",
+  "alt": "아이디어 랩 · 부여 스마트팜 토마토 업사이클 가공",
+  "source": "openverse",
+  "title": "Sun-dried tomatoes",
+  "creator": "Klearchos Kapoutsis",
+  "creator_url": "https://www.flickr.com/photos/8383084@N06",
+  "license": "CC BY 2.0",
+  "license_url": "https://creativecommons.org/licenses/by/2.0/",
+  "page": "https://www.flickr.com/photos/8383084@N06/4694708714"
+ },
  "faith-notes-moses": {
   "file": "assets/photos/faith-notes-moses.webp",
   "alt": "신앙 · 지킬 수 없을 때, 맡기는 믿음",
