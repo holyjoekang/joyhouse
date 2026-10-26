@@ -233,6 +233,27 @@
      "newTab": false
     }
    ]
+  },
+  "consulting-museo.html": {
+   "bg": "assets/photos/museo-beans.webp",
+   "crumb": "오벌 오피스 / 컨설팅 룸",
+   "eyebrow": "Oval Office · Consulting Room",
+   "title": "컨설팅 룸 — 카페뮤제오 AX 워크숍",
+   "textHtml": "CEO·부서 책임자·실무자·고객을 AI 에이전트 17개로 만들어 인터뷰하고, 반박하고, 채점해 AX 과제를 도출한 기록입니다. 고객 자료라 암호로 잠가 두었습니다.",
+   "ctas": [
+    {
+     "primary": true,
+     "href": "#vault",
+     "text": "들어가기",
+     "newTab": false
+    },
+    {
+     "primary": false,
+     "href": "studio.html#consulting-museo",
+     "text": "작업실로",
+     "newTab": false
+    }
+   ]
   }
  },
  "rooms": [

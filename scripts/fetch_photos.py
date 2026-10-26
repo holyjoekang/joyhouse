@@ -203,6 +203,9 @@ PHOTOS = [
     ("hella-truck", "openverse", "3930b946-5474-45ac-9218-2bf6fb836ecd", "도로 위의 대형 트럭", 1400),
     ("hella-port", "openverse", "80dc0258-940a-4cc9-bb2c-b85e41f76b99", "컨테이너 항만", 1400),
     ("hella-warehouse", "openverse", "66c99923-0042-4003-8dd4-4830f1acb363", "물류 창고 선반", 1400),
+    # 컨설팅 룸(consulting-museo.html) — Unsplash
+    ("museo-roaster", "unsplash", "1511537190424-bbbab87ac5eb", "원두를 볶는 로스터", 1600),
+    ("museo-beans", "unsplash", "1447933601403-0c6688de566e", "볶은 원두", 2000),
 ]
 
 

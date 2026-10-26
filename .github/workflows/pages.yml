@@ -43,7 +43,7 @@ jobs:
           mv src "src-$V"
           sed -i "s#src/main.js#src-$V/main.js#" 3d.html
           grep -q "src-$V/main.js" 3d.html
-          sed -i -E "s#assets/site/(site|hella)\.(css|js)\"#assets/site/\1.\2?v=$V\"#" *.html
+          sed -i -E "s#assets/site/(site|hella|museo)\.(css|js)\"#assets/site/\1.\2?v=$V\"#" *.html
           grep -q "site.js?v=$V" index.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

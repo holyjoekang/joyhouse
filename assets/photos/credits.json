@@ -1739,5 +1739,23 @@
   "license": "CC CC0 1.0",
   "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
   "page": "https://www.rawpixel.com/image/6057556/free-public-domain-cc0-photo"
+ },
+ "museo-roaster": {
+  "file": "assets/photos/museo-roaster.webp",
+  "alt": "원두를 볶는 로스터",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb"
+ },
+ "museo-beans": {
+  "file": "assets/photos/museo-beans.webp",
+  "alt": "볶은 원두",
+  "source": "unsplash",
+  "creator": "Unsplash",
+  "license": "Unsplash License",
+  "license_url": "https://unsplash.com/license",
+  "page": "https://images.unsplash.com/photo-1447933601403-0c6688de566e"
  }
 }
