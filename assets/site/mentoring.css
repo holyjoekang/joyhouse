@@ -1,0 +1,213 @@
+/* 스타트업 멘토링 방법론(mentoring.html) 전용 — site.css 토큰(navy·gold)을 쓴다 */
+.mt-sec { padding-top: 64px; }
+.mt-head { max-width: 780px; margin-bottom: 26px; scroll-margin-top: 140px; }
+.mt-head h2 { margin-bottom: .35em; }
+.mt-panel { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 24px; margin-bottom: 18px; }
+.mt-panel h3 small { font: 500 .8rem var(--sans); color: var(--muted); margin-left: 6px; }
+.mt-dark { background: var(--navy); color: #e8ecf5; border-color: var(--navy); }
+.mt-dark h3 { color: #fff; }
+.mt-dark a { color: #f0d9b0; }
+.mt-split { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+.mt-callout { margin: 16px 0 0; padding: 14px 18px; border-left: 4px solid var(--gold); background: #f6f0e4; border-radius: 0 10px 10px 0; }
+.mt-more { margin: 14px 0 0; font-size: .92rem; }
+.mt-tablewrap { overflow-x: auto; }
+.mt-table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+.mt-table th, .mt-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.mt-table th { font-size: .82rem; color: var(--ink-2); white-space: nowrap; }
+.mt-red { color: var(--red); }
+.mt-num { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
+.mt-num li::marker { color: var(--gold); font-weight: 700; }
+.mt-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 12px 0; }
+.mt-cols.two { grid-template-columns: 1fr 1fr; }
+.mt-cols h4, .mt-stage-side h4, .mt-issue-body h4 { font: 700 .8rem var(--sans); letter-spacing: .06em; color: var(--gold); text-transform: uppercase; margin: 14px 0 6px; }
+.mt-cols ul, .mt-stage-side ul { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; font-size: .92rem; }
+.mt-warn li::marker { color: var(--red); }
+
+/* 표지 */
+.mt-cover { display: grid; grid-template-columns: 1.15fr 1fr; gap: 28px; align-items: stretch; scroll-margin-top: 140px; }
+.mt-cover h1 { font-size: clamp(1.9rem, 3.8vw, 2.9rem); margin-bottom: .5em; }
+.mt-cover blockquote { margin: 0; padding: 22px 26px; background: var(--navy); color: #fff; border-radius: var(--radius); font: 600 1.18rem/1.65 var(--serif); box-shadow: var(--shadow-lg); }
+.mt-origin { background: var(--paper); border: 1px solid var(--line); border-top: 4px solid var(--gold); border-radius: var(--radius); padding: 22px 24px; font-size: .93rem; }
+.mt-origin h3 { font-size: 1.05rem; }
+.mt-facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 12px 0; }
+.mt-facts div { background: #f6f0e4; border-radius: 10px; padding: 10px; text-align: center; display: grid; }
+.mt-facts b { font: 700 1.05rem var(--serif); color: var(--navy); }
+.mt-facts span { font-size: .75rem; color: var(--muted); }
+.mt-q-title { font-weight: 700; margin: 10px 0 4px; }
+.mt-qs { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; }
+.mt-note { margin: 12px 0 0; font-size: .82rem; color: var(--muted); }
+
+/* 목차 */
+.mt-nav { position: sticky; top: 68px; z-index: 20; display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; margin: 36px -4px 0; padding: 8px 4px; background: rgba(250, 247, 242, .94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.mt-nav a { white-space: nowrap; text-decoration: none; font-size: .88rem; padding: 7px 12px; border-radius: 99px; color: var(--ink-2); }
+.mt-nav a:hover { background: #efe9dd; }
+.mt-nav a.on { background: var(--navy); color: #fff; }
+
+/* 원칙 */
+.mt-sources { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
+.mt-sources article { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 16px; font-size: .9rem; }
+.mt-sources h3 { font-size: 1rem; margin: 8px 0 6px; }
+.mt-sources h3 a { text-decoration: none; }
+.mt-sources p { margin: 0; color: var(--ink-2); }
+.mt-badge { display: inline-block; font-size: .72rem; font-weight: 700; padding: 2px 9px; border-radius: 99px; }
+.mt-badge.ok { background: #e3f1ec; color: var(--green); }
+.mt-badge.warn { background: #f7efe1; color: #8a6a2a; }
+.mt-badge.info { background: #e6ebf4; color: var(--blue); }
+.mt-cons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.mt-cons b { color: var(--navy); }
+.mt-cons p { margin: 4px 0 0; font-size: .88rem; color: var(--ink-2); }
+
+/* 단계 */
+.mt-steps { list-style: none; padding: 0; margin: 0 0 14px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; counter-reset: s; }
+.mt-steps li { position: relative; }
+.mt-steps button { width: 100%; height: 100%; text-align: left; font: inherit; cursor: pointer; padding: 16px 14px 14px; background: var(--paper); border: 1px solid var(--line); border-right-width: 0; display: grid; gap: 4px; align-content: start; transition: background .15s; }
+.mt-steps li:first-child button { border-radius: 12px 0 0 12px; }
+.mt-steps li:last-child button { border-radius: 0 12px 12px 0; border-right-width: 1px; }
+.mt-steps button span { font: 700 .78rem var(--sans); color: var(--gold); letter-spacing: .08em; }
+.mt-steps button b { font: 700 1rem var(--serif); color: var(--navy); }
+.mt-steps button em { font-style: normal; font-size: .8rem; color: var(--muted); line-height: 1.5; }
+.mt-steps button:hover { background: #f6f0e4; }
+.mt-steps button[aria-pressed=true] { background: var(--navy); }
+.mt-steps button[aria-pressed=true] b { color: #fff; }
+.mt-steps button[aria-pressed=true] em { color: #c9d1e2; }
+.mt-stage { margin-bottom: 18px; }
+.mt-stage-grid { display: grid; grid-template-columns: 1.6fr 1fr; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.mt-stage-main { padding: 22px 26px; font-size: .93rem; }
+.mt-stage-main p { color: var(--ink-2); }
+.mt-stage-top { display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; border-bottom: 1px solid var(--line); padding-bottom: 10px; margin-bottom: 12px; }
+.mt-stage-top span { font: 700 1.6rem var(--serif); color: var(--gold); }
+.mt-stage-top h3 { margin: 0; font-size: 1.3rem; }
+.mt-stage-top p { margin: 0; flex-basis: 100%; font-weight: 600; color: var(--navy); }
+.mt-persona { padding: 12px 14px; background: #f6f0e4; border-radius: 10px; }
+.mt-stage-side { background: #f3efe6; padding: 18px 22px; font-size: .9rem; }
+.mt-exit { font-weight: 700; color: var(--navy); margin: 0; }
+.mt-check { list-style: none; padding: 0 !important; }
+.mt-check li { padding-left: 24px; position: relative; }
+.mt-check li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+.mt-mini { margin: 0; padding-left: 1.3em; display: grid; gap: 3px; }
+.mt-mini a { text-decoration: none; color: var(--blue); }
+.mt-mini a:hover { text-decoration: underline; }
+
+/* 세션 */
+.mt-timeline { display: flex; border-radius: 12px; overflow: hidden; margin-bottom: 12px; }
+.mt-timeline div { flex: var(--w); padding: 12px 10px; color: #fff; display: grid; font-size: .85rem; min-width: 0; }
+.mt-timeline div:nth-child(1) { background: #8e98ae; }
+.mt-timeline div:nth-child(2) { background: var(--blue); }
+.mt-timeline div:nth-child(3) { background: var(--navy); }
+.mt-timeline div:nth-child(4) { background: var(--gold); }
+.mt-timeline div:nth-child(5) { background: var(--green); }
+.mt-timeline span { font-size: .72rem; opacity: .85; }
+.mt-session { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 18px; }
+.mt-session article { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 14px; font-size: .86rem; }
+.mt-session span { font-size: .75rem; color: var(--muted); }
+.mt-session h3 { font-size: .98rem; margin: 2px 0 6px; }
+.mt-session p { margin: 0 0 6px; color: var(--ink-2); }
+.mt-session em { font-style: normal; color: var(--green); font-weight: 600; }
+.mt-rules { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.mt-rules div { display: grid; grid-template-columns: 26px 1fr; column-gap: 8px; font-size: .88rem; }
+.mt-rules span { grid-row: span 2; width: 24px; height: 24px; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; font-size: .75rem; font-weight: 700; }
+.mt-rules p { margin: 0; color: var(--ink-2); }
+.mt-qb { padding: 8px 0; border-bottom: 1px dashed var(--line); }
+.mt-qb small { color: var(--gold); font-weight: 700; }
+.mt-qb p { margin: 2px 0 0; font-family: var(--serif); }
+
+/* 이슈 */
+.mt-heat { border-collapse: separate; border-spacing: 3px; width: 100%; font-size: .82rem; }
+.mt-heat th { font-weight: 600; color: var(--ink-2); text-align: left; white-space: nowrap; padding: 4px 8px; }
+.mt-heat thead th { text-align: center; font-size: .76rem; }
+.mt-heat td { text-align: center; padding: 8px 4px; border-radius: 6px; background: rgba(20, 33, 61, calc(.05 + var(--a) * .85)); font-weight: 700; }
+.mt-filters { position: sticky; top: 122px; z-index: 15; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 0; background: rgba(250, 247, 242, .96); margin-bottom: 8px; }
+.mt-filters [role=group] { display: flex; flex-wrap: wrap; gap: 4px; }
+.mt-filters button, .mt-script-tabs button { font: inherit; font-size: .82rem; padding: 6px 12px; border-radius: 99px; border: 1px solid var(--line); background: var(--paper); cursor: pointer; }
+.mt-filters button[aria-pressed=true], .mt-script-tabs button[aria-pressed=true] { background: var(--navy); color: #fff; border-color: var(--navy); }
+.mt-filters select, .mt-filters input { font: inherit; font-size: .86rem; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+.mt-filters input { flex: 1; min-width: 160px; }
+.mt-count { font-size: .82rem; color: var(--muted); }
+.mt-issues { display: grid; gap: 8px; }
+.mt-issue { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; }
+.mt-issue[open] { border-color: var(--gold); box-shadow: var(--shadow); }
+.mt-issue summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 70px 1fr auto; gap: 12px; align-items: center; padding: 14px 16px; }
+.mt-issue summary::-webkit-details-marker { display: none; }
+.mt-gid { font: 700 .8rem var(--sans); color: var(--gold); }
+.mt-it small { display: block; color: var(--muted); font-size: .75rem; }
+.mt-it b { display: block; font-size: 1rem; }
+.mt-it q { display: block; font-family: var(--serif); color: var(--ink-2); font-size: .92rem; margin-top: 2px; }
+.mt-dlg-tag { font-size: .72rem; padding: 3px 9px; border-radius: 99px; background: #e6ebf4; color: var(--blue); white-space: nowrap; }
+.mt-issue-body { padding: 0 22px 20px 98px; font-size: .92rem; }
+.mt-issue-body p { color: var(--ink-2); }
+.mt-sr { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.mt-sr div { padding: 10px 12px; border-radius: 10px; background: #f3efe6; }
+.mt-sr div + div { background: #e6ebf4; }
+.mt-sr small, .mt-foot small { font-weight: 700; color: var(--muted); font-size: .75rem; }
+.mt-sr p, .mt-foot p { margin: 2px 0 0; }
+.mt-grow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.mt-grow div { border: 1px solid var(--line); border-radius: 10px; padding: 10px; font-size: .86rem; }
+.mt-grow b { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--navy); color: #fff; font-size: .75rem; }
+.mt-grow p, .mt-grow ul { margin: 6px 0 0; }
+.mt-grow ul { padding-left: 1.1em; }
+.mt-tasks { display: grid; gap: 6px; }
+.mt-tasks div { padding: 10px 12px; border-left: 3px solid var(--gold); background: #faf6ee; border-radius: 0 8px 8px 0; }
+.mt-tasks p { margin: 0; color: var(--ink); }
+.mt-tasks em { font-style: normal; font-size: .82rem; color: var(--green); }
+.mt-foot { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0 8px; }
+.mt-foot div { padding: 10px 12px; border-radius: 10px; background: #e3f1ec; }
+.mt-foot .mt-pit { background: #f6e6e6; }
+.mt-dialogue { margin-top: 12px; padding: 14px; background: #f3efe6; border-radius: 12px; display: grid; gap: 8px; }
+.mt-dialogue h4 { margin-top: 0 !important; }
+.mt-dialogue p { margin: 0; padding: 10px 14px; border-radius: 12px; max-width: 82%; background: var(--paper); color: var(--ink); }
+.mt-dialogue p b { display: block; font-size: .72rem; color: var(--muted); }
+.mt-dialogue p.me { justify-self: end; background: var(--navy); color: #fff; }
+.mt-dialogue p.me b { color: #c9d1e2; }
+
+/* B2B · 트랙 · 프로그램 */
+.mt-play { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
+.mt-play section { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; font-size: .9rem; }
+.mt-play section:nth-child(2) { border-top: 4px solid var(--gold); }
+.mt-play section:first-child { border-top: 4px solid var(--blue); }
+.mt-play section:last-child { border-top: 4px solid var(--green); }
+.mt-play ul { margin: 0; display: grid; gap: 6px; }
+.mt-tracks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.mt-tracks article { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 18px; font-size: .9rem; border-top: 4px solid var(--navy); }
+.mt-tracks .k-b2b { border-top-color: var(--gold); }
+.mt-tracks .k-ir { border-top-color: var(--blue); }
+.mt-tracks .k-team { border-top-color: var(--green); }
+.mt-tracks .k-legal { border-top-color: var(--red); }
+.mt-tracks p { margin: 0; color: var(--ink-2); }
+.mt-programs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
+.mt-programs article { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 18px; font-size: .88rem; }
+.mt-programs article.hl { background: var(--navy); color: #e8ecf5; border-color: var(--navy); }
+.mt-programs article.hl h3 { color: #fff; }
+.mt-programs small { color: var(--gold); font-weight: 700; }
+.mt-programs ul { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; }
+.mt-script-tabs { display: flex; gap: 6px; margin-bottom: 12px; }
+.mt-script { font-size: .92rem; }
+.mt-closing { margin: 8px 0 0; padding: 12px 16px; background: #f6f0e4; border-radius: 10px; font-family: var(--serif); }
+.mt-ethics { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.mt-ethics b { color: var(--navy); font-size: .92rem; }
+.mt-ethics p { margin: 2px 0 0; font-size: .85rem; color: var(--ink-2); }
+.mt-docwrap summary { cursor: pointer; font-weight: 700; padding: 12px 16px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; }
+.mt-md { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px 32px; margin-top: 10px; }
+.mt-md table { border-collapse: collapse; width: 100%; font-size: .9rem; display: block; overflow-x: auto; }
+.mt-md th, .mt-md td { border-bottom: 1px solid var(--line); padding: 8px; text-align: left; vertical-align: top; }
+.mt-md blockquote { border-left: 3px solid var(--gold); margin: 0; padding-left: 14px; color: var(--ink-2); }
+
+@media (max-width: 1080px) {
+  .mt-sources, .mt-cons, .mt-programs { grid-template-columns: 1fr 1fr; }
+  .mt-steps { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .mt-steps button, .mt-steps li:first-child button, .mt-steps li:last-child button { border-radius: 12px; border-right-width: 1px; }
+  .mt-session { grid-template-columns: 1fr 1fr; }
+  .mt-grow { grid-template-columns: 1fr 1fr; }
+  .mt-tracks { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 760px) {
+  .mt-cover, .mt-split, .mt-stage-grid, .mt-cols, .mt-cols.two, .mt-sources, .mt-cons, .mt-play, .mt-tracks, .mt-programs, .mt-session, .mt-rules, .mt-ethics, .mt-sr, .mt-foot, .mt-grow { grid-template-columns: 1fr; }
+  .mt-steps { grid-template-columns: 1fr 1fr; }
+  .mt-facts { grid-template-columns: 1fr 1fr; }
+  .mt-timeline span { display: none; }
+  .mt-timeline div { font-size: .7rem; padding: 10px 4px; }
+  .mt-issue summary { grid-template-columns: 1fr; gap: 4px; }
+  .mt-issue-body { padding: 0 16px 18px; }
+  .mt-filters { position: static; }
+  .mt-dialogue p { max-width: 100%; }
+  .mt-md { padding: 20px 16px; }
+}
