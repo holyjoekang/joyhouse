@@ -226,8 +226,226 @@
    ]
   },
   {
-   "id": "buyeo-tomato-upcycle",
+   "id": "ieum-bridge",
    "no": 2,
+   "theme": "A",
+   "title": "이음브릿지 · 다음성장",
+   "en": "IEUM Bridge · NextGrowth",
+   "one": "대기업 출신 전문가들의 기술·기획·마케팅·해외사업 경험으로 B2B 기술기업의 고객 확보와 사업화를 돕는 창업지원 프로그램 회사. 공동 수행으로 출발해 직접 수주로 넓힌다.",
+   "stage": "공동 창업 검토 중 (2027 개업 목표)",
+   "capital": "기초 사업자금 5,000만 원",
+   "goal": "2027년 유료 프로그램 3건·매출 1.2억 원 → 2031년 4.5억 원",
+   "tags": [
+    "NextGrowth B2B",
+    "NextGrowth Global",
+    "NextGrowth Clinic",
+    "민간 자문",
+    "창업지원기관"
+   ],
+   "problem": [
+    "기술·제품은 있지만 목표 고객 설정과 영업 실행에서 막히는 초기·도약기 B2B 기업이 많다.",
+    "창업지원기관은 단순 멘토링을 넘어 고객 검증과 실행까지 가는 프로그램이 필요하다.",
+    "신설 회사는 명의 실적·운영·정산 인력·표준 견적 체계가 없어 직접 수주가 어렵다."
+   ],
+   "solution": [
+    "대표 프로그램 다음성장(NextGrowth)을 B2B·Global·Clinic 세 갈래로 표준화한다.",
+    "첫해는 기존 운영사와 공동 수행으로 실적을 쌓고, 착수 8~12주 전 2쪽 기획안으로 사전 제안한다.",
+    "대표 1인 총괄 + 창업멤버 과제별 참여로 고정비를 낮추고, 수익이 고정비를 감당할 때만 상근화한다."
+   ],
+   "customers": [
+    "지불 고객: 창조경제혁신센터, 창업패키지 주관기관·대학 창업지원단, 테크노파크, 기존 운영사, 민간기업",
+    "수혜기업: 제조·물류·기업용 IT 분야 초기·도약기 B2B 기술기업"
+   ],
+   "canvas": {
+    "seg": "창업지원기관·대학·테크노파크·기존 운영사, B2B 기술기업, 자문 수요 민간기업",
+    "value": "대기업 실무 경험으로 고객 정의→인터뷰 검증→90일 실행계획까지 가는 실행형 프로그램",
+    "chan": "기관 수요 면담, 착수 8~12주 전 2쪽 기획안, 공동 수행, 공고 대응",
+    "rel": "성과공유·90일 후속 점검, 차년도 개선 프로그램 제안",
+    "rev": "프로그램 운영 계약(B2B·Global), Clinic 진단·멘토링, 민간 자문 월 계약",
+    "res": "평가·운영위원 경험, 서울·경기 기관 접점, 기술·마케팅·해외사업 전문가 4인",
+    "act": "기관 영업, 상품 설계, 프로그램 수행, 검수·정산·대금 회수",
+    "part": "기존 프로그램 운영사, 외부 멘토·현지 전문가, 시간제 운영인력",
+    "cost": "외부 멘토비·운영비(직접비 약 50%), 대표 보수·운영지원·공유공간(고정비 연 4,800만 원)"
+   },
+   "money": {
+    "rows": [
+     [
+      "2027 (첫해)",
+      "매출 1억 2,000만 원 · 영업이익 1,200만 원"
+     ],
+     [
+      "손익분기",
+      "연 매출 9,600만 원 (직접비율 50%, 고정비 4,800만 원)"
+     ],
+     [
+      "B2B 1회",
+      "매출 2,500만 원 · 직접비 1,250만 원 · 매출총이익 1,250만 원"
+     ],
+     [
+      "2031",
+      "매출 4억 5,000만 원 · 영업이익 5,500만 원 (프로그램 10회)"
+     ]
+    ],
+    "note": "내부 계획 가정이며 부가세·법인세 차감 전. 정부지원금 전체가 아닌 당사 계약금액만 매출로 잡는다. 연말 현금 5,200만 원, 최소 1,500만 원 유보."
+   },
+   "market": {
+    "alt": [
+     [
+      "기존 액셀러레이팅 운영사",
+      "운영 규모는 크지만 B2B 영업 실행까지 동행하는 전문가 풀은 얇다 → 공동 수행 파트너"
+     ],
+     [
+      "개인 멘토·평가위원",
+      "건별 참여에 그쳐 산출물·후속 관리가 남지 않는다"
+     ],
+     [
+      "일반 경영 컨설팅",
+      "창업기업 단가와 기관 예산 구조에 맞지 않는다"
+     ]
+    ],
+    "edge": "대기업 실무 출신 4인의 기술·기획·마케팅·해외사업 조합과, 평가·운영위원으로 쌓은 기관 접점을 표준 프로그램(NextGrowth)으로 묶는다."
+   },
+   "roadmap": [
+    [
+     "2026.11~2027.1",
+     "멘토링 사례 정리, 기관 8곳 수요 면담, 운영사 2곳 협의, 상품별 견적, 개업 일정 확정"
+    ],
+    [
+     "2027",
+     "공동 수행 중심 프로그램 3회 · 매출 1.2억 원 (계약부터 정산까지 수행 체계 검증)"
+    ],
+    [
+     "2028~2029",
+     "반복 프로그램 정착·운영인력 확보 → 적격 사업 직접 제안·기관 다변화 (매출 1.9억 → 2.8억 원)"
+    ],
+    [
+     "2030~2031",
+     "해외 과정 반복, 별도 운영책임자 중심 수행 (매출 3.6억 → 4.5억 원), 투자조합은 조건 충족 시 검토"
+    ]
+   ],
+   "risks": [
+    [
+     "퇴직·개업 시점 지연",
+     "매출과 고정비를 함께 이연한다"
+    ],
+    [
+     "신설 회사 실적·자격 부족",
+     "기존 운영사와 공동 수행, 당사 실적 인정 범위를 계약별로 확인"
+    ],
+    [
+     "매출 20% 감소·수금 이연",
+     "외주 범위·대표 보수 재검토, 13주 현금 주간 점검, 분기말 2,500만 원 미만 시 지출 보류"
+    ],
+    [
+     "한 기관 의존·공공 예산 계절성",
+     "기관 비중 40% 이하, 민간 자문 병행"
+    ],
+    [
+     "위원 활동과 수주 이해충돌",
+     "기관에 관계를 알리고 심의·평가 참여를 사전에 정리"
+    ],
+    [
+     "창업멤버 간 역할 갈등",
+     "지분·참여 시간·보수·탈퇴·콘텐츠 권리를 창업 합의서로"
+    ]
+   ],
+   "why": "평가위원으로 앉아 본 자리에서, 기술은 좋은데 첫 고객을 못 만나는 기업을 많이 봤다. 대기업에서 쌓은 영업·사업화 경험을 그 사이에 다리로 놓고 싶다.",
+   "img": {
+    "hero": "ideas-ieum-bridge",
+    "body": "ideas-ieum-bridge-2"
+   },
+   "page": {
+    "href": "ieum.html",
+    "label": "사업계획서 전문 보기"
+   },
+   "details": [
+    {
+     "title": "첫해 상품 구성 (2027)",
+     "head": [
+      "상품",
+      "기본 구성",
+      "판매 가정",
+      "매출"
+     ],
+     "rows": [
+      [
+       "NextGrowth B2B",
+       "8개사·8주, 멘토링 3회, 워크숍 2회, 고객 검증",
+       "2회 × 2,500만 원",
+       "5,000만 원"
+      ],
+      [
+       "NextGrowth Global",
+       "5개사·8주, 국가 1곳, 현지 전문가 상담",
+       "1회 × 3,000만 원",
+       "3,000만 원"
+      ],
+      [
+       "NextGrowth Clinic",
+       "기업 진단·개별 멘토링·소규모 교육",
+       "연간 합계",
+       "2,000만 원"
+      ],
+      [
+       "민간기업 자문",
+       "영업·사업화 자문",
+       "2곳 × 5개월 × 월 200만 원",
+       "2,000만 원"
+      ],
+      [
+       "합계",
+       "",
+       "",
+       "1억 2,000만 원"
+      ]
+     ]
+    },
+    {
+     "title": "5개년 계획 (단위: 백만 원)",
+     "head": [
+      "연도",
+      "규모",
+      "매출",
+      "영업이익"
+     ],
+     "rows": [
+      [
+       "2027",
+       "프로그램 3회, 공동 수행",
+       "120",
+       "12"
+      ],
+      [
+       "2028",
+       "4회, 거래기관 3곳",
+       "190",
+       "20"
+      ],
+      [
+       "2029",
+       "6회, 직접 수주 확대",
+       "280",
+       "30"
+      ],
+      [
+       "2030",
+       "8회, 해외 과정 반복",
+       "360",
+       "40"
+      ],
+      [
+       "2031",
+       "10회, 운영책임자 확보",
+       "450",
+       "55"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "buyeo-tomato-upcycle",
+   "no": 3,
    "theme": "E",
    "title": "부여 스마트팜 토마토 업사이클 가공",
    "en": "Buyeo Smart-farm Tomato Upcycling",
@@ -436,7 +654,7 @@
   },
   {
    "id": "daon-pathfinder",
-   "no": 3,
+   "no": 4,
    "theme": "A",
    "title": "다온 라이프 패스파인더",
    "en": "DaON Life Pathfinder",
@@ -611,7 +829,7 @@
   },
   {
    "id": "senior-college",
-   "no": 4,
+   "no": 5,
    "theme": "A",
    "title": "다온 시니어 칼리지",
    "en": "DaON Senior College",
@@ -791,7 +1009,7 @@
   },
   {
    "id": "second-stage-academy",
-   "no": 5,
+   "no": 6,
    "theme": "A",
    "title": "세컨드스테이지 아카데미",
    "en": "Second Stage Academy",
@@ -951,7 +1169,7 @@
   },
   {
    "id": "retirement-gpt",
-   "no": 6,
+   "no": 7,
    "theme": "A",
    "title": "Retirement Path Finder GPT",
    "en": "Retirement Path Finder",
@@ -1119,7 +1337,7 @@
   },
   {
    "id": "senior-youtube-studio",
-   "no": 7,
+   "no": 8,
    "theme": "A",
    "title": "시니어 AI 유튜브 자동화 스튜디오",
    "en": "Senior AI Video Studio",
@@ -1294,7 +1512,7 @@
   },
   {
    "id": "under65-outsourcing",
-   "no": 8,
+   "no": 9,
    "theme": "A",
    "title": "언더65 사무 아웃소싱 플랫폼",
    "en": "Under-65 Office Work Platform",
@@ -1463,7 +1681,7 @@
   },
   {
    "id": "sports-totalcare",
-   "no": 9,
+   "no": 10,
    "theme": "A",
    "title": "5060 스포츠 토탈케어",
    "en": "5060 Sports Total Care",
@@ -1628,7 +1846,7 @@
   },
   {
    "id": "senior-ai-class",
-   "no": 10,
+   "no": 11,
    "theme": "A",
    "title": "시니어 AI 아침데미",
    "en": "Senior AI Morning Academy",
@@ -1809,7 +2027,7 @@
   },
   {
    "id": "true-story-65",
-   "no": 11,
+   "no": 12,
    "theme": "A",
    "title": "실화탐사 65+ 유튜브 채널",
    "en": "True Stories 65+",
@@ -1977,7 +2195,7 @@
   },
   {
    "id": "sea-retirement",
-   "no": 12,
+   "no": 13,
    "theme": "A",
    "title": "50+ 동남아 은퇴살이 컨설팅",
    "en": "50+ Southeast Asia Living",
@@ -2149,7 +2367,7 @@
   },
   {
    "id": "agetech-distribution",
-   "no": 13,
+   "no": 14,
    "theme": "A",
    "title": "한중일 에이지테크 유통·케어 컨설팅",
    "en": "AgeTech Distribution",
@@ -2309,7 +2527,7 @@
   },
   {
    "id": "senior-china-tour",
-   "no": 14,
+   "no": 15,
    "theme": "B",
    "title": "시니어 중국 체험 여행",
    "en": "Senior China Discovery",
@@ -2478,7 +2696,7 @@
   },
   {
    "id": "china-edu-consulting",
-   "no": 15,
+   "no": 16,
    "theme": "B",
    "title": "프리미엄 중국 여행·교육 컨설팅",
    "en": "China Travel & Education",
@@ -2643,7 +2861,7 @@
   },
   {
    "id": "k-stay-luggage",
-   "no": 16,
+   "no": 17,
    "theme": "B",
    "title": "K-스테이 수하물 플랫폼",
    "en": "K-Stay Luggage",
@@ -2813,7 +3031,7 @@
   },
   {
    "id": "ai-travel-platform",
-   "no": 17,
+   "no": 18,
    "theme": "B",
    "title": "AI 글로벌 여행 플랫폼",
    "en": "TripSynergy AI",
@@ -2977,7 +3195,7 @@
   },
   {
    "id": "kc-investment-link",
-   "no": 18,
+   "no": 19,
    "theme": "B",
    "title": "한중 스타트업 투자 유치 프로그램",
    "en": "K-China Innovators Link",
@@ -3141,7 +3359,7 @@
   },
   {
    "id": "central-asia-students",
-   "no": 19,
+   "no": 20,
    "theme": "B",
    "title": "중앙아시아 유학생 한국 연계",
    "en": "Central Asia Study Bridge",
@@ -3305,7 +3523,7 @@
   },
   {
    "id": "china-robot-distribution",
-   "no": 20,
+   "no": 21,
    "theme": "B",
    "title": "중국 서비스로봇 한국 총판",
    "en": "China Service Robot Distribution",
@@ -3469,7 +3687,7 @@
   },
   {
    "id": "poizon-export",
-   "no": 21,
+   "no": 22,
    "theme": "C",
    "title": "POIZON 활용 해외 수출",
    "en": "POIZON Export",
@@ -3637,7 +3855,7 @@
   },
   {
    "id": "kbucks-smart-retail",
-   "no": 22,
+   "no": 23,
    "theme": "C",
    "title": "kbucks 스마트 유통",
    "en": "kbucks Smart Retail",
@@ -3801,7 +4019,7 @@
   },
   {
    "id": "china-import-agency",
-   "no": 23,
+   "no": 24,
    "theme": "C",
    "title": "중국 구매대행 + 수입 판매",
    "en": "China Sourcing & Import",
@@ -3983,7 +4201,7 @@
   },
   {
    "id": "nextgen-logistics",
-   "no": 24,
+   "no": 25,
    "theme": "C",
    "title": "NextGen 크로스보더 물류 컨설팅",
    "en": "NextGen Logistics",
@@ -4153,7 +4371,7 @@
   },
   {
    "id": "sme-export-platform",
-   "no": 25,
+   "no": 26,
    "theme": "C",
    "title": "중소기업 소비재 수출 플랫폼",
    "en": "K-SME Export Platform",
@@ -4313,7 +4531,7 @@
   },
   {
    "id": "sea-kfashion-commerce",
-   "no": 26,
+   "no": 27,
    "theme": "C",
    "title": "동남아 K-패션 크로스보더 커머스",
    "en": "SEA K-Fashion Commerce",
@@ -4477,7 +4695,7 @@
   },
   {
    "id": "k-mealkit-o4o",
-   "no": 27,
+   "no": 28,
    "theme": "C",
    "title": "K-밀키트 O4O 플랫폼",
    "en": "K-Mealkit O4O",
@@ -4637,7 +4855,7 @@
   },
   {
    "id": "unmanned-stores",
-   "no": 28,
+   "no": 29,
    "theme": "C",
    "title": "무인매장 체인",
    "en": "Unmanned Store Chain",
@@ -4806,7 +5024,7 @@
   },
   {
    "id": "sme-ax-consulting",
-   "no": 29,
+   "no": 30,
    "theme": "D",
    "title": "중소기업 AX 교육·전환 컨설팅",
    "en": "SME AI Transformation",
@@ -4998,7 +5216,7 @@
   },
   {
    "id": "genai-bootcamp",
-   "no": 30,
+   "no": 31,
    "theme": "D",
    "title": "생성형 AI 스타트업 8시간 실습 교육",
    "en": "GenAI 8-Hour Bootcamp",
@@ -5166,7 +5384,7 @@
   },
   {
    "id": "ai-job-training-saas",
-   "no": 31,
+   "no": 32,
    "theme": "D",
    "title": "AI 맞춤형 직무·직급 교육 SaaS",
    "en": "AI Role-based Learning",
@@ -5330,7 +5548,7 @@
   },
   {
    "id": "jeju-blueberry-ai",
-   "no": 32,
+   "no": 33,
    "theme": "E",
    "title": "AI 블루베리 팜 컨설팅(제주)",
    "en": "Jeju Blueberry Farm with AI",

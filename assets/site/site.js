@@ -67,7 +67,7 @@ function footer() {
       <li><a href="studio.html">오벌 오피스 · 작업실</a></li></ul></div>
     <div><h4>윙</h4><ul>
       <li><a href="china.html">중국관 · 중국 생활 7년</a></li><li><a href="faith.html">신앙 · 말씀과 일</a></li><li><a href="vision.html">비전룸 · 세 번째 30년</a></li>
-      <li><a href="ideas.html">아이디어 랩 · 창업 아이디어 32</a></li>
+      <li><a href="ideas.html">아이디어 랩 · 창업 아이디어 33</a></li>
       <li><a href="family.html">가족의 방들</a></li><li><a href="3d.html">3D 투어</a></li></ul></div>
     <div><h4>바깥 사이트</h4><ul>
       <li><a href="${LINKS.bookshelf}">나의 서재</a></li><li><a href="${LINKS.travel}">나의 여행 지도</a></li>
