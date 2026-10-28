@@ -58,6 +58,8 @@ PHOTOS = [
     # 아이디어 랩(ideas.html · idea.html · 3D 아이디어 랩) — Openverse 상업 이용 가능 사진
     ("ideas-simda-partners", "unsplash", "1416879595882-3373a0480b5b", "아이디어 랩 · 심다 파트너스", 1400),
     ("ideas-simda-partners-2", "unsplash", "1521737604893-d14cc237f11d", "아이디어 랩 · 심다 파트너스", 1000),
+    ("ideas-ieum-bridge", "unsplash", "1556761175-5973dc0f32e7", "아이디어 랩 · 이음브릿지", 1400),
+    ("ideas-ieum-bridge-2", "unsplash", "1519389950473-47ba0277781c", "아이디어 랩 · 이음브릿지", 1000),
     ("ideas-daon-pathfinder", "unsplash", "1576765608535-5f04d1e3f289", "아이디어 랩 · 다온 라이프 패스파인더", 1400),
     ("ideas-daon-pathfinder-2", "openverse", "64ed3362-528c-4751-8937-68e37b423eed", "Senior couple walks hand in hand down a tiled sidewalk, with", 1000),
     ("ideas-senior-college", "unsplash", "1509062522246-3755977927d7", "아이디어 랩 · 다온 시니어 칼리지", 1400),
