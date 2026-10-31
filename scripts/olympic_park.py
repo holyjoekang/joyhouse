@@ -1,0 +1,97 @@
+"""맨 남쪽(개울·스마트팜 너머)에 큰 올림픽공원을 들인다. 첫 화면에는 싣지 않는다.
+
+- 코드: src/world/olympic.js (원본 scripts/assets/olympic.js) · 자리와 안내문: content/olympic.json
+- 불러오기: 공원 40m 안으로 다가가거나, 하늘에서 3초 머물거나, 메뉴 '올림픽공원'을 고를 때 한 번.
+  지을 때도 한가한 틈마다 한 덩이씩 지어 화면이 끊기지 않는다.
+- 몽촌토성·나홀로나무 언덕은 걸어 오른다(walker 땅 높이에 공원 높이를 더한다).
+여러 번 돌려도 같은 결과."""
+import json, pathlib, shutil
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+BOX = [-90, 212, 226, 355]
+
+
+def patch(path, old, new):
+    t = path.read_text(encoding="utf-8")
+    if new in t: return
+    assert t.count(old) == 1, f"{path.name}: anchor not found: {old[:60]}"
+    path.write_text(t.replace(old, new), encoding="utf-8")
+
+
+shutil.copyfile(ROOT / "scripts/assets/olympic.js", ROOT / "src/world/olympic.js")
+
+spec = {
+    "_note": "올림픽공원(맨 남쪽). box = [x0, z0, x1, z1]. spots 의 좌표는 월드 좌표(x 동쪽+, z 남쪽+). src/world/olympic.js 가 읽는다.",
+    "box": BOX,
+    "spots": {
+        "plaza": {"x": 68, "z": 232, "w": 76, "d": 36},
+        "gate": {"x": 68, "z": 240, "w": 64, "d": 14, "span": 26, "h": 17, "flame": [68, 222]},
+        "roads": [[68, 290, 10, 80], [68.5, 262, 307, 7]],
+        "lake": {"x": -50, "z": 300, "rx": 30, "rz": 20},
+        "dome": {"x": 18, "z": 300, "r": 34, "h": 15},
+        "thumb": {"x": 0, "z": 232},
+        "sculptures": [[116, 226], [128, 232], [118, 242], [132, 247], [140, 235], [110, 252]],
+        "fortress": {"line": [[-82, 345], [-30, 350], [20, 346], [70, 338], [108, 326]], "halfWidth": 14, "height": 7},
+        "loneTree": {"x": 160, "z": 320, "r": 36, "h": 6},
+        "wildflowers": {"x0": 150, "x1": 220, "z0": 218, "z1": 255, "count": 16000},
+        "avenues": [["ginkgo", 61, 270, 61, 322, 8], ["ginkgo", 75, 270, 75, 322, 8], ["maple", -80, 268, 0, 268, 10],
+                    ["maple", 40, 268, 140, 268, 10], ["zelkova", -80, 256, 25, 256, 10], ["ginkgo", 110, 256, 145, 256, 9]],
+        "groves": [["pine", -60, 236, 18, 22], ["maple", 110, 290, 8, 8], ["zelkova", 95, 302, 9, 9]],
+        "lampLines": [[57, 252, 57, 324], [79, 252, 79, 324], [-82, 265.5, 220, 265.5]],
+        "signs": {
+            "gate": {"name": "세계평화의 문", "sub": "1988 서울올림픽을 기념한 문", "at": [84, 212],
+                     "body": "날개를 활짝 편 새처럼 지붕이 하늘로 치켜 오른 올림픽공원의 정문입니다. 날개 밑면에는 오방색 단청 무늬가 있고, 문 앞 성화대에는 꺼지지 않는 불이 타오릅니다. 광장 양옆으로 깃발이 줄지어 섭니다."},
+            "lake": {"name": "88호수", "sub": "분수가 솟는 공원의 호수", "at": [-50, 276],
+                     "body": "공원 서쪽의 호수입니다. 가운데 큰 물기둥과 둘레의 작은 물줄기가 숨쉬듯 오르내립니다. 둘레길을 따라 소나무와 느티나무가 그늘을 드리웁니다."},
+            "dome": {"name": "체조경기장", "sub": "케이블로 지붕을 매단 돔", "at": [18, 276],
+                     "body": "기둥 없이 케이블로 지붕을 띄운 둥근 경기장입니다. 지금은 공연장으로 더 많이 쓰입니다. 밤이면 지붕 둘레 띠에 푸른 불이 들어옵니다."},
+            "thumb": {"name": "엄지손가락", "sub": "올림픽 조각공원의 청동 엄지", "at": [4.5, 227.5],
+                     "body": "하늘을 향해 치켜든 커다란 청동 엄지손가락. 올림픽공원 조각들 가운데 가장 사랑받는 작품입니다."},
+            "sculpture": {"name": "조각공원", "sub": "세계 작가들의 야외 조각", "at": [124, 219],
+                     "body": "올림픽을 기념해 세계 여러 나라 작가들이 보낸 조각들이 잔디밭 곳곳에 섭니다. 여기엔 그 느낌을 담은 추상 조각 여섯 점을 두었습니다."},
+            "fortress": {"name": "몽촌토성", "sub": "백제 한성기의 흙성", "at": [45, 325],
+                     "body": "흙을 다져 쌓은 백제의 성입니다. 풀 덮인 둔덕을 따라 오솔길이 나 있어 걸어 오를 수 있고, 늦가을이면 비탈에 억새가 은빛으로 흔들립니다. 궁남지와 함께 백제를 잇는 길입니다."},
+            "loneTree": {"name": "나홀로나무", "sub": "너른 언덕 위의 한 그루",
+                     "body": "몽촌토성 너머 너른 풀 언덕 꼭대기에 홀로 선 나무. 계절마다 사진을 찍으러 오는 사람들로 붐비는 올림픽공원의 상징입니다. 언덕에 올라 나무 그늘에서 쉬어 가세요."},
+            "wildflowers": {"name": "들꽃마루", "sub": "가을 코스모스와 황화코스모스", "at": [185, 215],
+                     "body": "가을이면 분홍·흰 코스모스와 주황빛 황화코스모스가 언덕을 가득 덮는 꽃밭입니다. 가운데 십자 오솔길을 따라 꽃 사이를 걸어 보세요."},
+        },
+    },
+}
+(ROOT / "content/olympic.json").write_text(json.dumps(spec, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+
+hp = ROOT / "content/house.json"
+h = json.loads(hp.read_text(encoding="utf-8"))
+txt = hp.read_text(encoding="utf-8")
+if '"olympic"' not in txt:
+    patch(hp, '{"id": "farm", "name": "스마트팜"', '{"id": "olympic", "name": "올림픽공원", "sub": "평화의 문·몽촌토성·나홀로나무", "box": %s}, {"id": "farm", "name": "스마트팜"' % json.dumps(BOX))
+txt = hp.read_text(encoding="utf-8")
+old_site = json.dumps(h["site"], ensure_ascii=False)
+if h["site"]["z0"] < BOX[3] + 3:
+    import re
+    txt = re.sub(r'("site":\s*\{[^}]*"z0":\s*)-?\d+', lambda m: m.group(1) + str(BOX[3] + 3), txt, count=1)
+    hp.write_text(txt, encoding="utf-8")
+
+mp = ROOT / "src/main.js"
+patch(mp, "// 이동\nconst collider", """// 올림픽공원(맨 남쪽): 첫 화면에는 없다. 40m 안으로 다가가거나, 하늘에서 3초 머물거나, 메뉴로 갈 때 받는다.
+// 짓는 일도 한가한 틈마다 한 덩이씩 해서 걷는 화면이 끊기지 않는다.
+let park = null, parkJob = null, parkSky = 0;
+function loadPark() {
+  parkJob ??= Promise.all([data('content/olympic.json'), import('./world/olympic.js')])
+    .then(([spec, mod]) => spec && mod.buildOlympic(scene, spec, { blocks, clickables }))
+    .then(p => { park = p; renderer.shadowMap.needsUpdate = true; setTimeout(() => minimap.snapshot(), 1500); })
+    .catch(e => console.warn('olympic', e));
+  return parkJob;
+}
+function nearPark(v, dt) {
+  if (parkJob || !OUTDOOR.olympic) return;
+  const [x0, z0, x1, z1] = OUTDOOR.olympic.box;
+  const dx = Math.max(x0 - v.x, 0, v.x - x1), dz = Math.max(z0 - v.z, 0, v.z - z1);
+  parkSky = walker.flying ? parkSky + dt : 0;
+  if (parkSky > 3 || Math.hypot(dx, dz) < 40) loadPark();
+}
+// 이동
+const collider""")
+patch(mp, "{ onFade: v => hud.fade(v), ground: site.groundAt }", "{ onFade: v => hud.fade(v), ground: (x, z) => Math.max(site.groundAt(x, z), park ? park.ground(x, z) : 0) }")
+patch(mp, "    if (id === 'farm') return", "    if (id === 'olympic') { loadPark(); return walker.go(84, 215, Math.PI + 0.3, 0); }   // 평화의 광장 들머리에서 남쪽 문과 성화를 비스듬히 본다\n    if (id === 'farm') return")
+patch(mp, "  garden?.update(dt, v);\n", "  garden?.update(dt, v);\n  nearPark(v, dt);\n  park?.update(dt);\n")
+print("올림픽공원:", BOX)

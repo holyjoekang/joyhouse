@@ -143,10 +143,27 @@ function nearGarden(v) {
   const dx = Math.max(Math.min(x0, x1) - v.x, 0, v.x - Math.max(x0, x1)), dz = Math.max(Math.min(z0, z1) - v.z, 0, v.z - Math.max(z0, z1));
   if (walker.flying || Math.hypot(dx, dz) < 25) loadGarden();
 }
+// 올림픽공원(맨 남쪽): 첫 화면에는 없다. 40m 안으로 다가가거나, 하늘에서 3초 머물거나, 메뉴로 갈 때 받는다.
+// 짓는 일도 한가한 틈마다 한 덩이씩 해서 걷는 화면이 끊기지 않는다.
+let park = null, parkJob = null, parkSky = 0;
+function loadPark() {
+  parkJob ??= Promise.all([data('content/olympic.json'), import('./world/olympic.js')])
+    .then(([spec, mod]) => spec && mod.buildOlympic(scene, spec, { blocks, clickables }))
+    .then(p => { park = p; renderer.shadowMap.needsUpdate = true; setTimeout(() => minimap.snapshot(), 1500); })
+    .catch(e => console.warn('olympic', e));
+  return parkJob;
+}
+function nearPark(v, dt) {
+  if (parkJob || !OUTDOOR.olympic) return;
+  const [x0, z0, x1, z1] = OUTDOOR.olympic.box;
+  const dx = Math.max(x0 - v.x, 0, v.x - x1), dz = Math.max(z0 - v.z, 0, v.z - z1);
+  parkSky = walker.flying ? parkSky + dt : 0;
+  if (parkSky > 3 || Math.hypot(dx, dz) < 40) loadPark();
+}
 // 이동
 const collider = makeCollider(blocks, house.site);
 const hud = new Hud();
-const walker = createWalker(camera, collider, house.start, { onFade: v => hud.fade(v), ground: site.groundAt });
+const walker = createWalker(camera, collider, house.start, { onFade: v => hud.fade(v), ground: (x, z) => Math.max(site.groundAt(x, z), park ? park.ground(x, z) : 0) });
 
 function whereIs(x, z) {
   const r = building.roomAt(x, z);
@@ -183,6 +200,7 @@ function goRoom(id) {
     if (id === 'bukchon') return walker.go(x1 + 3, 20, Math.PI / 2, 0);   // 골목 어귀에서 서쪽 언덕을 본다
     if (id === 'church' && house.church) return walker.go(house.church.x, house.church.z - 9, Math.PI, 0);   // 종탑 앞에서 교회를 본다
     if (id === 'pandora') { loadGarden(); return walker.go((x0 + x1) / 2, Math.min(z0, z1) - 3, Math.PI, 0); }   // 정원 들머리에서 남쪽을 본다
+    if (id === 'olympic') { loadPark(); return walker.go(84, 215, Math.PI + 0.3, 0); }   // 평화의 광장 들머리에서 남쪽 문과 성화를 비스듬히 본다
     if (id === 'farm') return walker.go(x0 + 2, Math.min(z0, z1) + 24, -Math.PI / 2, 0);   // 스마트팜 길목에서 동쪽을 본다
     walker.go((x0 + x1) / 2, Math.max(z0, z1) + (id === 'gate' ? 6 : -2), 0, 0);
   }
@@ -398,6 +416,8 @@ renderer.setAnimationLoop(() => {
   nearHouse(v);
   nearGarden(v);
   garden?.update(dt, v);
+  nearPark(v, dt);
+  park?.update(dt);
   tickers.forEach(fn => fn(dt, elapsed));
   hud.update(dt);
   panel.update(dt);
