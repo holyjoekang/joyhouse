@@ -88,13 +88,18 @@ export function build(g, { cx, cz, entry, w, d }, { blocks }) {
 
   // 능수버들: 물가를 두르고 섬에도 두 그루. 둑길 안쪽, 물 쪽으로 기운다
   const willows = [];
-  for (let i = 0, n = 20; i < n; i++) {
+  for (let i = 0, n = 30; i < n; i++) {
     const a = i / n * Math.PI * 2 + (r() - 0.5) * 0.15;
     if (Math.abs(a - Math.PI * 1.5) < 0.12) continue;   // 다리 들머리는 비워 둔다
     const wv = wobble(a), off = 2.4 + r() * 1.6;
     willows.push({ x: cx + Math.cos(a) * (rx * wv + off), z: cz + Math.sin(a) * (rz * wv + off), lean: a + Math.PI, s: 0.85 + r() * 0.35 });
   }
   willows.push({ x: isl.x - 3.8, z: isl.z + 3, lean: 2.4, s: 0.7 }, { x: isl.x + 4, z: isl.z + 2.2, lean: 0.6, s: 0.65 });
+  // 연밭 둘레 길가에도 버드나무가 줄지어 선다 (상자 가장자리, 들머리 길 양옆)
+  for (let z = entry[1] + 8; z < cz + d / 2 - 4; z += 13) for (const x of [cx - w / 2 + 1, cx + w / 2 - 1])
+    willows.push({ x: x + (r() - 0.5), z: z + (r() - 0.5) * 3, lean: x < cx ? 0 : Math.PI, s: 0.8 + r() * 0.3 });
+  for (let z = entry[1] + 4; z < cz - rz - 9; z += 9) for (const sx of [-1, 1])
+    willows.push({ x: cx + sx * 3.4, z, lean: sx > 0 ? Math.PI : 0, s: 0.7 + r() * 0.2 });
   willowGrove(g, willows, r, blocks);
 
   // 연잎·연꽃: 물가 다섯 군데에 무리 지어
@@ -102,19 +107,19 @@ export function build(g, { cx, cz, entry, w, d }, { blocks }) {
   for (let k = 0; k < 6; k++) {
     const a = k / 6 * Math.PI * 2 + 0.4, R = 0.62 + r() * 0.18;
     const px = cx + Math.cos(a) * rx * R, pz = cz + Math.sin(a) * rz * R;
-    for (let i = 0; i < 150; i++) {
+    for (let i = 0; i < 380; i++) {
       const q = Math.sqrt(r()) * 9, b = r() * 6.28, x = px + Math.cos(b) * q * 1.3, z = pz + Math.sin(b) * q;
       if (Math.hypot((x - cx) / rx, (z - cz) / rz) > 0.9 || Math.hypot(x - isl.x, z - isl.z) < isl.r + 1.5 || Math.abs(x - cx) < 2.5 && z < isl.z) continue;
       const s = 0.5 + r() * 0.7;
       if (r() < 0.75) pads.push({ x, y: 0.07, z, s, ry: r() * 6 });
       else leaves.push({ x, y: 0.5 + r() * 0.9, z, s: s * 1.1, ry: r() * 6, rx: (r() - 0.5) * 0.3 });
-      if (r() < 0.12) (r() < 0.6 ? flowers : buds).push({ x: x + 0.3, y: 0.7 + r() * 0.7, z, s: 0.8 + r() * 0.4, ry: r() * 6 });
+      if (r() < 0.05) (r() < 0.6 ? flowers : buds).push({ x: x + 0.15, y: 0.7 + r() * 0.5, z, s: 0.6 + r() * 0.25, ry: r() * 6 });
     }
   }
-  const padGeo = new THREE.CircleGeometry(0.55, 16, 0.25, Math.PI * 2 - 0.35).rotateX(-Math.PI / 2);
+  const padGeo = new THREE.CircleGeometry(0.16, 14, 0.25, Math.PI * 2 - 0.35).rotateX(-Math.PI / 2);
   instances(g, padGeo, new THREE.MeshStandardMaterial({ color: 0x4e6e34, roughness: 0.55, side: THREE.DoubleSide }), pads);
   // 물 위로 솟은 연잎: 얕은 그릇 모양 + 줄기
-  const bowl = new THREE.SphereGeometry(0.6, 16, 6, 0, Math.PI * 2, Math.PI * 0.62, Math.PI * 0.38).translate(0, 0.45, 0);
+  const bowl = new THREE.SphereGeometry(0.28, 14, 5, 0, Math.PI * 2, Math.PI * 0.62, Math.PI * 0.38).translate(0, 0.21, 0);
   instances(g, bowl, new THREE.MeshStandardMaterial({ color: 0x5f8a3c, roughness: 0.6, side: THREE.DoubleSide }), leaves);
   const stem = new THREE.CylinderGeometry(0.02, 0.025, 1, 4).translate(0, -0.5, 0);
   instances(g, stem, mats.hedge, leaves.concat(flowers, buds).map(o => ({ ...o, sy: o.y, s: 1, sx: 1, sz: 1, rx: 0 })));
@@ -271,13 +276,13 @@ function paddies(g, { cx, cz, w, d, rx, rz, entry }, r, blocks) {
     if (Math.abs(mx - cx) < PW / 2 + 2.5 && mz < cz) continue;                     // 들머리 길
     plots.push({ x: mx, y: 0.04, z: mz, sx: PW, sz: PD, sy: 1 });
     blocks.push({ x0: x, x1: x + PW, z0: z, z1: z + PD });
-    for (let i = 0; i < 44; i++) {
-      const lx = x + 0.5 + r() * (PW - 1), lz = z + 0.5 + r() * (PD - 1), s = 0.7 + r() * 0.6;
+    for (let i = 0; i < 110; i++) {
+      const lx = x + 0.5 + r() * (PW - 1), lz = z + 0.5 + r() * (PD - 1), s = 0.75 + r() * 0.5;
       leaves.push({ x: lx, y: 0.75 + r() * 0.7, z: lz, s, ry: r() * 6, rx: (r() - 0.5) * 0.5, c: r() < 0.5 ? 0x5f8a3c : 0x6c9644 });
       const q = r();
-      if (q < 0.16) flowers.push({ x: lx + 0.4, y: 1.1 + r() * 0.8, z: lz, s: 1.1 + r() * 0.5, ry: r() * 6, c: r() < 0.7 ? 0xf3b6c8 : 0xfbf4ee });
-      else if (q < 0.24) buds.push({ x: lx + 0.4, y: 1.0 + r() * 0.8, z: lz, s: 1.2, ry: 0 });
-      else if (q < 0.28) seedpods.push({ x: lx + 0.3, y: 1.2 + r() * 0.5, z: lz, s: 1, ry: r() * 6 });
+      if (q < 0.07) flowers.push({ x: lx + 0.2, y: 1.0 + r() * 0.6, z: lz, s: 0.6 + r() * 0.25, ry: r() * 6, c: r() < 0.7 ? 0xf3b6c8 : 0xfbf4ee });
+      else if (q < 0.11) buds.push({ x: lx + 0.2, y: 1.0 + r() * 0.6, z: lz, s: 0.65, ry: 0 });
+      else if (q < 0.13) seedpods.push({ x: lx + 0.2, y: 1.1 + r() * 0.4, z: lz, s: 0.55, ry: r() * 6 });
     }
   }
   const mud = new THREE.PlaneGeometry(1, 1).rotateX(-Math.PI / 2);
@@ -286,10 +291,10 @@ function paddies(g, { cx, cz, w, d, rx, rz, entry }, r, blocks) {
   const banks = plots.flatMap(p => [{ x: p.x, y: 0.08, z: p.z - PD / 2, sx: PW, sz: 0.35 }, { x: p.x, y: 0.08, z: p.z + PD / 2, sx: PW, sz: 0.35 },
     { x: p.x - PW / 2, y: 0.08, z: p.z, sx: 0.35, sz: PD }, { x: p.x + PW / 2, y: 0.08, z: p.z, sx: 0.35, sz: PD }]).map(o => ({ ...o, sy: 0.16 }));
   instances(g, new THREE.BoxGeometry(1, 1, 1), new THREE.MeshStandardMaterial({ color: 0x75664c, roughness: 1 }), banks);
-  const bowl = new THREE.SphereGeometry(0.62, 16, 6, 0, Math.PI * 2, Math.PI * 0.6, Math.PI * 0.4).translate(0, 0.47, 0);
+  const bowl = new THREE.SphereGeometry(0.3, 14, 5, 0, Math.PI * 2, Math.PI * 0.6, Math.PI * 0.4).translate(0, 0.23, 0);   // 연잎 지름 40~70cm
   instances(g, bowl, swayMat(0xffffff, -0.08, { roughness: 0.6 }), leaves);
   const stem = new THREE.CylinderGeometry(0.02, 0.025, 1, 4).translate(0, -0.5, 0);
-  instances(g, stem, mats.hedge, leaves.concat(flowers, buds, seedpods).map(o => ({ x: o.x, y: o.y, z: o.z, sy: o.y })));
+  instances(g, stem, mats.hedge, leaves.concat(flowers, buds, seedpods).map(o => ({ x: o.x, y: o.y, z: o.z, sy: o.y, sx: 0.6, sz: 0.6 })));
   instances(g, LOTUS(), new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.5, emissive: 0x2a0e16, emissiveIntensity: 0.2 }), flowers);
   instances(g, new THREE.SphereGeometry(0.11, 8, 6).scale(1, 1.7, 1), new THREE.MeshStandardMaterial({ color: 0xe07f9c, roughness: 0.5 }), buds);
   instances(g, new THREE.CylinderGeometry(0.16, 0.07, 0.14, 10), new THREE.MeshStandardMaterial({ color: 0x8f9a4a, roughness: 0.7 }), seedpods);
@@ -339,9 +344,9 @@ function lamps(g, cx, cz, rx, rz, { plots, PW, PD }, r) {
     const a = r() * 6.28, q = 0.45 + r() * 0.4;
     const x = cx + Math.cos(a) * rx * q, z = cz + Math.sin(a) * rz * q;
     if (Math.abs(x - cx) < 2.5 && z < cz) continue;
-    lot.push({ x, y: 0.12, z, s: 2.6, ry: r() * 6, c: r() < 0.7 ? 0xff9cc0 : 0xfff0e6 });
+    lot.push({ x, y: 0.1, z, s: 1.5, ry: r() * 6, c: r() < 0.7 ? 0xff9cc0 : 0xfff0e6 });
   }
-  plots.forEach((p, i) => { if (i % 4 === 1) lot.push({ x: p.x + PW / 2 + 0.9, y: 0.1, z: p.z, s: 2.2, ry: r() * 6, c: i % 8 === 1 ? 0xfff0e6 : 0xff9cc0 }); });
+  plots.forEach((p, i) => { if (i % 4 === 1) lot.push({ x: p.x + PW / 2 + 0.9, y: 0.08, z: p.z, s: 1.4, ry: r() * 6, c: i % 8 === 1 ? 0xfff0e6 : 0xff9cc0 }); });
   instances(g, LOTUS(), glow(0xffffff, { day: 0.85, night: 2.2, pulse: 0.08, speed: 0.7 }), lot);
 }
 // 가운데가 밝고 가장자리로 스러지는 덧셈 재질. lit(밤 정도)에 비례한다
