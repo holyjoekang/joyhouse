@@ -128,7 +128,7 @@ function nearHouse(v) {
   entered = true;
   want(['grandhall']);
 }
-// 판도라 정원: 첫 화면에는 없다. 25m 안으로 다가가거나, 하늘에서 보거나, 메뉴로 갈 때 받아 짓는다.
+// 남쪽 정원(지금은 부여 궁남지): 첫 화면에는 없다. 25m 안으로 다가가거나, 하늘에서 보거나, 메뉴로 갈 때 받아 짓는다.
 let garden = null, gardenJob = null;
 function loadGarden() {
   gardenJob ??= Promise.all([data('content/garden.json'), import('./world/garden/index.js')])

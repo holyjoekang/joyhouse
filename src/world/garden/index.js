@@ -6,7 +6,7 @@ import { textPlane } from '../../ui3d/text.js';
 // 메뉴로 갈 때 이 파일과 고른 디자인만 받아 짓는다. 디자인은 content/garden.json 의 active
 // (하나, 또는 나란히 둘 목록 — 안마다 layout 칸에), 점검용 주소 인자 ?garden=souls|floating|forest|supertrees 가 이긴다.
 const DESIGNS = { souls: () => import('./souls.js'), floating: () => import('./floating.js'), forest: () => import('./forest.js'),
-  supertrees: () => import('./supertrees.js') };
+  supertrees: () => import('./supertrees.js'), gungnamji: () => import('./gungnamji.js') };
 
 export async function buildGarden(scene, spec, { blocks, clickables }) {
   const want = new URLSearchParams(location.search).get('garden');
@@ -50,9 +50,10 @@ export async function buildGarden(scene, spec, { blocks, clickables }) {
 
 // 들머리 안내판: 디자인 이름과 한 줄 소개. 길(북쪽)에서 읽는다
 function signBoard(g, info, entry, clickables) {
-  const sign = textPlane({ width: 768, padding: 36, bg: '#140f2a', border: '#8f7bff', radius: 16, lines: [
-    { text: info.name, size: 70, weight: 700, color: '#e9dcff', gap: 10 },
-    { text: info.sub, size: 38, color: '#b9b0e0' }] }, 2.4, { lit: true });
+  const c = { bg: '#140f2a', border: '#8f7bff', title: '#e9dcff', sub: '#b9b0e0', ...info.sign };
+  const sign = textPlane({ width: 768, padding: 36, bg: c.bg, border: c.border, radius: 16, lines: [
+    { text: info.name, size: 70, weight: 700, color: c.title, gap: 10, font: c.font },
+    { text: info.sub, size: 38, color: c.sub }] }, 2.4, { lit: true });
   sign.position.set(entry[0] + 3.6, 1.5, entry[1] - 1.2);
   for (const lx of [-1.05, 1.05]) { const leg = new THREE.Mesh(new THREE.BoxGeometry(0.1, 1.8, 0.1), new THREE.MeshStandardMaterial({ color: 0x2a2236 })); leg.position.set(lx, -0.6, -0.05); sign.add(leg); }
   sign.userData.exhibit = { kind: 'sign', title: info.name, body: info.body || info.sub,
