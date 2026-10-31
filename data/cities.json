@@ -121,6 +121,18 @@
    "url": "https://kr.trip.com/travel-guide/destination/bangkok-191/"
   },
   {
+   "place": "부여",
+   "name": "부여군",
+   "enName": "Buyeo-gun",
+   "country": "대한민국",
+   "visits": 2,
+   "lat": 36.28,
+   "lng": 126.91,
+   "cover": "https://ak-d.tripcdn.com/images/01038120008x0ydy2D818_D_1180_558.jpg",
+   "intro": "",
+   "url": "https://kr.trip.com/travel-guide/destination/buyeo-gun-14761/"
+  },
+  {
    "place": "시안 시",
    "name": "시안",
    "enName": "Xi'an",
@@ -395,18 +407,6 @@
    "cover": "https://ak-d.tripcdn.com/images/0104u1200085zyqqtE996_D_1180_558.jpg",
    "intro": "",
    "url": "https://kr.trip.com/travel-guide/destination/manzhouli-319/"
-  },
-  {
-   "place": "부여",
-   "name": "부여군",
-   "enName": "Buyeo-gun",
-   "country": "대한민국",
-   "visits": 1,
-   "lat": 36.28,
-   "lng": 126.91,
-   "cover": "https://ak-d.tripcdn.com/images/01038120008x0ydy2D818_D_1180_558.jpg",
-   "intro": "",
-   "url": "https://kr.trip.com/travel-guide/destination/buyeo-gun-14761/"
   },
   {
    "place": "빈탄",
@@ -767,6 +767,18 @@
    "cover": "https://ak-d.tripcdn.com/images/0100h12000j1pae390D51_D_1180_558.jpg",
    "intro": "",
    "url": "https://kr.trip.com/travel-guide/destination/hohhot-156/"
+  },
+  {
+   "place": "공주",
+   "name": "공주",
+   "enName": "",
+   "country": "대한민국",
+   "visits": 1,
+   "lat": 36.46,
+   "lng": 127.12,
+   "cover": "",
+   "intro": "",
+   "url": ""
   },
   {
    "place": "유명산",
