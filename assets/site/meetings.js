@@ -32,7 +32,7 @@ const blocks = bs => bs.map(b => Object.entries(b).map(([k, v]) => (BLOCK[k] || 
 // ── 미팅 1건 ──────────────────────────────────────────
 function parts(m) {
   // 번호가 붙는 장 목록: 핵심 요약 → 본문 장들 → 사업기회 → 실행과제 → 사실확인 → 결론
-  const out = [{ key: "key", title: "전체 대화의 핵심 요약" }];
+  const out = [{ key: "key", title: m.keyTitle || "전체 대화의 핵심 요약" }];
   m.sections.forEach((s, i) => out.push({ key: `s${i}`, title: s.title, time: s.time, sec: s }));
   if (m.opportunities) out.push({ key: "opp", title: `대화에서 도출된 사업기회 ${m.opportunities.items.length}가지` });
   if (m.actions) out.push({ key: "act", title: "후속 실행과제" });
