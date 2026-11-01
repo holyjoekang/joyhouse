@@ -1,7 +1,7 @@
 // 멘토링 쪽 '미팅 기록' — data/mentoring/meetings.json 을 그린다.
 // 원천은 content/meetings/*.json (미팅 1건 = 파일 1개), scripts/build_meetings.py 가 묶는다.
 
-const root = document.getElementById("meetings");
+const root = document.querySelector("#meetings, [data-vault]");
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const ul = (a, cls = "") => `<ul class="${cls}">${(a || []).map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
 const fmtDate = d => { const [y, m, dd] = d.split("-"); return `${y}년 ${+m}월${dd ? ` ${+dd}일` : ""}`; };  // 일자 모르면 YYYY-MM
@@ -125,15 +125,13 @@ function show(ms, id, anchor) {
   if (anchor) { const el = document.getElementById(anchor); if (el) { if (el.tagName === "DETAILS") el.open = true; el.scrollIntoView(); } }
 }
 
-(async () => {
-  let d;
-  try { d = await fetch("data/mentoring/meetings.json", { cache: "no-cache" }).then(r => r.ok ? r.json() : Promise.reject()); }
-  catch { root.innerHTML = `<p class="muted">미팅 기록을 불러오지 못했습니다.</p>`; return; }
+// 화면 그리기 — 공개 쪽은 data/mentoring/meetings.json, 잠금 쪽(data-vault)은 암호로 푼 같은 형식의 자료
+function render(d) {
   const ms = d.meetings || [];
   if (!ms.length) { root.innerHTML = ""; return; }
   const tags = [...new Set(ms.flatMap(m => m.tags || []))];
-  root.innerHTML = `<header class="mt-head mtg-top"><span class="eyebrow">Field Notes · Meetings</span><h2>현장 미팅 기록 <small>${ms.length}건</small></h2>
-<p class="lead">창업 생태계에서 만난 분들과의 대화를 녹취 기준으로 주제별 재구성해 쌓아 갑니다. 각 미팅의 사업기회·실행과제·사실확인 사항을 함께 기록합니다.</p></header>
+  root.innerHTML = `<header class="mt-head mtg-top"><span class="eyebrow">${esc(root.dataset.eyebrow || "Field Notes · Meetings")}</span><h2>${esc(root.dataset.title || "현장 미팅 기록")} <small>${ms.length}건</small></h2>
+<p class="lead">${esc(root.dataset.lead || "창업 생태계에서 만난 분들과의 대화를 녹취 기준으로 주제별 재구성해 쌓아 갑니다. 각 미팅의 사업기회·실행과제·사실확인 사항을 함께 기록합니다.")}</p></header>
 ${ms.length > 3 ? `<div class="mt-filters mtg-filter"><div role="group" aria-label="주제">${["", ...tags].map(t => `<button type="button" data-t="${esc(t)}" aria-pressed="${!t}">${t ? esc(t) : "전체"}</button>`).join("")}</div><input type="search" placeholder="미팅 검색" aria-label="미팅 검색"></div>` : ""}
 <div class="mtg-list-cards">${ms.map(listCard).join("")}</div>
 <div id="mtg-view"></div>${board(ms)}`;
@@ -159,5 +157,45 @@ ${ms.length > 3 ? `<div class="mt-filters mtg-filter"><div role="group" aria-lab
   }
   const h = decodeURIComponent(location.hash.slice(1)), hit = h.startsWith("m-") && ms.find(m => h === `m-${m.id}` || h.startsWith(`m-${m.id}-`));
   show(ms, hit ? hit.id : ms[0].id, hit ? h : null);
-  if (h === "meetings") root.scrollIntoView();
+  if (h === root.id) root.scrollIntoView();
+}
+
+// 잠금: build_committee_vault.py 와 같은 AES-256-GCM · PBKDF2-SHA256
+const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function unlock(v, pw) {
+  const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), "PBKDF2", false, ["deriveKey"]);
+  const key = await crypto.subtle.deriveKey({ name: "PBKDF2", salt: b64(v.salt), iterations: v.iter, hash: "SHA-256" }, base, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+  return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64(v.iv) }, key, b64(v.ct))));
+}
+const KEEP = `joyhouse.vault.${root.dataset.vault}`;
+function lockForm(v, msg = "") {
+  root.innerHTML = `<form class="mtg-lock"><div class="mtg-lock-mark" aria-hidden="true">🔒</div>
+<span class="eyebrow">${esc(root.dataset.eyebrow || "Private")}</span><h2>${esc(root.dataset.title || "비공개 기록")}</h2>
+<p class="muted">비공개 기록입니다. 암호를 입력하세요.</p>
+<input type="password" inputmode="numeric" autocomplete="current-password" placeholder="암호" aria-label="암호" required>
+<label class="mtg-keep"><input type="checkbox"> 이 기기에서 기억</label>
+<button class="btn btn-primary" type="submit">들어가기</button><p class="mtg-err" role="alert">${esc(msg)}</p></form>`;
+  const f = root.querySelector("form"), pw = f.querySelector("input[type=password]");
+  pw.focus();
+  f.addEventListener("submit", async e => {
+    e.preventDefault();
+    f.querySelector("button").disabled = true;
+    try {
+      const d = await unlock(v, pw.value);
+      try { f.querySelector(".mtg-keep input").checked ? localStorage.setItem(KEEP, pw.value) : localStorage.removeItem(KEEP); } catch {}
+      render(d);
+    } catch { lockForm(v, "암호가 맞지 않습니다."); }
+  });
+}
+
+(async () => {
+  const src = root.dataset.vault || "data/mentoring/meetings.json";
+  let d;
+  try { d = await fetch(src, { cache: "no-cache" }).then(r => r.ok ? r.json() : Promise.reject()); }
+  catch { root.innerHTML = `<p class="muted">기록을 불러오지 못했습니다.</p>`; return; }
+  if (!root.dataset.vault) return render(d);
+  let saved = null;
+  try { saved = localStorage.getItem(KEEP); } catch {}
+  if (saved) { try { return render(await unlock(d, saved)); } catch { try { localStorage.removeItem(KEEP); } catch {} } }
+  lockForm(d);
 })();

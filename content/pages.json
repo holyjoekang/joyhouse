@@ -281,6 +281,27 @@
      "newTab": false
     }
    ]
+  },
+  "committee.html": {
+   "bg": "assets/photos/coworking.webp",
+   "crumb": "오벌 오피스 / 작업실",
+   "eyebrow": "Studio · Operating Committee",
+   "title": "작업실 — 사업운영위원회",
+   "textHtml": "창업지원금 사업운영위원회의 심의 사례와 쟁점, 표준화 제안을 기록합니다. 위원회 내부 논의라 암호로 잠가 두었습니다.",
+   "ctas": [
+    {
+     "primary": true,
+     "href": "#committee",
+     "text": "들어가기",
+     "newTab": false
+    },
+    {
+     "primary": false,
+     "href": "studio.html#committee-corner",
+     "text": "작업실로",
+     "newTab": false
+    }
+   ]
   }
  },
  "rooms": [
