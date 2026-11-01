@@ -4,7 +4,7 @@
 const root = document.getElementById("meetings");
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const ul = (a, cls = "") => `<ul class="${cls}">${(a || []).map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
-const fmtDate = d => { const [y, m, dd] = d.split("-"); return `${y}년 ${+m}월 ${+dd}일`; };
+const fmtDate = d => { const [y, m, dd] = d.split("-"); return `${y}년 ${+m}월${dd ? ` ${+dd}일` : ""}`; };  // 일자 모르면 YYYY-MM
 const LEVEL = { "낮음": 1, "중": 2, "중~높음": 3, "높음": 4 };
 const KEY = id => `joyhouse.meeting.${id}.done`;
 const loadDone = id => { try { return new Set(JSON.parse(localStorage.getItem(KEY(id)) || "[]")); } catch { return new Set(); } };
