@@ -79,6 +79,28 @@
   },
   {
    "type": "monitor",
+   "x": 0.08,
+   "z": 0.45,
+   "facing": "east",
+   "w": 1.6,
+   "group": "일상·생산성",
+   "title": "바로타",
+   "desc": "출퇴근 역을 저장해 두면 버튼 하나로 다음 열차·그다음 열차가 몇 분 후 오는지 큰 글씨로 보여 주는 지하철 안내 웹앱. 환승도 단계별로 안내하고, 개인정보는 저장하지 않는다.",
+   "tech": "JavaScript · Vercel · 서울시 실시간 API",
+   "links": [
+    {
+     "label": "앱 열기 ↗",
+     "url": "https://barota-five.vercel.app/"
+    },
+    {
+     "label": "소스 보기 ↗",
+     "url": "https://github.com/holyjoekang/barota"
+    }
+   ],
+   "bg": "#10223a"
+  },
+  {
+   "type": "monitor",
    "x": 0.1,
    "z": 0.93,
    "facing": "south",
