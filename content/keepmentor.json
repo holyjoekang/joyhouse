@@ -1,0 +1,76 @@
+{
+ "url": "https://keepmentor.vercel.app",
+ "eyebrow": "Keep Mentor",
+ "title": "Keep Mentor — 멘토링의 품질을 증거로",
+ "lead": "스타트업 멘토링 방법론을 실제로 쓰는 웹앱으로 만들었습니다. 모든 기업을 같은 7축·12문항으로 진단하고, 회차마다 2주짜리 실험 카드로 끝내며, 변화를 증거등급으로 측정합니다. 핵심 기록은 사람이 먼저 쓰고 AI는 초안만 돕습니다.",
+ "photo": "assets/photos/keepmentor.webp",
+ "photoAlt": "포스트잇을 붙이며 워크숍을 하는 팀",
+ "stats": [
+  {
+   "value": "6단계",
+   "label": "사전진단부터 사후 추적까지"
+  },
+  {
+   "value": "12문항",
+   "label": "7개 축의 표준 진단"
+  },
+  {
+   "value": "E0–E4",
+   "label": "증거등급에 따른 점수 상한"
+  },
+  {
+   "value": "12개",
+   "label": "참고한 검증 방법론"
+  }
+ ],
+ "steps": [
+  {
+   "title": "신청·사전진단",
+   "when": "1차 7일 전",
+   "text": "대표가 현황과 이슈를 증거와 함께 먼저 적습니다."
+  },
+  {
+   "title": "진단·목표 합의",
+   "when": "1차",
+   "text": "증거로 현재 위치를 판정하고 목표를 1~2개로 좁힙니다."
+  },
+  {
+   "title": "실험 설계",
+   "when": "1차 마무리",
+   "text": "조언 대신 2주 안에 돌릴 실험 카드로 끝냅니다."
+  },
+  {
+   "title": "실행·점검",
+   "when": "2차",
+   "text": "실험 결과를 보고 Pivot · Persevere · Kill을 결정합니다."
+  },
+  {
+   "title": "정리·로드맵",
+   "when": "3차",
+   "text": "재측정으로 변화를 확인하고 90일 로드맵을 만듭니다."
+  },
+  {
+   "title": "사후 추적",
+   "when": "3·6개월 후",
+   "text": "지원사업 선정, 투자, 고용, 매출로 성과를 추적합니다."
+  }
+ ],
+ "links": [
+  {
+   "text": "Keep Mentor 열기 ↗",
+   "href": "https://keepmentor.vercel.app",
+   "primary": true
+  },
+  {
+   "text": "방법론 상세 ↗",
+   "href": "https://keepmentor.vercel.app/method",
+   "primary": false
+  },
+  {
+   "text": "도입 안내 ↗",
+   "href": "https://keepmentor.vercel.app/solutions",
+   "primary": false
+  }
+ ],
+ "note": "데모 모드로 멘토·멘티·기관 역할을 골라 바로 써 볼 수 있습니다."
+}

@@ -629,5 +629,25 @@ heroSlides();
 lightbox();
 houseMap();
 reveal();
+// Keep Mentor 코너 — content/keepmentor.json 을 그린다.
+R.keepmentor = async el => {
+  const d = await json("content/keepmentor.json");
+  el.innerHTML = `
+<div class="split">
+  <div class="reveal in">
+    <span class="eyebrow">${esc(d.eyebrow)}</span>
+    <h2>${esc(d.title)}</h2>
+    <p class="lead">${esc(d.lead)}</p>
+    <div class="hero-cta">${d.links.map(l => `<a class="btn ${l.primary ? "btn-dark" : "btn-line"}" href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.text)}</a>`).join("")}</div>
+    <p class="muted" style="margin-top:12px">${esc(d.note)}</p>
+  </div>
+  <div class="figure reveal in"><img src="${esc(d.photo)}" alt="${esc(d.photoAlt)}" loading="lazy"></div>
+</div>
+<div class="stats making-stats" style="margin-top:32px">${d.stats.map(s => `<div class="stat"><b>${esc(s.value)}</b><span>${esc(s.label)}</span></div>`).join("")}</div>
+<ol class="grid grid-3 make-steps" style="margin-top:24px">${d.steps.map((s, n) => `
+<li class="card reveal in"><div class="card-body"><span class="make-no">${n + 1}</span>
+  <span class="card-kicker">${esc(s.when)}</span><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p></div></li>`).join("")}</ol>`;
+};
+
 document.querySelectorAll("[data-render]").forEach(el =>
   R[el.dataset.render](el).catch(err => { console.error(err); el.innerHTML = '<p class="muted">자료를 불러오지 못했습니다.</p>'; }));
