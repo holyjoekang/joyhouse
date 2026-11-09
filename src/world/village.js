@@ -3,6 +3,7 @@
 // 캐릭터는 이 파일이 기본 도형으로 직접 만드는 3D 꼬마 캐릭터다(큰 머리·작은 몸, 만화풍 음영). 외부 게임 그림·모델은 쓰지 않는다.
 import * as THREE from 'three';
 import { hometown, byPosition, setTown } from '../core/hometown.js';
+import { createPresence } from '../core/presence.js';
 
 const FONT = '"Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif';
 const TOP = 1.32;                                  // 머리 꼭대기 높이(m) — 이름표·말풍선 기준
@@ -110,14 +111,15 @@ const spriteOf = (tex, w, h, order = 10) => {
 };
 
 // 이름표: 어두운 둥근 띠에 흰 글씨 (나는 금색 테두리)
-function nameTag(text, mine) {
+function nameTag(text, kind) {
+  const mine = kind === 'me', peer = kind === 'peer';
   const c = document.createElement('canvas'), g = c.getContext('2d');
   g.font = `700 30px ${FONT}`;
   const w = Math.ceil(g.measureText(text).width) + 36; c.width = w; c.height = 50;
   g.font = `700 30px ${FONT}`;
-  g.fillStyle = mine ? 'rgba(60,40,10,.85)' : 'rgba(18,22,34,.72)'; rr(g, 2, 2, w - 4, 46, 14); g.fill();
-  if (mine) { g.strokeStyle = '#f2c14e'; g.lineWidth = 3; g.stroke(); }
-  g.fillStyle = mine ? '#ffe08a' : '#fff'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(text, w / 2, 27);
+  g.fillStyle = mine ? 'rgba(60,40,10,.85)' : peer ? 'rgba(10,52,48,.85)' : 'rgba(18,22,34,.72)'; rr(g, 2, 2, w - 4, 46, 14); g.fill();
+  if (mine || peer) { g.strokeStyle = mine ? '#f2c14e' : '#5ee6c8'; g.lineWidth = 3; g.stroke(); }
+  g.fillStyle = mine ? '#ffe08a' : peer ? '#c9fff2' : '#fff'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(text, w / 2, 27);
   const h = 0.22;
   return spriteOf(canvasTex(c), h * w / 50, h, 11);
 }
@@ -139,10 +141,11 @@ function bubbleTex(text) {
   return { tex: canvasTex(c), aspect: w / h };
 }
 
-function makeCharacter(scene, spec, mine) {
+function makeCharacter(scene, spec, kind) {
+  const mine = kind === 'me';
   const group = new THREE.Group();
   const body = buildBody(spec.look);
-  const tag = nameTag(mine ? `${spec.label} (나)` : spec.label, mine);
+  const tag = nameTag(mine ? `${spec.label} (나)` : kind === 'peer' ? `● ${spec.label}` : spec.label, kind);
   tag.position.y = TOP + 0.14;
   const bubble = spriteOf(null, 1, 0.4, 12);
   bubble.center.set(0.5, 0); bubble.position.y = TOP + 0.3; bubble.visible = false;
@@ -164,8 +167,8 @@ function makeCharacter(scene, spec, mine) {
 }
 
 // 내 캐릭터의 생김새는 이름표에서 정한다 (같은 동네면 같은 모습)
-function lookFrom(label) {
-  let h = 0; for (const ch of label) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+function lookFrom(seed) {
+  let h = 0; for (const ch of seed) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
   const pick = a => a[(h = (h * 1103515245 + 12345) >>> 0) % a.length];
   return { skin: pick(['#ffe0c7', '#fcd5b5', '#f5c9a6', '#ffe8d6']), hair: pick(['#2a211c', '#5c3a28', '#141418', '#7a4a2a', '#c9853f']),
     style: pick(['spiky', 'bob', 'pony', 'short', 'bun', 'long']), shirt: pick(['#ff7a59', '#4fa3e0', '#7bc96f', '#b48cf2', '#ffd166', '#ef6f8e']),
@@ -173,7 +176,7 @@ function lookFrom(label) {
 }
 
 // 화면 아래 작은 띠: 내 이름표, 동네 맞추기, 이름 바꾸기
-function chip(onLocate, onRename, onToggle) {
+function chip(onLocate, onRename, onToggle, onSay) {
   const css = document.createElement('style');
   css.textContent = `#jh-me{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:15;display:flex;gap:6px;align-items:center;padding:6px 8px 6px 14px;border-radius:999px;background:rgba(20,33,61,.82);color:#fff;font:600 13px/1.2 ${FONT};box-shadow:0 4px 18px rgba(0,0,0,.2);backdrop-filter:blur(6px);max-width:calc(100vw - 24px)}
 #jh-me b{color:#ffe08a;white-space:nowrap}#jh-me span{opacity:.75;font-weight:500;white-space:nowrap}
@@ -181,18 +184,22 @@ function chip(onLocate, onRename, onToggle) {
 @media (max-width:520px){#jh-me span{display:none}#jh-me{top:auto;bottom:calc(96px + env(safe-area-inset-bottom,0px));left:12px;transform:none}}`;
   document.head.append(css);
   const el = document.createElement('div'); el.id = 'jh-me'; el.setAttribute('role', 'status');
-  el.innerHTML = `<span>🙂 나는</span><b>…</b><span class="n"></span><button type="button" data-a="loc" title="위치를 허용하면 동 이름으로 바꿉니다">📍 동네 맞추기</button><button type="button" data-a="name">✏️</button><button type="button" data-a="hide" title="내 캐릭터 숨기기/보이기">👤</button>`;
+  el.innerHTML = `<span>🙂 나는</span><b>…</b><span class="n"></span><button type="button" data-a="loc" title="위치를 허용하면 동 이름으로 바꿉니다">📍 동네 맞추기</button><button type="button" data-a="say" title="한마디 하기">💬</button><button type="button" data-a="name" title="동네 이름 바꾸기">✏️</button><button type="button" data-a="hide" title="내 캐릭터 숨기기/보이기">👤</button>`;
   document.body.append(el);
   el.addEventListener('click', e => {
     const a = e.target.closest('button')?.dataset.a;
-    if (a === 'loc') onLocate(); else if (a === 'name') onRename(); else if (a === 'hide') onToggle();
+    if (a === 'loc') onLocate(); else if (a === 'name') onRename(); else if (a === 'hide') onToggle(); else if (a === 'say') onSay();
   });
-  return { set(label, count) { el.querySelector('b').textContent = label; el.querySelector('.n').textContent = `· 주민 ${count}명과 함께`; } };
+  return { set(label, count, online, live) { el.querySelector('b').textContent = label; el.querySelector('.n').textContent = online ? `· 지금 ${live}명 접속 · 주민 ${count}명` : `· 주민 ${count}명과 함께`; } };
 }
 
 export function createVillage(scene, { ground, collider, camera, walker, data }) {
   const people = [];
-  let area = { x0: -13, x1: 15, z0: 5, z1: 40 }, me = null, meHidden = false, ui = null;
+  let area = { x0: -13, x1: 15, z0: 5, z1: 40 }, me = null, meHidden = false, ui = null, home = null;
+  const peers = new Map();           // 실시간 접속자: id → 캐릭터
+  let online = false, said = { text: '', sid: 0, until: 0 }, sentAt = 0, lastSent = null, force = true;
+  const spread = { f: Math.random() * 1.6, s: (Math.random() - 0.5) * 2.4 };   // 접속자들이 같은 자리에 겹치지 않게
+  const refresh = () => ui?.set(home?.label || '…', people.length, online, peers.size + 1);
   const rand = (a, b) => a + Math.random() * (b - a);
   const place = c => { const p = collider.resolve({ x: rand(area.x0, area.x1), z: rand(area.z0, area.z1) }); c.tx = p.x; c.tz = p.z; };
 
@@ -206,24 +213,50 @@ export function createVillage(scene, { ground, collider, camera, walker, data })
       c.x = c.tx = p.x; c.z = c.tz = p.z; if (front) c.wait = rand(4, 12);
       people.push(c);
     });
-    ui?.set(me?.spec.label || '…', people.length);
+    refresh();
   });
 
-  function spawnMe(home) {
-    const spec = { label: home.label, town: home.town, look: lookFrom(home.label) };
+  // 내가 한 말은 몇 초 동안 위치와 함께 보내서, 늦게 받은 사람도 보게 한다
+  function speak(text, sec = 4) { me?.say(text, sec); said = { text, sid: said.sid + 1, until: performance.now() + sec * 1000 }; force = true; }
+
+  function spawnMe(h) {
+    home = h;
+    const spec = { label: home.label, town: home.town, look: lookFrom(home.label + presence.id) };
     me?.dispose();
-    me = makeCharacter(scene, spec, true);
+    me = makeCharacter(scene, spec, 'me');
     const v = walker.view;
     me.x = v.x - Math.sin(v.yaw) * 4.2 + Math.cos(v.yaw) * 1.9; me.z = v.z - Math.cos(v.yaw) * 4.2 - Math.sin(v.yaw) * 1.9;
     me.tx = me.x; me.tz = me.z; me.speed = 2.2; me.group.visible = !meHidden;
-    me.say(home.town ? `${home.town}에서 왔어요! 반가워요 👋` : '안녕하세요! 놀러 왔어요 👋', 4.5);
+    speak(home.town ? `${home.town}에서 왔어요! 반가워요 👋` : '안녕하세요! 놀러 왔어요 👋', 4.5);
     // 가까운 주민 둘이 반겨 준다
     setTimeout(() => {
       people.map(c => [c, Math.hypot(c.x - me.x, c.z - me.z)]).sort((a, b) => a[1] - b[1]).slice(0, 2)
         .forEach(([c], i) => setTimeout(() => c.say(`${home.label}님, ${c.spec.lines[0]}`), i * 1400));
     }, 2600);
-    ui?.set(home.label, people.length);
+    refresh();
   }
+
+  // 실시간 접속자
+  function nearestVillager(x, z) { return people.map(c => [c, Math.hypot(c.x - x, c.z - z)]).sort((a, b) => a[1] - b[1])[0]?.[0]; }
+  const presence = createPresence({
+    bounds: collider.bounds || { x0: -95, x1: 226, z0: 358, z1: -112 },
+    onStatus(s) { online = s === 'on'; if (online) force = true; refresh(); },
+    onLeave(id) { const c = peers.get(id); if (c) { c.dispose(); peers.delete(id); refresh(); } },
+    onPeer(m) {
+      if (window.JH_DEBUG && !peers.has(m.id)) console.info('[presence] new peer', m.id, m.label);
+      let c = peers.get(m.id);
+      if (c && c.spec.label !== m.label) { c.dispose(); peers.delete(m.id); c = null; }
+      if (!c) {
+        c = makeCharacter(scene, { label: m.label, lines: [], look: lookFrom(m.label + m.id) }, 'peer');
+        c.x = c.tx = m.x; c.z = c.tz = m.z; c.lastSid = 0;
+        peers.set(m.id, c); refresh();
+        const v = nearestVillager(m.x, m.z);
+        if (v && Math.hypot(v.x - m.x, v.z - m.z) < 12) setTimeout(() => v.say(`${m.label}님 오셨네요! ${v.spec.lines[0]}`), 900);
+      }
+      c.tx = m.x; c.tz = m.z; c.seen = performance.now(); c.remoteYaw = m.yaw;
+      if (m.say && m.sid !== c.lastSid) { c.lastSid = m.sid; c.say(m.say, 4); }
+    },
+  });
 
   ui = chip(
     async () => {
@@ -236,6 +269,11 @@ export function createVillage(scene, { ground, collider, camera, walker, data })
       const h = t && setTown(t); if (h) spawnMe(h);
     },
     () => { meHidden = !meHidden; if (me) me.group.visible = !meHidden; },
+    () => {
+      const t = prompt('한마디 (40자까지, 접속한 모두에게 보입니다)', '');
+      const s = String(t || '').replace(/[\u0000-\u001f<>]/g, '').trim().slice(0, 40);
+      if (s) speak(s, 5);
+    },
   );
   hometown().then(spawnMe);
 
@@ -288,9 +326,27 @@ export function createVillage(scene, { ground, collider, camera, walker, data })
       c.nextChat -= dt;
       if (c.nextChat <= 0) { c.nextChat = rand(14, 34); if (c.talk <= 0 && near < 30) c.say(c.spec.lines[Math.floor(Math.random() * c.spec.lines.length)], 3); }
     }
+    // 접속자: 받은 위치를 따라 걷고, 12초 동안 소식이 없으면 사라진다
+    const now = performance.now();
+    for (const [id, c] of peers) {
+      if (now - c.seen > 12000) { if (window.JH_DEBUG) console.info('[presence] stale', id, now, c.seen); c.dispose(); peers.delete(id); refresh(); continue; }
+      const d = Math.hypot(c.tx - c.x, c.tz - c.z);
+      if (d > 15) { c.x = c.tx; c.z = c.tz; }
+      c.face = c.remoteYaw;
+      step(c, dt, elapsed, Math.max(1.4, d * 2.2));
+    }
+    // 내 위치 보내기: 움직이면 0.25초마다, 가만있으면 3초마다
+    if (me && home && !document.hidden && presence.online) {
+      const px = meHidden ? walker.view.x : me.x, pz = meHidden ? walker.view.z : me.z;
+      const moved = !lastSent || Math.hypot(px - lastSent.x, pz - lastSent.z) > 0.08;
+      if (force || (moved && now - sentAt > 250) || now - sentAt > 3000) {
+        force = false; sentAt = now; lastSent = { x: px, z: pz };
+        presence.send({ label: home.label, x: px, z: pz, yaw: me.yaw, say: now < said.until ? said.text : '', sid: said.sid });
+      }
+    }
     if (me && !meHidden) {
       // 나는 시선 앞 오른쪽 4m쯤에서 같이 걷는다. 멀어지면(순간이동 뒤) 바로 옆에 나타난다
-      const v = walker.view, ax = v.x - Math.sin(v.yaw) * 4.2 + Math.cos(v.yaw) * 1.9, az = v.z - Math.cos(v.yaw) * 4.2 - Math.sin(v.yaw) * 1.9;
+      const v = walker.view, fw = 3.8 + spread.f, sd = 1.9 + spread.s, ax = v.x - Math.sin(v.yaw) * fw + Math.cos(v.yaw) * sd, az = v.z - Math.cos(v.yaw) * fw - Math.sin(v.yaw) * sd;
       if (Math.hypot(me.x - v.x, me.z - v.z) > 14) { const p = collider.resolve({ x: ax, z: az }); me.x = me.tx = p.x; me.z = me.tz = p.z; }
       if (Math.hypot(ax - me.tx, az - me.tz) > 0.8) { me.tx = ax; me.tz = az; }
       me.group.visible = !walker.flying;
@@ -298,5 +354,6 @@ export function createVillage(scene, { ground, collider, camera, walker, data })
       step(me, dt, elapsed, Math.max(2.2, Math.hypot(ax - me.x, az - me.z) * 1.6));
     }
   }
+  if (window.JH_DEBUG) window.__village = { peers, people, get me() { return me; } };
   return { update, get me() { return me; }, people };
 }

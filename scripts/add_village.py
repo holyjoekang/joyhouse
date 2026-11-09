@@ -6,6 +6,7 @@
 - src/main.js             src/world/village.js 를 불러 매 프레임 움직이게 한다
 캐릭터는 src/world/village.js 가 캔버스로 직접 그리는 2D 꼬마 캐릭터다 (외부 게임 그림은 쓰지 않는다).
 접속자 캐릭터의 동네는 src/core/hometown.js 가 정한다 (IP 기준 도시 → 원하면 위치 허용으로 동 단위).
+실시간 접속자는 src/core/presence.js 가 공개 MQTT 브로커(WebSocket)로 주고받는다 — 접속 번호·이름표·가상 좌표·말풍선만.
 """
 import json
 from pathlib import Path
