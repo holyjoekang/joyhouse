@@ -1,0 +1,351 @@
+{
+ "_note": "3D 집 앞마당 기본 주민. label 이 이름표, lines 는 가까이 가면 하는 말. 생김새는 src/world/village.js 가 그린다.",
+ "area": {
+  "x0": -13,
+  "x1": 15,
+  "z0": 3,
+  "z1": 40
+ },
+ "villagers": [
+  {
+   "id": "v01",
+   "town": "부산",
+   "label": "부산러",
+   "lines": [
+    "어서 오이소!",
+    "바다 보러 함 오이소~"
+   ],
+   "look": {
+    "skin": "#ffe0c7",
+    "hair": "#3b2a20",
+    "style": "spiky",
+    "shirt": "#2f7de1",
+    "pants": "#2b2f45",
+    "acc": "cap"
+   }
+  },
+  {
+   "id": "v02",
+   "town": "대구",
+   "label": "대구러",
+   "lines": [
+    "반갑데이~",
+    "여 덥제? 쪼매 쉬다 가라"
+   ],
+   "look": {
+    "skin": "#fcd5b5",
+    "hair": "#1f1a17",
+    "style": "bob",
+    "shirt": "#e2524a",
+    "pants": "#3a3f58",
+    "acc": ""
+   }
+  },
+  {
+   "id": "v03",
+   "town": "광주",
+   "label": "광주러",
+   "lines": [
+    "어서 오시랑께!",
+    "밥은 묵었소?"
+   ],
+   "look": {
+    "skin": "#f5c9a6",
+    "hair": "#5a3b26",
+    "style": "pony",
+    "shirt": "#f2b134",
+    "pants": "#334",
+    "acc": "ribbon"
+   }
+  },
+  {
+   "id": "v04",
+   "town": "대전",
+   "label": "대전러",
+   "lines": [
+    "어서 와유~",
+    "천천히 둘러봐유"
+   ],
+   "look": {
+    "skin": "#ffe8d6",
+    "hair": "#2a211c",
+    "style": "short",
+    "shirt": "#6cc070",
+    "pants": "#2d3348",
+    "acc": "glasses"
+   }
+  },
+  {
+   "id": "v05",
+   "town": "울산",
+   "label": "울산러",
+   "lines": [
+    "반갑심더!",
+    "고래 보러 온나"
+   ],
+   "look": {
+    "skin": "#efc09a",
+    "hair": "#40302a",
+    "style": "spiky",
+    "shirt": "#1fb5ad",
+    "pants": "#2b2f45",
+    "acc": ""
+   }
+  },
+  {
+   "id": "v06",
+   "town": "제주",
+   "label": "제주러",
+   "lines": [
+    "혼저 옵서예!",
+    "귤 하나 드릴까마씸?"
+   ],
+   "look": {
+    "skin": "#ffe0c7",
+    "hair": "#2e2018",
+    "style": "bun",
+    "shirt": "#ff8a3d",
+    "pants": "#45506b",
+    "acc": "flower"
+   }
+  },
+  {
+   "id": "v07",
+   "town": "강릉",
+   "label": "강릉러",
+   "lines": [
+    "왔드래요?",
+    "커피 한 잔 하고 가래요"
+   ],
+   "look": {
+    "skin": "#fcd5b5",
+    "hair": "#1d1d24",
+    "style": "short",
+    "shirt": "#8a6cf0",
+    "pants": "#2b2f45",
+    "acc": "beanie"
+   }
+  },
+  {
+   "id": "v08",
+   "town": "전주",
+   "label": "전주러",
+   "lines": [
+    "오메, 반갑네잉",
+    "비빔밥 묵고 가쇼잉"
+   ],
+   "look": {
+    "skin": "#f5c9a6",
+    "hair": "#6b4430",
+    "style": "long",
+    "shirt": "#e85d9c",
+    "pants": "#3a3f58",
+    "acc": ""
+   }
+  },
+  {
+   "id": "v09",
+   "town": "춘천",
+   "label": "춘천러",
+   "lines": [
+    "닭갈비 먹으러 와요~",
+    "호수 산책 좋아요"
+   ],
+   "look": {
+    "skin": "#ffe8d6",
+    "hair": "#2a2420",
+    "style": "bob",
+    "shirt": "#4fa3e0",
+    "pants": "#2d3348",
+    "acc": "glasses"
+   }
+  },
+  {
+   "id": "v10",
+   "town": "포항",
+   "label": "포항러",
+   "lines": [
+    "반갑니더!",
+    "과메기 철이라예"
+   ],
+   "look": {
+    "skin": "#efc09a",
+    "hair": "#30251f",
+    "style": "spiky",
+    "shirt": "#d9534f",
+    "pants": "#2b2f45",
+    "acc": "cap"
+   }
+  },
+  {
+   "id": "v11",
+   "town": "여수",
+   "label": "여수러",
+   "lines": [
+    "밤바다 보러 오셨소?",
+    "반갑소잉~"
+   ],
+   "look": {
+    "skin": "#ffe0c7",
+    "hair": "#4a3122",
+    "style": "long",
+    "shirt": "#3cc4e8",
+    "pants": "#334",
+    "acc": "ribbon"
+   }
+  },
+  {
+   "id": "v12",
+   "town": "수원",
+   "label": "수원러",
+   "lines": [
+    "화성 한 바퀴 어때요?",
+    "통닭 먹고 가요!"
+   ],
+   "look": {
+    "skin": "#fcd5b5",
+    "hair": "#26201c",
+    "style": "short",
+    "shirt": "#f07a2b",
+    "pants": "#2b2f45",
+    "acc": ""
+   }
+  },
+  {
+   "id": "v13",
+   "town": "인천",
+   "label": "인천러",
+   "lines": [
+    "반가워요~ 바닷바람 좋죠?",
+    "짜장면 원조 동네예요"
+   ],
+   "look": {
+    "skin": "#f5c9a6",
+    "hair": "#1c1a1a",
+    "style": "pony",
+    "shirt": "#5b8def",
+    "pants": "#3a3f58",
+    "acc": ""
+   }
+  },
+  {
+   "id": "v14",
+   "town": "청주",
+   "label": "청주러",
+   "lines": [
+    "어서 와유",
+    "직지 아시쥬?"
+   ],
+   "look": {
+    "skin": "#ffe8d6",
+    "hair": "#3d2c22",
+    "style": "bun",
+    "shirt": "#9bc94b",
+    "pants": "#2d3348",
+    "acc": "flower"
+   }
+  },
+  {
+   "id": "v15",
+   "town": "목포",
+   "label": "목포러",
+   "lines": [
+    "오메 반가운 거",
+    "유달산 가봤소?"
+   ],
+   "look": {
+    "skin": "#efc09a",
+    "hair": "#2b1f19",
+    "style": "short",
+    "shirt": "#f4c430",
+    "pants": "#2b2f45",
+    "acc": "beanie"
+   }
+  },
+  {
+   "id": "v16",
+   "town": "안동",
+   "label": "안동러",
+   "lines": [
+    "어서 오시소",
+    "하회마을 구경 왔니껴?"
+   ],
+   "look": {
+    "skin": "#ffe0c7",
+    "hair": "#211c19",
+    "style": "long",
+    "shirt": "#7a6bd8",
+    "pants": "#3a3f58",
+    "acc": ""
+   }
+  },
+  {
+   "id": "v17",
+   "town": "창원",
+   "label": "창원러",
+   "lines": [
+    "반갑습니더~",
+    "진해 벚꽃 보러 오이소"
+   ],
+   "look": {
+    "skin": "#fcd5b5",
+    "hair": "#4b3527",
+    "style": "bob",
+    "shirt": "#ff6f91",
+    "pants": "#2d3348",
+    "acc": "ribbon"
+   }
+  },
+  {
+   "id": "v18",
+   "town": "천안",
+   "label": "천안러",
+   "lines": [
+    "호두과자 드실래유?",
+    "반가워유~"
+   ],
+   "look": {
+    "skin": "#f5c9a6",
+    "hair": "#30251f",
+    "style": "spiky",
+    "shirt": "#c58b3a",
+    "pants": "#2b2f45",
+    "acc": "cap"
+   }
+  },
+  {
+   "id": "v19",
+   "town": "판교",
+   "label": "판교러",
+   "lines": [
+    "커밋하다 잠깐 나왔어요",
+    "점심 뭐 먹지?"
+   ],
+   "look": {
+    "skin": "#ffe8d6",
+    "hair": "#141418",
+    "style": "short",
+    "shirt": "#3a3f4a",
+    "pants": "#24273a",
+    "acc": "glasses"
+   }
+  },
+  {
+   "id": "v20",
+   "town": "잠실",
+   "label": "잠실러",
+   "lines": [
+    "석촌호수 한 바퀴 했어요",
+    "롯데타워 보이죠?"
+   ],
+   "look": {
+    "skin": "#efc09a",
+    "hair": "#5c3a28",
+    "style": "pony",
+    "shirt": "#ffffff",
+    "pants": "#2f3a5a",
+    "acc": "cap"
+   }
+  }
+ ]
+}
