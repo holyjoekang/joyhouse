@@ -166,7 +166,7 @@ const collider = makeCollider(blocks, house.site);
 const hud = new Hud();
 const walker = createWalker(camera, collider, house.start, { onFade: v => hud.fade(v), ground: (x, z) => Math.max(site.groundAt(x, z), park ? park.ground(x, z) : 0) });
 // 마을 주민: 전국 각지 출신 20명이 앞마당을 거닐고, 접속자도 동네 이름표를 단 캐릭터로 나타난다
-const village = createVillage(scene, { ground: (x, z) => site.groundAt(x, z), collider, camera, walker, data });
+const village = createVillage(scene, { ground: (x, z) => site.groundAt(x, z), collider, camera, walker, data, renderer });
 tickers.push(village.update);
 
 function whereIs(x, z) {

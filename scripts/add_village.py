@@ -60,7 +60,7 @@ if "createVillage" not in s:
     i = s.index(anchor)
     j = s.index("\n", i) + 1
     s = s[:j] + ("// 마을 주민: 전국 각지 출신 20명이 앞마당을 거닐고, 접속자도 동네 이름표를 단 캐릭터로 나타난다\n"
-                 "const village = createVillage(scene, { ground: (x, z) => site.groundAt(x, z), collider, camera, walker, data });\n"
+                 "const village = createVillage(scene, { ground: (x, z) => site.groundAt(x, z), collider, camera, walker, data, renderer });\n"
                  "tickers.push(village.update);\n") + s[j:]
     main.write_text(s, encoding="utf-8")
     print("  src/main.js")

@@ -2,6 +2,7 @@
 // 기본 주민(content/villagers.json, 전국 각지 출신 20명)과, 접속하면 생기는 '나' 캐릭터(동네 이름표: 잠실러·판교러…).
 // 캐릭터는 이 파일이 기본 도형으로 직접 만드는 3D 꼬마 캐릭터다(큰 머리·작은 몸, 만화풍 음영). 외부 게임 그림·모델은 쓰지 않는다.
 import * as THREE from 'three';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { hometown, byPosition, setTown } from '../core/hometown.js';
 import { createPresence } from '../core/presence.js';
 
@@ -34,6 +35,28 @@ const GEO = {
   smile: new THREE.TorusGeometry(1, 0.28, 6, 16, Math.PI),
   disc: new THREE.CircleGeometry(1, 20),
 };
+// 모든 캐릭터가 함께 쓰는 재질 하나(정점 색 + 만화풍 음영). 밤에도 보이게 정점 색의 28%를 스스로 빛나게 한다
+const BODY = new THREE.MeshToonMaterial({ vertexColors: true, gradientMap: GRAD, side: THREE.DoubleSide });
+BODY.onBeforeCompile = s => { s.fragmentShader = s.fragmentShader.replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n\ttotalEmissiveRadiance += vColor.rgb * 0.28;'); };
+const SHADOW = new THREE.MeshBasicMaterial({ color: '#000000', transparent: true, opacity: 0.22, depthWrite: false });
+function mix(a, b, k) { return '#' + new THREE.Color(a).lerp(new THREE.Color(b), k).getHexString(); }
+// 묶음(Group)의 자식 메시들을 정점 색을 단 하나의 메시로 합친다
+function bake(group) {
+  const parts = [];
+  for (const m of group.children) {
+    if (!m.isMesh) continue;
+    m.updateMatrix();
+    const g = m.geometry.clone().applyMatrix4(m.matrix);
+    const c = m.material.color, n = g.attributes.position.count, col = new Float32Array(n * 3);
+    for (let i = 0; i < n; i++) { col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b; }
+    g.setAttribute('color', new THREE.BufferAttribute(col, 3));
+    parts.push(g);
+  }
+  const merged = mergeGeometries(parts);
+  parts.forEach(g => g.dispose());
+  group.clear();
+  group.add(new THREE.Mesh(merged, BODY));
+}
 function mesh(geo, material, [x = 0, y = 0, z = 0] = [], [sx = 1, sy = sx, sz = sx] = [], [rx = 0, ry = 0, rz = 0] = []) {
   const m = new THREE.Mesh(GEO[geo], material);
   m.position.set(x, y, z); m.scale.set(sx, sy, sz); m.rotation.set(rx, ry, rz);
@@ -50,7 +73,8 @@ function buildBody(L) {
     rig.add(g); return g;
   });
   // 몸통
-  rig.add(mesh('torso', shirt, [0, 0.5, 0], [0.16, 0.12, 0.135]), mesh('sphere', mat(shade(L.shirt, 0.86)), [0, 0.6, 0.11], [0.06, 0.03, 0.03]));
+  const torso = new THREE.Group(); rig.add(torso);
+  torso.add(mesh('torso', shirt, [0, 0.5, 0], [0.16, 0.12, 0.135]), mesh('sphere', mat(shade(L.shirt, 0.86)), [0, 0.6, 0.11], [0.06, 0.03, 0.03]));
   // 팔 (어깨 축)
   const arms = [-1, 1].map(s => {
     const g = new THREE.Group(); g.position.set(s * 0.2, 0.6, 0); g.rotation.z = s * 0.18;
@@ -61,7 +85,7 @@ function buildBody(L) {
   const head = new THREE.Group(); head.position.y = 0.94; rig.add(head);
   head.add(mesh('sphere', skin, [0, 0, 0], [0.31, 0.29, 0.295]));
   // 얼굴: 큰 눈 + 반짝임, 볼터치, 웃는 입
-  const eye = mat('#2b1d16'), white = mat('#ffffff', { basic: true }), blush = mat('#ff8a95', { basic: true, transparent: true, opacity: 0.45 });
+  const eye = mat('#2b1d16'), white = mat('#ffffff', { basic: true }), blush = mat(mix(L.skin, '#ff8a95', 0.45));
   for (const s of [-1, 1]) {
     head.add(mesh('sphere', eye, [s * 0.1, -0.015, 0.272], [0.042, 0.06, 0.02]));
     head.add(mesh('sphere', white, [s * 0.1 - 0.014, 0.012, 0.288], [0.014]));
@@ -96,7 +120,9 @@ function buildBody(L) {
     head.add(mesh('sphere', mat('#ff9f1c'), [-0.23, 0.2, 0.13], [0.025]));
   }
   // 바닥 그림자
-  const shadow = mesh('disc', mat('#000000', { basic: true, transparent: true, opacity: 0.22, depthWrite: false }), [0, 0.012, 0], [0.26], [-Math.PI / 2, 0, 0]);
+  const shadow = new THREE.Mesh(GEO.disc, SHADOW); shadow.position.y = 0.012; shadow.scale.setScalar(0.26); shadow.rotation.x = -Math.PI / 2;
+  // 부품 30여 개를 묶음마다 한 덩어리로 굽는다 (다리·팔·몸통·머리 = 그리기 6번)
+  [...legs, ...arms, torso, head].forEach(bake);
   return { rig, legs, arms, head, shadow };
 }
 
@@ -162,7 +188,7 @@ function makeCharacter(scene, spec, kind) {
       const h = 0.34 + (aspect < 3 ? 0.18 : 0);
       bubble.scale.set(h * aspect, h, 1); bubble.visible = true; this.talk = sec;
     },
-    dispose() { scene.remove(group); tag.material.map?.dispose(); bubble.material.map?.dispose(); },
+    dispose() { scene.remove(group); group.traverse(o => { if (o.isMesh && o.material === BODY) o.geometry.dispose(); }); tag.material.map?.dispose(); bubble.material.map?.dispose(); },
   };
 }
 
@@ -193,7 +219,7 @@ function chip(onLocate, onRename, onToggle, onSay) {
   return { set(label, count, online, live) { el.querySelector('b').textContent = label; el.querySelector('.n').textContent = online ? `· 지금 ${live}명 접속 · 주민 ${count}명` : `· 주민 ${count}명과 함께`; } };
 }
 
-export function createVillage(scene, { ground, collider, camera, walker, data }) {
+export function createVillage(scene, { ground, collider, camera, walker, data, renderer }) {
   const people = [];
   let area = { x0: -13, x1: 15, z0: 5, z1: 40 }, me = null, meHidden = false, ui = null, home = null;
   const peers = new Map();           // 실시간 접속자: id → 캐릭터
@@ -203,18 +229,31 @@ export function createVillage(scene, { ground, collider, camera, walker, data })
   const rand = (a, b) => a + Math.random() * (b - a);
   const place = c => { const p = collider.resolve({ x: rand(area.x0, area.x1), z: rand(area.z0, area.z1) }); c.tx = p.x; c.tz = p.z; };
 
-  data('content/villagers.json').then(d => {
+  // 첫 화면을 막지 않게: 집이 뜨고 한숨 돌린 뒤, 캐릭터 재질을 화면을 멈추지 않고 미리 컴파일하고,
+  // 주민은 한 프레임에 한 명씩 등장시킨다
+  const idle = ms => new Promise(r => setTimeout(() => (window.requestIdleCallback || setTimeout)(r, { timeout: 1500 }), ms));
+  const pending = [];
+  const warm = (async () => {
+    await idle(1200);
+    const probe = makeCharacter(new THREE.Group(), { label: '·', look: { skin: '#ffe0c7', hair: '#222', style: 'bob', shirt: '#888', pants: '#333', acc: '' } }, 'me');
+    try { await renderer?.compileAsync(probe.group, camera, scene); } catch {}
+    probe.dispose();
+  })();
+  Promise.all([data('content/villagers.json'), warm]).then(([d]) => {
     if (!d) return;
     if (d.area) area = d.area;
-    d.villagers.forEach((v, i) => {
+    d.villagers.forEach((v, i) => pending.push([v, i]));
+  });
+  function addVillager([v, i]) {
+    {
       const c = makeCharacter(scene, v, false);
       const front = i % 3 === 0;   // 셋 중 하나는 정문 앞(첫 화면에 보이는 자리)에서 시작
       const p = collider.resolve(front ? { x: rand(-9, 9), z: rand(area.z0 - 1, 6) } : { x: rand(area.x0, area.x1), z: rand(area.z0, area.z1) });
       c.x = c.tx = p.x; c.z = c.tz = p.z; if (front) c.wait = rand(4, 12);
       people.push(c);
-    });
+    }
     refresh();
-  });
+  }
 
   // 내가 한 말은 몇 초 동안 위치와 함께 보내서, 늦게 받은 사람도 보게 한다
   function speak(text, sec = 4) { me?.say(text, sec); said = { text, sid: said.sid + 1, until: performance.now() + sec * 1000 }; force = true; }
@@ -275,7 +314,7 @@ export function createVillage(scene, { ground, collider, camera, walker, data })
       if (s) speak(s, 5);
     },
   );
-  hometown().then(spawnMe);
+  Promise.all([hometown(), warm]).then(([h]) => spawnMe(h));
 
   const cam = new THREE.Vector3();
   function step(c, dt, el, speed) {
@@ -307,6 +346,7 @@ export function createVillage(scene, { ground, collider, camera, walker, data })
 
   function update(dt, elapsed) {
     dt = Math.min(dt, 0.1);
+    if (pending.length) addVillager(pending.shift());   // 한 프레임에 한 명
     camera.getWorldPosition(cam);
     const far = Math.hypot(cam.x - (area.x0 + area.x1) / 2, cam.z - (area.z0 + area.z1) / 2) > 140 || walker.flying && walker.alt > 90;
     for (const c of people) {

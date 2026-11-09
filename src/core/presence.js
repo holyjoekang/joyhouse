@@ -66,6 +66,6 @@ export function createPresence({ bounds, onPeer, onLeave, onStatus: report }) {
   const bye = () => { try { client?.connected && client.publish(`${TOPIC}/bye`, JSON.stringify({ i: id })); } catch {} };
   addEventListener('pagehide', bye);
 
-  connect();
+  setTimeout(connect, 3000);   // 첫 화면이 자리 잡은 뒤에 붙는다
   return { id, send, get online() { return !!client?.connected; } };
 }
