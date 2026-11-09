@@ -41,10 +41,17 @@
   <div class="bar"><i></i></div><small>방 안의 그림과 책은 집에 들어서면 차례로 채워집니다</small>
 </div></div>
 <script>
+  const bootTimer = setTimeout(function () {
+    const boot = document.getElementById('boot');
+    if (!boot || boot.classList.contains('done')) return;
+    const help = document.createElement('p');
+    help.innerHTML = '<a href="3d.html?q=low" style="color:#14213d">가벼운 화질로 다시 열기</a> · <a href="index.html" style="color:#14213d">2D 홈페이지 보기</a>';
+    boot.querySelector('.box').append(help);
+  }, 20000);
   window.__joyBoot = function (msg) {
     var el = document.getElementById('boot');
     if (!el) return;
-    if (msg === null) { el.classList.add('done'); setTimeout(function () { el.remove(); }, 700); return; }
+    if (msg === null) { clearTimeout(bootTimer); el.classList.add('done'); setTimeout(function () { el.remove(); }, 700); return; }
     document.getElementById('bootMsg').textContent = msg;
   };
 </script>

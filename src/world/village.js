@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { hometown, byPosition, setTown } from '../core/hometown.js';
 import { createPresence } from '../core/presence.js';
+import { createChat } from '../ui3d/chat.js';
 
 const FONT = '"Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif';
 const TOP = 1.32;                                  // 머리 꼭대기 높이(m) — 이름표·말풍선 기준
@@ -24,10 +25,10 @@ const mat = (color, extra) => {
   return MATS.get(k);
 };
 const GEO = {
-  sphere: new THREE.SphereGeometry(1, 24, 16),
-  cap: new THREE.SphereGeometry(1, 24, 12, 0, Math.PI * 2, 0, Math.PI * 0.5),
+  sphere: new THREE.SphereGeometry(1, 16, 10),
+  cap: new THREE.SphereGeometry(1, 16, 8, 0, Math.PI * 2, 0, Math.PI * 0.5),
   // 얼굴 쪽(+z)을 비운 머리카락 (단발·긴머리)
-  bob: new THREE.SphereGeometry(1, 24, 14, Math.PI / 2 + 0.95, Math.PI * 2 - 1.9, 0, Math.PI * 0.72),
+  bob: new THREE.SphereGeometry(1, 16, 10, Math.PI / 2 + 0.95, Math.PI * 2 - 1.9, 0, Math.PI * 0.72),
   limb: new THREE.CylinderGeometry(1, 0.85, 1, 12),
   cone: new THREE.ConeGeometry(1, 1, 10),
   torso: new THREE.CapsuleGeometry(1, 0.8, 6, 16),
@@ -64,6 +65,10 @@ function mesh(geo, material, [x = 0, y = 0, z = 0] = [], [sx = 1, sy = sx, sz = 
 }
 
 function buildBody(L) {
+  // Stable silhouettes: accessories are baked into the existing six body meshes.
+  const profile = L.profile || 'classic';
+  const height = { classic: 1, tall: 1.18, compact: 0.86, broad: 1.04 }[profile] || 1;
+  const width = profile === 'broad' ? 1.22 : profile === 'tall' ? 0.94 : 1;
   const rig = new THREE.Group();
   const skin = mat(L.skin), hair = mat(L.hair, { side: THREE.DoubleSide }), shirt = mat(L.shirt), pants = mat(L.pants), dark = mat('#2b2522');
   // 다리 (엉덩이 축으로 흔든다)
@@ -75,6 +80,22 @@ function buildBody(L) {
   // 몸통
   const torso = new THREE.Group(); rig.add(torso);
   torso.add(mesh('torso', shirt, [0, 0.5, 0], [0.16, 0.12, 0.135]), mesh('sphere', mat(shade(L.shirt, 0.86)), [0, 0.6, 0.11], [0.06, 0.03, 0.03]));
+  if (L.outfit === 'coat') {
+    torso.add(mesh('torso', shirt, [0, 0.40, 0], [0.19, 0.17, 0.15]));
+    for (const y of [0.37, 0.47, 0.57]) torso.add(mesh('sphere', dark, [0, y, 0.15], [0.014]));
+  } else if (L.outfit === 'dress') {
+    torso.add(mesh('cone', shirt, [0, 0.36, 0], [0.25, 0.38, 0.21]));
+  } else if (L.outfit === 'vest') {
+    for (const side of [-1, 1]) torso.add(mesh('torso', mat('#e7dcc8'), [side * 0.095, 0.51, 0.08], [0.055, 0.11, 0.09]));
+  }
+  if (L.bag) {
+    torso.add(mesh('torso', mat('#a76c48'), [0, 0.50, -0.16], [0.13, 0.12, 0.075]));
+    for (const side of [-1, 1]) torso.add(mesh('limb', mat('#a76c48'), [side * 0.105, 0.54, 0.12], [0.018, 0.20, 0.015]));
+  }
+  if (L.scarf) {
+    torso.add(mesh('ring', mat(L.scarf), [0, 0.66, 0], [0.115], [Math.PI / 2, 0, 0]));
+    torso.add(mesh('limb', mat(L.scarf), [0.08, 0.55, 0.14], [0.035, 0.21, 0.025], [0, 0, -0.18]));
+  }
   // 팔 (어깨 축)
   const arms = [-1, 1].map(s => {
     const g = new THREE.Group(); g.position.set(s * 0.2, 0.6, 0); g.rotation.z = s * 0.18;
@@ -123,7 +144,8 @@ function buildBody(L) {
   const shadow = new THREE.Mesh(GEO.disc, SHADOW); shadow.position.y = 0.012; shadow.scale.setScalar(0.26); shadow.rotation.x = -Math.PI / 2;
   // 부품 30여 개를 묶음마다 한 덩어리로 굽는다 (다리·팔·몸통·머리 = 그리기 6번)
   [...legs, ...arms, torso, head].forEach(bake);
-  return { rig, legs, arms, head, shadow };
+  rig.scale.set(width, height, width);
+  return { rig, legs, arms, head, shadow, height };
 }
 
 function canvasTex(c) {
@@ -172,9 +194,9 @@ function makeCharacter(scene, spec, kind) {
   const group = new THREE.Group();
   const body = buildBody(spec.look);
   const tag = nameTag(mine ? `${spec.label} (나)` : kind === 'peer' ? `● ${spec.label}` : spec.label, kind);
-  tag.position.y = TOP + 0.14;
+  tag.position.y = TOP * body.height + 0.14;
   const bubble = spriteOf(null, 1, 0.4, 12);
-  bubble.center.set(0.5, 0); bubble.position.y = TOP + 0.3; bubble.visible = false;
+  bubble.center.set(0.5, 0); bubble.position.y = TOP * body.height + 0.3; bubble.visible = false;
   group.add(body.rig, body.shadow, tag, bubble);
   scene.add(group);
   return {
@@ -188,16 +210,17 @@ function makeCharacter(scene, spec, kind) {
       const h = 0.34 + (aspect < 3 ? 0.18 : 0);
       bubble.scale.set(h * aspect, h, 1); bubble.visible = true; this.talk = sec;
     },
-    dispose() { scene.remove(group); group.traverse(o => { if (o.isMesh && o.material === BODY) o.geometry.dispose(); }); tag.material.map?.dispose(); bubble.material.map?.dispose(); },
+    dispose() { scene.remove(group); group.traverse(o => { if (o.isMesh && o.material === BODY) o.geometry.dispose(); }); tag.material.map?.dispose(); bubble.material.map?.dispose(); tag.material.dispose(); bubble.material.dispose(); },
   };
 }
 
 // 내 캐릭터의 생김새는 이름표에서 정한다 (같은 동네면 같은 모습)
 function lookFrom(seed) {
   let h = 0; for (const ch of seed) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
-  const pick = a => a[(h = (h * 1103515245 + 12345) >>> 0) % a.length];
+  const pick = a => { h = (Math.imul(h, 1664525) + 1013904223) >>> 0; return a[Math.floor(h / 4294967296 * a.length)]; };
   return { skin: pick(['#ffe0c7', '#fcd5b5', '#f5c9a6', '#ffe8d6']), hair: pick(['#2a211c', '#5c3a28', '#141418', '#7a4a2a', '#c9853f']),
     style: pick(['spiky', 'bob', 'pony', 'short', 'bun', 'long']), shirt: pick(['#ff7a59', '#4fa3e0', '#7bc96f', '#b48cf2', '#ffd166', '#ef6f8e']),
+    profile: pick(['classic', 'tall', 'compact', 'broad']), outfit: pick(['coat', 'dress', 'vest', 'casual']), bag: pick([true, false, false]), scarf: pick(['', '#d99656', '#6f948b']),
     pants: pick(['#2b2f45', '#3a3f58', '#45506b']), acc: pick(['', 'cap', 'ribbon', 'glasses', 'flower', 'beanie']) };
 }
 
@@ -222,6 +245,11 @@ function chip(onLocate, onRename, onToggle, onSay) {
 export function createVillage(scene, { ground, collider, camera, walker, data, renderer }) {
   const people = [];
   let area = { x0: -13, x1: 15, z0: 5, z1: 40 }, me = null, meHidden = false, ui = null, home = null;
+  const chat = createChat({
+    send: (id, text) => presence.sendDirect(id, text),
+    peerOnline: id => presence.online && peers.has(id) && presence.canChat(id),
+    stopWalking: () => { walker.keys.clear(); walker.goal.x = walker.view.x; walker.goal.z = walker.view.z; },
+  });
   const peers = new Map();           // 실시간 접속자: id → 캐릭터
   let online = false, said = { text: '', sid: 0, until: 0 }, sentAt = 0, lastSent = null, force = true;
   const spread = { f: Math.random() * 1.6, s: (Math.random() - 0.5) * 2.4 };   // 접속자들이 같은 자리에 겹치지 않게
@@ -246,10 +274,11 @@ export function createVillage(scene, { ground, collider, camera, walker, data, r
   });
   function addVillager([v, i]) {
     {
-      const c = makeCharacter(scene, v, false);
+      const c = makeCharacter(scene, { ...v, look: { ...v.look, profile: ['classic', 'tall', 'compact', 'broad'][i % 4], outfit: ['coat', 'casual', 'vest', 'dress'][Math.floor(i / 4) % 4], bag: i % 3 === 0, scarf: i % 5 === 0 ? '#d99656' : '' } }, false);
       const front = i % 3 === 0;   // 셋 중 하나는 정문 앞(첫 화면에 보이는 자리)에서 시작
       const p = collider.resolve(front ? { x: rand(-9, 9), z: rand(area.z0 - 1, 6) } : { x: rand(area.x0, area.x1), z: rand(area.z0, area.z1) });
       c.x = c.tx = p.x; c.z = c.tz = p.z; if (front) c.wait = rand(4, 12);
+      c.rig.userData.character = { id: `resident-${i}`, label: v.label, npc: true, lines: v.lines };
       people.push(c);
     }
     refresh();
@@ -279,6 +308,10 @@ export function createVillage(scene, { ground, collider, camera, walker, data, r
   function nearestVillager(x, z) { return people.map(c => [c, Math.hypot(c.x - x, c.z - z)]).sort((a, b) => a[1] - b[1])[0]?.[0]; }
   const presence = createPresence({
     bounds: collider.bounds || { x0: -95, x1: 226, z0: 358, z1: -112 },
+    onDirect(message) {
+      const c = peers.get(message.from);
+      if (c) chat.receive({ id: message.from, label: c.spec.label }, message.text);
+    },
     onStatus(s) { online = s === 'on'; if (online) force = true; refresh(); },
     onLeave(id) { const c = peers.get(id); if (c) { c.dispose(); peers.delete(id); refresh(); } },
     onPeer(m) {
@@ -287,6 +320,7 @@ export function createVillage(scene, { ground, collider, camera, walker, data, r
       if (c && c.spec.label !== m.label) { c.dispose(); peers.delete(m.id); c = null; }
       if (!c) {
         c = makeCharacter(scene, { label: m.label, lines: [], look: lookFrom(m.label + m.id) }, 'peer');
+        c.rig.userData.character = { id: m.id, label: m.label };
         c.x = c.tx = m.x; c.z = c.tz = m.z; c.lastSid = 0;
         peers.set(m.id, c); refresh();
         const v = nearestVillager(m.x, m.z);
@@ -336,6 +370,9 @@ export function createVillage(scene, { ground, collider, camera, walker, data, r
     const ph = c.t * (5 + speed * 3), s = Math.sin(ph) * 0.65 * c.swing;
     c.legs[0].rotation.x = s; c.legs[1].rotation.x = -s;
     c.arms[0].rotation.x = -s * 0.9; c.arms[1].rotation.x = s * 0.9;
+    if (!moving && c.talk > 0) {
+      c.arms[1].rotation.z = -1.7 + Math.sin(c.t * 9) * 0.18;
+    } else c.arms[1].rotation.z = 0.18;
     c.rig.position.y = Math.abs(Math.sin(ph)) * 0.045 * c.swing;
     c.head.rotation.z = Math.sin(c.t * 1.7) * 0.05 * (1 - c.swing);
     c.head.position.y = 0.94 + Math.sin(c.t * 2.4) * 0.006 * (1 - c.swing);
@@ -352,18 +389,24 @@ export function createVillage(scene, { ground, collider, camera, walker, data, r
     for (const c of people) {
       const near = Math.hypot(cam.x - c.x, cam.z - c.z);
       c.group.visible = !far && near < 70;
-      if (far) continue;
+      c.tag.visible = near < 22;
+      c.shadow.visible = near < 35;
+      if (!c.group.visible) continue;
+      // Far residents update at 10 Hz; nearby greetings retain smooth animation.
+      c.updateDebt = (c.updateDebt || 0) + dt;
+      if (near > 25 && c.updateDebt < 0.1) continue;
+      const personDt = Math.min(c.updateDebt, 0.2); c.updateDebt = 0;
       if (near > 3.2) c.face = null;
       if (near < 3.2 && !walker.flying) {          // 가까이 오면 멈춰서 인사
         c.tx = c.x; c.tz = c.z; c.wait = 1.5; c.face = Math.atan2(cam.x - c.x, cam.z - c.z);   // 나를 돌아본다
         if (elapsed - c.greeted > 25) { c.greeted = elapsed; c.say(c.spec.lines[Math.floor(Math.random() * c.spec.lines.length)]); }
       }
-      const moving = step(c, dt, elapsed, c.speed);
+      const moving = step(c, personDt, elapsed, c.speed);
       if (!moving) {
-        c.wait -= dt;
+        c.wait -= personDt;
         if (c.wait <= 0) { place(c); c.wait = rand(1.5, 6); }
       }
-      c.nextChat -= dt;
+      c.nextChat -= personDt;
       if (c.nextChat <= 0) { c.nextChat = rand(14, 34); if (c.talk <= 0 && near < 30) c.say(c.spec.lines[Math.floor(Math.random() * c.spec.lines.length)], 3); }
     }
     // 접속자: 받은 위치를 따라 걷고, 12초 동안 소식이 없으면 사라진다
@@ -395,5 +438,7 @@ export function createVillage(scene, { ground, collider, camera, walker, data, r
     }
   }
   if (window.JH_DEBUG) window.__village = { peers, people, get me() { return me; } };
-  return { update, get me() { return me; }, people };
+  return { update, get me() { return me; }, people, chat,
+    get targets() { return [...people, ...peers.values()].filter(c => c.group.visible && Math.hypot(camera.position.x - c.x, camera.position.z - c.z) < 25).map(c => c.rig); },
+  };
 }

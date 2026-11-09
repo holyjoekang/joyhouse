@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { finishRoom } from './finish.js';
 import { makeFrame } from '../../exhibits/frame.js';
 import { makeBookshelf } from '../../exhibits/bookshelf.js';
 import { makeGlobe } from '../../exhibits/globe.js';
@@ -36,6 +37,7 @@ function onWall(room, wall, t) {
 }
 
 export async function furnish(room, spec, ctx) {
+  finishRoom(room);
   const items = spec?.items || (room.wing === 'hall' ? [] : [{
     type: 'sign', x: 0.5, z: 0.5, facing: 'south',
     title: `${room.name} — ${room.sub}`, text: '이 방은 2단계에서 채웁니다.',

@@ -1,3 +1,4 @@
+import { createDirect } from './direct.js';
 // 실시간 접속자 — 공개 MQTT 브로커(WebSocket)로 같은 3D 집에 들어온 사람끼리 위치·이름표·한마디를 주고받는다.
 // 서버를 따로 두지 않는다. 주고받는 것은 무작위 접속 번호, 동네 이름표, 가상 공간 좌표, 말풍선 글뿐이다.
 // 공개 브로커라 누구나 같은 주제를 읽을 수 있으므로 개인정보는 보내지 않는다.
@@ -17,21 +18,29 @@ function myId() {
 }
 
 // onPeer({ id, label, x, z, yaw, say, sid }) · onLeave(id) · onStatus('on' | 'off')
-export function createPresence({ bounds, onPeer, onLeave, onStatus: report }) {
+export function createPresence({ bounds, onPeer, onLeave, onStatus: report, onDirect = () => {} }) {
   const id = myId();
   const onStatus = s => { if (window.JH_DEBUG) console.info('[presence]', id, s); report(s); };
   let client = null;
+  const direct = createDirect(id, (who, packet) => new Promise((resolve, reject) => {
+    if (!client?.connected) return reject(Error('연결이 끊겼습니다. 다시 연결된 뒤 보내 주세요.'));
+    client.publish(`${TOPIC}/dm/${who}`, JSON.stringify(packet), { qos: 0, retain: false }, error => error ? reject(error) : resolve());
+  }), onDirect);
 
   let got = 0;
   function onMessage(topic, buf) {
     if (window.JH_DEBUG && ++got % 5 === 1) console.info('[presence] recv', id, got, topic);
+    if (buf.length > 9000) return;
     let m;
     try { m = JSON.parse(buf.toString()); } catch { return; }
+    if (!m || typeof m !== 'object') return;
+    if (topic === `${TOPIC}/dm/${id}`) { direct.accept(m); return; }
     if (topic.endsWith('/bye')) { const who = clean(m.i ?? buf.toString(), 16); if (who && who !== id) onLeave(who); return; }
     const who = clean(m.i, 16);
     if (!who || who === id) return;
     const x = num(m.x, bounds.x0, bounds.x1), z = num(m.z, bounds.z1, bounds.z0);
     if (x == null || z == null) return;
+    direct.remember(who, m.k);
     try { onPeer({ id: who, label: clean(m.l, 12) || '방문러', x, z, yaw: num(m.y, -10, 10) ?? 0, say: clean(m.s, 40), sid: num(m.n, 0, 1e9) ?? 0 }); } catch (e) { if (window.JH_DEBUG) console.warn('[presence] peer', e); }
   }
 
@@ -53,19 +62,19 @@ export function createPresence({ bounds, onPeer, onLeave, onStatus: report }) {
     if (!client) { onStatus('off'); setTimeout(connect, 30000); return; }
     client.options.reconnectPeriod = 5000;   // 연결된 뒤에는 끊겨도 다시 붙는다
     client.on('message', onMessage);
-    client.on('connect', () => { client.subscribe([`${TOPIC}/p`, `${TOPIC}/bye`]); onStatus('on'); });
+    client.on('connect', () => { client.subscribe([`${TOPIC}/p`, `${TOPIC}/bye`, `${TOPIC}/dm/${id}`]); onStatus('on'); });
     client.on('offline', () => onStatus('off'));
-    client.subscribe([`${TOPIC}/p`, `${TOPIC}/bye`]);
+    client.subscribe([`${TOPIC}/p`, `${TOPIC}/bye`, `${TOPIC}/dm/${id}`]);
     onStatus('on');
   }
 
   function send(s) {
     if (!client?.connected) return;
-    client.publish(`${TOPIC}/p`, JSON.stringify({ v: 1, i: id, l: s.label, x: +s.x.toFixed(2), z: +s.z.toFixed(2), y: +s.yaw.toFixed(2), s: s.say || undefined, n: s.sid || undefined }));
+    client.publish(`${TOPIC}/p`, JSON.stringify({ v: 1, i: id, k: direct.publicKey, l: s.label, x: +s.x.toFixed(2), z: +s.z.toFixed(2), y: +s.yaw.toFixed(2), s: s.say || undefined, n: s.sid || undefined }));
   }
   const bye = () => { try { client?.connected && client.publish(`${TOPIC}/bye`, JSON.stringify({ i: id })); } catch {} };
   addEventListener('pagehide', bye);
 
   setTimeout(connect, 3000);   // 첫 화면이 자리 잡은 뒤에 붙는다
-  return { id, send, get online() { return !!client?.connected; } };
+  return { id, send, sendDirect: direct.send, canChat: direct.available, get online() { return !!client?.connected; } };
 }

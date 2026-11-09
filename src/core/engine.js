@@ -3,13 +3,14 @@ import * as THREE from 'three';
 // Renderer · Scene · Camera. 느린 기기에서는 해상도를 스스로 낮춘다.
 export function createEngine(canvas) {
   const phone = matchMedia('(pointer: coarse)').matches;
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: !phone });
-  let ratio = Math.min(devicePixelRatio, phone ? 1.5 : 2);
+  const low = new URLSearchParams(location.search).get('q') === 'low';
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: !phone && !low });
+  let ratio = Math.min(devicePixelRatio, low ? 1 : phone ? 1.5 : 2);
   renderer.setPixelRatio(ratio);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
-  renderer.shadowMap.enabled = !phone;
+  renderer.shadowMap.enabled = !phone && !low;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.shadowMap.autoUpdate = false;   // 정지한 해: 필요할 때만 needsUpdate 로 다시 그린다
   renderer.shadowMap.needsUpdate = true;

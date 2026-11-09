@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { createConcierge } from './ui3d/concierge.js';
 import { createEngine } from './core/engine.js';
 import { createRouter } from './core/router.js';
 import { isFamily } from './core/access.js';
@@ -264,8 +265,10 @@ hud.add(new THREE.Group(), (w, h) => {
 const roomLight = new THREE.PointLight(0xfff0d8, 0, 0, 2);
 scene.add(roomLight);
 const router = createRouter(id => goRoom(id));
+const concierge = createConcierge(house, goRoom);
 function onRoomChange(w) {
   here = w;
+  concierge.update(w);
   setLabel(w);
   router.set(w.room ? w.id : null);
   const show = new Set(w.room ? [w.id, ...w.room.neighbors] : ['grandhall']);
@@ -281,7 +284,7 @@ function onRoomChange(w) {
 
 // 입력: 끌기 = 둘러보기, 짧게 누르기 = 걷기 / 전시물 보기 / 3D UI 누르기
 const ray = new THREE.Raycaster();
-let down = null;
+let down = null, hoverAt = 0;
 function ndc(ev) {
   const r = canvas.getBoundingClientRect();
   return new THREE.Vector2((ev.clientX - r.left) / r.width * 2 - 1, -(ev.clientY - r.top) / r.height * 2 + 1);
@@ -290,9 +293,13 @@ function exhibitOf(o) {
   for (let p = o; p; p = p.parent) if (p.userData.exhibit) return p.userData.exhibit;
   return null;
 }
+function characterOf(object) {
+  for (let p = object; p; p = p.parent) if (p.userData.character) return p.userData.character;
+  return null;
+}
 function pickWorld(ev) {
   ray.setFromCamera(ndc(ev), camera);
-  const hits = ray.intersectObjects([...clickables, ...building.floors, ...scene.children.filter(o => o.userData.floor)], true)
+  const hits = ray.intersectObjects([...clickables, ...village.targets, ...building.floors, ...scene.children.filter(o => o.userData.floor)], true)
     .filter(h => { for (let p = h.object; p; p = p.parent) if (!p.visible) return false; return true; });
   return hits[0] || null;
 }
@@ -309,10 +316,13 @@ canvas.addEventListener('pointermove', ev => {
     if (down.moved > 6 && !menuOpen()) walker.look(dx * 0.0045, dy * 0.0035);
     return;
   }
+  const now = performance.now();
+  if (now - hoverAt < 50) return;
+  hoverAt = now;
   const hudHit = hud.pick(ev.clientX, ev.clientY, rect);
   hud.hover(hudHit);
   const hit = !hudHit && !hud.covers(ev.clientX, ev.clientY, rect) ? pickWorld(ev) : null;
-  canvas.style.cursor = hudHit || (hit && exhibitOf(hit.object)) ? 'pointer' : 'grab';
+  canvas.style.cursor = hudHit || (hit && (exhibitOf(hit.object) || characterOf(hit.object))) ? 'pointer' : 'grab';
 });
 canvas.addEventListener('pointerup', ev => {
   const d = down; down = null;
@@ -323,9 +333,11 @@ canvas.addEventListener('pointerup', ev => {
   const hudHit = hud.pick(ev.clientX, ev.clientY, rect);
   if (hudHit) { hudHit.userData.onClick?.(); return; }
   if (hud.covers(ev.clientX, ev.clientY, rect)) return;
-  if (panel.open) { panel.hide(); return; }
   const hit = pickWorld(ev);
   if (!hit) return;
+  const person = characterOf(hit.object);
+  if (person) { panel.hide(); village.chat.open(person); return; }
+  if (panel.open) { panel.hide(); return; }
   const ex = exhibitOf(hit.object);
   if (ex) {
     const f = ex.face;
@@ -410,6 +422,7 @@ renderer.setAnimationLoop(() => {
   const dt = Math.min(0.05, clock.getDelta());
   if (overlay.open) return;               // 사이트를 보는 동안 집은 쉰다
   elapsed += dt;
+  if (village.chat.open_) walker.keys.clear();
   if (walker.update(dt) && !moved) moved = true;
   const v = walker.view;
   atmos.update(dt, camera.position, walker.alt, post);
