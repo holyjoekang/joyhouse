@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { mats, repeatFor } from './materials.js';
 import { hanokRoof } from './roof.js';
 import { buildSky } from './sky.js';
-import { plantTrees, grassField, hedges, flowerBeds, stoneLantern, mountains, rng } from './nature.js';
+import { plantTrees, grassField, hedges, flowerBeds, stoneLantern, rng } from './nature.js';
 import { buildPond, toriStatue } from './pond.js';
 import { buildStream } from './stream.js';
 import { buildGuide } from './guide.js';
@@ -113,7 +113,7 @@ export function buildSite(scene, renderer, house, { shadows, phone }, { blocks, 
       buildGuide(into, house, { pond: POND }, { blocks, clickables });
       buildSigns(into, house, { blocks, clickables });
       plantTrees(into, [...spots, ...plantLater], blocks);
-      mountains(into);
+      // City outskirts now supply irregular mountain ridges and woodland.
     }],
     ['북촌 골목', into => buildBukchon(into, house.street, { blocks, clickables, lights })],
     ['하회교회', into => { if (house.church) buildChurch(into, house.church, { blocks, clickables, lights }); }],

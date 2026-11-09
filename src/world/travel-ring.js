@@ -1,11 +1,13 @@
 import * as THREE from 'three';
+import { createDirtMaterial } from './travel-dirt.js';
+import { buildTravelNature } from './travel-nature.js';
 import { landmarkMesh } from './travel-landmarks.js';
 import { createTravelCitiesUI } from '../ui3d/travel-cities.js';
 
 import { cityPositions, cityEntrance, walkingPaths } from './travel-layout.js';
 const idle=()=>new Promise(resolve=>setTimeout(resolve,0));
 function footpaths(paths){
-  const vertices=[];
+  const vertices=[],uvs=[],sides=[];
   for(const path of paths){
     // Quadratic corner cuts smooth grid bends while staying inside the cleared corridor.
     const points=[];
@@ -18,11 +20,12 @@ function footpaths(paths){
       const a=points[i-1],b=points[i],length=Math.hypot(b.x-a.x,b.z-a.z);if(length<.001)continue;
       const nx=-(b.z-a.z)/length*2.5,nz=(b.x-a.x)/length*2.5;
       const A=[a.x+nx,.035,a.z+nz],B=[a.x-nx,.035,a.z-nz],C=[b.x+nx,.035,b.z+nz],D=[b.x-nx,.035,b.z-nz];
-      vertices.push(...A,...B,...C,...B,...D,...C);
+      // World-space earth grain stays continuous across bends and junctions.
+      for(const [p,side] of [[A,1],[C,1],[B,-1],[B,-1],[C,1],[D,-1]]){vertices.push(...p);uvs.push(p[0]/3,-p[2]/3);sides.push(side);}
     }
   }
-  const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));geometry.computeVertexNormals();
-  const mesh=new THREE.Mesh(geometry,new THREE.MeshLambertMaterial({color:'#d6c7a7',side:THREE.DoubleSide}));mesh.userData.floor='travel-ring';return mesh;
+  const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));geometry.setAttribute('uv',new THREE.Float32BufferAttribute(uvs,2));geometry.setAttribute('trailSide',new THREE.Float32BufferAttribute(sides,1));geometry.computeVertexNormals();
+  const mesh=new THREE.Mesh(geometry,createDirtMaterial());mesh.name='travel-dirt-paths';mesh.receiveShadow=true;mesh.userData.floor='travel-ring';return mesh;
 }
 function label(city){
   const c=document.createElement('canvas');c.width=512;c.height=160;const g=c.getContext('2d');
@@ -55,13 +58,15 @@ export async function createTravelRing(scene,doc,{camera,walker,blocks,clickable
   }
   const paths=await walkingPaths([...cities.values()]);
   const road=footpaths(paths);group.add(road);clickables.push(road);
+  const nature=await buildTravelNature(group,[...cities.values()],paths,{blocks});
   let age=0;
   function update(dt){
+    nature.update(dt,camera);
     age+=dt;if(age<.25)return;age=0;
     const nearby=[...cities.values()].map(c=>[c,Math.hypot(camera.position.x-c.p.x,camera.position.z-c.p.z)]).filter(([,d])=>d<65).sort((a,b)=>a[1]-b[1]).slice(0,6).map(([c])=>c);
     for(const c of labels)if(!nearby.includes(c)){c.tile.remove(c.label);c.label.material.map.dispose();c.label.material.dispose();c.label=null;}
     for(const c of nearby)if(!c.label){c.label=label(c.city);c.tile.add(c.label);}
     labels=nearby;
   }
-  return {group,cities,paths,update,open:id=>ui.open(id),visit,get open_(){return ui.open_;}};
+  return {group,cities,paths,nature,update,open:id=>ui.open(id),visit,get open_(){return ui.open_;}};
 }
