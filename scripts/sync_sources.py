@@ -15,6 +15,7 @@
 파이썬 3.10+, 표준 라이브러리만 쓴다. 한 출처가 실패해도 나머지는 만든다.
 """
 import argparse
+from travel_cities import travel_cities
 import email.utils
 import hashlib
 import json
@@ -234,13 +235,14 @@ def main():
     args = ap.parse_args()
     src = Source(args.local)
     failed = 0
-    for job in (timeline, cities, world_land, books_top20, blog_latest):
+    jobs = (timeline, cities, travel_cities, world_land, books_top20, blog_latest)
+    for job in jobs:
         try:
             job(src)
         except Exception as e:  # 한 출처가 실패해도 지난번 파일을 두고 계속한다
             failed += 1
             print(f"  ! {job.__name__}: {e}", file=sys.stderr)
-    sys.exit(1 if failed == 5 else 0)
+    sys.exit(1 if failed == len(jobs) else 0)
 
 
 if __name__ == "__main__":

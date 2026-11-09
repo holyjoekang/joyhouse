@@ -31,5 +31,5 @@ export function makeCollider(blocks, site, R = 0.35) {
       return true;
     });
   }
-  return { resolve, blocked, clamp };
+  return { resolve, blocked, clamp, bounds: { ...site } };
 }

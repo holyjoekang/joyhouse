@@ -17,6 +17,7 @@ import { createOverlay, openTab } from './portal/overlay.js';
 import { createAtmosphere } from './world/atmosphere.js';
 import { STREAM_SPOT } from './world/stream.js';
 import { createVillage } from './world/village.js';
+import { TRAVEL_BOUNDS } from './world/travel-layout.js';
 
 const cache = new Map();
 function data(path) {
@@ -163,7 +164,23 @@ function nearPark(v, dt) {
   if (parkSky > 3 || Math.hypot(dx, dz) < 40) loadPark();
 }
 // 이동
-const collider = makeCollider(blocks, house.site);
+let travelRing = null, travelJob = null;
+async function loadTravelRing() {
+  if (travelRing) return travelRing;
+  if (!travelJob) travelJob = Promise.all([data('data/travel_cities.json'), import('./world/travel-ring.js')])
+    .then(([doc, mod]) => mod.createTravelRing(scene, doc, { camera, walker, blocks, clickables }))
+    .then(ring => { travelRing = ring; tickers.push(ring.update); minimap.snapshot(); return ring; })
+    .catch(error => { travelJob = null; cache.delete('data/travel_cities.json'); throw error; });
+  return travelJob;
+}
+async function openTravelCities() {
+  let status = document.getElementById('travel-loading');
+  if (!status) { status = document.createElement('div'); status.id = 'travel-loading'; status.setAttribute('role','status'); status.style.cssText = 'position:fixed;bottom:20px;left:20px;z-index:30;padding:12px 18px;background:#f5f0e4;color:#243e42;border-radius:12px;max-width:80vw;font:14px system-ui'; document.body.append(status); }
+  status.textContent = '여행 도시 둘레길을 준비하는 중…';
+  try { const ring = await loadTravelRing(); status.remove(); ring.open(); }
+  catch { status.textContent = '도시 기록을 불러오지 못했습니다. 관람 안내의 여행 도시 둘레길을 눌러 다시 시도해 주세요.'; }
+}
+const collider = makeCollider(blocks, TRAVEL_BOUNDS);
 const hud = new Hud();
 const walker = createWalker(camera, collider, house.start, { onFade: v => hud.fade(v), ground: (x, z) => Math.max(site.groundAt(x, z), park ? park.ground(x, z) : 0) });
 // 마을 주민: 전국 각지 출신 20명이 앞마당을 거닐고, 접속자도 동네 이름표를 단 캐릭터로 나타난다
@@ -174,14 +191,17 @@ function whereIs(x, z) {
   const r = building.roomAt(x, z);
   if (r) return { id: r.id, name: r.name, sub: r.sub, group: GROUP[r.wing], room: r };
   const o = house.outdoor.find(o => {
+    if (o.virtual) return false;
     const [x0, z0, x1, z1] = o.box;
     return x > Math.min(x0, x1) && x < Math.max(x0, x1) && z > Math.min(z0, z1) && z < Math.max(z0, z1);
   });
+  if (!o && travelRing && (x < house.site.x0 || x > house.site.x1 || z < house.site.z1 || z > house.site.z0)) return {id:'travelring',name:'여행 도시 둘레길',sub:travelRing.cities.size+'개 도시 · 모형을 눌러 방문 기록 보기',group:'야외'};
   return o ? { id: o.id, name: o.name, sub: o.sub, group: '야외' } : { id: null, name: 'Joyhouse 정원', sub: '정문에서 잔디길을 따라 집으로', group: '야외' };
 }
 
 // 방으로 가기: 방 가운데, 북쪽(안쪽)을 바라보게. 잠긴 방은 문 앞 안내만.
 function goRoom(id) {
+  if (id === 'travelring') { openTravelCities(); return; }
   if (!building.ready && house.rooms.some(r => r.id === id)) { pendingRoom = id; return; }   // 본채가 지어지면 간다
   const r = building.rooms.get(id);
   if (r) {
@@ -219,7 +239,7 @@ const entries = [
     .map(r => ({ id: r.id, name: r.name, sub: r.sub, group: GROUP[w], locked: r.access === 'family' && !family }))),
 ];
 const menu = createMenu(hud, entries, e => goRoom(e.id));
-const minimap = createMinimap(hud, renderer, scene, house.site, () => walker.view);
+const minimap = createMinimap(hud, renderer, scene, TRAVEL_BOUNDS, () => walker.view);
 
 // '하늘에서 보기' 석판: 방 바로가기 아래. 누르면 높이 올라 내려다보고, 다시 누르면 내려앉는다.
 let flyBtn = null;
@@ -335,6 +355,8 @@ canvas.addEventListener('pointerup', ev => {
   if (hud.covers(ev.clientX, ev.clientY, rect)) return;
   const hit = pickWorld(ev);
   if (!hit) return;
+  const cityEx = exhibitOf(hit.object);
+  if (cityEx?.kind === 'travelCity') { panel.hide(); travelRing?.open(cityEx.cityId); return; }
   const person = characterOf(hit.object);
   if (person) { panel.hide(); village.chat.open(person); return; }
   if (panel.open) { panel.hide(); return; }
@@ -403,6 +425,8 @@ function afterFirstFrame() {
   setTimeout(() => site.gate.open(), 900);
   // 본채와 나머지 정원은 첫 화면이 뜬 뒤 차례로 들인다
   const grown = growWorld().catch(e => console.warn('grow', e));
+  // Load the city panorama after the first scene, without delaying controls or indoor textures.
+  setTimeout(() => loadTravelRing().catch(e => console.warn('travel ring', e)), 2500);
   // 바깥 텍스처 → (집에 들어서면) 실내 텍스처 순서로. 도착하면 같은 재질에 갈아 끼운다.
   // 후처리는 텍스처가 자리 잡고 브라우저가 한가할 때 붙인다.
   Promise.all([loadTextures(renderer, OUTDOOR_TEX), grown]).then(() => {
@@ -422,7 +446,7 @@ renderer.setAnimationLoop(() => {
   const dt = Math.min(0.05, clock.getDelta());
   if (overlay.open) return;               // 사이트를 보는 동안 집은 쉰다
   elapsed += dt;
-  if (village.chat.open_) walker.keys.clear();
+  if (village.chat.open_ || travelRing?.open_) walker.keys.clear();
   if (walker.update(dt) && !moved) moved = true;
   const v = walker.view;
   atmos.update(dt, camera.position, walker.alt, post);
@@ -446,4 +470,4 @@ renderer.setAnimationLoop(() => {
   engine.measure();
   if (++frameNo === 1) requestAnimationFrame(afterFirstFrame);
 });
-window.__joyhouse = { walker, goRoom, get building() { return building; }, hud, panel, menu, renderer, scene, camera, actionsFor, overlay, clickables };   // 점검용
+window.__joyhouse = { walker, goRoom, get travelRing() { return travelRing; }, get building() { return building; }, hud, panel, menu, renderer, scene, camera, actionsFor, overlay, clickables };   // 점검용

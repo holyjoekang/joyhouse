@@ -37,7 +37,7 @@ export function buildSite(scene, renderer, house, { shadows, phone }, { blocks, 
     sun.shadow.normalBias = 0.04;
   }
 
-  const ground = new THREE.Mesh(new THREE.PlaneGeometry(1200, 1200), repeatFor(mats.grass, 3, 3));
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(1800, 1800), repeatFor(mats.grass, 3, 3));
   ground.rotation.x = -Math.PI / 2;
   ground.position.set(0, 0, -50);
   ground.receiveShadow = true;
