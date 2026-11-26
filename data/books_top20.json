@@ -2,6 +2,13 @@
  "total": 783,
  "books": [
   {
+   "title": "[독서노트 1/2] 테오, 인생의 마지막에 무엇을 나누고 싶으신가요?",
+   "author": "",
+   "read": "2026-11-26",
+   "cover": "",
+   "url": "https://blog.naver.com/joekang/224492562185"
+  },
+  {
    "title": "딸기 농사인 줄 알았는데, 갑자기 호러물이 됐다? 《빵충 사육 준수 사항》",
    "author": "",
    "read": "2026-10-28",
@@ -115,12 +122,6 @@
    "author": "",
    "read": "2026-02-13",
    "cover": "assets/books/17.jpg?v=40e05a47"
-  },
-  {
-   "title": "도마복음의 진실. 1",
-   "author": "",
-   "read": "2026-02-09",
-   "cover": "assets/books/18.jpg?v=9c435870"
   }
  ]
 }
